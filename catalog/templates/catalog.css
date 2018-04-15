@@ -1,0 +1,12 @@
+.catalog-picture {
+	display: block;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+@media (min-width: 480px) {
+	.catalog-picture {
+		float: right;
+		padding-left: 10px;
+	}
+}

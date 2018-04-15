@@ -1,0 +1,42 @@
+/* #####  #   #  #####  #   #  #####  #####  #      #####  #####
+/* #      #   #  #   #  ##  #  #      #      #      #   #  #
+/* #      #####  #####  # # #  #  ##  #####  #      #   #  #  ##
+/* #      #   #  #   #  #  ##  #   #  #      #      #   #  #   #
+/* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
+*/
+
+0.0.2
+-------------------------------------------------------------------------------
+Gestion des cartes par le module GoogleMaps dans le ClubsFormController
+Affichage map si :
+        Module GoogleMaps installé/activé + clé
+        Adresse d'origine déclarée dans config module
+        lat/lng du club != 0
+
+Catégorie
+    Remplacement de l'image default_category
+
+Fiche club
+    gestion des couleurs
+
+0.0.1 - release
+-------------------------------------------------------------------------------
+Clubs est un module de cartographie d'une liste de clubs
+    Catégories :
+        si la catégorie a des sous-catégories on affiche la liste des ss-cat
+        sinon on affiche la map avec les markers de tous les clubs de la cat
+
+    Fiche club :
+        Nom = titre de la fiche
+        Catégorie
+        Comité
+        Logo = affichage dans fiche club
+        Mini logo = icône du pointeur carte + logo dans le taleau catégorie
+        Adresse du site internet
+        Téléphone
+        Email
+        Adresse du siège
+        Coordonnées gps du stade
+        Description
+        Réseaux sociaux : fb tw g+
+        Publication : date + publication maintenant/brouillon

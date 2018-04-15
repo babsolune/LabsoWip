@@ -1,0 +1,14 @@
+@media (min-width: 769px) {
+    #AdminNetworkLinksConfigController_link_data_field input {
+        width: 48%;
+        margin-bottom: 5px;
+    }
+
+    #AdminNetworkLinksConfigController_link_data_field input[name*="field_fa_link"] {
+        width: 30%;
+    }
+
+    #AdminNetworkLinksConfigController_link_data_field input[name*="field_img_link"] {
+        width: 56%;
+    }
+}

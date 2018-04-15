@@ -1,0 +1,122 @@
+article.article-radio {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.block {
+	padding: 0;
+}
+
+.cover {
+	position: relative;
+	padding: 0.8em;
+	min-height: 175px;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.cover footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.radio-cat a {
+	display: block;
+	padding: 5px 10px;
+	text-align: center;
+}
+
+.radio-picture {
+	padding: 20px 0 0;
+}
+
+/* --- Calendar display
+================================================ */
+.radio-flex {
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+ul.radio-calendar {
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+
+	list-style-type: none;
+	margin: 0 0 20px;
+	padding: 0;
+	width: 100%;
+}
+
+ul.radio-calendar li {
+	border-width: 0 1px 1px 1px;
+	border-color: #d4d4d4;
+	border-style: solid;
+	padding: 0 5px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+ul.radio-calendar li:first-child {
+	border-width: 1px;
+}
+
+@media (min-width: 769px) {
+	.radio-flex {
+	    -webkit-box-direction: normal;
+	    -moz-box-direction: normal;
+	    -webkit-box-orient: horizontal;
+	    -moz-box-orient: horizontal;
+	    -webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	    flex-direction: row;
+	}
+
+	ul.radio-calendar {
+		width: calc(100% / 7);
+		margin: 0 5px 20px 0;
+	}
+
+	ul.radio-calendar:last-child {
+		margin: 0 0 20px;
+	}
+}
+
+/* --- Config --- */
+#RadioFormController_start_date,
+#RadioFormController_end_date,
+#onblurContainerResponseRadioFormController_start_date .calendar-container,
+#onblurContainerResponseRadioFormController_end_date .calendar-container {
+	display: none;
+}

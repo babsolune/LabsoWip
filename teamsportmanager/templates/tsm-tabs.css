@@ -1,0 +1,33 @@
+.tsm-tabs > ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: inline-block;
+}
+
+.tsm-tabs > ul li {
+	margin: 0 0.25em 5px;
+	display: block;
+	float: left;
+	position: relative;
+}
+
+.tsm-tabs > ul li.current-tab {
+    background-color: rgba(0,0,0,.6);
+}
+
+.tsm-tabs > ul li a {
+	display: block;
+	line-height: 2.5;
+	padding: 0 1.25em;
+	white-space: nowrap;
+}
+
+.tsm-tabs > ul li a:hover {
+    text-decoration: none;
+    background-color: rgba(0,0,0,.2);
+}
+
+.tsm-tabs > ul li.current-tab a {
+	color: #ffffff;
+}

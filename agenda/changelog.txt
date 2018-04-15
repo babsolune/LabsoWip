@@ -1,0 +1,82 @@
+ /*##################################################
+ *                              HomeLanding
+ *
+ *                            -------------------
+ *   begin                : January 2, 2016
+ *   copyright            : (C) 2016 Sebastien LARTIGUE - Julien BRISWALTER
+ *   email                : babsolune@phpboost.com - j1.seth@phpboost.com
+ *
+ *
+ ###################################################
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ ###################################################*/
+
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @author Julien BRISWALTER <j1.seth@phpboost.com>
+ */
+
+ legende : * = fait, ** = fait mais bug, *** tenté mais fail, / = abandonné
+ /* =================================================*/
+
+ /* ##### #####    ####   #####    #     ##### ##### #####
+ /*   #   #   #    #   #  #   #    #       #   #       #
+ /*   #   #   #    #    # #   #    #       #   #####   #
+ /*   #   #   #    #   #  #   #    #       #       #   #
+ /*   #   #####    ####   #####    ##### ##### #####   #
+ */
+
+A-01 *      Renommer le module pour que les màj ne l'impacte plus. Trouver nouvel icone sympa
+A-02 *      Flyer: compatibilité pdf et plus si affinités ----- déjà le cas ??
+A-03 *      Inscriptions à l’événement : transformer en "je suis intéressé" ou autre formule
+A-04 *      Lieu : autocompletion afin d'éviter les lieux fantaisistes et avoir les mêmes mise en forme (ajout d'une maps sur la fiche ?)
+A-05        Mettre un texte près du bouton valider pour indiquer aux contributeurs comment modifier l’événement à l'issu de la publication
+A-06 ***    Notation de l’événement comme sur tracks
+A-07 *      Possibilité d'ajout de parcours dans formulaire : exemple--> circuit 1 marche 5kms, circuit 2 vtt 20kms 400 d+ etc (on retrouvera ces infos un peu comme sur tracks)
+A-08 *      Amélioration champ contacts (mail, tel, site internet)
+A-09 *      Amélioration présentation fiche (plus fun), * partage plus en avant.
+
+
+ /* #####  #   #  #####  #   #  #####  #####  #      #####  #####
+ /* #      #   #  #   #  ##  #  #      #      #      #   #  #
+ /* #      #####  #####  # # #  #  ##  #####  #      #   #  #  ##
+ /* #      #   #  #   #  #  ##  #   #  #      #      #   #  #   #
+ /* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
+ */
+
+ 5.1.0
+    Update 5.1
+    Contact validation par nom ou adresse du site
+
+ 0.0.5
+     Déplacement "on en parle" sous partage fb
+     Affichage parcours en tableau avec icon + légende des icon
+     Compatibilité pdf
+        si image => calendrier + fiche => image
+        si pdf => calendrier => image logo pdf ; fiche => embed pdf ratio A4
+
+ 0.0.0
+    front :
+    #cat : auteur, lieu, nbr participants, nbr parcours, picture.
+    #option => lieu, auteur, contact details, parcours détails, lien forum
+    #article => contents, participants, picture.
+
+    add:
+    lieu => autocomplete google.
+
+    rename Agenda
+    reprise du module calendar modifié : affichage par mois, lieu, annuler.

@@ -1,2 +1,2 @@
 # pbt-builder
-wip modules for phpboost
+Repo for phpboost's modules before they work.

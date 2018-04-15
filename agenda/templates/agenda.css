@@ -1,0 +1,332 @@
+[id*="AgendaFormController_path_informations_"] {
+	overflow: hidden;
+	width: 100%;
+}
+
+[id*="AgendaFormController_path_informations_"] input,
+[id*="AgendaFormController_path_informations_"] select {
+	margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+	#onblurContainerResponseAgendaFormController_location {
+		width: 50%;
+	}
+}
+
+@media (min-width: 769px){
+	.col-4,
+	.body-4{
+		width: 23%;
+		float: left;
+		margin-right: 1.3%;
+	}
+
+}
+
+/* Couleur du theme */
+.label {
+	padding: 2px 5px;
+	border-radius: 4px;
+	border-spacing: 1px;
+	border-color: #dddddd;
+	margin-left: 3px;
+}
+
+.label-success {
+	color: #478848;
+	background-color: #E0F1D9;
+}
+
+select[id*="field_path_level_"] option {font-weight: bold;}
+select[id*="field_path_level_"] option:nth-child(2) { color: #008c00; }
+select[id*="field_path_level_"] option:nth-child(3) { color: #0099f4; }
+select[id*="field_path_level_"] option:nth-child(4) { color: #AA0000; }
+select[id*="field_path_level_"] option:nth-child(5) { color: #222222; }
+
+.responsive-object {
+  position: relative;
+  padding-bottom: 133%;
+  height: 0;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.responsive-object object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+	.float-right{
+		float: none !important;
+		display: block;
+		margin: 5px 0;
+		text-align: center;
+	}
+}
+
+input.gmap-autocomplete {
+	width: 100% !important;
+}
+
+[class*="location-datas_"],
+#AgendaFormController_max_registered_members_field {
+	position: absolute;
+	right: 10000px;
+}
+
+.disp-none {
+	display: none;
+}
+
+.map-location label {
+	display: inline-block;
+}
+
+.map-location input {
+	width: 98%;
+}
+
+input.gmap-street-number {
+	width: 20%;
+}
+
+/*input.gmap-route {
+	width: 50%;
+}*/
+
+@media (min-width: 769px) {
+	.map-location label{
+		width: 20%;
+		text-align: right;
+	}
+
+	.map-location input {
+		width: 78%;
+	}
+
+	input.gmap-street-number {
+		width: 10%;
+	}
+
+	input.gmap-route {
+		width: 65%;
+	}
+}
+
+/*---*/
+div.agenda-options {
+	margin-bottom: 20px;
+}
+
+a.fb-share i.fa {
+	color: #3B5998;
+}
+
+div.agenda-content {
+	padding: 6px;
+}
+
+/* Affichage du mois en cours */
+div.agenda-top-container {
+	padding: 4px;
+	background-color: #EEEEEE;
+	border: 1px solid #DDDDDD;
+	border-radius: 3px;
+}
+
+div.agenda-top-content {
+	text-align: center;
+}
+
+div.agenda-top-container a,
+div.agenda-top-container a:hover {
+	color: #666666;
+	cursor: pointer;
+}
+
+div.agenda-top-l {
+	float: left;
+	padding: 1px 0 0 25px;
+}
+
+div.agenda-top-r {
+	float: right;
+	padding: 1px 25px 0 0;
+}
+
+/* Affichage des evenements */
+div.event-display-author {
+	float: left;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	font-size: 0.8em;
+}
+
+div.event-display-dates {
+	float: right;
+	padding: 4px;
+	width: 180px;
+	font-size: 0.8em;
+	font-weight: normal;
+}
+
+.event-display-dates + hr {
+	margin: 0 auto 40px auto;
+	width: 70%;
+	clear: both;
+}
+
+img.event-img {
+	margin: 0 auto 10px;
+}
+
+@media (min-width: 769px) {
+	img.event-img {
+		float: right;
+		margin: 0 0 0 10px;
+		max-width: 200px;
+	}
+}
+
+/* Particularite du tableau du calendrier */
+
+@media (min-width: 769px) {
+	#module-agenda table.agenda-table tbody tr td {
+		height: 40px;
+	}
+}
+
+/* Couleur des differents evenements */
+table tbody tr td.agenda-none    { background-color: rgba(0, 0, 0, 0.15); }
+table tbody tr td.agenda-today   { background-color: #7DC932; }
+table tbody tr td.agenda-other   { background-color: #F1F1F1; }
+table tbody tr td.agenda-weekend { background-color: #444444; }
+
+table tbody tr td.agenda-weekend a { color: #EFEFEF; }
+
+/* affichage flyer/parcours */
+.split {
+	overflow: hidden;
+	width: 100%;
+}
+
+@media (min-width: 769px) {
+
+	.split > table {
+		width: calc(100% / 3 * 2);
+		float: left;
+		vertical-align: top;
+		margin-top: 0;
+	}
+
+	.split > a {
+		width: calc(100% / 3);
+		float: right;
+		vertical-align: top;
+		padding: 20px 0 0 10px;
+	}
+
+	.split > img {
+		width: calc(100% / 3);
+		float: right;
+		vertical-align: top;
+		padding: 20px 0 0 10px;
+	}
+
+	.pict-only {
+		float: right;
+		width: 33%;
+		padding: 15px 0 0 10px;
+	}
+}
+
+/* Tableau des parcours */
+.path-table tfoot tr td {
+	padding: 5px 5px 0;
+}
+
+.participate-button {
+	background-color: #7DC932;
+	padding: 10px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	color: #1b6116;
+}
+
+.participate-button-reverse {
+	background-color: #AA0000;
+	color: #F5F5F5;
+}
+
+#module-agenda table tbody tr td.agenda-week {
+	width: 8%;
+	border-right: 1px solid #AAAAAA;
+}
+
+/* Affichage de du titre de l'evenement dans le tableau de l'administration */
+table tbody tr th.column-title {
+	width: 28%;
+}
+
+/* Affichage du mini calendrier dans une colonne */
+#module-mini-agenda .agenda-top-container {
+	padding: 2px;
+}
+
+#module-mini-agenda .agenda-top-content h5 {
+	padding-top: 1px;
+	font-size: 0.9em;
+}
+
+#module-mini-agenda .agenda-top-l { padding: 0 0 0 7px; }
+#module-mini-agenda .agenda-top-r { padding: 0 7px 0 0; }
+
+#module-mini-agenda #date_select_form form.fieldset-content {
+	margin-top: 0;
+}
+
+#module-mini-agenda #AgendaAjaxAgendaController_choose-date {
+	margin: 5px 0 10px 0;
+}
+
+#module-mini-agenda #AgendaAjaxAgendaController_choose-date div.form-element {
+	margin: 0;
+}
+
+#module-mini-agenda .form-field select {
+	padding: 4px;
+}
+
+#AgendaAjaxAgendaController_month_field,
+#AgendaAjaxAgendaController_year_field {
+	display: inline-block;
+}
+
+.legend-line {
+	padding: 0 0 8px 0;
+}
+
+.legend-color {
+	font-size: 2em;
+	vertical-align: -1px;
+}
+
+.legend {
+	padding-right: 20px;
+}
+
+.cancelled {
+	color: #FF0000;
+}
+
+span.cancelled {
+	font-weight: bold;
+}
+
+/* --- Icones Difficult�s
+---------------------------------------- */
