@@ -138,7 +138,7 @@ class ModcatartDisplayCategoryController extends ModuleController
 			'C_ONE_ITEM_AVAILABLE' => $result->get_rows_count() == 1,
 			'C_TWO_ITEMS_AVAILABLE' => $result->get_rows_count() == 2,
 			'PAGINATION' => $pagination->display(),
-			'id_category' => $this->get_category()->get_id(),
+			'ID_CATEGORY' => $this->get_category()->get_id(),
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? ModcatartUrlBuilder::configuration()->rel() : ModcatartUrlBuilder::edit_category($this->get_category()->get_id())->rel()
 		));
 
