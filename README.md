@@ -1,2 +1,2 @@
 # pbt-builder
-Repo for phpboost's modules before they work.
+Repository for phpboost's 5.1 modules before they work.
