@@ -2,9 +2,9 @@
 /*##################################################
  *                     AdminModcatfullDisplayResponse.class.php
  *                            -------------------
- *   begin                : March 27, 2013
- *   copyright            : (C) 2013 Patrick DUBEAU
- *   email                : daaxwizeman@gmail.com
+ *   begin                : Month XX, 2017
+ *   copyright            : (C) 2013 Firstname LASTNAME
+ *   email                : nickname@phpboost.com
  *
  *
  ###################################################
@@ -26,8 +26,9 @@
  ###################################################*/
 
 /**
- * @author Patrick DUBEAU <daaxwizeman@gmail.com>
+ * @author Firstname LASTNAME <nickname@phpboost.com>
  */
+
 class AdminModcatfullDisplayResponse extends AdminMenuDisplayResponse
 {
 	public function __construct($view, $title_page)
