@@ -118,8 +118,13 @@ class AdminSmalladsConfigController extends AdminModuleController
 		)));
 
 		$fieldset->add_field(new FormFieldNumberEditor('max_weeks_number', $this->lang['config.max.weeks.number'], $this->config->get_max_weeks_number(),
-			array('min' => 0, 'max' => 520, 'required' => true, 'hidden' => !$this->config->is_max_weeks_number_displayed()),
-			array(new FormFieldConstraintIntegerRange(0, 520))
+			array('min' => 1, 'max' => 52, 'required' => true, 'hidden' => !$this->config->is_max_weeks_number_displayed()),
+			array(new FormFieldConstraintIntegerRange(1, 52))
+		));
+
+		$fieldset->add_field(new FormFieldNumberEditor('display_delay_before_delete', $this->lang['config.display.delay.before.delete'], $this->config->get_display_delay_before_delete(),
+			array('min' => 1, 'max' => 7, 'required' => true, 'description' => !$this->lang['config.display.delay.before.delete.desc']),
+			array(new FormFieldConstraintIntegerRange(1, 7))
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_email_enabled', $this->lang['config.display.email.enabled'], $this->config->is_email_displayed()));
@@ -210,6 +215,8 @@ class AdminSmalladsConfigController extends AdminModuleController
 		}
 		else
 			$this->config->hide_max_weeks_number();
+
+		$this->config->set_display_delay_before_delete($this->form->get_value('display_delay_before_delete'));
 
 		if ($this->form->get_value('display_email_enabled'))
 			$this->config->display_email();

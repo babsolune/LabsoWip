@@ -36,6 +36,7 @@ class SmalladsConfig extends AbstractConfigData
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
 	const MAX_WEEKS_NUMBER_DISPLAYED = 'max_weeks_number_displayed';
 	const MAX_WEEKS_NUMBER = 'max_weeks_number';
+	const DISPLAY_DELAY_BEFORE_DELETE = 'display_delay_before_delete';
 	const DISPLAY_EMAIL_ENABLED = 'display_email_enabled';
 	const DISPLAY_PM_ENABLED = 'display_pm_enabled';
 	const DISPLAY_PHONE_ENABLED = 'display_phone_enabled';
@@ -121,6 +122,16 @@ class SmalladsConfig extends AbstractConfigData
 	public function set_max_weeks_number($value)
 	{
 		$this->set_property(self::MAX_WEEKS_NUMBER, $value);
+	}
+
+	public function get_display_delay_before_delete()
+	{
+		return $this->get_property(self::DISPLAY_DELAY_BEFORE_DELETE);
+	}
+
+	public function set_display_delay_before_delete($delay)
+	{
+		$this->set_property(self::DISPLAY_DELAY_BEFORE_DELETE, $delay);
 	}
 
 	public function display_usage_terms()
@@ -376,6 +387,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::ITEMS_DEFAULT_SORT_MODE => Smallad::DESC,
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
+			self::DISPLAY_DELAY_BEFORE_DELETE => 2,
 			self::DISPLAY_EMAIL_ENABLED => true,
 			self::DISPLAY_PM_ENABLED => true,
 			self::DISPLAY_PHONE_ENABLED => true,

@@ -78,7 +78,6 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function build_items_listing_view(Date $now, $field, $sort_mode, $page)
 	{
-
 		if (in_array($field, Smallad::SORT_FIELDS_URL_VALUES))
 			$sort_field = array_search($field, Smallad::SORT_FIELDS_URL_VALUES);
 		else

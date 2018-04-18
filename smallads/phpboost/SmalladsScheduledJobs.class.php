@@ -67,35 +67,27 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 	 */
 	public function on_changeday(Date $yesterday, Date $today)
 	{
-		// Delete item at the end of max_weeks
-		// $config = SmalladsConfig::load();
-		//
-		// if ($config->is_max_weeks_number_displayed())
-		// {
-		// 	PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
-		// 		'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > 7 * IF(max_weeks IS NULL OR max_weeks = 0, :delay, max_weeks))', array('delay' => (int)$config->get_max_weeks_number()));
-		//
-		// 	Feed::clear_cache('smallads');
-		// 	SmalladsCache::invalidate();
-		// 	SmalladsCategoriesCache::invalidate();
-		// }
-
-		// Delete item after 24h if sold is checked
-		// PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
-		// 	'WHERE (published = 1) AND (sold = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(update_date + 86400)))');
-		//
-		// Feed::clear_cache('smallads');
-		// SmalladsCache::invalidate();
-		// SmalladsCategoriesCache::invalidate();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function on_sold(Date $yesterday, Date $today)
-	{
 		$config = SmalladsConfig::load();
 
+		// Delete item at the end of max_weeks
+		if ($config->is_max_weeks_number_displayed())
+		{
+			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
+				'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > 7 * IF(max_weeks IS NULL OR max_weeks = 0, :delay, max_weeks))', array('delay' => (int)$config->get_max_weeks_number()));
+
+			Feed::clear_cache('smallads');
+			SmalladsCache::invalidate();
+			SmalladsCategoriesCache::invalidate();
+		}
+
+		// Delete item if "ad completed" is checked
+		PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
+			'WHERE (published = 1) AND (sold = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(updated_date)) > :delay)', array('delay' => (int)$config->get_display_delay_before_delete())
+		);
+
+		Feed::clear_cache('smallads');
+		SmalladsCache::invalidate();
+		SmalladsCategoriesCache::invalidate();
 
 	}
 }

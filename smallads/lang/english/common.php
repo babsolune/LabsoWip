@@ -60,6 +60,8 @@ $lang['config.items.default.sort'] = 'Default item order display';
 $lang['config.cats.icon.display'] = 'Categories icon dipslay';
 $lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks to display an ad';
 $lang['config.max.weeks.number'] = 'Default number of weeks to display an ad';
+$lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
+$lang['config.sold.delay.display.before.delete.desc'] = 'when the "sold" button is enabled (in days)';
 $lang['config.display.email.enabled'] = 'Enable the link to the author email';
 $lang['config.display.pm.enabled'] = 'Enable the link to the author pm';
 $lang['config.display.phone.enabled'] = 'Enable the display to the author phone number';
@@ -108,8 +110,8 @@ $lang['smallads.form.displayed.author.phone'] = 'Display the phone number';
 $lang['smallads.form.author.phone'] = 'Phone number';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
-$lang['smallads.form.sold'] = 'Declare this item sold';
-$lang['smallads.form.sold.warning'] = '<span style="color:#CC0000">This action is irreversible</span>';
+$lang['smallads.form.sold'] = 'Declare this ad completed';
+$lang['smallads.form.sold.warning'] = 'The ad will be deleted after :delay days <br /><span style="color:#CC0000">This action is irreversible</span>';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';

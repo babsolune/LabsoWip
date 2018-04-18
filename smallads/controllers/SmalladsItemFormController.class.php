@@ -260,8 +260,9 @@ class SmalladsItemFormController extends ModuleController
 		if($this->get_smallad()->get_id() !== null)
 		{
 			$other_fieldset->add_field(new FormFieldCheckbox('sold', $this->lang['smallads.form.sold'], $this->get_smallad()->get_sold(),
-				array('description' => $this->lang['smallads.form.sold.warning'])
-			));
+				array('description' => StringVars::replace_vars($this->lang['smallads.form.sold.warning']
+				,array('delay' => SmalladsConfig::load()->get_display_delay_before_delete()))
+			)));
 		}
 
 
@@ -348,25 +349,24 @@ class SmalladsItemFormController extends ModuleController
 		return $options;
 	}
 
-	private function brand_list()
-	{
-		$options = array();
-		$this->config = SmalladsConfig::load();
-		$brands = $this->config->get_brand();
-
-		// laisser un vide en début de liste
-		$options[] = new FormFieldSelectChoiceOption('', '');
-
-		$i = 0;
-		foreach($brands as $name)
-		{
-			// $rewrited_name = TextHelper::strtoupper($name);
-			$options[] = new FormFieldSelectChoiceOption($name, str_replace(' ', '-', $name));
-			$i++;
-		}
-
-		return $options;
-	}
+	// private function brand_list()
+	// {
+	// 	$options = array();
+	// 	$this->config = SmalladsConfig::load();
+	// 	$brands = $this->config->get_brand();
+	//
+	// 	// laisser un vide en début de liste
+	// 	$options[] = new FormFieldSelectChoiceOption('', '');
+	//
+	// 	$i = 0;
+	// 	foreach($brands as $name)
+	// 	{
+	// 		$options[] = new FormFieldSelectChoiceOption($name, str_replace(' ', '-', $name));
+	// 		$i++;
+	// 	}
+	//
+	// 	return $options;
+	// }
 
 	private function build_contribution_fieldset($form)
 	{
