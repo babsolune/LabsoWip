@@ -80,7 +80,7 @@ class SmalladsItemFormController extends ModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('smallads', $this->lang['smallads.module.title']);
+		$fieldset = new FormFieldsetHTML('smallads', $this->get_smallad()->get_id() === null ? $this->lang['smallads.form.add'] : $this->lang['smallads.form.edit']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->common_lang['form.title'], $this->get_smallad()->get_title(),

@@ -92,6 +92,8 @@ $lang['smallads.brand.add'] = 'Ajouter des marques';
 $lang['smallads.brand.placeholder'] = 'Nom de la marque';
 
 //Form
+$lang['smallads.form.add'] = 'Ajouter une annonce';
+$lang['smallads.form.edit'] = 'Modifier une annonce';
 $lang['smallads.form.description'] = 'Description (maximum :number caractères)';
 $lang['smallads.form.enabled.description'] = 'Activer le condensé de l\'annonce';
 $lang['smallads.form.enabled.description.description'] = 'ou laissez PHPBoost couper le contenu à :number caractères';
