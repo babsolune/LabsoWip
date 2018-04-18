@@ -48,8 +48,9 @@ $lang['smallads.published.items'] = 'Annonces publiées';
 $lang['smallads.category.list'] = 'Catégories';
 $lang['smallads.select.category'] = 'Sélectionnez une catégorie';
 
-$lang['smallads.sold.item'] = 'Vendu';
+$lang['smallads.sold.item'] = 'Terminé';
 
+$lang['smallads.publication.date'] = 'Publié depuis';
 $lang['smallads.contact'] = 'Contacter l\'auteur';
 $lang['smallads.contact.email'] = 'par email';
 $lang['smallads.contact.pm'] = 'par messagerie privée';
@@ -61,7 +62,7 @@ $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.max.weeks.number.displayed'] = 'Limiter le nombre de semaines d\'affichage';
 $lang['config.max.weeks.number'] = 'Nombre de semaines d\'affichage';
 $lang['config.display.delay.before.delete'] = 'Delai d\'affichage avant suppression';
-$lang['config.display.delay.before.delete.desc'] = 'lorsque le bouton "vendu" est activé (en jours)';
+$lang['config.display.delay.before.delete.desc'] = 'lorsque la case à cocher "annonce terminée" est activée (en jours)';
 $lang['config.display.email.enabled'] = 'Autoriser le lien vers l\'email de l\'auteur';
 $lang['config.display.pm.enabled'] = 'Autoriser le lien vers la messagerie privée de l\'auteur';
 $lang['config.display.phone.enabled'] = 'Autoriser l\'affichage du numéro de téléphone de l\'auteur';

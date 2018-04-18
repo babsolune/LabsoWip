@@ -37,8 +37,24 @@ $lang['default.category.name'] = 'Catégorie de test';
 $lang['default.category.description'] = 'Annonces de démonstration';
 $lang['default.smallad.title'] = 'Petites annonces pour PHPBoost ' . GeneralConfig::load()->get_phpboost_major_version();
 $lang['default.smallad.description'] = '';
-$lang['default.smallad.contents'] = 'Ce module a été conçu pour afficher une liste de petites annonces. <br />
-...
+$lang['default.smallad.contents'] = 'Cette première annonce va vous donner quelques conseils simples pour prendre en main ce module.<br />
+<br />
+<ul class="formatter-ul">
+	<li class="formatter-li"> Pour configurer ou personnaliser votre module, rendez vous dans l\'<a href="' . SmalladsUrlBuilder::configuration()->relative() . '">administration du module</a></li>
+	<li class="formatter-li"> Pour configurer ou personnaliser les filtres d\'affichage, rendez vous dans la <a href="' . SmalladsUrlBuilder::filters_configuration()->relative() . '">configuration des filtres</a></li>
+	<li class="formatter-li"> Pour configurer ou personnaliser les conditions générales d\'utilisation, rendez vous dans la <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">configuration des CGU</a></li>
+	<li class="formatter-li"> Pour créer des catégories, <a href="' . SmalladsUrlBuilder::add_category()->relative() . '">cliquez ici</a> </li>
+	<li class="formatter-li"> Pour ajouter des annonces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">cliquez ici</a></li>
+</ul>
+<ul class="formatter-ul">
+<li class="formatter-li">Pour mettre en page vos articles, vous pouvez utiliser le langage bbcode ou l\'éditeur WYSIWYG (cf cet <a href="http://www.phpboost.com/wiki/bbcode">article</a>)<br />
+</li>
+</ul>
+<br /><br />
+Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur le site de <a href="https://www.phpboost.com/wiki/articles">PHPBoost</a>.<br />
+<br />
+<br />
+Bonne utilisation de ce module.
 ';
 $lang['config.usage.terms.conditions'] = '
 <h2 class="formatter-title">ARTICLE 1 : Objet</h2>

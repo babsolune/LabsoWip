@@ -95,7 +95,7 @@
 							<th>{@smallads.form.price}</th>
 							<th>{@smallads.form.smallads.types}</th>
 							<th>${LangLoader::get_message('author', 'common')}</th>
-							<th>${LangLoader::get_message('date', 'date-common')}</th>
+							<th>${@smallads.publication.date}</th>
 							# IF C_MODERATION #
 								<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
 							# ENDIF #
@@ -103,7 +103,7 @@
 					</thead>
 					<tbody>
 						# START items #
-						<tr class="list-item# IF items.C_SOLD # sold-smallad# ENDIF #">
+						<tr class="list-item# IF items.C_SOLD # sold-smallad# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #">
 							<td>
 								# IF NOT items.C_SOLD #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
 									<span itemprop="name">{items.TITLE}</span>
@@ -121,15 +121,17 @@
 								</td>
 							# ENDIF #
 							<td>
-								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
+								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
 							</td>
 							# IF C_MODERATION #
 								<td>
-									# IF items.C_EDIT #
-										<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
-									# ENDIF #
-									# IF items.C_DELETE #
-										<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+									# IF NOT items.C_SOLD #
+										# IF items.C_EDIT #
+											<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+										# ENDIF #
+										# IF items.C_DELETE #
+											<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+										# ENDIF #
 									# ENDIF #
 								</td>
 							# ENDIF #

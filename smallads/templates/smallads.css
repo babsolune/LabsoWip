@@ -78,10 +78,21 @@ article.sold-smallad {
 	font-size: 2.618em;
 }
 
-.sold-article,
-tr.sold-smallad td,
-tr.sold-smallad td a {
+.sold-article {
 	color: #CC0000;
+}
+
+tr.sold-smallad td {
+	background-color: #f06363;
+	color: #CC0000;
+}
+
+.new-content {
+	color: #04b504;
+}
+
+tr.new-content td {
+	background-color: #67e967;
 }
 
 /* --- thumbnails --- */

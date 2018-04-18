@@ -99,16 +99,16 @@ class SmalladsItemsManagerController extends ModuleController
 			$dates = '';
 			if ($smallad->get_publication_start_date() != null && $smallad->get_publication_end_date() != null)
 			{
-				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
 			}
 			else
 			{
 				if ($smallad->get_publication_start_date() != null)
-					$dates = $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+					$dates = $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				else
 				{
 					if ($smallad->get_publication_end_date() != null)
-						$dates = LangLoader::get_message('until', 'main') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+						$dates = LangLoader::get_message('until', 'main') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				}
 			}
 
@@ -123,7 +123,7 @@ class SmalladsItemsManagerController extends ModuleController
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()), $smallad->get_title()), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
 				new HTMLTableRowCell($author),
-				new HTMLTableRowCell($smallad->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
+				new HTMLTableRowCell($smallad->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($smallad->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),
 				new HTMLTableRowCell($sold),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display()),

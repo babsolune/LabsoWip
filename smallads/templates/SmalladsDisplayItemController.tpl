@@ -6,13 +6,15 @@
 		</h1>
 	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
-	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_SOLD # sold-article# ENDIF ## IF C_NEW_CONTENT # new-content# ENDIF #">
+	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<header>
 			<h2>
-				<span itemprop="name">{SMALLAD_TYPE} - {TITLE}# IF C_SOLD # - {@smallads.sold.item}# ENDIF #</span>
+				<span itemprop="name">{SMALLAD_TYPE} - {TITLE}</span># IF C_SOLD # <span class="sold-article">- {@smallads.sold.item}</span># ENDIF #
 				<span class="actions">
-					# IF C_EDIT #
-						<a href="{U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit"></i></a>
+					# IF NOT C_SOLD #
+						# IF C_EDIT #
+							<a href="{U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit"></i></a>
+						# ENDIF #
 					# ENDIF #
 					# IF C_DELETE #
 						<a href="{U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-delete"></i></a>

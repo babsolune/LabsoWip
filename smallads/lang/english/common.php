@@ -48,8 +48,9 @@ $lang['smallads.published.items'] = 'Published ads';
 $lang['smallads.category.list'] = 'Categories';
 $lang['smallads.select.category'] = 'Select a category';
 
-$lang['smallads.sold.item'] = 'Sold';
+$lang['smallads.sold.item'] = 'Completed';
 
+$lang['smallads.publication.date'] = 'Published for';
 $lang['smallads.contact'] = 'Contact the author';
 $lang['smallads.contact.email'] = 'by email';
 $lang['smallads.contact.pm'] = 'by private message';
@@ -61,7 +62,7 @@ $lang['config.cats.icon.display'] = 'Categories icon dipslay';
 $lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks to display an ad';
 $lang['config.max.weeks.number'] = 'Default number of weeks to display an ad';
 $lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
-$lang['config.sold.delay.display.before.delete.desc'] = 'when the "sold" button is enabled (in days)';
+$lang['config.sold.delay.display.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
 $lang['config.display.email.enabled'] = 'Enable the link to the author email';
 $lang['config.display.pm.enabled'] = 'Enable the link to the author pm';
 $lang['config.display.phone.enabled'] = 'Enable the display to the author phone number';
