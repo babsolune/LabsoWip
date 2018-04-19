@@ -246,5 +246,5 @@
 </script>
 
 <script>
-	jQuery('#SmalladsDisplayCategoryController_id_category option[value="0"]').html('{@smallads.all.types.filters}')
+	jQuery('#category_list_manager option[value="0"]').html('{@smallads.all.types.filters}')
 </script>
