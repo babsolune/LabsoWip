@@ -76,6 +76,29 @@ class SmalladsDisplayCategoryController extends ModuleController
 		$this->build_category_list();
 	}
 
+	private function build_category_list()
+	{
+		$lang = LangLoader::get('common', 'smallads');
+
+		$category_list = new HTMLForm('category_list_manager', '', false);
+		$category_list->set_css_class('smallads-category-list');
+		$fieldset = new FormFieldsetHorizontal('category_list');
+		$category_list->add_fieldset($fieldset);
+
+		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
+		{
+			$search_category_children_options = new SearchCategoryChildrensOptions();
+			$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
+			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $lang['smallads.category.list'], $this->get_category()->get_id(), $search_category_children_options,
+				array(	'description' => $lang['smallads.select.category'],
+						'events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'" +  HTMLForms.getField("id_category").getValue() + "-" +  HTMLForms.getField("id_category").getValue();')
+					)
+			));
+		}
+
+		$this->view->put('CATEGORY_LIST', $category_list->display());
+	}
+
 	private function build_items_listing_view(Date $now, $field, $sort_mode, $page)
 	{
 		if (in_array($field, Smallad::SORT_FIELDS_URL_VALUES))
@@ -195,30 +218,6 @@ class SmalladsDisplayCategoryController extends ModuleController
 				$i++;
 			}
 		}
-	}
-
-	private function build_category_list()
-	{
-		$lang = LangLoader::get('common', 'smallads');
-		
-		$category_list = new HTMLForm(__CLASS__, '', false);
-		$category_list->set_css_class('smallads-category-list');
-		$fieldset = new FormFieldsetHorizontal('category_list');
-		$category_list->add_fieldset($fieldset);
-
-
-		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
-		{
-			$search_category_children_options = new SearchCategoryChildrensOptions();
-			$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
-			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $lang['smallads.category.list'], $this->get_category()->get_id(), $search_category_children_options,
-				array(	'description' => $lang['smallads.select.category'],
-						'events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'"')
-					)
-			));
-		}
-
-		$this->view->put('CATEGORY_LIST', $category_list->display());
 	}
 
 	private function build_sorting_form($field, $mode)
