@@ -31,7 +31,7 @@
 
 class SmalladsFormFieldBrand extends AbstractFormField
 {
-	private $max_input = 20;
+	private $max_input = 200;
 
 	public function __construct($id, $label, array $value = array(), array $field_options = array(), array $constraints = array())
 	{

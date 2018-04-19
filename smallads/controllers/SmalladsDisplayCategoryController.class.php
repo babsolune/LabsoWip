@@ -200,13 +200,12 @@ class SmalladsDisplayCategoryController extends ModuleController
 	private function build_category_list()
 	{
 		$lang = LangLoader::get('common', 'smallads');
+		
 		$category_list = new HTMLForm(__CLASS__, '', false);
 		$category_list->set_css_class('smallads-category-list');
 		$fieldset = new FormFieldsetHorizontal('category_list');
 		$category_list->add_fieldset($fieldset);
 
-		$id = AppContext::get_request()->get_getstring('id_category', 0);
-		$category_item = SmalladsService::get_categories_manager()->get_categories_cache()->get_category($id);
 
 		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
@@ -217,8 +216,8 @@ class SmalladsDisplayCategoryController extends ModuleController
 						'events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'"')
 					)
 			));
-			// var_dump($category);
 		}
+
 		$this->view->put('CATEGORY_LIST', $category_list->display());
 	}
 

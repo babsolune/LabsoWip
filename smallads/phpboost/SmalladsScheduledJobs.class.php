@@ -73,7 +73,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 		if ($config->is_max_weeks_number_displayed())
 		{
 			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
-				'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > 7 * IF(max_weeks IS NULL OR max_weeks = 0, :delay, max_weeks))', array('delay' => (int)$config->get_max_weeks_number()));
+				'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > (7 * max_weeks))');
 
 			Feed::clear_cache('smallads');
 			SmalladsCache::invalidate();

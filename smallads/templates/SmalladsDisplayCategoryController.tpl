@@ -244,3 +244,7 @@
 		});
 	});
 </script>
+
+<script>
+	jQuery('#SmalladsDisplayCategoryController_id_category option[value="0"]').html('{@smallads.all.types.filters}')
+</script>
