@@ -65,7 +65,7 @@ article.sold-smallad {
 	right: 0;
 	bottom: 0;
 	background-color: rgba(255, 0, 0, 0.5);
-	z-index: 100;
+	z-index: 9;
 }
 
 .sold-item span {

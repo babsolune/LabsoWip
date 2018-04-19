@@ -7,8 +7,11 @@
 	</header>
 
 	# IF C_TYPES_FILTERS #
-
-		<div class="options infos"># INCLUDE CATEGORY_LIST #</div>
+		# IF C_CATEGORY #
+			<aside class="options infos">
+				# INCLUDE CATEGORY_LIST #
+			</aside>
+		# ENDIF #
 
 		# IF C_CATEGORY_DESCRIPTION #
 			<div class="cat-description">
@@ -93,8 +96,9 @@
 						<tr>
 							<th>${LangLoader::get_message('title', 'main')}</th>
 							<th>{@smallads.form.price}</th>
-							<th>{@smallads.form.smallads.types}</th>
+							<th>{@smallads.ad.type}</th>
 							<th>${LangLoader::get_message('author', 'common')}</th>
+							# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
 							<th>${@smallads.publication.date}</th>
 							# IF C_MODERATION #
 								<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
@@ -119,6 +123,11 @@
 										# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
 									# ENDIF #
 								</td>
+							# ENDIF #
+							# IF C_CATEGORY #
+							<td>
+								<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+							</td>
 							# ENDIF #
 							<td>
 								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
@@ -228,7 +237,6 @@
 
 <script>
 	jQuery('document').ready(function(){
-
 		jQuery('#smallads-module').jplist({
 			itemsBox: '.list',
 			itemPath: '.list-item',

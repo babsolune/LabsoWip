@@ -49,6 +49,8 @@ $lang['smallads.category.list'] = 'Categories';
 $lang['smallads.select.category'] = 'Select a category';
 
 $lang['smallads.sold.item'] = 'Completed';
+$lang['smallads.ad.type'] = 'Type';
+$lang['smallads.category'] = 'Category';
 
 $lang['smallads.publication.date'] = 'Published for';
 $lang['smallads.contact'] = 'Contact the author';

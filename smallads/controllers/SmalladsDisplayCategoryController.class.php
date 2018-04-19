@@ -113,7 +113,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 
-			'C_CATEGORY'             => true,
+			'C_CATEGORY'             => SmalladsService::get_categories_manager()->get_categories_cache()->has_categories(),
 			'C_ROOT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_CATEGORY_IMAGE'       => !empty($category_image),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
@@ -200,23 +200,25 @@ class SmalladsDisplayCategoryController extends ModuleController
 	private function build_category_list()
 	{
 		$lang = LangLoader::get('common', 'smallads');
-
 		$category_list = new HTMLForm(__CLASS__, '', false);
 		$category_list->set_css_class('smallads-category-list');
-
 		$fieldset = new FormFieldsetHorizontal('category_list');
 		$category_list->add_fieldset($fieldset);
+
+		$id = AppContext::get_request()->get_getstring('id_category', 0);
+		$category_item = SmalladsService::get_categories_manager()->get_categories_cache()->get_category($id);
 
 		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
 			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $lang['smallads.category.list'], $this->get_category()->get_id(), $search_category_children_options,
-				array('description' => $lang['smallads.select.category']),
-				array('events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'"'))
+				array(	'description' => $lang['smallads.select.category'],
+						'events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'"')
+					)
 			));
+			// var_dump($category);
 		}
-
 		$this->view->put('CATEGORY_LIST', $category_list->display());
 	}
 
