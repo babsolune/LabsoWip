@@ -377,6 +377,17 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::BRANDS, $brands);
 	}
 
+	private function init_types_array()
+	{
+		$smallad_types = array();
+		$config_lang = LangLoader::get('config', 'smallads');
+
+		$smallad_type = new SmalladsFormFieldSmalladType($id, $value);
+		$value->set_value($config_lang['smallad.type.sale']);
+
+		$smallad_types[1] = $smallad_type->get_value();
+	}
+
 	public function get_default_values()
 	{
 		return array(
@@ -404,6 +415,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
 			self::DEFERRED_OPERATIONS => array(),
 			self::SMALLAD_TYPES => array(),
+			// self::SMALLAD_TYPES => self::init_types_array(),
 			self::BRANDS => array(),
 			self::USAGE_TERMS_ENABLED => false,
 			self::USAGE_TERMS => LangLoader::get_message('config.usage.terms.conditions', 'install', 'smallads'),
