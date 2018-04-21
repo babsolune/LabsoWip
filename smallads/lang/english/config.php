@@ -33,7 +33,6 @@
  #						English						#
  ####################################################
 
-$lang['smallad.type.sale'] = 'Sale';
 $lang['root_category_description'] = 'Welcome to the smallads section of the website!
 <br /><br />
 One category and one announce were created to show you how this module works. Here are some tips to get started on this module.

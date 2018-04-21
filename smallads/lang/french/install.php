@@ -56,6 +56,7 @@ Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur
 <br />
 Bonne utilisation de ce module.
 ';
+$lang['default.smallad.type'] = 'Type de test';
 $lang['config.usage.terms.conditions'] = '
 <h2 class="formatter-title">ARTICLE 1 : Objet</h2>
 <p>Les présentes « conditions générales d\'utilisation » ont pour objet l\'encadrement juridique des modalités de mise à disposition des services du site <span style="background-color:#CCFFFF;">[Nom du site]</span> et leur utilisation par « l\'utilisateur ».</p>

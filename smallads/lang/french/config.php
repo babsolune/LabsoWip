@@ -33,7 +33,6 @@
  #						French						#
  ####################################################
 
-$lang['smallad.type.sale'] = 'Vente';
 $lang['root_category_description'] = 'Bienvenue dans le module Petites Annonces du site !
 <br /><br />
 Une catégorie et une annonce ont été créés pour vous montrer comment fonctionne ce module. Voici quelques conseils pour bien débuter sur ce module.

@@ -50,11 +50,13 @@ $lang['default.smallad.contents'] = 'This first ad will give you some simple tip
 <li class="formatter-li">To format your articles, you can use bbcode language or the WYSIWYG editor (see this <a href="http://www.phpboost.com/wiki/bbcode">article</a>)<br />
 </li>
 </ul>
-<br /><br /> 
+<br /><br />
 For more information, please see the module documentation on the site <a href="http://www.phpboost.com">PHPBoost</a>.<br />
 <br />
 <br />
 Good use of this module.
 ';
+$lang['default.smallad.type'] = '1st Type';
+$lang['config.usage.terms.conditions'] = 'Usage terms condition to define';
 
 ?>
