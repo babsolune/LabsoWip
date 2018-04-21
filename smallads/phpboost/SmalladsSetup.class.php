@@ -158,7 +158,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			'description' => $this->messages['default.smallad.description'],
 			'contents' => $this->messages['default.smallad.contents'],
 			'views_number' => 0,
-			'max_weeks' => 1,
 			'author_user_id' => 1,
 			'custom_author_name' => '',
 			'displayed_author_name' => Smallad::DISPLAYED_AUTHOR_NAME,
@@ -170,6 +169,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'publication_end_date' => 0,
 			'creation_date' => time(),
 			'updated_date' => 0,
+			'max_weeks' => 1,
 			'sources' => TextHelper::serialize(array()),
 			'carousel' => TextHelper::serialize(array())
 		));

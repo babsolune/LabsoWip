@@ -383,6 +383,7 @@ class SmalladsConfig extends AbstractConfigData
 		$config_lang = LangLoader::get('config', 'smallads');
 
 		$smallad_type = new SmalladsFormFieldSmalladType($id, $value);
+		$id->set_value(1);
 		$value->set_value($config_lang['smallad.type.sale']);
 
 		$smallad_types[1] = $smallad_type->get_value();
