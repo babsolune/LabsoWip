@@ -85,7 +85,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'rewrited_title' => array('type' => 'string', 'length' => 250, 'default' => "''"),
 			'description' => array('type' => 'text', 'length' => 65000),
 			'contents' => array('type' => 'text', 'length' => 65000),
-			'price' => array('type' => 'decimal', 'length' => 7, 'scale' => 2, 'default' => 0),
+			'price' => array('type' => 'decimal', 'length' => 7, 'notnull' => 1, 'scale' => 2, 'default' => 0),
 			'max_weeks' => array('type' => 'integer', 'notnull' => 1, 'length' => 11, 'default' => 0),
 			'smallad_type' => array('type' => 'string', 'length' => 255),
 			'brand' => array('type' => 'string', 'length' => 255),

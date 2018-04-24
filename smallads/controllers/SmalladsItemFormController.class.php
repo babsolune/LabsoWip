@@ -458,7 +458,9 @@ class SmalladsItemFormController extends ModuleController
 		$smallad->set_description(($this->form->get_value('enable_description') ? $this->form->get_value('description') : ''));
 		$smallad->set_contents($this->form->get_value('contents'));
 
-		if($this->form->get_value('price') !== 0 || null)
+		if(empty($this->form->get_value('price')))
+			$smallad->set_price('0');
+		else
 			$smallad->set_price($this->form->get_value('price'));
 
 		$smallad->set_smallad_type($this->form->get_value('smallad_type')->get_raw_value());
@@ -468,7 +470,7 @@ class SmalladsItemFormController extends ModuleController
 
 		if($this->config->is_max_weeks_number_displayed())
 		{
-			if($this->form->get_value('max_weeks') == 0 || null)
+			if(empty($this->form->get_value('max_weeks')) || $this->form->get_value('max_weeks') === 0)
 				$smallad->set_max_weeks(SmalladsConfig::load()->get_max_weeks_number());
 			else
 				$smallad->set_max_weeks($this->form->get_value('max_weeks'));
