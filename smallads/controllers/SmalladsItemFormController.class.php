@@ -142,9 +142,9 @@ class SmalladsItemFormController extends ModuleController
 
 		$fieldset->add_field(new FormFieldDecimalNumberEditor('price', $this->lang['smallads.form.price'], $this->get_smallad()->get_price(),
 			array(
+				'description' => $this->lang['smallads.form.price.desc'],
 				'min' => 0,
-				'step' => 0.01,
-				'description' => $this->lang['smallads.form.decimal']
+				'step' => 0.01
 		)));
 
 		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
@@ -457,7 +457,10 @@ class SmalladsItemFormController extends ModuleController
 
 		$smallad->set_description(($this->form->get_value('enable_description') ? $this->form->get_value('description') : ''));
 		$smallad->set_contents($this->form->get_value('contents'));
-		$smallad->set_price($this->form->get_value('price'));
+
+		if($this->form->get_value('price') !== 0 || null)
+			$smallad->set_price($this->form->get_value('price'));
+
 		$smallad->set_smallad_type($this->form->get_value('smallad_type')->get_raw_value());
 		// $smallad->set_brand($this->form->get_value('brand')->get_raw_value());
 

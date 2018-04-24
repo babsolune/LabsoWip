@@ -8,18 +8,9 @@
 
 	# IF C_TYPES_FILTERS #
 		# IF C_CATEGORY #
-			<nav class="category-nav">
-				<ul>
-					<li cat_id="0" parent_id="0" c_order="0">
-						<a href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
-					</li>
-					# START categories #
-						<li cat_id="{categories.ID}" parent_id="{categories.PARENT_ID}" c_order="{categories.SUB_ORDER}">
-							<a href="{categories.U_CATEGORY}">{categories.NAME}</a>
-						</li>
-					# END categories #
-				</ul>
-			</nav>
+			<aside class="options infos">
+				# INCLUDE CATEGORY_LIST #
+			</aside>
 		# ENDIF #
 
 		# IF C_CATEGORY_DESCRIPTION #
@@ -253,24 +244,7 @@
 		});
 	});
 </script>
+
 <script>
-	jQuery('document').ready(function(){
-
-		jQuery('.category-nav').append(CreatChild(0)).find('ul:first').remove();
-		function CreatChild(id){
-		    var $li = jQuery('li[parent_id=' + id + ']').sort(function(a, b){
-				return jQuery(a).attr('c_order') - jQuery(b).attr('c_order');
-			});
-		    if($li.length > 0){
-		        for(var i = 0; i < $li.length; i++){
-		            var $this = $li.eq(i);
-					$this[0].remove();
-		            $this.append(CreatChild($this.attr('cat_id')));
-		        }
-		        return jQuery('<ul>').append($li);
-		    }
-		}
-
-		jQuery('li:not([cat_id=0])').has('ul').addClass('has-sub');
-	});
+	jQuery('#category_list_manager option[value="0"]').html('{@smallads.all.types.filters}')
 </script>

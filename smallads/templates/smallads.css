@@ -227,3 +227,58 @@ a[data-lightbox] { text-decoration: none;}
 .jplist-current { background-color: rgba(0, 0, 0, 0.2); }
 
 .jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
+
+/* Category-nav */
+
+.category-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.category-nav li a,
+.category-nav li span {
+  display: block;
+  padding: 10px;
+}
+
+.category-nav li:hover > a {
+  background-color: #ddd;
+}
+
+.category-nav >ul>li {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.category-nav .has-sub {
+  position: relative;
+}
+
+.category-nav .has-sub:after {
+  position: absolute;
+  font-family: 'fontawesome';
+  content: '\f067';
+  right: 0;
+  top: 10px;
+}
+
+.category-nav .has-sub:hover:after {
+  content: '\f068';
+}
+
+.category-nav .has-sub > ul {
+  position: absolute ;
+  top: 100%;
+  left: 800px;
+  min-width: 130px;
+}
+
+.category-nav .has-sub:hover > ul {
+  left: 0;
+}
+
+.category-nav ul ul .has-sub:hover ul {
+    top: 0;
+    left: 100%;
+}

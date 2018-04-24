@@ -74,6 +74,7 @@ class Smallad
 	const SORT_NUMBER_VIEWS = 'views_number';
 	const SORT_NOTATION = 'average_notes';
 	const SORT_NUMBER_COMMENTS = 'number_comments';
+	const SORT_PRICE = 'price';
 
 	const SORT_FIELDS_URL_VALUES = array(
 		self::SORT_ALPHABETIC => 'title',
@@ -81,7 +82,8 @@ class Smallad
 		self::SORT_AUTHOR => 'author',
 		self::SORT_NUMBER_VIEWS => 'views',
 		self::SORT_NOTATION => 'notes',
-		self::SORT_NUMBER_COMMENTS => 'comments'
+		self::SORT_NUMBER_COMMENTS => 'comments',
+		self::SORT_PRICE => 'price'
 	);
 
 	const ASC = 'ASC';
@@ -653,6 +655,7 @@ class Smallad
 		$this->carousel = array();
 		$this->thumbnail_url = new Url(self::DEFAULT_PICTURE);
 		$this->views_number = 0;
+		$this->price = 0;
 		$this->max_weeks = $max_weeks_config_number;
 		$this->custom_author_email = $this->author_user->get_email();
 		$this->custom_author_name = $this->author_user->get_display_name();

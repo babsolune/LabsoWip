@@ -87,7 +87,7 @@ class AdminSmalladsFiltersConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('smallads.filters.config', $this->lang['smallads.filters.config']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('items_default_sort', $this->lang['config.items.default.sort'], $this->config->get_items_default_sort_field() . '-' . $this->config->get_items_default_sort_mode(), $this->get_sort_options()));
+		// $fieldset->add_field(new FormFieldSimpleSelectChoice('items_default_sort', $this->lang['config.items.default.sort'], $this->config->get_items_default_sort_field() . '-' . $this->config->get_items_default_sort_mode(), $this->get_sort_options()));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_sort_filters', $this->lang['config.sort.filter.display'], $this->config->are_sort_filters_enabled()));
 
@@ -135,10 +135,10 @@ class AdminSmalladsFiltersConfigController extends AdminModuleController
 
 	private function save()
 	{
-		$items_default_sort = $this->form->get_value('items_default_sort')->get_raw_value();
-		$items_default_sort = explode('-', $items_default_sort);
-		$this->config->set_items_default_sort_field($items_default_sort[0]);
-		$this->config->set_items_default_sort_mode(TextHelper::strtolower($items_default_sort[1]));
+		// $items_default_sort = $this->form->get_value('items_default_sort')->get_raw_value();
+		// $items_default_sort = explode('-', $items_default_sort);
+		// $this->config->set_items_default_sort_field($items_default_sort[0]);
+		// $this->config->set_items_default_sort_mode(TextHelper::strtolower($items_default_sort[1]));
 
 		if ($this->form->get_value('display_sort_filters'))
 			$this->config->enable_sort_filters();

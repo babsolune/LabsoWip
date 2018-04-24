@@ -78,24 +78,25 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function build_category_list()
 	{
-		$result_cat = PersistenceContext::get_querier()->select('SELECT smallads_cat.*
-		FROM '. SmalladsSetup::$smallads_cats_table .' smallads_cat
-		WHERE special_authorizations = 0
-		ORDER BY id_parent ASC, c_order ASC'
-		);
+		$lang = LangLoader::get('common', 'smallads');
 
-		while ($row_cat = $result_cat->fetch())
+		$category_list = new HTMLForm('category_list_manager', '', false);
+		$category_list->set_css_class('smallads-category-list');
+		$fieldset = new FormFieldsetHorizontal('category_list');
+		$category_list->add_fieldset($fieldset);
+
+		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
-			$this->view->assign_block_vars('categories', array(
-				'ID' => $row_cat['id'],
-				'ID_PARENT' => $row_cat['id_parent'],
-				'SUB_ORDER' => $row_cat['c_order'],
-				'NAME' => $row_cat['name'],
-				'U_CATEGORY' => SmalladsUrlBuilder::display_category($row_cat['id'], $row_cat['rewrited_name'])->rel(),
-				'C_NO_ITEM_AVAILABLE' => $result_cat->get_rows_count() == 0,
+			$search_category_children_options = new SearchCategoryChildrensOptions();
+			$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
+			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $lang['smallads.category.list'], $this->get_category()->get_id(), $search_category_children_options,
+				array(	'description' => $lang['smallads.select.category'],
+						'events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category('', '')->rel() .'" +  HTMLForms.getField("id_category").getValue() + "-" +  HTMLForms.getField("id_category").getValue();')
+					)
 			));
 		}
-		$result_cat->dispose();
+
+		$this->view->put('CATEGORY_LIST', $category_list->display());
 	}
 
 	private function build_items_listing_view(Date $now, $field, $sort_mode, $page)

@@ -51,7 +51,6 @@ class SmalladsConfig extends AbstractConfigData
 	const MODULE_MINI_ITEMS_NB = 'module_mini_items_nb';
 	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
 
-
 	const ITEMS_DEFAULT_SORT_FIELD = 'items_default_sort_field';
 	const ITEMS_DEFAULT_SORT_MODE = 'items_default_sort_mode';
 	const DISPLAY_TYPE = 'display_type';
@@ -375,18 +374,6 @@ class SmalladsConfig extends AbstractConfigData
 	public function set_brands(Array $brands)
 	{
 		$this->set_property(self::BRANDS, $brands);
-	}
-
-	private function init_types_array()
-	{
-		$smallad_types = array();
-		$config_lang = LangLoader::get('config', 'smallads');
-
-		$smallad_type = new SmalladsFormFieldSmalladType($id, $value);
-		$id->set_value(1);
-		$value->set_value($config_lang['smallad.type.sale']);
-
-		$smallad_types[1] = $smallad_type->get_value();
 	}
 
 	public function get_default_values()
