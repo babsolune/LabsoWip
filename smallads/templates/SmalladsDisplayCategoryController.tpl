@@ -8,18 +8,19 @@
 
 	# IF C_TYPES_FILTERS #
 		# IF C_CATEGORY #
-			<nav class="category-nav">
+			<nav id="category-nav" class="cssmenu cssmenu-horizontal">
 				<ul>
 					<li cat_id="0" parent_id="0" c_order="0">
-						<a href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
+						<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
 					</li>
 					# START categories #
-						<li cat_id="{categories.ID}" parent_id="{categories.PARENT_ID}" c_order="{categories.SUB_ORDER}">
-							<a href="{categories.U_CATEGORY}">{categories.NAME}</a>
+						<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
+							<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
 						</li>
 					# END categories #
 				</ul>
 			</nav>
+			<script>jQuery("#category-nav").menumaker({ title: "{@smallads.category.list}", format: "multitoggle", breakpoint: 768 }); </script>
 		# ENDIF #
 
 		# IF C_CATEGORY_DESCRIPTION #
@@ -256,7 +257,7 @@
 <script>
 	jQuery('document').ready(function(){
 
-		jQuery('.category-nav').append(CreatChild(0)).find('ul:first').remove();
+		jQuery('#category-nav').append(CreatChild(0)).find('ul:first').remove();
 		function CreatChild(id){
 		    var $li = jQuery('li[parent_id=' + id + ']').sort(function(a, b){
 				return jQuery(a).attr('c_order') - jQuery(b).attr('c_order');
