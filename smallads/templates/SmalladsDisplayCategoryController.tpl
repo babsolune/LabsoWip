@@ -264,8 +264,8 @@
 		    if($li.length > 0){
 		        for(var i = 0; i < $li.length; i++){
 		            var $this = $li.eq(i);
-		            $this.append(CreatChild($this.attr('cat_id')));
 					$this[0].remove();
+		            $this.append(CreatChild($this.attr('cat_id')));
 		        }
 		        return jQuery('<ul>').append($li);
 		    }
