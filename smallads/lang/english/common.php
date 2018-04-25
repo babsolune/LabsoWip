@@ -59,27 +59,27 @@ $lang['smallads.contact.pm'] = 'by private message';
 
 //Smallads configuration
 $lang['config.title'] = 'Smallads configuration';
-$lang['config.items.default.sort'] = 'Default item order display';
-$lang['config.cats.icon.display'] = 'Categories icon dipslay';
-$lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks to display an ad';
-$lang['config.max.weeks.number'] = 'Default number of weeks to display an ad';
+$lang['config.items.default.sort'] = 'Default items order display';
+$lang['config.cats.icon.display'] = 'Categories icon display';
+$lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';
+$lang['config.max.weeks.number'] = 'Default number of weeks of posting';
 $lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
 $lang['config.sold.delay.display.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
-$lang['config.display.email.enabled'] = 'Enable the link to the author email';
-$lang['config.display.pm.enabled'] = 'Enable the link to the author pm';
-$lang['config.display.phone.enabled'] = 'Enable the display to the author phone number';
+$lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
+$lang['config.display.pm.enabled'] = 'Enable the link to the author\'s pm';
+$lang['config.display.phone.enabled'] = 'Enable the display to the author\'s phone number';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
-$lang['config.suggestions.display'] = 'Item suggestions display';
-$lang['config.suggestions.nb'] = 'Suggested ad number';
-$lang['config.module.mini.items.nb'] = 'Ad number to display in the mini module';
-$lang['config.navigation.links.display'] = 'Navigation links display';
+$lang['config.suggestions.display'] = 'Display ad suggestions';
+$lang['config.suggestions.nb'] = 'Number of ads to display';
+$lang['config.module.mini.items.nb'] = 'Number of ads to display in the mini module';
+$lang['config.navigation.links.display'] = 'Display links to related ads';
 $lang['config.navigation.links.display.desc'] = 'Previous link, next link';
-$lang['config.characters.number.to.cut'] = 'Maximum number of characters to cut the ad\'s description';
+$lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s description';
 $lang['config.display.type'] = 'Display type';
 $lang['config.mosaic.type.display'] = 'Mosaic';
 $lang['config.list.type.display'] = 'List';
 $lang['config.table.type.display'] = 'Table';
-$lang['config.display.descriptions.to.guests'] = 'Display condensed ads to guests if they don\'t have read authorization';
+$lang['config.display.descriptions.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
 
 //Smallads Usage Terms Conditions
 $lang['config.usage.terms'] = 'Usage terms management';

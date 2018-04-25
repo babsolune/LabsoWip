@@ -36,6 +36,12 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 		$lang = LangLoader::get('common', 'smallads');
 		$tree = new ModuleTreeLinks();
 
+		$config_link = new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::configuration());
+		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::configuration()));
+		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('smallads.filters.config', 'common', 'smallads'), SmalladsUrlBuilder::filters_configuration()));
+		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('config.usage.terms', 'common', 'smallads'), SmalladsUrlBuilder::usage_terms_configuration()));
+		$tree->add_link($config_link);
+
 		$manage_categories_link = new ModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), SmalladsUrlBuilder::manage_categories(), SmalladsAuthorizationsService::check_authorizations()->manage_categories());
 		$manage_categories_link->add_sub_link(new ModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), SmalladsUrlBuilder::manage_categories(), SmalladsAuthorizationsService::check_authorizations()->manage_categories()));
 		$manage_categories_link->add_sub_link(new ModuleLink(LangLoader::get_message('category.add', 'categories-common'), SmalladsUrlBuilder::add_category(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), SmalladsAuthorizationsService::check_authorizations()->manage_categories()));
@@ -45,10 +51,6 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 		$manage_smallads_link->add_sub_link(new ModuleLink($lang['smallads.management'], SmalladsUrlBuilder::manage_items(), SmalladsAuthorizationsService::check_authorizations()->moderation()));
 		$manage_smallads_link->add_sub_link(new ModuleLink($lang['smallads.add'], SmalladsUrlBuilder::add_item(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), SmalladsAuthorizationsService::check_authorizations()->moderation()));
 		$tree->add_link($manage_smallads_link);
-
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('smallads.filters.config', 'common', 'smallads'), SmalladsUrlBuilder::filters_configuration()));
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('config.usage.terms', 'common', 'smallads'), SmalladsUrlBuilder::usage_terms_configuration()));
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::configuration()));
 
 		if (!SmalladsAuthorizationsService::check_authorizations()->moderation())
 		{
