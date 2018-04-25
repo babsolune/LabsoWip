@@ -38,24 +38,25 @@ Links shown in the actions links menu if visitor is connected
 
 ### Configuration
 #### Configuration
-01. Number of items displayed per page
-02. Number of columns to display categories
-03. Display categories icon
-04. Number of smallads to display in the mini module
-05. Limit the number of weeks of posting
+01. Choice of currency
+02. Number of items displayed per page
+03. Number of columns to display categories
+04. Display categories icon
+05. Number of smallads to display in the mini module
+06. Limit the number of weeks of posting
     - if checked : Number of weeks of posting
-06. Display delay before delete (days)
-07. Enable the link to author email
-08. Enable the link to author pm
-09. Enable the link to author's phone
-10. Display ad suggestions
+07. Display delay before delete (days)
+08. Enable the link to author email
+09. Enable the link to author pm
+10. Enable the link to author's phone
+11. Display ad suggestions
     - if checked : Number of ads to display
-11. Display links to related ads
-12. Display type of ads
-13. Number of charaters to cut the ads description
-14. Display the ads summary to visitors if they don't have read permission
-15. Root category description
-16. Authorizations
+12. Display links to related ads
+13. Choice of display type of ads
+14. Number of characters to cut the ads description
+15. Display the ads summary to visitors if they don't have read permission
+16. Root category description
+17. Authorizations
     - Read authorizations
     - Write authorizations
     - Contribution authorizations
