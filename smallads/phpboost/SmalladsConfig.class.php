@@ -31,6 +31,11 @@
 
 class SmalladsConfig extends AbstractConfigData
 {
+	const CURRENCY = 'currency';
+	const EUROS = '€';
+	const DOLLARS = '$';
+	const POUNDS = '£';
+
 	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
 	const COLS_NUMBER_DISPLAYED_PER_LINE = 'cols_number_displayed_per_line';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
@@ -67,6 +72,16 @@ class SmalladsConfig extends AbstractConfigData
 	const BRANDS = 'brands';
 
 	const AUTHORIZATIONS = 'authorizations';
+
+	public function get_currency()
+	{
+		return $this->get_property(self::CURRENCY);
+	}
+
+	public function set_currency($value)
+	{
+		$this->set_property(self::CURRENCY, $value);
+	}
 
 	public function get_items_number_per_page()
 	{
@@ -380,6 +395,7 @@ class SmalladsConfig extends AbstractConfigData
 	{
 		$config_lang = LangLoader::get('install', 'smallads');
 		return array(
+			self::CURRENCY => self::EUROS,
 			self::ITEMS_NUMBER_PER_PAGE => 10,
 			self::COLS_NUMBER_DISPLAYED_PER_LINE => 2,
 			self::CHARACTERS_NUMBER_TO_CUT => 128,

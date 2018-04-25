@@ -740,6 +740,7 @@ class Smallad
 			'AUTHOR_PHONE'       	=> $this->get_author_phone(),
 			'DESCRIPTION'        	=> $description,
 			'PRICE'          	 	=> $this->get_price(),
+			'CURRENCY'          	=> $this->config->get_currency(),
 			'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
 			'SMALLAD_TYPE_FILTER'   => Url::encode_rewrite(TextHelper::strtolower($this->get_smallad_type())),
 			'BRAND'          	 	=> $this->get_brand(),

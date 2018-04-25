@@ -59,6 +59,10 @@ $lang['smallads.contact.pm'] = 'by private message';
 
 //Smallads configuration
 $lang['config.title'] = 'Smallads configuration';
+$lang['config.currency'] = 'Currency';
+$lang['config.euros'] = '€';
+$lang['config.dollars'] = '$';
+$lang['config.pounds'] = '£';
 $lang['config.items.default.sort'] = 'Default items order display';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';

@@ -111,7 +111,7 @@
 					</a>
 			 	# END carousel #
 			# ENDIF #
-			# IF C_PRICE #<div class="smallad-price">{PRICE} €</div># ENDIF #
+			# IF C_PRICE #<div class="smallad-price">{PRICE} {CURRENCY}</div># ENDIF #
 			<div itemprop="text">{CONTENTS}</div>
 
 

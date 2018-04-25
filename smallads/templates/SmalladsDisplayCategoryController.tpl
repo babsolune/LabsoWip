@@ -209,7 +209,7 @@
 							# ENDIF #
 							<div class="content">
 								<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
-								# IF items.C_PRICE #<div class="smallad-price">{items.PRICE} €</div># ENDIF #
+								# IF items.C_PRICE #<div class="smallad-price">{items.PRICE} {items.CURRENCY}</div># ENDIF #
 							</div>
 
 							# IF items.C_SOURCES #
@@ -264,8 +264,8 @@
 		    if($li.length > 0){
 		        for(var i = 0; i < $li.length; i++){
 		            var $this = $li.eq(i);
-					$this[0].remove();
 		            $this.append(CreatChild($this.attr('cat_id')));
+					$this[0].remove();
 		        }
 		        return jQuery('<ul>').append($li);
 		    }

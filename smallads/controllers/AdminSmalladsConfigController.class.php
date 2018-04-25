@@ -89,6 +89,14 @@ class AdminSmalladsConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('smallads.configuration', LangLoader::get_message('configuration', 'admin-common'));
 		$form->add_fieldset($fieldset);
 
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('currency', $this->lang['config.currency'], $this->config->get_currency(),
+			array(
+				new FormFieldSelectChoiceOption($this->lang['config.euros'], SmalladsConfig::EUROS),
+				new FormFieldSelectChoiceOption($this->lang['config.dollars'], SmalladsConfig::DOLLARS),
+				new FormFieldSelectChoiceOption($this->lang['config.pounds'], SmalladsConfig::POUNDS)
+			)
+		));
+
 		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
@@ -200,6 +208,7 @@ class AdminSmalladsConfigController extends AdminModuleController
 
 	private function save()
 	{
+		$this->config->set_currency($this->form->get_value('currency')->get_raw_value());
 		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
 		$this->config->set_cols_number_displayed_per_line($this->form->get_value('cols_number_displayed_per_line'));
 

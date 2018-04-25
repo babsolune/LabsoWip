@@ -1,40 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<title>TODO - les demandes improbables de Mipel</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			.question {}
+			.answer {
+				color: #555;
+				font-style: italic;
+			}
+		</style>
 	</head>
 	<body>
-		<div>CODE<br />
-			- maj vers 5.2 -- adapation de class mais lesquelles ? 
+		<section>
+			<header>
+				<h1>La Dingo Liste</h1>
+			</header>
+			<article>
+				<header>
+					<h2>CODE</h2>
+				</header>
+				<div class="question">
+					<strong>Mipel : </strong>
+					<span>maj vers 5.2 -- adapation de class mais lesquelles ?</span>
+				</div>
+				<div class="answer">
+					<strong>babso : </strong>
+					<span>revoir tout ce qui concerne les commentaires, mais comme je n'ai pas essayé, il peut y avoir d'autres problèmes</span>
+				</div>
+			</article>
 
-		</div>
+			<article>
+				<header>
+					<h2>FONCTIONNALITES</h2>
+				</header>
+				<div class="question">
+					<strong>Mipel : </strong>
+					<ul>
+						<li>1 - si type annonce = location (pourquoi pas ?) il faudrait pouvoir accéder à des champs comme la durée, le prix à l'heure/jour/semaine...</li>
+						<li>2 - de manière générale, il faudrait aussi que certains champs soient interactifs. ex: si don, pas besoin du champ prix ... you now what ?</li>
+						<li>3 - afficher lien vers email + téléphone ... </li>
+					</ul>
+				</div>
+				<div class="answer">
+					<strong>babso : </strong>
+					<ul>
+						<li>1 - ce n'est guerre possible en module généraliste, il faudrait fixer les types d'annonce en base de données pour pouvoir configurer plusieurs types de formulaire en fonction du type d'annonce appelé, et on ne peut pas savoir ce que le propriétaire du site va proposer</li>
+						<li>2 - pareil que pour 1 - les types d'annonces sont déterminés aléatoirement par le propriétaire, impossible de prévoir ce qu'il va mettre donc pas de références pour savoir quel type d'annonce est appelé</li>
+						<li>3 -  vu sur discord + soumettre l'idée à l'équipe : critères de contact affichés aux visiteurs ou seulement aux connectés</li>
+					</ul>
+				</div>
+			</article>
 
-		<div><br>FONCTIONNALITES<br>
-			<ul>
-				<li>
-					1 - si type annonce = location (pourquoi pas ?) il faudrait pouvoir accéder à des champs comme la durée, le prix à l'heure/jour/semaine...
-					<br><u>réponse:</u> ce n'est guerre possible en module généraliste, il faudrait fixer les types d'annonce en base de données pour pouvoir configurer plusieurs types de formulaire en fonction du type d'annonce appelé, et on ne peut pas savoir ce que le propriétaire du site va proposer
-				</li>
-				
-				<li>
-					2 - de manière générale, il faudrait aussi que certains champs soient interactifs. ex: si don, pas besoin du champ prix ... you now what ?
-					<br><u>réponse:</u> pareil que pour 1 - les types d'annonces sont déterminés aléatoirement par le propriétaire, impossible de prévoir ce qu'il va mettre donc pas de références pour savoir quel type d'annonce est appelé
-				</li>
+			<article>
+				<header>
+					<h2>GRAPHISME</h2>
+				</header>
+				<div class="question">
+					<strong>Mipel : </strong>
+					<ul>
+						<li>1 - commencé, pas commencé ?</li>
+						<li>2 - organisation des pages de conf</li>
+						<li>3 - compactage des infos</li>
+						<li>4 - bouton de validation fixe par rapport au scoll de la page</li>
+					</ul>
+				</div>
+				<div class="answer">
+					<strong>babso : </strong>
+					<ul>
+						<li>1 - module prêt pour le thème base et ses enfants</li>
+						<li>2 - </li>
+						<li>3 - réduire les padding/margin des classes css dans le css du module</li>
+						<li>4 - mettre la classe #smallads_module .fieldset-submit en position:fixed + valeur de positionnement top/left/right... dans le css du module</li>
+					</ul>
+				</div>
+			</article>
 
-				<li>
-					3 - afficher lien vers email + téléphone ... 
-					<br><u>réponse:</u> vu
-				</li>
-			</ul>
-
-		</div>
-
-		<div><br>GRAPHISME<br>
-			- commencé, pas commencé ? <br>
-			en vrac: <br>
-			organisation des pages de conf, compactage des infos, bouton de validation fixe par rapport au scoll de la page 
-		</div>
+			<article>
+				<header>
+					<h2>MENU LISTE DES CATEGORIES</h2>
+				</header>
+				<div class="question">
+					<strong>babso : </strong>
+					<ul>
+						<li>Fichier : templates\SmalladsDisplayCategoryController.tpl</li>
+						<li>HTML : lignes 11 à 22</li>
+						<li>Javascript : lignes 257 à 275</li>
+					</ul>
+					<p>Bug : tous les éléments de la liste issus du php (START categories < li < END categories) appraissent rapidement puis disparaissent</p>
+					<p>Le code javascript fonctionnant seul et sans problème à <a href="https://jsfiddle.net/babsolune/u4obwLkj/86/">cette adresse jsfiddle</a>, j'ai plein d'hypothèses :
+						<ul>
+							<li>Il entre en conflit avec le js des types d'annonce/pagination</li>
+							<li>Il entre en conflit avec le js de phpboost (global.js)</li>
+							<li>Il ne veut pas de la boucle php qui envoie la liste des items</li>
+							<li>Il part boire un café parce que c'est l'heure de la pause, et à la machine à café il rencontre une jolie pépée et + si affinités</li>
+							<li>hypothèse de la solution mais pas encore trouvée</li>
+						</ul>
+					</p>
+					<p>Fonctionnement théorique du js :
+						<ul>
+							<li>1 - On crée la liste à insérer dans la balise nav puis on supprime la liste originale brute</li>
+							<li>
+								2 - Fonction qui liste tous les éléments qui sont succeptibles d'être un parent en fonction de l'id défini dans le data 'cat_id' et on les ordonne selon l'ordre donné par c_order
+								<ul>
+									<li>On envoie la liste des enfants dans le parent</li>
+									<li>On sort de la boucle le cat_id 0</li>
+								</ul>
+							</li>
+							<li>3 - On ajoute la class 'has-sub' à tous les li qui contiennent un ul</li>
+						</ul>
+					</p>
+				</div>
+				<div class="answer">
+					<strong></strong>
+				</div>
+			</article>
+			<footer></footer>
+		</section>
 	</body>
 </html>
