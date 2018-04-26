@@ -172,17 +172,17 @@ class SmalladsDisplayItemController extends ModuleController
 		$this->tpl->put('C_CAROUSEL', $nbr_pictures > 0);
 
 		$i = 1;
-		foreach ($carousel as $name => $url)
+		foreach ($carousel as $id => $options)
 		{
-			if(filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
+			if(filter_var($options['picture_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
 				$ptr = false;
 			else
 				$ptr = true;
 
 			$this->tpl->assign_block_vars('carousel', array(
 				'C_PTR' => $ptr,
-				'NAME' => $name,
-				'URL' => $url,
+				'DESCRIPTION' => $options['description'],
+				'U_PICTURE' => $options['picture_url'],
 			));
 			$i++;
 		}

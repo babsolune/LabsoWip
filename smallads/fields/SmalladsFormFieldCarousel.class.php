@@ -2,7 +2,7 @@
 /*##################################################
  *		      SmalladsFormFieldCarousel.class.php
  *                            -------------------
- *   begin                : March 15, 2018 
+ *   begin                : March 15, 2018
  *   copyright            : (C) 2018 Sebastien LARTIGUE
  *   email                : babsolune@phpboost.com
  *
@@ -55,12 +55,12 @@ class SmalladsFormFieldCarousel extends AbstractFormField
 		$this->assign_common_template_variables($template);
 
 		$i = 0;
-		foreach ($this->get_value() as $name => $value)
+		foreach ($this->get_value() as $id => $options)
 		{
 			$tpl->assign_block_vars('fieldelements', array(
 				'ID' => $i,
-				'VALUE' => $value,
-				'NAME' => $name
+				'PICTURE_URL' => $options['picture_url'],
+				'DESCRIPTION' => $options['description']
 			));
 			$i++;
 		}
@@ -69,15 +69,12 @@ class SmalladsFormFieldCarousel extends AbstractFormField
 		{
 			$tpl->assign_block_vars('fieldelements', array(
 				'ID' => $i,
-				'VALUE' => '',
-				'NAME' => ''
+				'PICTURE_URL' => '',
+				'DESCRIPTION' => ''
 			));
 		}
 
 		$tpl->put_all(array(
-			'NAME' => $this->get_html_id(),
-			'ID' => $this->get_html_id(),
-			'C_DISABLED' => $this->is_disabled(),
 			'MAX_INPUT' => $this->max_input,
 			'NBR_FIELDS' => $i == 0 ? 1 : $i
 		));
@@ -95,15 +92,15 @@ class SmalladsFormFieldCarousel extends AbstractFormField
 		$values = array();
 		for ($i = 0; $i < $this->max_input; $i++)
 		{
-			$field_value_id = 'field_value_' . $this->get_html_id() . '_' . $i;
-			if ($request->has_postparameter($field_value_id))
+			$field_picture_url_id = 'field_picture_url_' . $this->get_html_id() . '_' . $i;
+			if ($request->has_postparameter($field_picture_url_id))
 			{
-				$field_name_id = 'field_name_' . $this->get_html_id() . '_' . $i;
-				$field_name = $request->get_poststring($field_name_id);
-				$field_value = $request->get_poststring($field_value_id);
+				$field_description_id = 'field_description_' . $this->get_html_id() . '_' . $i;
+				$field_description = $request->get_poststring($field_description_id);
+				$field_picture_url = $request->get_poststring($field_picture_url_id);
 
-				if (!empty($field_value))
-					$values[$field_name] = $field_value;
+				if (!empty($field_picture_url))
+					$values[] = array('description' => $field_description, 'picture_url' => $field_picture_url);
 			}
 		}
 		$this->set_value($values);

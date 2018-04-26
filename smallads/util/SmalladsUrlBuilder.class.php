@@ -39,17 +39,17 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function configuration()
+	public static function categories_configuration()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/admin/config/');
+		return DispatchManager::get_url(self::$dispatcher, '/admin/categories/');
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function filters_configuration()
+	public static function items_configuration()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/admin/filters/');
+		return DispatchManager::get_url(self::$dispatcher, '/admin/items/');
 	}
 
 	/**

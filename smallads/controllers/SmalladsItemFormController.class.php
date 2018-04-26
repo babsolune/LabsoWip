@@ -373,7 +373,7 @@ class SmalladsItemFormController extends ModuleController
 		if ($this->get_smallad()->get_id() === null && $this->is_contributor_member())
 		{
 			$fieldset = new FormFieldsetHTML('contribution', LangLoader::get_message('contribution', 'user-common'));
-			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('contribution.explain', 'user-common'), MessageHelper::WARNING)->render());
+			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('smallads.form.member.contribution.explain', 'common', 'smallads'), MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
 			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '',

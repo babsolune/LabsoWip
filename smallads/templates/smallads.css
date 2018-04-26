@@ -138,7 +138,11 @@ tr.new-content td {
 	margin: 0;
 }
 
-a[data-lightbox] { text-decoration: none;}
+a[data-lightbox] {
+	text-decoration: none;
+	display: inline-block;
+	vertical-align: top;
+}
 
 /* --- Modal --- */
 .smallad-modal {
@@ -159,6 +163,7 @@ a[data-lightbox] { text-decoration: none;}
 	visibility: visible;
 	opacity: 1;
 	transition: all 0.3s ease;
+	z-index: 10;
 }
 
 /* --- email --- */
@@ -229,26 +234,27 @@ a[data-lightbox] { text-decoration: none;}
 .jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
 
 /* Category-nav */
-
-.category-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+.category-select {
+	position: relative;
+	margin: 1.618em 0;
 }
 
-.category-nav li a,
-.category-nav li span {
-  display: block;
-  padding: 10px;
+.category-select #category-nav {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 10;
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	top: 150%;
+	transition: all 0.5s ease;
 }
 
-.category-nav li:hover > a {
-  background-color: #ddd;
-}
-
-.category-nav >ul>li {
-  display: inline-block;
-  vertical-align: top;
+.category-select:hover #category-nav {
+	opacity: 1;
+	visibility: visible;
+	top: 100%;
+	transition: top 0.5s ease;
 }
 
 .category-nav .has-sub {

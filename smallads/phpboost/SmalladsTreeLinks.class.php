@@ -36,10 +36,10 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 		$lang = LangLoader::get('common', 'smallads');
 		$tree = new ModuleTreeLinks();
 
-		$config_link = new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::configuration());
-		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::configuration()));
-		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('smallads.filters.config', 'common', 'smallads'), SmalladsUrlBuilder::filters_configuration()));
-		$config_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('config.usage.terms', 'common', 'smallads'), SmalladsUrlBuilder::usage_terms_configuration()));
+		$config_link = new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::categories_configuration());
+		$config_link->add_sub_link(new AdminModuleLink($lang['config.categories.title'], SmalladsUrlBuilder::categories_configuration()));
+		$config_link->add_sub_link(new AdminModuleLink($lang['config.items.title'], SmalladsUrlBuilder::items_configuration()));
+		$config_link->add_sub_link(new AdminModuleLink($lang['config.usage.terms'], SmalladsUrlBuilder::usage_terms_configuration()));
 		$tree->add_link($config_link);
 
 		$manage_categories_link = new ModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), SmalladsUrlBuilder::manage_categories(), SmalladsAuthorizationsService::check_authorizations()->manage_categories());

@@ -38,12 +38,9 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->check_authorizations();
-
 		$this->init();
-
+		$this->check_authorizations();
 		$this->build_view($request);
-
 		return $this->generate_response();
 	}
 

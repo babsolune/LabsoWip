@@ -46,6 +46,8 @@ $lang['smallads.member.items'] = 'Mes annonces';
 $lang['smallads.published.items'] = 'Annonces publiées';
 
 $lang['smallads.category.list'] = 'Catégories';
+$lang['smallads.category.select'] = 'Choisir une catégorie : ';
+$lang['smallads.category.all'] = 'Toutes les catégories';
 $lang['smallads.select.category'] = 'Sélectionnez une catégorie';
 
 $lang['smallads.sold.item'] = 'Terminé';
@@ -57,22 +59,11 @@ $lang['smallads.contact'] = 'Contacter l\'auteur';
 $lang['smallads.contact.email'] = 'par email';
 $lang['smallads.contact.pm'] = 'par messagerie privée';
 
-//Smallads configuration
-$lang['config.title'] = 'Configuration des annonces';
-$lang['config.currency'] = 'Devise';
-$lang['config.euros'] = '€';
-$lang['config.dollars'] = '$';
-$lang['config.pounds'] = '£';
-$lang['config.items.default.sort'] = 'Ordre d\'affichage des éléments par défaut';
+//Smallads categories configuration
+$lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
-$lang['config.max.weeks.number.displayed'] = 'Limiter le nombre de semaines d\'affichage';
-$lang['config.max.weeks.number'] = 'Nombre de semaines d\'affichage';
-$lang['config.display.delay.before.delete'] = 'Delai d\'affichage avant suppression';
-$lang['config.display.delay.before.delete.desc'] = 'lorsque la case à cocher "annonce terminée" est activée (en jours)';
-$lang['config.display.email.enabled'] = 'Autoriser le lien vers l\'email de l\'auteur';
-$lang['config.display.pm.enabled'] = 'Autoriser le lien vers la messagerie privée de l\'auteur';
-$lang['config.display.phone.enabled'] = 'Autoriser l\'affichage du numéro de téléphone de l\'auteur';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
+$lang['config.items.default.sort'] = 'Ordre d\'affichage des éléments par défaut';
 $lang['config.suggestions.display'] = 'Afficher les suggestions d\'annonces';
 $lang['config.suggestions.nb'] = 'Nombre d\'annonces suggérées à afficher';
 $lang['config.module.mini.items.nb'] = 'Nombre d\'annonces à afficher dans le mini module';
@@ -85,17 +76,31 @@ $lang['config.list.type.display'] = 'Liste';
 $lang['config.table.type.display'] = 'Tableau';
 $lang['config.display.descriptions.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
 
-//Smallads Usage Terms Conditions
-$lang['config.usage.terms'] = 'Gestion des CGU';
-$lang['smallads.usage.terms'] = 'Conditions générales d\'utilisation';
-$lang['config.usage.terms.displayed'] = 'Afficher les CGU';
-
-//Smallads filters configuration
-$lang['smallads.filters.config'] = 'Gestion des filtres';
+//Smallads items configuration
+$lang['config.items.title'] = 'Configuration des annonces';
+$lang['config.currency'] = 'Devise';
+$lang['config.euros'] = '€';
+$lang['config.dollars'] = '$';
+$lang['config.pounds'] = '£';
 $lang['smallads.type.add'] = 'Ajouter des types d\'annonce';
 $lang['smallads.type.placeholder'] = 'Vente, achat, location ...';
 $lang['smallads.brand.add'] = 'Ajouter des marques';
 $lang['smallads.brand.placeholder'] = 'Nom de la marque';
+$lang['config.max.weeks.number.displayed'] = 'Limiter le nombre de semaines d\'affichage';
+$lang['config.max.weeks.number'] = 'Nombre de semaines d\'affichage';
+$lang['config.display.delay.before.delete'] = 'Delai d\'affichage avant suppression';
+$lang['config.display.delay.before.delete.desc'] = 'lorsque la case à cocher "annonce terminée" est activée (en jours)';
+$lang['config.display.contact.to.visitors'] = 'Autoriser les visiteurs à contacter les auteurs d\'annonces';
+$lang['config.display.contact.to.visitors.desc'] = 'Si non coché, seuls les membres connectés peuvent contacter les auteurs d\'annonces';
+$lang['config.display.email.enabled'] = 'Autoriser le lien vers l\'email de l\'auteur';
+$lang['config.display.pm.enabled'] = 'Autoriser le lien vers la messagerie privée de l\'auteur';
+$lang['config.display.phone.enabled'] = 'Autoriser l\'affichage du numéro de téléphone de l\'auteur';
+
+//Smallads Usage Terms Conditions
+$lang['config.usage.terms'] = 'Gestion des CGU';
+$lang['smallads.usage.terms'] = 'Conditions générales d\'utilisation';
+$lang['config.usage.terms.displayed'] = 'Afficher les CGU';
+$lang['config.usage.terms.desc'] = 'Description des CGU';
 
 //Form
 $lang['smallads.form.add'] = 'Ajouter une annonce';
@@ -125,6 +130,7 @@ $lang['smallads.form.sold.warning'] = 'L\'annonce sera supprimée après :delay 
 $lang['smallads.form.smallad.type'] = 'Type d\'annonce';
 $lang['smallads.form.smallads.types'] = 'Types d\'annonces';
 $lang['smallads.form.member.edition'] = 'Modification par l\'auteur';
+$lang['smallads.form.member.contribution.explain'] = 'Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution. La modification est possible à tout moment, tant qu\'elle est en attente d\'approbation, mais aussi lorsqu\'elle sera publiée. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.';
 $lang['smallads.form.member.edition.explain'] = 'La modification d\'une annonce n\'envoie pas de notification à l\'administrateur pour l\'instant, mais elle sera mise en attente lorsque vous la validerez.
 <br /><span class="error">Vous devez alerter un administrateur par messagerie privée de votre modification pour que celle-ci soit publiée.</span>';
 
@@ -141,7 +147,7 @@ $lang['smallads.seo.description.pending'] = 'Toutes les annonces en attente.';
 $lang['smallads.message.success.add'] = 'L\'annonce <b>:title</b> a été ajoutée';
 $lang['smallads.message.success.edit'] = 'L\'annonce <b>:title</b> a été modifiée';
 $lang['smallads.message.success.delete'] = 'L\'annonce <b>:title</b> a été supprimée';
-$lang['smallads.no.type'] = '<div class="warning">Vous devez déclarer les types d\'annonces (Vente, Achat, ...) dans la <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::filters_configuration()->relative() . '">gestion des filtres</a></div>';
+$lang['smallads.no.type'] = '<div class="warning">Vous devez déclarer les types d\'annonces (Vente, Achat, ...) dans la <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></div>';
 $lang['smallads.all.types.filters'] = 'Toutes';
 
 $lang['smallads.tel.modal'] = 'Vous devez être connecté pour voir le numéro de téléphone';

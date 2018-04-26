@@ -46,6 +46,8 @@ $lang['smallads.member.items'] = 'My ads';
 $lang['smallads.published.items'] = 'Published ads';
 
 $lang['smallads.category.list'] = 'Categories';
+$lang['smallads.category.select'] = 'Choose a category : ';
+$lang['smallads.category.all'] = 'All categories';
 $lang['smallads.select.category'] = 'Select a category';
 
 $lang['smallads.sold.item'] = 'Completed';
@@ -57,22 +59,11 @@ $lang['smallads.contact'] = 'Contact the author';
 $lang['smallads.contact.email'] = 'by email';
 $lang['smallads.contact.pm'] = 'by private message';
 
-//Smallads configuration
-$lang['config.title'] = 'Smallads configuration';
-$lang['config.currency'] = 'Currency';
-$lang['config.euros'] = '€';
-$lang['config.dollars'] = '$';
-$lang['config.pounds'] = '£';
-$lang['config.items.default.sort'] = 'Default items order display';
+//Smallads categories configuration
+$lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
-$lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';
-$lang['config.max.weeks.number'] = 'Default number of weeks of posting';
-$lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
-$lang['config.sold.delay.display.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
-$lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
-$lang['config.display.pm.enabled'] = 'Enable the link to the author\'s pm';
-$lang['config.display.phone.enabled'] = 'Enable the display to the author\'s phone number';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
+$lang['config.items.default.sort'] = 'Default items order display';
 $lang['config.suggestions.display'] = 'Display ad suggestions';
 $lang['config.suggestions.nb'] = 'Number of ads to display';
 $lang['config.module.mini.items.nb'] = 'Number of ads to display in the mini module';
@@ -85,17 +76,31 @@ $lang['config.list.type.display'] = 'List';
 $lang['config.table.type.display'] = 'Table';
 $lang['config.display.descriptions.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
 
-//Smallads Usage Terms Conditions
-$lang['config.usage.terms'] = 'Usage terms management';
-$lang['smallads.usage.terms'] = 'Usage terms';
-$lang['config.usage.terms.displayed'] = 'Display the usage terms';
-
-//Smallads filters configuration
-$lang['smallads.filters.config'] = 'Filters management';
+//Smallads items configuration
+$lang['config.items.title'] = 'Ads configuration';
+$lang['config.currency'] = 'Currency';
+$lang['config.euros'] = '€';
+$lang['config.dollars'] = '$';
+$lang['config.pounds'] = '£';
 $lang['smallads.type.add'] = 'Add types of ad';
 $lang['smallads.type.placeholder'] = 'Sale, purchase, leasing ...';
 $lang['smallads.brand.add'] = 'Add brands';
 $lang['smallads.brand.placeholder'] = 'Brand\'s name';
+$lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';
+$lang['config.max.weeks.number'] = 'Default number of weeks of posting';
+$lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
+$lang['config.sold.delay.display.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
+$lang['config.display.contact.to.visitors'] = 'Allow visitors to contact ad authors';
+$lang['config.display.contact.to.visitors.desc'] = 'If not checked, only connected members can contact ad authors';
+$lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
+$lang['config.display.pm.enabled'] = 'Enable the link to the author\'s pm';
+$lang['config.display.phone.enabled'] = 'Enable the display to the author\'s phone number';
+
+//Smallads Usage Terms Conditions
+$lang['config.usage.terms'] = 'Usage terms management';
+$lang['smallads.usage.terms'] = 'Usage terms';
+$lang['config.usage.terms.displayed'] = 'Display the usage terms';
+$lang['config.usage.terms.desc'] = 'Usage terms description';
 
 //Form
 $lang['smallads.form.add'] = 'Add an ad';
@@ -135,7 +140,7 @@ $lang['smallads.seo.description.pending'] = 'All pending ads.';
 $lang['smallads.message.success.add'] = 'The ad <b>:title</b> has been added';
 $lang['smallads.message.success.edit'] = 'The ad <b>:title</b> has been modified';
 $lang['smallads.message.success.delete'] = 'The ad <b>:title</b> has been deleted';
-$lang['smallads.no.type'] = '<div class="warning">You must declare some ad types in the <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::filters_configuration()->relative() . '">ad types management</a></div>';
+$lang['smallads.no.type'] = '<div class="warning">You must declare some ad types in the <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></div>';
 $lang['smallads.all.types.filters'] = 'All';
 
 $lang['smallads.tel.modal'] = 'You must be connected to see the phone number';

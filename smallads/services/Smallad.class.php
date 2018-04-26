@@ -46,6 +46,7 @@ class Smallad
 	private $sold;
 
 	private $author_user;
+	private $contact_level;
 	private $displayed_author_email;
 	private $enabled_author_email_customization;
 	private $custom_author_email;
@@ -538,7 +539,7 @@ class Smallad
 
 	public function is_authorized_to_edit()
 	{
-		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->write() || (SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && $this->is_published() && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))));
+		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->write() || (SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))));
 	}
 
 	public function is_authorized_to_delete()
@@ -691,6 +692,12 @@ class Smallad
 		$new_content        = new SmalladsNewContent();
 		$notation_config    = new SmalladsNotation();
 
+		if($this->config->is_user_allowed())
+			$contact_level = AppContext::get_current_user()->check_level(User::VISITOR_LEVEL);
+		else
+			$contact_level = AppContext::get_current_user()->check_level(User::MEMBER_LEVEL);
+
+
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
 			Date::get_array_tpl_vars($this->updated_date, 'updated_date'),
@@ -709,6 +716,7 @@ class Smallad
 			'C_PUBLICATION_END_DATE'           => $this->publication_end_date != null,
 			'C_UPDATED_DATE'                   => $this->updated_date != null,
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
+			'C_CONTACT_LEVEL'				   => $contact_level,
 			'C_SOLD'         				   => $this->is_sold(),
 			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
 			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
@@ -754,7 +762,7 @@ class Smallad
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'CATEGORY_IMAGE'       => $category->get_image()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::configuration()->rel() : SmalladsUrlBuilder::edit_category($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : SmalladsUrlBuilder::edit_category($category->get_id())->rel(),
 
 			//Links
 			'U_COMMENTS'    => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),

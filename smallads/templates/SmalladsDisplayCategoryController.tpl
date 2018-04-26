@@ -7,22 +7,6 @@
 	</header>
 
 	# IF C_TYPES_FILTERS #
-		# IF C_CATEGORY #
-			<nav id="category-nav" class="cssmenu cssmenu-horizontal">
-				<ul>
-					<li cat_id="0" parent_id="0" c_order="0">
-						<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
-					</li>
-					# START categories #
-						<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
-							<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
-						</li>
-					# END categories #
-				</ul>
-			</nav>
-			<script>jQuery("#category-nav").menumaker({ title: "{@smallads.category.list}", format: "multitoggle", breakpoint: 768 }); </script>
-		# ENDIF #
-
 		# IF C_CATEGORY_DESCRIPTION #
 			<div class="cat-description">
 				# IF NOT C_ROOT_CATEGORY #
@@ -36,6 +20,25 @@
 			</div>
 		# ENDIF #
 		<div class="spacer"></div>
+
+		# IF C_CATEGORY #
+			<div class="category-select">
+				<h6>{@smallads.category.select}<span class="category-selected">{CATEGORY_NAME}</span> <i class="fa fa-caret-down fa-fw"></i></h6>
+				<nav id="category-nav" class="cssmenu cssmenu-static">
+					<ul>
+						<li cat_id="0" parent_id="0" c_order="0">
+							<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
+						</li>
+						# START categories #
+							<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
+								<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
+							</li>
+						# END categories #
+					</ul>
+				</nav>
+				<script>jQuery("#category-nav").menumaker({ title: "{@smallads.category.list}", format: "multitoggle", breakpoint: 768 }); </script>
+			</div>
+		# ENDIF #
 
 		# IF C_NO_ITEM_AVAILABLE #
 			# IF NOT C_HIDE_NO_ITEM_MESSAGE #
@@ -167,7 +170,8 @@
 							# IF items.C_SOLD # <div class="sold-item"><span>{@smallads.sold.item}</span></div># ENDIF #
 							<header>
 								<h2>
-									<span class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</span> - <a itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
+									<p class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</p>
+									<a itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
 									<span class="actions">
 										# IF items.C_EDIT #
 											<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
@@ -252,10 +256,6 @@
 			itemPath: '.list-item',
 			panelPath: '.jplist-panel'
 		});
-	});
-</script>
-<script>
-	jQuery('document').ready(function(){
 
 		jQuery('#category-nav').append(CreatChild(0)).find('ul:first').remove();
 		function CreatChild(id){
@@ -273,5 +273,8 @@
 		}
 
 		jQuery('li:not([cat_id=0])').has('ul').addClass('has-sub');
+
+		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all}');
 	});
+
 </script>

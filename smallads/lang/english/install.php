@@ -40,8 +40,8 @@ $lang['default.smallad.description'] = '';
 $lang['default.smallad.contents'] = 'This first ad will give you some simple tips to take control of this module.
 <br /><br />
 <ul class="formatter-ul">
-	<li class="formatter-li"> To configure or customize your module, go into the <a href="' . SmalladsUrlBuilder::configuration()->relative() . '">module configuration</a></li>
-	<li class="formatter-li"> To configure or customize the filters, go into the <a href="' . SmalladsUrlBuilder::filters_configuration()->relative() . '">module filters administration</a></li>
+	<li class="formatter-li"> To configure or customize your module, go into the <a href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">module configuration</a></li>
+	<li class="formatter-li"> To configure or customize the filters, go into the <a href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">module filters administration</a></li>
 	<li class="formatter-li"> To configure or customize the terms and conditions page, go into the <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">module T&C administration</a></li>
 	<li class="formatter-li"> To create categories, <a href="' . SmalladsUrlBuilder::add_category()->relative() . '">clic here</a></li>
 	<li class="formatter-li"> To create announces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">clic here</a></li>

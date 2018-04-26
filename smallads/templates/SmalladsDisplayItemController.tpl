@@ -9,7 +9,8 @@
 	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<header>
 			<h2>
-				<span itemprop="name">{SMALLAD_TYPE} - {TITLE}</span># IF C_SOLD # <span class="sold-article">- {@smallads.sold.item}</span># ENDIF #
+				<p>{SMALLAD_TYPE}# IF C_SOLD # - <span class="sold-article">- {@smallads.sold.item}</span># ENDIF #</p>
+				{TITLE}
 				<span class="actions">
 					# IF NOT C_SOLD #
 						# IF C_EDIT #
@@ -57,7 +58,7 @@
 								<a href="#email-modal" class="email-modal-btn"><i class="fa fa-fw fa-at"></i></a>
 								<div id="email-modal" class="smallad-modal">
 									<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
-									# IF IS_USER_CONNECTED #
+									# IF C_CONTACT_LEVEL #
 										<div class="email-form">
 											# INCLUDE MSG #
 											# IF NOT C_SMALLAD_EMAIL_SENT #
@@ -74,7 +75,7 @@
 								 |<a href="#tel-modal" class="tel-modal-btn"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
 								<div id="tel-modal" class="smallad-modal">
 									<a href="#tel-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
-									# IF IS_USER_CONNECTED #
+									# IF C_CONTACT_LEVEL #
 										<div class="tel-form is-connected">{AUTHOR_PHONE}</div>
 									# ELSE #
 										<div class="warning is-not-connected">{@smallads.tel.modal}</div>
@@ -103,10 +104,10 @@
 
 			# IF C_CAROUSEL #
 			 	# START carousel #
-					<a href="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.URL}" title="{carousel.NAME}" data-lightbox="formatter" data-rel="lightcase:collection">
+					<a href="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" title="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<figure class="carousel-thumbnail">
-							<img src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.URL}" alt="{carousel.NAME}" />
-							<figcaption>{carousel.NAME}</figcaption>
+							<img src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
+							<figcaption>{carousel.DESCRIPTION}</figcaption>
 						</figure>
 					</a>
 			 	# END carousel #

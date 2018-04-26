@@ -40,11 +40,8 @@ class SmalladsDisplayCategoryController extends ModuleController
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->init();
-
 		$this->check_authorizations();
-
 		$this->build_view();
-
 		return $this->generate_response();
 	}
 
@@ -78,11 +75,14 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function build_category_list()
 	{
+		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
+
 		$result_cat = PersistenceContext::get_querier()->select('SELECT smallads_cat.*
 		FROM '. SmalladsSetup::$smallads_cats_table .' smallads_cat
-		WHERE special_authorizations = 0
-		ORDER BY id_parent ASC, c_order ASC'
-		);
+		WHERE smallads_cat.id IN :authorized_categories
+		ORDER BY id', array(
+			'authorized_categories' => $authorized_categories
+		));
 
 		while ($row_cat = $result_cat->fetch())
 		{
@@ -159,7 +159,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'ID_CATEGORY'            => $this->get_category()->get_id(),
-			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::configuration()->rel() : SmalladsUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
+			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : SmalladsUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
 			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 

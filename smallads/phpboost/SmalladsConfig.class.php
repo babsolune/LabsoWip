@@ -31,56 +31,79 @@
 
 class SmalladsConfig extends AbstractConfigData
 {
-	const CURRENCY = 'currency';
-	const EUROS = '€';
-	const DOLLARS = '$';
-	const POUNDS = '£';
-
+	// Categories
+	const ITEMS_DEFAULT_SORT_FIELD = 'items_default_sort_field';
+	const ITEMS_DEFAULT_SORT_MODE = 'items_default_sort_mode';
 	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
 	const COLS_NUMBER_DISPLAYED_PER_LINE = 'cols_number_displayed_per_line';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
-	const MAX_WEEKS_NUMBER_DISPLAYED = 'max_weeks_number_displayed';
-	const MAX_WEEKS_NUMBER = 'max_weeks_number';
-	const DISPLAY_DELAY_BEFORE_DELETE = 'display_delay_before_delete';
-	const DISPLAY_EMAIL_ENABLED = 'display_email_enabled';
-	const DISPLAY_PM_ENABLED = 'display_pm_enabled';
-	const DISPLAY_PHONE_ENABLED = 'display_phone_enabled';
-
 	const ENABLED_CATS_ICON = 'enabled_cats_icon';
-	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
 	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
-	const UPDATED_DATE_DISPLAYED = 'updated_date_displayed';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const ENABLED_ITEMS_SUGGESTIONS = 'enabled_items_suggestions';
 	const SUGGESTED_ITEMS_NB = 'suggested_items_nb';
-	const MODULE_MINI_ITEMS_NB = 'module_mini_items_nb';
+	const MINI_MODULE_ITEMS_NB = 'module_mini_items_nb';
 	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
-
-	const ITEMS_DEFAULT_SORT_FIELD = 'items_default_sort_field';
-	const ITEMS_DEFAULT_SORT_MODE = 'items_default_sort_mode';
 	const DISPLAY_TYPE = 'display_type';
 	const MOSAIC_DISPLAY = 'mosaic';
 	const LIST_DISPLAY = 'list';
 	const TABLE_DISPLAY = 'table';
+	const AUTHORIZATIONS = 'authorizations';
 
+	// Items
+	const CURRENCY = 'currency';
+	const EUROS = '€';
+	const DOLLARS = '$';
+	const POUNDS = '£';
+	const SMALLAD_TYPES = 'smallad_types';
+	const MAX_WEEKS_NUMBER_DISPLAYED = 'max_weeks_number_displayed';
+	const MAX_WEEKS_NUMBER = 'max_weeks_number';
+	const DISPLAY_DELAY_BEFORE_DELETE = 'display_delay_before_delete';
+	const CONTACT_LEVEL = 'contact_level';
+	const DISPLAY_EMAIL_ENABLED = 'display_email_enabled';
+	const DISPLAY_PM_ENABLED = 'display_pm_enabled';
+	const DISPLAY_PHONE_ENABLED = 'display_phone_enabled';
+	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
+	const BRANDS = 'brands';
+	const DEFERRED_OPERATIONS = 'deferred_operations';
+
+	// Usage terms
 	const USAGE_TERMS_ENABLED = 'usage_terms_enabled';
 	const USAGE_TERMS = 'usage_terms';
 
-	const DEFERRED_OPERATIONS = 'deferred_operations';
-
-	const SMALLAD_TYPES = 'smallad_types';
-	const BRANDS = 'brands';
-
-	const AUTHORIZATIONS = 'authorizations';
-
-	public function get_currency()
+	// categories
+	public function get_items_default_sort_field()
 	{
-		return $this->get_property(self::CURRENCY);
+		return $this->get_property(self::ITEMS_DEFAULT_SORT_FIELD);
 	}
 
-	public function set_currency($value)
+	public function set_items_default_sort_field($value)
 	{
-		$this->set_property(self::CURRENCY, $value);
+		$this->set_property(self::ITEMS_DEFAULT_SORT_FIELD, $value);
+	}
+
+	public function get_items_default_sort_mode()
+	{
+		return $this->get_property(self::ITEMS_DEFAULT_SORT_MODE);
+	}
+
+	public function set_items_default_sort_mode($value)
+	{
+		$this->set_property(self::ITEMS_DEFAULT_SORT_MODE, $value);
+	}
+
+	public function enable_sort_filters()
+	{
+		$this->set_property(self::ENABLED_SORT_FILTERS, true);
+	}
+
+	public function disable_sort_filters() {
+		$this->set_property(self::ENABLED_SORT_FILTERS, false);
+	}
+
+	public function are_sort_filters_enabled()
+	{
+		return $this->get_property(self::ENABLED_SORT_FILTERS);
 	}
 
 	public function get_items_number_per_page()
@@ -111,6 +134,126 @@ class SmalladsConfig extends AbstractConfigData
 	public function set_characters_number_to_cut($number)
 	{
 		$this->set_property(self::CHARACTERS_NUMBER_TO_CUT, $number);
+	}
+
+	public function enable_cats_icon()
+	{
+		$this->set_property(self::ENABLED_CATS_ICON, true);
+	}
+
+	public function disable_cats_icon() {
+		$this->set_property(self::ENABLED_CATS_ICON, false);
+	}
+
+	public function are_cat_icons_enabled()
+	{
+		return $this->get_property(self::ENABLED_CATS_ICON);
+	}
+
+	public function display_descriptions_to_guests()
+	{
+		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, true);
+	}
+
+	public function hide_descriptions_to_guests()
+	{
+		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, false);
+	}
+
+	public function are_descriptions_displayed_to_guests()
+	{
+		return $this->get_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS);
+	}
+
+	public function get_root_category_description()
+	{
+		return $this->get_property(self::ROOT_CATEGORY_DESCRIPTION);
+	}
+
+	public function set_root_category_description($value)
+	{
+		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
+	}
+
+	public function get_enabled_items_suggestions()
+	{
+		return $this->get_property(self::ENABLED_ITEMS_SUGGESTIONS);
+	}
+
+	public function set_enabled_items_suggestions($enabled_items_suggestions)
+	{
+		$this->set_property(self::ENABLED_ITEMS_SUGGESTIONS, $enabled_items_suggestions);
+	}
+
+	public function get_suggested_items_nb()
+	{
+		return $this->get_property(self::SUGGESTED_ITEMS_NB);
+	}
+
+	public function set_suggested_items_nb($number)
+	{
+		$this->set_property(self::SUGGESTED_ITEMS_NB, $number);
+	}
+
+	public function get_module_mini_items_nb()
+	{
+		return $this->get_property(self::MINI_MODULE_ITEMS_NB);
+	}
+
+	public function set_module_mini_items_nb($number)
+	{
+		$this->set_property(self::MINI_MODULE_ITEMS_NB, $number);
+	}
+
+	public function get_enabled_navigation_links()
+	{
+		return $this->get_property(self::ENABLED_NAVIGATION_LINKS);
+	}
+
+	public function set_enabled_navigation_links($enabled_navigation_links)
+	{
+		$this->set_property(self::ENABLED_NAVIGATION_LINKS, $enabled_navigation_links);
+	}
+
+	public function get_smallad_types()
+	{
+		return $this->get_property(self::SMALLAD_TYPES);
+	}
+
+	public function set_smallad_types(Array $smallad_types)
+	{
+		$this->set_property(self::SMALLAD_TYPES, $smallad_types);
+	}
+
+	public function get_authorizations()
+	{
+		return $this->get_property(self::AUTHORIZATIONS);
+	}
+
+	public function set_authorizations(Array $array)
+	{
+		$this->set_property(self::AUTHORIZATIONS, $array);
+	}
+
+	// Items
+	public function get_currency()
+	{
+		return $this->get_property(self::CURRENCY);
+	}
+
+	public function set_currency($value)
+	{
+		$this->set_property(self::CURRENCY, $value);
+	}
+
+	public function get_display_type()
+	{
+		return $this->get_property(self::DISPLAY_TYPE);
+	}
+
+	public function set_display_type($display_type)
+	{
+		$this->set_property(self::DISPLAY_TYPE, $display_type);
 	}
 
 	public function display_max_weeks_number()
@@ -148,29 +291,19 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::DISPLAY_DELAY_BEFORE_DELETE, $delay);
 	}
 
-	public function display_usage_terms()
+	public function visitor_allowed_to_contact()
 	{
-		$this->set_property(self::USAGE_TERMS_ENABLED, true);
+		$this->set_property(self::CONTACT_LEVEL, true);
 	}
 
-	public function hide_usage_terms()
+	public function visitor_not_allowed_to_contact()
 	{
-		$this->set_property(self::USAGE_TERMS_ENABLED, false);
+		$this->set_property(self::CONTACT_LEVEL, false);
 	}
 
-	public function are_usage_terms_displayed()
+	public function is_user_allowed()
 	{
-		return $this->get_property(self::USAGE_TERMS_ENABLED);
-	}
-
-	public function get_usage_terms()
-	{
-		return $this->get_property(self::USAGE_TERMS);
-	}
-
-	public function set_usage_terms($value)
-	{
-		$this->set_property(self::USAGE_TERMS, $value);
+		return $this->get_property(self::CONTACT_LEVEL);
 	}
 
 	public function display_email()
@@ -218,147 +351,14 @@ class SmalladsConfig extends AbstractConfigData
 		return $this->get_property(self::DISPLAY_PHONE_ENABLED);
 	}
 
-	public function get_items_default_sort_field()
+	public function get_brands()
 	{
-		return $this->get_property(self::ITEMS_DEFAULT_SORT_FIELD);
+		return $this->get_property(self::BRANDS);
 	}
 
-	public function set_items_default_sort_field($value)
+	public function set_brands(Array $brands)
 	{
-		$this->set_property(self::ITEMS_DEFAULT_SORT_FIELD, $value);
-	}
-
-	public function get_items_default_sort_mode()
-	{
-		return $this->get_property(self::ITEMS_DEFAULT_SORT_MODE);
-	}
-
-	public function set_items_default_sort_mode($value)
-	{
-		$this->set_property(self::ITEMS_DEFAULT_SORT_MODE, $value);
-	}
-
-	public function get_display_type()
-	{
-		return $this->get_property(self::DISPLAY_TYPE);
-	}
-
-	public function set_display_type($display_type)
-	{
-		$this->set_property(self::DISPLAY_TYPE, $display_type);
-	}
-
-	public function display_descriptions_to_guests()
-	{
-		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, true);
-	}
-
-	public function hide_descriptions_to_guests()
-	{
-		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, false);
-	}
-
-	public function are_descriptions_displayed_to_guests()
-	{
-		return $this->get_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS);
-	}
-
-	public function enable_cats_icon()
-	{
-		$this->set_property(self::ENABLED_CATS_ICON, true);
-	}
-
-	public function disable_cats_icon() {
-		$this->set_property(self::ENABLED_CATS_ICON, false);
-	}
-
-	public function are_cat_icons_enabled()
-	{
-		return $this->get_property(self::ENABLED_CATS_ICON);
-	}
-
-	public function enable_sort_filters()
-	{
-		$this->set_property(self::ENABLED_SORT_FILTERS, true);
-	}
-
-	public function disable_sort_filters() {
-		$this->set_property(self::ENABLED_SORT_FILTERS, false);
-	}
-
-	public function are_sort_filters_enabled()
-	{
-		return $this->get_property(self::ENABLED_SORT_FILTERS);
-	}
-
-	public function get_updated_date_displayed()
-	{
-		return $this->get_property(self::UPDATED_DATE_DISPLAYED);
-	}
-
-	public function set_updated_date_displayed($updated_date_displayed)
-	{
-		$this->set_property(self::UPDATED_DATE_DISPLAYED, $updated_date_displayed);
-	}
-
-	public function get_root_category_description()
-	{
-		return $this->get_property(self::ROOT_CATEGORY_DESCRIPTION);
-	}
-
-	public function set_root_category_description($value)
-	{
-		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
-	}
-
-	public function get_enabled_items_suggestions()
-	{
-		return $this->get_property(self::ENABLED_ITEMS_SUGGESTIONS);
-	}
-
-	public function set_enabled_items_suggestions($enabled_items_suggestions)
-	{
-		$this->set_property(self::ENABLED_ITEMS_SUGGESTIONS, $enabled_items_suggestions);
-	}
-
-	public function get_suggested_items_nb()
-	{
-		return $this->get_property(self::SUGGESTED_ITEMS_NB);
-	}
-
-	public function set_suggested_items_nb($number)
-	{
-		$this->set_property(self::SUGGESTED_ITEMS_NB, $number);
-	}
-
-	public function get_module_mini_items_nb()
-	{
-		return $this->get_property(self::MODULE_MINI_ITEMS_NB);
-	}
-
-	public function set_module_mini_items_nb($number)
-	{
-		$this->set_property(self::MODULE_MINI_ITEMS_NB, $number);
-	}
-
-	public function get_enabled_navigation_links()
-	{
-		return $this->get_property(self::ENABLED_NAVIGATION_LINKS);
-	}
-
-	public function set_enabled_navigation_links($enabled_navigation_links)
-	{
-		$this->set_property(self::ENABLED_NAVIGATION_LINKS, $enabled_navigation_links);
-	}
-
-	public function get_authorizations()
-	{
-		return $this->get_property(self::AUTHORIZATIONS);
-	}
-
-	public function set_authorizations(Array $array)
-	{
-		$this->set_property(self::AUTHORIZATIONS, $array);
+		$this->set_property(self::BRANDS, $brands);
 	}
 
 	public function get_deferred_operations()
@@ -371,24 +371,30 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::DEFERRED_OPERATIONS, $deferred_operations);
 	}
 
-	public function get_smallad_types()
+	// Usage terms
+	public function display_usage_terms()
 	{
-		return $this->get_property(self::SMALLAD_TYPES);
+		$this->set_property(self::USAGE_TERMS_ENABLED, true);
 	}
 
-	public function set_smallad_types(Array $smallad_types)
+	public function hide_usage_terms()
 	{
-		$this->set_property(self::SMALLAD_TYPES, $smallad_types);
+		$this->set_property(self::USAGE_TERMS_ENABLED, false);
 	}
 
-	public function get_brands()
+	public function are_usage_terms_displayed()
 	{
-		return $this->get_property(self::BRANDS);
+		return $this->get_property(self::USAGE_TERMS_ENABLED);
 	}
 
-	public function set_brands(Array $brands)
+	public function get_usage_terms()
 	{
-		$this->set_property(self::BRANDS, $brands);
+		return $this->get_property(self::USAGE_TERMS);
+	}
+
+	public function set_usage_terms($value)
+	{
+		$this->set_property(self::USAGE_TERMS, $value);
 	}
 
 	public function get_default_values()
@@ -401,6 +407,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::CHARACTERS_NUMBER_TO_CUT => 128,
 			self::ITEMS_DEFAULT_SORT_FIELD => Smallad::SORT_DATE,
 			self::ITEMS_DEFAULT_SORT_MODE => Smallad::DESC,
+			self::CONTACT_LEVEL => true,
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
 			self::DISPLAY_DELAY_BEFORE_DELETE => 2,
@@ -410,10 +417,9 @@ class SmalladsConfig extends AbstractConfigData
 			self::ENABLED_CATS_ICON => false,
 			self::ENABLED_SORT_FILTERS => true,
 			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
-			self::UPDATED_DATE_DISPLAYED => false,
 			self::ENABLED_ITEMS_SUGGESTIONS => false,
 			self::SUGGESTED_ITEMS_NB => 4,
-			self::MODULE_MINI_ITEMS_NB => 5,
+			self::MINI_MODULE_ITEMS_NB => 5,
 			self::ENABLED_NAVIGATION_LINKS => false,
 			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
