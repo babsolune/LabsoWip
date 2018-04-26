@@ -1,5 +1,8 @@
 # pbt-builder
 Repository for phpboost's 5.1 modules before they work.
 
+## NetworkLinks
+Mini module to get a simple list of links with picture thumbnail or font icon thumbnail
+
 ## Smallads
-To get the categories list in a select, replace both files of the categories controller and rename.
+Module to display smallads with contribution and fine-tuning permissions
