@@ -41,7 +41,7 @@ class SmalladsUrlBuilder
 	 */
 	public static function categories_configuration()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/admin/categories/');
+		return DispatchManager::get_url(self::$dispatcher, '/admin/display/');
 	}
 
 	/**
