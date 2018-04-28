@@ -1,0 +1,33 @@
+/* #####  #   #  #####  #   #  #####  #####  #      #####  #####
+/* #      #   #  #   #  ##  #  #      #      #      #   #  #
+/* #      #####  #####  # # #  #  ##  #####  #      #   #  #  ##
+/* #      #   #  #   #  #  ##  #   #  #      #      #   #  #   #
+/* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
+*/
+
+0.0.2 28/04/2018
+-------------------------------------------------------------------------------
+Contrôle des rôles dans la configuration
+Suppression du choix d'affichage => table only
+Amélioration du js pour l'ordre de tri des catégories qui prend en compte l'ordre du manager de catégories
+Jquery sur le n° de téléphone caché/montré
+Config ajout de l'options montrer/cacher l'avatar des membres
+Email gérer par formulaire
+
+0.0.1 - release 26/04/2018
+-------------------------------------------------------------------------------
+Staff est un organigramme qui permet de gérer une liste de membre.
+
+    Home = toutes les catégories + tous les membres avec un Jquery pour révéler/cacher (par défaut caché)
+    Catégories
+
+    Fiche membre :
+        Nom = nom du membre
+        Prénom = prénom du membre
+        Catégorie
+        rôle
+        email
+        avatar
+        responsable
+        description
+        publication = permet de gérer l'ordre d'affichage dans la table membre
