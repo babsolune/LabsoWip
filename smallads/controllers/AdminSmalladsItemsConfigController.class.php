@@ -171,10 +171,6 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 	private function save()
 	{
 		$this->config->set_currency($this->form->get_value('currency')->get_raw_value());
-		if ($this->form->get_value('display_sort_filters'))
-			$this->config->enable_sort_filters();
-		else
-			$this->config->disable_sort_filters();
 
 		$this->config->set_smallad_types($this->form->get_value('smallad_type'));
 		// $this->config->set_brands($this->form->get_value('smallad_brand'));
