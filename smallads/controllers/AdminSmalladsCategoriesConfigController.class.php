@@ -181,6 +181,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		// $items_default_sort = explode('-', $items_default_sort);
 		// $this->config->set_items_default_sort_field($items_default_sort[0]);
 		// $this->config->set_items_default_sort_mode(TextHelper::strtolower($items_default_sort[1]));
+		
 		if ($this->form->get_value('display_sort_filters'))
 			$this->config->enable_sort_filters();
 		else

@@ -113,7 +113,7 @@ tr.new-content td {
 	text-align: center;
 }
 
-['navigation-link-'] a {text-decoration: none;}
+[class*='navigation-link-'] a {text-decoration: none;}
 
 .navigation-link-previous {float: left;}
 .navigation-link-next {float: right;}
