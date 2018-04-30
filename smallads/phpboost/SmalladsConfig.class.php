@@ -42,7 +42,6 @@ class SmalladsConfig extends AbstractConfigData
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const ENABLED_ITEMS_SUGGESTIONS = 'enabled_items_suggestions';
 	const SUGGESTED_ITEMS_NB = 'suggested_items_nb';
-	const MINI_MODULE_ITEMS_NB = 'module_mini_items_nb';
 	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
 	const DISPLAY_TYPE = 'display_type';
 	const MOSAIC_DISPLAY = 'mosaic';
@@ -66,6 +65,13 @@ class SmalladsConfig extends AbstractConfigData
 	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
 	const BRANDS = 'brands';
 	const DEFERRED_OPERATIONS = 'deferred_operations';
+
+	// Mini Menu
+	const MINI_MENU_ITEMS_NB = 'mini_menu_items_nb';
+	const MINI_MENU_ANIMATION_SPEED = 'mini_menu_animation_speed';
+	const MINI_MENU_AUTOPLAY = 'mini_menu_autoplay';
+	const MINI_MENU_AUTOPLAY_SPEED = 'mini_menu_autoplay_speed';
+	const MINI_MENU_AUTOPLAY_HOVER = 'mini_menu_autoplay_hover';
 
 	// Usage terms
 	const USAGE_TERMS_ENABLED = 'usage_terms_enabled';
@@ -193,16 +199,6 @@ class SmalladsConfig extends AbstractConfigData
 	public function set_suggested_items_nb($number)
 	{
 		$this->set_property(self::SUGGESTED_ITEMS_NB, $number);
-	}
-
-	public function get_module_mini_items_nb()
-	{
-		return $this->get_property(self::MINI_MODULE_ITEMS_NB);
-	}
-
-	public function set_module_mini_items_nb($number)
-	{
-		$this->set_property(self::MINI_MODULE_ITEMS_NB, $number);
 	}
 
 	public function get_enabled_navigation_links()
@@ -371,6 +367,67 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::DEFERRED_OPERATIONS, $deferred_operations);
 	}
 
+	// Mini Menu
+	public function get_mini_menu_items_nb()
+	{
+		return $this->get_property(self::MINI_MENU_ITEMS_NB);
+	}
+
+	public function set_mini_menu_items_nb($number)
+	{
+		$this->set_property(self::MINI_MENU_ITEMS_NB, $number);
+	}
+
+	public function get_mini_menu_animation_speed()
+	{
+		return $this->get_property(self::MINI_MENU_ANIMATION_SPEED);
+	}
+
+	public function set_mini_menu_animation_speed($number)
+	{
+		$this->set_property(self::MINI_MENU_ANIMATION_SPEED, $number);
+	}
+
+	public function play_mini_menu_autoplay()
+	{
+		$this->set_property(self::MINI_MENU_AUTOPLAY, true);
+	}
+
+	public function stop_mini_menu_autoplay()
+	{
+		$this->set_property(self::MINI_MENU_AUTOPLAY, false);
+	}
+
+	public function is_slideshow_autoplayed()
+	{
+		return $this->get_property(self::MINI_MENU_AUTOPLAY);
+	}
+
+	public function get_mini_menu_autoplay_speed()
+	{
+		return $this->get_property(self::MINI_MENU_AUTOPLAY_SPEED);
+	}
+
+	public function set_mini_menu_autoplay_speed($number)
+	{
+		$this->set_property(self::MINI_MENU_AUTOPLAY_SPEED, $number);
+	}
+
+	public function play_mini_menu_autoplay_hover()
+	{
+		$this->set_property(self::MINI_MENU_AUTOPLAY_HOVER, true);
+	}
+
+	public function stop_mini_menu_autoplay_hover()
+	{
+		$this->set_property(self::MINI_MENU_AUTOPLAY_HOVER, false);
+	}
+
+	public function is_slideshow_hover_enabled()
+	{
+		return $this->get_property(self::MINI_MENU_AUTOPLAY_HOVER);
+	}
+
 	// Usage terms
 	public function display_usage_terms()
 	{
@@ -419,7 +476,6 @@ class SmalladsConfig extends AbstractConfigData
 			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
 			self::ENABLED_ITEMS_SUGGESTIONS => false,
 			self::SUGGESTED_ITEMS_NB => 4,
-			self::MINI_MODULE_ITEMS_NB => 5,
 			self::ENABLED_NAVIGATION_LINKS => false,
 			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
@@ -427,6 +483,15 @@ class SmalladsConfig extends AbstractConfigData
 			self::DEFERRED_OPERATIONS => array(),
 			self::SMALLAD_TYPES => array($config_lang['default.smallad.type']),
 			self::BRANDS => array(),
+
+			// Mini Menu
+			self::MINI_MENU_ITEMS_NB => 5,
+			self::MINI_MENU_ANIMATION_SPEED => '1000',
+			self::MINI_MENU_AUTOPLAY => true,
+			self::MINI_MENU_AUTOPLAY_SPEED => '3000',
+			self::MINI_MENU_AUTOPLAY_HOVER => true,
+
+			// Usage Terms
 			self::USAGE_TERMS_ENABLED => false,
 			self::USAGE_TERMS => LangLoader::get_message('config.usage.terms.conditions', 'install', 'smallads'),
 		);

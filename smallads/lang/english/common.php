@@ -64,11 +64,6 @@ $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
 $lang['config.items.default.sort'] = 'Default items order display';
-$lang['config.suggestions.display'] = 'Display ad suggestions';
-$lang['config.suggestions.nb'] = 'Number of ads to display';
-$lang['config.module.mini.items.nb'] = 'Number of ads to display in the mini module';
-$lang['config.navigation.links.display'] = 'Display links to related ads';
-$lang['config.navigation.links.display.desc'] = 'Previous link, next link';
 $lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s description';
 $lang['config.display.type'] = 'Display type';
 $lang['config.mosaic.type.display'] = 'Mosaic';
@@ -95,6 +90,19 @@ $lang['config.display.contact.to.visitors.desc'] = 'If not checked, only connect
 $lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
 $lang['config.display.pm.enabled'] = 'Enable the link to the author\'s pm';
 $lang['config.display.phone.enabled'] = 'Enable the display to the author\'s phone number';
+$lang['config.suggestions.display'] = 'Display ad suggestions';
+$lang['config.suggestions.nb'] = 'Number of ads to display';
+$lang['config.related.links.display'] = 'Display related links to ads';
+$lang['config.related.links.display.desc'] = 'Previous link, next link';
+
+// Smallads mini menu configuration
+$lang['config.mini.title'] = 'Mini menu configuration';
+$lang['config.mini.items.nb'] = 'Ads number to display mini menu';
+$lang['config.mini.speed.desc'] = 'in milisecondes';
+$lang['config.mini.animation.speed'] = 'Speed scrolling';
+$lang['config.mini.autoplay'] = 'Enable autoplay';
+$lang['config.mini.autoplay.speed'] = 'Time between 2 scrolls';
+$lang['config.mini.autoplay.hover'] = 'Enable pause on slideshow hover';
 
 //Smallads Usage Terms Conditions
 $lang['config.usage.terms'] = 'Usage terms management';
@@ -109,7 +117,7 @@ $lang['smallads.form.description'] = 'Description (maximum :number characters)';
 $lang['smallads.form.enabled.description'] = 'Enable ad description';
 $lang['smallads.form.enabled.description.description'] = 'or let PHPBoost cut the content at :number characters';
 $lang['smallads.form.price'] = 'Price';
-$lang['smallads.form.price.desc'] = 'if it equals 0, it wont be displayed.<br />Use a comma for decimals.';
+$lang['smallads.form.price.desc'] = 'Leave to 0 to not display the price.<br />Use a comma for decimals.';
 $lang['smallads.form.carousel'] = 'Add a picture carousel';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Picture address';

@@ -64,11 +64,6 @@ $lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
 $lang['config.items.default.sort'] = 'Ordre d\'affichage des éléments par défaut';
-$lang['config.suggestions.display'] = 'Afficher les suggestions d\'annonces';
-$lang['config.suggestions.nb'] = 'Nombre d\'annonces suggérées à afficher';
-$lang['config.module.mini.items.nb'] = 'Nombre d\'annonces à afficher dans le mini module';
-$lang['config.navigation.links.display'] = 'Afficher la navigation des annonces connexes';
-$lang['config.navigation.links.display.desc'] = 'Lien précédent, lien suivant';
 $lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le condensé de l\'annonce';
 $lang['config.display.type'] = 'Type d\'affichage des annonces';
 $lang['config.mosaic.type.display'] = 'Mosaïque';
@@ -95,6 +90,19 @@ $lang['config.display.contact.to.visitors.desc'] = 'Si non coché, seuls les mem
 $lang['config.display.email.enabled'] = 'Autoriser le lien vers l\'email de l\'auteur';
 $lang['config.display.pm.enabled'] = 'Autoriser le lien vers la messagerie privée de l\'auteur';
 $lang['config.display.phone.enabled'] = 'Autoriser l\'affichage du numéro de téléphone de l\'auteur';
+$lang['config.suggestions.display'] = 'Afficher les suggestions d\'annonces';
+$lang['config.suggestions.nb'] = 'Nombre d\'annonces suggérées à afficher';
+$lang['config.related.links.display'] = 'Afficher les liens associés aux annonces';
+$lang['config.related.links.display.desc'] = 'Lien précédent, lien suivant';
+
+//Smallads mini Menu configuration
+$lang['config.mini.title'] = 'Configuration du mini menu';
+$lang['config.mini.items.nb'] = 'Nombre d\'annonces à afficher dans le mini menu';
+$lang['config.mini.speed.desc'] = 'en milisecondes';
+$lang['config.mini.animation.speed'] = 'Vitesse de défilement';
+$lang['config.mini.autoplay'] = 'Autoriser le défilement automatique';
+$lang['config.mini.autoplay.speed'] = 'Temps entre chaque défilement';
+$lang['config.mini.autoplay.hover'] = 'Autoriser la pause au survol du carrousel';
 
 //Smallads Usage Terms Conditions
 $lang['config.usage.terms'] = 'Gestion des CGU';
@@ -109,7 +117,7 @@ $lang['smallads.form.description'] = 'Description (maximum :number caractères)'
 $lang['smallads.form.enabled.description'] = 'Activer le condensé de l\'annonce';
 $lang['smallads.form.enabled.description.description'] = 'ou laissez PHPBoost couper le contenu à :number caractères';
 $lang['smallads.form.price'] = 'Prix';
-$lang['smallads.form.price.desc'] = 's\'il est égal à 0, il ne sera pas affiché<br />Mettez une virgule pour les décimales';
+$lang['smallads.form.price.desc'] = 'Laisser à 0 pour ne pas afficher le prix.<br />Utiliser une virgule pour les décimales';
 $lang['smallads.form.carousel'] = 'Ajouter un carrousel d\'images';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Adresse image';

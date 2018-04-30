@@ -63,7 +63,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('suggested_items_nb')->set_hidden(!$this->config->get_enabled_items_suggestions());
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
@@ -103,30 +102,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_icon_cats', $this->lang['config.cats.icon.display'], $this->config->are_cat_icons_enabled()
-		));
-
-		$fieldset->add_field(new FormFieldNumberEditor('module_mini_items_nb', $this->lang['config.module.mini.items.nb'], $this->config->get_module_mini_items_nb(),
-			array('min' => 1, 'max' => 10,),
-			array(new FormFieldConstraintIntegerRange(1, 10))
-		));
-
-		$fieldset->add_field(new FormFieldCheckbox('enabled_items_suggestions', $this->lang['config.suggestions.display'], $this->config->get_enabled_items_suggestions(),
-			array('events' => array('click' => '
-				if (HTMLForms.getField("enabled_items_suggestions").getValue()) {
-					HTMLForms.getField("suggested_items_nb").enable();
-				} else {
-					HTMLForms.getField("suggested_items_nb").disable();
-				}
-			'))
-		));
-
-		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['config.suggestions.nb'], $this->config->get_suggested_items_nb(),
-			array('min' => 1, 'max' => 10, 'hidden' => !$this->config->get_enabled_items_suggestions()),
-			array(new FormFieldConstraintIntegerRange(1, 10))
-		));
-
-		$fieldset->add_field(new FormFieldCheckbox('enabled_navigation_links', $this->lang['config.navigation.links.display'], $this->config->get_enabled_navigation_links(),
-			array('description' => $this->lang['config.navigation.links.display.desc'])
 		));
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->lang['config.display.type'], $this->config->get_display_type(),
@@ -181,7 +156,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		// $items_default_sort = explode('-', $items_default_sort);
 		// $this->config->set_items_default_sort_field($items_default_sort[0]);
 		// $this->config->set_items_default_sort_mode(TextHelper::strtolower($items_default_sort[1]));
-		
+
 		if ($this->form->get_value('display_sort_filters'))
 			$this->config->enable_sort_filters();
 		else
@@ -194,13 +169,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			$this->config->enable_cats_icon();
 		else
 			$this->config->disable_cats_icon();
-
-		$this->config->set_enabled_items_suggestions($this->form->get_value('enabled_items_suggestions'));
-		if($this->form->get_value('enabled_items_suggestions'))
-			$this->config->set_suggested_items_nb($this->form->get_value('suggested_items_nb'));
-
-		$this->config->set_module_mini_items_nb($this->form->get_value('module_mini_items_nb'));
-		$this->config->set_enabled_navigation_links($this->form->get_value('enabled_navigation_links'));
 
 		$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut', $this->config->get_characters_number_to_cut()));
 

@@ -39,6 +39,7 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 		$config_link = new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::categories_configuration());
 		$config_link->add_sub_link(new AdminModuleLink($lang['config.categories.title'], SmalladsUrlBuilder::categories_configuration()));
 		$config_link->add_sub_link(new AdminModuleLink($lang['config.items.title'], SmalladsUrlBuilder::items_configuration()));
+		$config_link->add_sub_link(new AdminModuleLink($lang['config.mini.title'], SmalladsUrlBuilder::mini_configuration()));
 		$config_link->add_sub_link(new AdminModuleLink($lang['config.usage.terms'], SmalladsUrlBuilder::usage_terms_configuration()));
 		$tree->add_link($config_link);
 

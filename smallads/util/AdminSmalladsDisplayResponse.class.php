@@ -40,6 +40,7 @@ class AdminSmalladsDisplayResponse extends AdminMenuDisplayResponse
 
 		$this->add_link($lang['config.categories.title'], SmalladsUrlBuilder::categories_configuration());
 		$this->add_link($lang['config.items.title'], SmalladsUrlBuilder::items_configuration());
+		$this->add_link($lang['config.mini.title'], SmalladsUrlBuilder::mini_configuration());
 		$this->add_link($lang['config.usage.terms'], SmalladsUrlBuilder::usage_terms_configuration());
 		$this->add_link(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('smallads')->get_configuration()->get_documentation());
 

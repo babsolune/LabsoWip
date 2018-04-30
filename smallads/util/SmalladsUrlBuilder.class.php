@@ -55,6 +55,14 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function mini_configuration()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/admin/mini/');
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function usage_terms_configuration()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/terms/');

@@ -49,7 +49,7 @@
  			ORDER BY creation_date DESC
  			LIMIT :module_mini_items_nb OFFSET 0', array(
  				'timestamp_now' => $now->get_timestamp(),
- 				'module_mini_items_nb' => (int)SmalladsConfig::load()->get_module_mini_items_nb()
+ 				'module_mini_items_nb' => (int)SmalladsConfig::load()->get_mini_menu_items_nb()
  		));
 
  		while ($row = $result->fetch())

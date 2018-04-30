@@ -40,20 +40,20 @@
     display: block;
 }
 
-.nbs-flexisel-item a span {
+.nbs-flexisel-item a .smallads-mini-infos {
     position: absolute;
     padding: 5px;
     bottom: 0;
     right: 0;
     left: 0;
-    background: rgba(255 ,255 ,255 ,.8);
+    background: rgba(255 ,255 ,255 , 0.8);
 }
 
-.nbs-flexisel-item a.new-content span {
+.nbs-flexisel-item a.new-content .smallads-mini-infos {
     color: #009900;
 }
 
-.nbs-flexisel-item a.sold-smallad span {
+.nbs-flexisel-item a.sold-smallad .smallads-mini-infos {
     color: #CC0000;
 }
 

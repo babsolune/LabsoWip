@@ -35,9 +35,10 @@ require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
 	//Config
+	new UrlControllerMapper('AdminSmalladsCategoriesConfigController', '`^/admin/display/?$`'),
 	new UrlControllerMapper('AdminSmalladsItemsConfigController', '`^/admin/items/?$`'),
+	new UrlControllerMapper('AdminSmalladsMiniMenuConfigController', '`^/admin/mini/?$`'),
 	new UrlControllerMapper('AdminSmalladsUsageTermsController', '`^/admin/terms/?$`'),
-	new UrlControllerMapper('AdminSmalladsCategoriesConfigController', '`^/admin(?:/display)?/?$`'),
 
 	//Manage categories
 	new UrlControllerMapper('SmalladsCategoriesManagerController', '`^/categories/?$`'),

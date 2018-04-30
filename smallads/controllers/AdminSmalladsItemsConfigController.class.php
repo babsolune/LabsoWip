@@ -64,6 +64,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		{
 			$this->save();
 			$this->form->get_field_by_id('max_weeks_number')->set_hidden(!$this->config->is_max_weeks_number_displayed());
+			$this->form->get_field_by_id('suggested_items_nb')->set_hidden(!$this->config->get_enabled_items_suggestions());
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
@@ -129,6 +130,25 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldCheckbox('display_pm_enabled', $this->lang['config.display.pm.enabled'], $this->config->is_pm_displayed()));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_phone_enabled', $this->lang['config.display.phone.enabled'], $this->config->is_phone_displayed()));
+
+		$fieldset->add_field(new FormFieldCheckbox('enabled_items_suggestions', $this->lang['config.suggestions.display'], $this->config->get_enabled_items_suggestions(),
+			array('events' => array('click' => '
+				if (HTMLForms.getField("enabled_items_suggestions").getValue()) {
+					HTMLForms.getField("suggested_items_nb").enable();
+				} else {
+					HTMLForms.getField("suggested_items_nb").disable();
+				}
+			'))
+		));
+
+		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['config.suggestions.nb'], $this->config->get_suggested_items_nb(),
+			array('min' => 1, 'max' => 10, 'hidden' => !$this->config->get_enabled_items_suggestions()),
+			array(new FormFieldConstraintIntegerRange(1, 10))
+		));
+
+		$fieldset->add_field(new FormFieldCheckbox('enabled_navigation_links', $this->lang['config.related.links.display'], $this->config->get_enabled_navigation_links(),
+			array('description' => $this->lang['config.related.links.display.desc'])
+		));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
@@ -204,6 +224,12 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			$this->config->display_phone();
 		else
 			$this->config->hide_phone();
+
+			$this->config->set_enabled_items_suggestions($this->form->get_value('enabled_items_suggestions'));
+			if($this->form->get_value('enabled_items_suggestions'))
+				$this->config->set_suggested_items_nb($this->form->get_value('suggested_items_nb'));
+
+			$this->config->set_enabled_navigation_links($this->form->get_value('enabled_navigation_links'));
 
 		SmalladsConfig::save();
 		SmalladsService::get_categories_manager()->regenerate_cache();

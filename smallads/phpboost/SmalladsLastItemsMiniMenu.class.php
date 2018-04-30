@@ -56,6 +56,7 @@
  		$tpl = new FileTemplate('smallads/SmalladsLastItemsMiniMenu.tpl');
  		$tpl->add_lang(LangLoader::get('common', 'smallads'));
  		MenuService::assign_positions_conditions($tpl, $this->get_block());
+        $config = SmalladsConfig::load();
 
  		//Load module caches
  		$smallads_cache = SmalladsCache::load();
@@ -65,10 +66,13 @@
         $smallad_nb = SmalladsService::count('WHERE published != 0');
 
  		$tpl->put_all(array(
- 			'C_SMALLADS'         => !empty($smallad),
- 			'C_ONE_SMALLAD'      => $smallad_nb == 1,
-			'SMALLADS_CONFIG_NB' => SmalladsConfig::load()->get_module_mini_items_nb(),
-			'SMALLADS_NUMBER'    => $smallad_nb,
+ 			'C_SMALLADS'        => !empty($smallad),
+ 			'C_ONE_SMALLAD'     => $smallad_nb == 1,
+			'SMALLADS_TOTAL_NB' => $smallad_nb,
+			'ANIMATION_SPEED'   => $config->get_mini_menu_animation_speed(),
+			'AUTOPLAY'          => $config->is_slideshow_autoplayed(),
+			'AUTOPLAY_SPEED'    => $config->get_mini_menu_autoplay_speed(),
+			'AUTOPLAY_HOVER'    => $config->is_slideshow_hover_enabled(),
  		));
 
  		foreach ($smallad as $file)
