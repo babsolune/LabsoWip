@@ -18,7 +18,7 @@
 					style="background-image: url(# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #)">
 					# IF items.C_SOLD #<span class="sold-item"><span>{@smallads.sold.item}</span></span># ENDIF #
 					<div class="smallads-mini-infos">
-						{items.SMALLAD_TYPE}
+						{items.SMALLAD_TYPE}# IF items.C_PRICE # - {items.PRICE} {CURRENCY}# ENDIF #
 						<h6>{items.TITLE}</h6>
 						<span class="more"><i class="fa fa-fw fa-calendar"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time></span>
 					</div>
@@ -44,9 +44,9 @@
 			visibleItems: 1,
 			# ENDIF #
 			animationSpeed: {ANIMATION_SPEED},
-			autoPlay: {AUTOPLAY},
+			autoPlay: ${escapejs(AUTOPLAY)},
 			autoPlaySpeed: {AUTOPLAY_SPEED},
-			pauseOnHover: {AUTOPLAY_HOVER},
+			pauseOnHover: ${escapejs(AUTOPLAY_HOVER)},
 			enableResponsiveBreakpoints: true,
 			# IF C_HORIZONTAL #
 			responsiveBreakpoints: {

@@ -69,6 +69,7 @@
  			'C_SMALLADS'        => !empty($smallad),
  			'C_ONE_SMALLAD'     => $smallad_nb == 1,
 			'SMALLADS_TOTAL_NB' => $smallad_nb,
+            'CURRENCY'          => $config->get_currency(),
 			'ANIMATION_SPEED'   => $config->get_mini_menu_animation_speed(),
 			'AUTOPLAY'          => $config->is_slideshow_autoplayed(),
 			'AUTOPLAY_SPEED'    => $config->get_mini_menu_autoplay_speed(),
