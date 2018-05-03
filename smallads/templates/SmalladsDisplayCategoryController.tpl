@@ -93,6 +93,33 @@
 						/>	{types.TYPE_NAME}
 					</label>
 				# END types #
+
+				<!-- sort dropdown -->
+				<div
+					class="jplist-drop-down"
+					data-control-type="sort-drop-down"
+					data-control-name="sort"
+					data-control-action="sort"
+					data-datetime-format="{month}/{day}/{year}"> <!-- {year}, {month}, {day}, {hour}, {min}, {sec} -->
+
+					<ul>
+						<li><span data-path="default">Trier par</span></li>
+						<li><span data-path=".jp-date" data-order="asc" data-type="number">Date asc</span></li>
+						<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">Date desc</span></li>
+						<li><span data-path=".jp-title" data-order="asc" data-type="text">Titres A-Z</span></li>
+						<li><span data-path=".jp-title" data-order="desc" data-type="text">Titres Z-A</span></li>
+						<li><span data-path=".jp-price" data-order="asc" data-type="number">Prix 0-9</span></li>
+						<li><span data-path=".jp-price" data-order="desc" data-type="number">Prix 9-0</span></li>
+	 # IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">Auteurs A-Z</span></li>
+						<li><span data-path=".jp-author" data-order="desc" data-type="text">Auteurs Z-A</span></li># ENDIF #
+	# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">Commentaires 0-9</span></li>
+						<li><span data-path=".jp-comment" data-order="desc" data-type="number">Commentaires 9-0</span></li>
+						<li><span data-path=".jp-view" data-order="asc" data-type="number">Nombre de vues 0-9</span></li>
+						<li><span data-path=".jp-view" data-order="desc" data-type="number">Nombre de vues 9-0</span></li>
+						<li><span data-path=".jp-note" data-order="asc" data-type="number">Notes 0-9</span></li>
+						<li><span data-path=".jp-note" data-order="desc" data-type="number">Notes 9-0</span></li># ENDIF #
+					</ul>
+				</div>
 				<div class="spacer"></div>
 
 			</div>
@@ -123,13 +150,17 @@
 						<tr class="list-item# IF items.C_SOLD # sold-smallad# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #">
 							<td>
 								# IF NOT items.C_SOLD #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
-									<span itemprop="name">{items.TITLE}</span>
+									<span class="jp-title" itemprop="name">{items.TITLE}</span>
 								# IF NOT items.C_SOLD #</a># ENDIF #
+								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
+								<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
+								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
+								<span class="jp-date">{items.DATE_TIMESTAMP}</span>
 							</td>
-							<td># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} €# ENDIF ## ENDIF #</td>
+							<td class="jp-price"># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} €# ENDIF ## ENDIF #</td>
 							<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
 							# IF items.C_DISPLAYED_AUTHOR #
-								<td>
+								<td class="jp-author">
 									# IF items.C_CUSTOM_AUTHOR_NAME #
 										{items.CUSTOM_AUTHOR_NAME}
 									# ELSE #
@@ -171,7 +202,7 @@
 							<header>
 								<h2>
 									<p class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</p>
-									<a itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
+									<a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
 									<span class="actions">
 										# IF items.C_EDIT #
 											<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
@@ -183,17 +214,26 @@
 								</h2>
 
 								<div class="more">
-
 									# IF items.C_DISPLAYED_AUTHOR #
-										${LangLoader::get_message('by', 'common')}
-										# IF items.C_CUSTOM_AUTHOR_NAME #
-											{items.CUSTOM_AUTHOR_NAME}
-										# ELSE #
-											# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #,
-										# ENDIF #
+										<span class="jp-author">
+											${LangLoader::get_message('by', 'common')}
+											# IF items.C_CUSTOM_AUTHOR_NAME #
+												{items.CUSTOM_AUTHOR_NAME}
+											# ELSE #
+												# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #,
+											# ENDIF #
+										</span>
 									# ENDIF #
-									${LangLoader::get_message('the', 'common')} <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
-									${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+									<span>
+										${LangLoader::get_message('the', 'common')} <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
+									</span>
+									<span>
+										${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+									</span>
+									<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
+									<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
+									<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
+									<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 								</div>
 
 								<meta itemprop="url" content="{items.U_ITEM}">
@@ -214,7 +254,7 @@
 							# ENDIF #
 							<div class="content">
 								<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
-								# IF items.C_PRICE #<div class="smallad-price">{items.PRICE} {items.CURRENCY}</div># ENDIF #
+								# IF items.C_PRICE #<div class="smallad-price jp-price">{items.PRICE} {items.CURRENCY}</div># ENDIF #
 							</div>
 
 							# IF items.C_SOURCES #
@@ -248,6 +288,8 @@
 <script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.filter-toggle-bundle.min.js"></script>
 <!-- Pagination -->
 <script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.pagination-bundle.min.js"></script>
+<!-- Sort order -->
+<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.sort-bundle.min.js"></script>
 
 <script>
 	jQuery('document').ready(function(){

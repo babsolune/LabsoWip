@@ -117,7 +117,8 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 				'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,
 				'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
 				'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
-				'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
+				'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
+				'C_MEMBER'			     => true,
 				'C_NOTATION_ENABLED'     => $this->notation_config->is_notation_enabled(),
 				'C_ITEMS_SORT_FILTERS'   => $this->config->are_sort_filters_enabled(),
 				'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
@@ -210,8 +211,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		$sort_options = array(
 			new FormFieldSelectChoiceOption($common_lang['form.date.creation'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_DATE]),
 			new FormFieldSelectChoiceOption($common_lang['form.title'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_ALPHABETIC]),
-			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_NUMBER_VIEWS]),
-			new FormFieldSelectChoiceOption($common_lang['author'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_AUTHOR])
+			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_NUMBER_VIEWS])
 		);
 
 		if ($this->comments_config->are_comments_enabled())

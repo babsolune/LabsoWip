@@ -35,7 +35,6 @@ class SmalladsDisplayItemController extends ModuleController
 	private $tpl;
 	private $smallad;
 	private $category;
-	private $config;
 
 	private $email_form;
 	private $submit_button;
@@ -101,7 +100,6 @@ class SmalladsDisplayItemController extends ModuleController
 
 	private function build_view(HTTPRequestCustom $request)
 	{
-		$config = SmalladsConfig::load();
 		$comments_config = new SmalladsComments();
 		$notation_config = new SmalladsNotation();
 

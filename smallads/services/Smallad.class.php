@@ -740,6 +740,7 @@ class Smallad
 			'COMMENTS_NUMBER'    	=> CommentsService::get_number_comments('smallads', $this->get_id()),
 			'VIEWS_NUMBER'       	=> $this->get_views_number(),
 			'NOTE'               	=> $this->get_notation()->get_number_notes() > 0 ? NotationService::display_static_image($this->get_notation()) : '&nbsp;',
+			'AVERAGE_NOTE'          => $this->get_notation()->get_average_notes(),
 			'C_AUTHOR_EXIST'     	=> $user->get_id() !== User::VISITOR_LEVEL,
 			'AUTHOR_EMAIL'       	=> $user->get_email(),
 			'CUSTOM_AUTHOR_EMAIL'	=> $this->custom_author_email,
