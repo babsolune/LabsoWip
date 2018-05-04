@@ -36,7 +36,7 @@
 					<h6><p>{@smallads.form.smallads.types}</p></h6>
 					<div class="type-filter-radio">
 						<div class="selected-label">
-							<i class="fa fa-fw fa-caret-down"></i>
+							<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
 						</div>
 						<div class="label-list bg-container">
 							<label class="jplist-label" for="default-radio">
@@ -311,19 +311,21 @@
 		});
 
 		// Type filters
-			// toggle sub-menu on h6 click (close on click outside)
-		jQuery('.jplist-type-filter').click(function(e){
+			// toggle sub-menu on click (close on click outside)
+		jQuery('.selected-label').click(function(e){
 			jQuery('.label-list').toggleClass('reveal-list');
     		e.stopPropagation();
 		});
 		jQuery(document).click(function(e) {
-		    if (jQuery(e.target).is('.jplist-type-filter') === false) {
+		    if (jQuery(e.target).is('.selected-label') === false) {
 		      jQuery('.label-list').removeClass('reveal-list');
 		    }
 		});
-			// send selected input text to h6 on page load
-		// var sendText = jQuery('.jplist-label.has(input[checked=checked])').text();
-		// jQuery('.selected-label').html(sendText);
+			// send label text of selected input to h6 on click
+			$('.label-list input').click(function(e) {
+			    var radioText = e.currentTarget.nextSibling.data;
+			    $('.selected-label span').html(radioText);
+			});
 
 		// Categories
 			// build order
@@ -349,12 +351,12 @@
 		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down"></i>');
 
 			// toggle sub-menu (close on click outside)
-		jQuery('.category-select').click(function(e){
-			jQuery(this).toggleClass('reveal-subcat');
+		jQuery('.category-selected').click(function(e){
+			jQuery('.category-select').toggleClass('reveal-subcat');
     		e.stopPropagation();
 		});
 		jQuery(document).click(function(e) {
-		    if (jQuery(e.target).is('.category-select') === false) {
+		    if (jQuery(e.target).is('.category-selected') === false) {
 		      jQuery('.category-select').removeClass('reveal-subcat');
 		    }
 		});

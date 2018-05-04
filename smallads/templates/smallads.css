@@ -311,7 +311,15 @@ a[data-lightbox] {
 /* --- Filter types --- */
 .jplist-type-filter {
 	position: relative;
+}
+
+.selected-label {
 	cursor: pointer;
+}
+
+.selected-label span {
+	font-size: 1.4rem;
+	font-weight: bold;
 }
 
 .selected-label i.fa {
@@ -326,7 +334,6 @@ a[data-lightbox] {
 	left: 0;
 	width: 100%;
 	transition: 0.3s;
-	padding: 5px;
     border-radius: 0 0 3px 3px;
 }
 
@@ -345,7 +352,12 @@ a[data-lightbox] {
 
 .jplist-type-filter .jplist-label {
 	display: block;
-	margin: 5px 0 0 0;
+	line-height: 30px;
+	padding: 0 5px;
+}
+
+.jplist-type-filter .jplist-label:hover {
+	background-color: #ECECEC;
 }
 
 .jplist-label [type="radio"]{ margin: 0 2px 2px 0; }
