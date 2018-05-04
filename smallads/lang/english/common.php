@@ -138,6 +138,14 @@ $lang['smallads.form.sold.warning'] = 'The ad will be deleted after :delay days 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';
 $lang['admin.smallads.sort.field.published'] = 'Published';
+$lang['smallads.sort.by'] = 'Sort by';
+$lang['smallads.sort.date'] = 'Creation date';
+$lang['smallads.sort.title'] = 'Title';
+$lang['smallads.sort.price'] = 'Price';
+$lang['smallads.sort.author'] = 'Author';
+$lang['smallads.sort.coms'] = 'Comments number';
+$lang['smallads.sort.view'] = 'Views number';
+$lang['smallads.sort.note'] = 'Note';
 
 //SEO
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';

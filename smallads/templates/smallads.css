@@ -213,15 +213,25 @@ a[data-lightbox] {
 	}
 }
 
-/* --- Filtres de tri --- */
-.jplist-label {
-	display: inline-block;
-	margin: 5px 11px 0 0;
+/* --- Sort/filter Options
+---------------------------------------------------------------------------- */
+.jplist-panel {
+	position: relative;
 }
 
-.pagination .jplist-label { display: none; }
+.bg-container {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	box-shadow: 0 3px 6px #BBBBBB;
+}
 
-.jplist-label [type="radio"]{ margin: 0 2px 2px 0; }
+/* --- Pagination --- */
+
+.jplist-panel .pagination {
+	margin-bottom: 20px;
+	min-height: 30px;
+}
+.pagination .jplist-label { display: none; }
 
 .jplist-pagingprev,
 .jplist-pagingmid,
@@ -234,9 +244,13 @@ a[data-lightbox] {
 .jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
 
 /* Category-nav */
-.category-select {
-	position: relative;
-	margin: 1.618em 0;
+.category-selected {
+	cursor: pointer;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+.category-selected i.fa {
+	float: right;
 }
 
 .category-select #category-nav {
@@ -244,24 +258,29 @@ a[data-lightbox] {
 	opacity: 0;
 	visibility: hidden;
 	z-index: 10;
-	background-color: #FFFFFF;
-	border: 1px solid #DDDDDD;
 	top: 150%;
+	left: 0;
 	transition: all 0.5s ease;
 }
 
-.category-select:hover #category-nav {
+.category-select.reveal-subcat #category-nav {
 	opacity: 1;
 	visibility: visible;
-	top: 100%;
+	top: 75px;
 	transition: top 0.5s ease;
+}
+
+@media (min-width: 769px) {
+	.category-select.reveal-subcat #category-nav {
+		top: 100%;
+	}
 }
 
 .category-nav .has-sub {
   position: relative;
 }
 
-.category-nav .has-sub:after {
+.category-nav .has-sub::after {
   position: absolute;
   font-family: 'fontawesome';
   content: '\f067';
@@ -269,7 +288,7 @@ a[data-lightbox] {
   top: 10px;
 }
 
-.category-nav .has-sub:hover:after {
+.category-nav .has-sub:hover::after {
   content: '\f068';
 }
 
@@ -287,4 +306,114 @@ a[data-lightbox] {
 .category-nav ul ul .has-sub:hover ul {
     top: 0;
     left: 100%;
+}
+
+/* --- Filter types --- */
+.jplist-type-filter {
+	position: relative;
+	cursor: pointer;
+}
+
+.selected-label i.fa {
+	float: right;
+}
+
+.label-list {
+	opacity: 0;
+	visibility: 0;
+	position: absolute;
+	top: 150%;
+	left: 0;
+	width: 100%;
+	transition: 0.3s;
+	padding: 5px;
+    border-radius: 0 0 3px 3px;
+}
+
+.label-list.reveal-list {
+	opacity: 1;
+	visibility: visible;
+	top: 75px;
+	transition: 0.3s;
+}
+
+@media (min-width: 769px) {
+	.label-list.reveal-list {
+		top: 100%;
+	}
+}
+
+.jplist-type-filter .jplist-label {
+	display: block;
+	margin: 5px 0 0 0;
+}
+
+.jplist-label [type="radio"]{ margin: 0 2px 2px 0; }
+
+/* --- Sort field --- */
+.sort-list {
+	position: relative;
+}
+
+.jplist-drop-down .jplist-dd-panel {
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	font-size: 1.4rem;
+	font-weight: bold;
+	height: 100%;
+}
+
+.jplist-drop-down .jplist-dd-panel::after {
+	content: '\f0d7';
+	font-family: 'fontawesome';
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+}
+
+.jplist-drop-down ul {
+    position: absolute;
+    top: 150%;
+	left: 0;
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease 1s;
+	z-index: 2;
+}
+
+.jplist-drop-down ul[style*="display: block;"] {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.3s ease 1s;
+	top: 75px;
+}
+
+@media (min-width: 769px) {
+	.jplist-drop-down ul[style*="display: block;"] {
+		top: 100%;
+	}
+}
+
+.jplist-drop-down ul li {
+	width: 100%;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+.jplist-drop-down ul li:hover {
+    background-color: #ececec;
+}
+
+.jplist-drop-down ul li .sort-type {
+	float: right;
+	margin: 0 15px 0 0;
 }

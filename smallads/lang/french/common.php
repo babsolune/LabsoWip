@@ -145,6 +145,14 @@ $lang['smallads.form.member.edition.explain'] = 'La modification d\'une annonce 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Vues';
 $lang['admin.smallads.sort.field.published'] = 'Publié';
+$lang['smallads.sort.by'] = 'Trier par';
+$lang['smallads.sort.date'] = 'Date de création';
+$lang['smallads.sort.title'] = 'Titre';
+$lang['smallads.sort.price'] = 'Prix';
+$lang['smallads.sort.author'] = 'Auteur';
+$lang['smallads.sort.coms'] = 'Nombre de commentaires';
+$lang['smallads.sort.view'] = 'Nombre de vues';
+$lang['smallads.sort.note'] = 'Note';
 
 //SEO
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
