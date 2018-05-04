@@ -223,6 +223,7 @@ a[data-lightbox] {
 	background-color: #FFFFFF;
 	border: 1px solid #DDDDDD;
 	box-shadow: 0 3px 6px #BBBBBB;
+	z-index: 10;
 }
 
 /* --- Pagination --- */
@@ -257,7 +258,6 @@ a[data-lightbox] {
 	position: absolute;
 	opacity: 0;
 	visibility: hidden;
-	z-index: 10;
 	top: 150%;
 	left: 0;
 	transition: all 0.5s ease;
@@ -320,7 +320,7 @@ a[data-lightbox] {
 
 .label-list {
 	opacity: 0;
-	visibility: 0;
+	visibility: hidden;
 	position: absolute;
 	top: 150%;
 	left: 0;
@@ -384,7 +384,6 @@ a[data-lightbox] {
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease 1s;
-	z-index: 2;
 }
 
 .jplist-drop-down ul[style*="display: block;"] {

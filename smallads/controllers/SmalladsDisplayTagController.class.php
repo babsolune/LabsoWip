@@ -131,6 +131,7 @@ class SmalladsDisplayTagController extends ModuleController
 
 		$this->view->put_all(array(
 			'C_ITEMS'                => $result->get_rows_count() > 0,
+			'C_TAG'					 => true,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 			'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
 			'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,

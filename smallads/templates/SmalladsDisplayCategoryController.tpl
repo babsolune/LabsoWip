@@ -9,27 +9,7 @@
 	# IF C_TYPES_FILTERS #
 		<div class="jplist-panel">
 
-			<!-- Pagination -->
-			<div class="pagination options no-style">
-				<div
-				   class="jplist-label"
-				   data-type=""
-				   data-control-type="pagination-info"
-				   data-control-name="paging"
-				   data-control-action="paging">
-				</div>
-
-				<div
-				   class="jplist-pagination"
-				   data-control-type="pagination"
-				   data-control-name="paging"
-				   data-control-action="paging"
-				   data-items-per-page="{ITEMS_PER_PAGE}">
-				</div>
-			</div>
-			<div class="spacer"></div>
-
-			<div class="elements-container columns-3">
+			<div class="elements-container columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE #3# ENDIF ## ENDIF ## ENDIF #">
 				<!-- Categories -->
 				# IF C_CATEGORY #
 					<div class="category-select block">
@@ -285,6 +265,28 @@
 			</div>
 		# ENDIF #
 	# ENDIF #
+		<div class="jplist-panel">
+
+			<!-- Pagination -->
+			<div class="pagination options no-style">
+				<div
+				   class="jplist-label"
+				   data-type=""
+				   data-control-type="pagination-info"
+				   data-control-name="paging"
+				   data-control-action="paging">
+				</div>
+
+				<div
+				   class="jplist-pagination"
+				   data-control-type="pagination"
+				   data-control-name="paging"
+				   data-control-action="paging"
+				   data-items-per-page="{ITEMS_PER_PAGE}">
+				</div>
+			</div>
+			<div class="spacer"></div>
+		</div>
 
 	<div class="spacer"></div>
 	<footer># IF C_USAGE_TERMS # <i class="fa fa-book"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
