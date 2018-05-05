@@ -46,7 +46,7 @@ $lang['smallads.member.items'] = 'Mes annonces';
 $lang['smallads.published.items'] = 'Annonces publiées';
 
 $lang['smallads.category.list'] = 'Catégories';
-$lang['smallads.category.select'] = 'Choisir une catégorie : ';
+$lang['smallads.category.select'] = 'Choisir une catégorie';
 $lang['smallads.category.all'] = 'Toutes les catégories';
 $lang['smallads.select.category'] = 'Sélectionnez une catégorie';
 

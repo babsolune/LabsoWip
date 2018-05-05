@@ -15,7 +15,7 @@
 .smallads-category-list label,
 .smallads-category-list .field-description {padding: 0 0 0.618em;}
 
-.smallad-smallads.smallad-several h2,
+/* .smallad-smallads.smallad-several h2,
 .smallad-smallads.smallad-several .more {
 	margin: 0;
 }
@@ -31,7 +31,7 @@
 span.contents + hr {
 	margin: 35px 0 20px 0;
 	clear: both;
-}
+} */
 
 /* --- Mosaic --- */
 .block .thumbnail-item {margin-bottom: 0.618em;}
@@ -53,6 +53,11 @@ span.contents + hr {
 		float: right;
 		width: calc((100% / 3 * 2) - 1.618em)
 	}
+}
+
+/* --- Table --- */
+.smallads-title {
+	width: 250px;
 }
 
 /* --- Sold item --- */
@@ -386,29 +391,13 @@ a[data-lightbox] {
 
 .jplist-drop-down ul {
     position: absolute;
-    top: 150%;
+    top: 100%;
 	left: 0;
     overflow: hidden;
     list-style: none;
     margin: 0;
     padding: 0;
 	display: none;
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 0.3s ease 1s;
-}
-
-.jplist-drop-down ul[style*="display: block;"] {
-	opacity: 1;
-	visibility: visible;
-	transition: opacity 0.3s ease 1s;
-	top: 75px;
-}
-
-@media (min-width: 769px) {
-	.jplist-drop-down ul[style*="display: block;"] {
-		top: 100%;
-	}
 }
 
 .jplist-drop-down ul li {

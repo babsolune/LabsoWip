@@ -6,6 +6,20 @@
 		</h1>
 	</header>
 
+	# IF C_CATEGORY_DESCRIPTION #
+		<div class="cat-description">
+			# IF NOT C_ROOT_CATEGORY #
+				# IF C_DISPLAY_CAT_ICONS #
+					# IF C_CATEGORY_IMAGE #
+						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" />
+					# ENDIF #
+				# ENDIF #
+			# ENDIF #
+			{CATEGORY_DESCRIPTION}
+		</div>
+	# ENDIF #
+	<div class="spacer"></div>
+
 	# IF C_TYPES_FILTERS #
 		<div class="jplist-panel">
 
@@ -13,7 +27,7 @@
 				<!-- Categories -->
 				# IF C_CATEGORY #
 					<div class="category-select block">
-						<h6><p>{@smallads.category.select}</p></h6>
+						<h6><p>{@smallads.category.select} :</p></h6>
 						<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down"></i></div>
 						<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
 							<ul>
@@ -33,7 +47,7 @@
 
 				<!-- Types filter -->
 				<div class="jplist-type-filter block">
-					<h6><p>{@smallads.form.smallads.types}</p></h6>
+					<h6><p>{@smallads.form.smallads.types} :</p></h6>
 					<div class="type-filter-radio">
 						<div class="selected-label">
 							<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
@@ -70,12 +84,12 @@
 
 				<!-- sort dropdown -->
 				<div class="sort-list block">
-					<h6><p>{@smallads.sort.by}</p></h6>
+					<h6><p>{@smallads.sort.by} :</p></h6>
 					<div
 						class="jplist-drop-down"
 						data-control-type="sort-drop-down"
 						data-control-name="sort"
-						data-control-action="sort"> <!-- {year}, {month}, {day}, {hour}, {min}, {sec} -->
+						data-control-action="sort">
 						<ul class="bg-container">
 							<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">Asc</em></span></li>
 							<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">Desc</em></span></li>
@@ -98,21 +112,6 @@
 		</div>
 	# ENDIF #
 
-	# IF C_CATEGORY_DESCRIPTION #
-		<div class="cat-description">
-			# IF NOT C_ROOT_CATEGORY #
-				# IF C_DISPLAY_CAT_ICONS #
-					# IF C_CATEGORY_IMAGE #
-						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" />
-					# ENDIF #
-				# ENDIF #
-			# ENDIF #
-			{CATEGORY_DESCRIPTION}
-		</div>
-	# ENDIF #
-	<div class="spacer"></div>
-
-
 	# IF C_NO_ITEM_AVAILABLE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
 			<div class="center">
@@ -124,7 +123,7 @@
 			<table class="list" id="table">
 				<thead>
 					<tr>
-						<th>${LangLoader::get_message('title', 'main')}</th>
+						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
 						<th>{@smallads.form.price}</th>
 						<th>{@smallads.ad.type}</th>
 						<th>${LangLoader::get_message('author', 'common')}</th>
@@ -145,7 +144,7 @@
 							<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 							<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
 							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
-							<span class="jp-date">{items.DATE_TIMESTAMP}</span>
+							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 						</td>
 						<td class="jp-price"># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} €# ENDIF ## ENDIF #</td>
 						<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
@@ -172,10 +171,10 @@
 									# IF items.C_EDIT #
 										<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
 									# ENDIF #
+								# ENDIF #
 									# IF items.C_DELETE #
 										<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
 									# ENDIF #
-								# ENDIF #
 							</td>
 						# ENDIF #
 					</tr>
@@ -321,11 +320,11 @@
 		      jQuery('.label-list').removeClass('reveal-list');
 		    }
 		});
-			// send label text of selected input to h6 on click
-			$('.label-list input').click(function(e) {
-			    var radioText = e.currentTarget.nextSibling.data;
-			    $('.selected-label span').html(radioText);
-			});
+			// send label text of selected input to title on click
+		$('.label-list input').click(function(e) {
+		    var radioText = e.currentTarget.nextSibling.data;
+		    $('.selected-label span').html(radioText);
+		});
 
 		// Categories
 			// build order
