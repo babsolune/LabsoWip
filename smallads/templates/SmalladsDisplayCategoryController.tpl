@@ -104,7 +104,7 @@
 							<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li>
 							<li><span data-path=".jp-note" data-order="asc" data-type="number">{@smallads.sort.note} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-note" data-order="desc" data-type="number">{@smallads.sort.note} <em class="sort-type">Desc&#8595;</em></span></li># ENDIF #
+							<li><span data-path=".jp-note" data-order="desc" data-type="number">{@smallads.sort.note} <em class="sort-type">&#8595;</em></span></li># ENDIF #
 						</ul>
 					</div>
 				</div>
