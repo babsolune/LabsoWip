@@ -136,7 +136,7 @@
 				</thead>
 				<tbody>
 					# START items #
-					<tr class="list-item# IF items.C_SOLD # sold-smallad# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #">
+					<tr class="list-item# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_SOLD # sold-smallad# ENDIF #">
 						<td>
 							# IF NOT items.C_SOLD #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
 								<span class="jp-title" itemprop="name">{items.TITLE}</span>

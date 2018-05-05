@@ -89,17 +89,17 @@ article.sold-smallad {
 	color: #CC0000;
 }
 
-tr.sold-smallad td {
-	background-color: #f06363;
-	color: #CC0000;
-}
-
 .new-content {
 	color: #04b504;
 }
 
 tr.new-content td {
 	background-color: #67e967;
+}
+
+tr.sold-smallad td {
+	background-color: #f06363;
+	color: #CC0000;
 }
 
 /* --- thumbnails --- */
