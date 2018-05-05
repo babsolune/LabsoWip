@@ -146,7 +146,7 @@
 							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 						</td>
-						<td class="jp-price"># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} €# ENDIF ## ENDIF #</td>
+						<td class="jp-price"># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
 						<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
 						# IF items.C_DISPLAYED_AUTHOR #
 							<td class="jp-author">
@@ -243,8 +243,8 @@
 						# ENDIF #
 						<div class="content">
 							<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
-							# IF items.C_PRICE #<div class="smallad-price jp-price">{items.PRICE} {items.CURRENCY}</div># ENDIF #
 						</div>
+						<div class="smallad-price jp-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>
 
 						# IF items.C_SOURCES #
 						<div class="spacer"></div>
