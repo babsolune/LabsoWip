@@ -237,7 +237,10 @@ a[data-lightbox] {
 	margin-bottom: 20px;
 	min-height: 30px;
 }
-.pagination .jplist-label { display: none; }
+.pagination .jplist-label {
+	display: none;
+	/* display: inline-block; */
+}
 
 .jplist-pagingprev,
 .jplist-pagingmid,
@@ -391,13 +394,26 @@ a[data-lightbox] {
 
 .jplist-drop-down ul {
     position: absolute;
-    top: 100%;
+    top: 150%;
 	left: 0;
     overflow: hidden;
     list-style: none;
     margin: 0;
     padding: 0;
-	display: none;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+}
+
+.jplist-drop-down ul.reveal-ul {
+	opacity: 1;
+	visibility: visible;
+	transition: all 0.3s ease;
+	top: 75px;
+}
+
+@media (min-width: 769px) {
+	.jplist-drop-down ul.reveal-ul { top: 100%; }
 }
 
 .jplist-drop-down ul li {

@@ -91,20 +91,20 @@
 						data-control-name="sort"
 						data-control-action="sort">
 						<ul class="bg-container">
-							<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">Desc</em></span></li>
-							<li><span data-path=".jp-title" data-order="asc" data-type="text">{@smallads.sort.title} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">Desc</em></span></li>
-							<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">Desc</em></span></li>
-		 # IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">Desc</em></span></li># ENDIF #
-		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">Desc</em></span></li>
-							<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">Desc</em></span></li>
-							<li><span data-path=".jp-note" data-order="asc" data-type="number">{@smallads.sort.note} <em class="sort-type">Asc</em></span></li>
-							<li><span data-path=".jp-note" data-order="desc" data-type="number">{@smallads.sort.note} <em class="sort-type">Desc</em></span></li># ENDIF #
+							<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">&#8595;</em></span></li>
+							<li><span data-path=".jp-title" data-order="asc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
+							<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
+		 # IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
+							<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li>
+							<li><span data-path=".jp-note" data-order="asc" data-type="number">{@smallads.sort.note} <em class="sort-type">&#8593;</em></span></li>
+							<li><span data-path=".jp-note" data-order="desc" data-type="number">{@smallads.sort.note} <em class="sort-type">Desc&#8595;</em></span></li># ENDIF #
 						</ul>
 					</div>
 				</div>
@@ -270,7 +270,7 @@
 			<div class="pagination options no-style">
 				<div
 				   class="jplist-label"
-				   data-type=""
+				   data-type="{@smallads.pagination}"
 				   data-control-type="pagination-info"
 				   data-control-name="paging"
 				   data-control-action="paging">

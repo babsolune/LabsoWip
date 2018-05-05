@@ -153,6 +153,7 @@ $lang['smallads.sort.author'] = 'Auteur';
 $lang['smallads.sort.coms'] = 'Nombre de commentaires';
 $lang['smallads.sort.view'] = 'Nombre de vues';
 $lang['smallads.sort.note'] = 'Note';
+$lang['smallads.pagination'] = 'Page {current} sur {pages}';
 
 //SEO
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';

@@ -1,4 +1,4 @@
-Ad<?php
+<?php
 /*##################################################
  *                            common.php
  *                            -------------------
@@ -146,6 +146,7 @@ $lang['smallads.sort.author'] = 'Author';
 $lang['smallads.sort.coms'] = 'Comments number';
 $lang['smallads.sort.view'] = 'Views number';
 $lang['smallads.sort.note'] = 'Note';
+$lang['smallads.pagination'] = 'Page {current} on {pages}';
 
 //SEO
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';
