@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                        Division.class.php
+ *                   TsmCompetitionsAuthService.class.php
  *                            -------------------
  *   begin                : February 13, 2018
  *   copyright            : (C) 2018 Sebastien LARTIGUE
@@ -29,51 +29,44 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class Division
+class TsmCompetitionsAuthService
 {
-    private $id;
-    private $name;
+	const READ_SEASON_AUTH = 1;
+	const WRITE_SEASON_AUTH = 2;
+	const CONTRIBUTION_SEASON_AUTH = 4;
+	const MODERATION_SEASON_AUTH = 8;
 
-	public function set_id($id)
+	public static function check_competition_auth()
 	{
-		$this->id = $id;
+		$instance = new self();
+		return $instance;
 	}
 
-	public function get_id()
+	public function read_competition()
 	{
-		return $this->id;
+		return $this->is_authorized(self::READ_SEASON_AUTH);
 	}
 
-	public function set_name($name)
+	public function write_competition()
 	{
-		$this->name = $name;
+		return $this->is_authorized(self::WRITE_SEASON_AUTH);
 	}
 
-	public function get_name()
+	public function contribution_competition()
 	{
-		return $this->name;
+		return $this->is_authorized(self::CONTRIBUTION_SEASON_AUTH);
 	}
 
-    public function get_properties()
-    {
-        return array(
-            'id' => $this->get_id(),
-            'name' => $this->get_name(),
-        );
-    }
-
-    public function set_properties(array $properties)
-    {
-		$this->set_id($properties['id']);
-		$this->set_name($properties['name']);
-    }
-
-	public function get_array_tpl_vars()
+	public function moderation_competition()
 	{
-        return array(
-            'ID' => $this->get_id(),
-            'NAME' => $this->get_name(),
-        );
-    }
+		return $this->is_authorized(self::MODERATION_SEASON_AUTH);
+	}
+
+	private function is_authorized($bit)
+	{
+		$auth = TsmConfig::load()->get_competition_auth();
+		return AppContext::get_current_user()->check_auth($auth, $bit);
+	}
+
 }
 ?>

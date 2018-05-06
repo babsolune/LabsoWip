@@ -44,7 +44,13 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('TsmSeasonsFormController', '`^/season/add/?([0-9]+)?/?$`'),
 	new UrlControllerMapper('TsmSeasonsFormController', '`^/season/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('TsmSeasonsDeleteController', '`^/season/([0-9]+)/delete/?$`', array('id')),
-	new UrlControllerMapper('TsmDisplaySeasonController', '`^/season/([0-9]+)-([a-z0-9-_]+)?/?$`', array('id', 'name')),
+	new UrlControllerMapper('TsmDisplaySeasonController', '`^/([0-9]+)-([a-z0-9-_]+)?/?$`', array('id', 'name')),
+
+	// Divisions
+	new UrlControllerMapper('TsmDivisionsManagerController', '`^/divisions/manager/?$`'),
+	new UrlControllerMapper('TsmDivisionsFormController', '`^/division/add/?([0-9]+)?/?$`'),
+	new UrlControllerMapper('TsmDivisionsFormController', '`^/division/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('TsmDivisionsDeleteController', '`^/division/([0-9]+)/delete/?$`', array('id')),
 
 	// Clubs
 	new UrlControllerMapper('AdminTsmClubsConfigController', '`^/admin/clubs/?$`'),
@@ -57,6 +63,12 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('TsmClubsDeadLinkController', '`^/club/dead_link/([0-9]+)/?$`', array('id')),
 	new UrlControllerMapper('TsmClubsDisplayAllController', '`^/clubs/?$`'),
 
+	// Competitions
+	new UrlControllerMapper('TsmCompetitionsManagerController', '`^/competition/manager/?$`'),
+	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/add/?([0-9]+)?/?$`'),
+	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsDeleteController', '`^/competition/([0-9]+)/delete/?$`', array('id')),
+	new UrlControllerMapper('TsmDisplayCompetitionController', '`^/([0-9]+)-([a-z0-9-_]+)?/?$`', array('season_id', 'season_name', 'division_id', 'division_rewrited_name')),
 
 	// Front
 	// new UrlControllerMapper('TsmDisplayCompetitionController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?([0-9]+)?/?$`', array('season_id', 'season_name', 'competition_id', 'rewrited_division_name')),

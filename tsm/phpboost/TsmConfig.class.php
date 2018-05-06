@@ -45,7 +45,9 @@ class TsmConfig extends AbstractConfigData
     const CLUBS_COLS_NB = 'clubs_cols_nb';
     const CLUBS_DISPLAY = 'clubs_display';
     const SEASON_AUTH = 'season_auth';
+    const DIVISION_AUTH = 'division_auth';
     const CLUB_AUTH = 'club_auth';
+    const COMPETITON_AUTH = 'competition_auth';
 
     public function get_seasons_cols_nb()
     {
@@ -143,6 +145,16 @@ class TsmConfig extends AbstractConfigData
 		$this->set_property(self::SEASON_AUTH, $season_auth);
 	}
 
+	public function get_division_auth()
+	{
+		return $this->get_property(self::DIVISION_AUTH);
+	}
+
+	public function set_division_auth(Array $division_auth)
+	{
+		$this->set_property(self::DIVISION_AUTH, $division_auth);
+	}
+
 	public function get_club_auth()
 	{
 		return $this->get_property(self::CLUB_AUTH);
@@ -151,6 +163,16 @@ class TsmConfig extends AbstractConfigData
 	public function set_club_auth(Array $club_auth)
 	{
 		$this->set_property(self::CLUB_AUTH, $club_auth);
+	}
+
+	public function get_competition_auth()
+	{
+		return $this->get_property(self::COMPETITION_AUTH);
+	}
+
+	public function set_competition_auth(Array $competition_auth)
+	{
+		$this->set_property(self::COMPETITION_AUTH, $competition_auth);
 	}
 
 	public function get_default_values()
@@ -167,7 +189,9 @@ class TsmConfig extends AbstractConfigData
             self::DEFAULT_LATITUDE => '',
             self::DEFAULT_LONGITUDE => '',
 			self::SEASON_AUTH => array(),
-			self::CLUB_AUTH => array()
+			self::DIVISION_AUTH => array(),
+			self::CLUB_AUTH => array(),
+			self::COMPETITION_AUTH => array()
 		);
 	}
 

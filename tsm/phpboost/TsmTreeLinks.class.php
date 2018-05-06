@@ -36,6 +36,7 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 		$admin_lang = LangLoader::get('admin', 'tsm');
 		$club_lang = LangLoader::get('club', 'tsm');
 		$season_lang = LangLoader::get('season', 'tsm');
+		$division_lang = LangLoader::get('division', 'tsm');
 		$tree = new ModuleTreeLinks();
 
 		$tree->add_link(new AdminModuleLink($admin_lang['admin.config'], TsmUrlBuilder::config()));
@@ -45,6 +46,12 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tsm_season_links->add_sub_link(new ModuleLink($season_lang['seasons.management'], TsmUrlBuilder::seasons_manager(), TsmSeasonsAuthService::check_season_auth()->moderation_season()));
 		$tsm_season_links->add_sub_link(new ModuleLink($season_lang['season.add'], TsmUrlBuilder::add_season(), TsmSeasonsAuthService::check_season_auth()->moderation_season()));
 		$tree->add_link($tsm_season_links);
+
+		// Divisions
+		$tsm_division_links = new ModuleLink($division_lang['divisions.management'], TsmUrlBuilder::divisions_manager(), TsmUrlBuilder::divisions_manager(), TsmDivisionsAuthService::check_division_auth()->moderation_division());
+		$tsm_division_links->add_sub_link(new ModuleLink($division_lang['divisions.management'], TsmUrlBuilder::divisions_manager(), TsmDivisionsAuthService::check_division_auth()->moderation_division()));
+		$tsm_division_links->add_sub_link(new ModuleLink($division_lang['division.add'], TsmUrlBuilder::add_division(), TsmDivisionsAuthService::check_division_auth()->moderation_division()));
+		$tree->add_link($tsm_division_links);
 
 		// Clubs
 		if (!TsmClubsAuthService::check_club_auth()->moderation_club())

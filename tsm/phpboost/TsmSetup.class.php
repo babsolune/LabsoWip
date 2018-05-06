@@ -37,7 +37,7 @@
         public static $tsm_competition;
         public static $tsm_teams;
         public static $tsm_days;
-        public static $tsm_matchs;
+        public static $tsm_matches;
         public static $tsm_parameters;
         public static $tsm_standings;
 
@@ -49,7 +49,7 @@
             self::$tsm_competition = PREFIX . 'tsm_competition';
             self::$tsm_teams       = PREFIX . 'tsm_teams';
             self::$tsm_days        = PREFIX . 'tsm_days';
-            self::$tsm_matchs      = PREFIX . 'tsm_matchs';
+            self::$tsm_matches      = PREFIX . 'tsm_matches';
             self::$tsm_parameters  = PREFIX . 'tsm_parameters';
             self::$tsm_standings   = PREFIX . 'tsm_standings';
         }
@@ -63,6 +63,13 @@
         {
             $this->drop_tables();
             $this->create_tables();
+            $this->insert_datas();
+        }
+
+        public function insert_datas()
+        {
+            $this->insert_season_datas();
+            $this->insert_division_datas();
             $this->insert_club_datas();
         }
 
@@ -82,7 +89,7 @@
                     self::$tsm_competition,
                     self::$tsm_teams,
                     self::$tsm_days,
-                    self::$tsm_matchs,
+                    self::$tsm_matches,
                     self::$tsm_parameters,
                     self::$tsm_standings
                 ));
@@ -96,7 +103,7 @@
             $this->_competition();
             $this->_teams();
             $this->_days();
-            $this->_matchs();
+            $this->_matches();
             $this->_parameters();
             $this->_standings();
         }
@@ -116,6 +123,17 @@
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_season, $fields, $options);
         }
 
+        private function insert_season_datas()
+        {
+    		PersistenceContext::get_querier()->insert(self::$tsm_season, array(
+                'id' => 1,
+                'author_user_id' => 1,
+                'season_type' =>0,
+                'season_date' => 1525557600,
+                'publication' => 1,
+            ));
+        }
+
         private function _division()
         {
             $fields = array(
@@ -123,13 +141,25 @@
                 'name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
                 'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
                 'rewrited_name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-                'type' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
-                'match_type' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
+                'publication' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0)
             );
             $options = array(
                 'primary' => array('id'),
             );
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_division, $fields, $options);
+        }
+
+        private function insert_division_datas()
+        {
+    		$lang = LangLoader::get('division', 'tsm');
+
+    		PersistenceContext::get_querier()->insert(self::$tsm_division, array(
+                'id' => 1,
+                'author_user_id' => 1,
+                'name' => $lang['default.division.name'],
+                'rewrited_name' => Url::encode_rewrite($lang['default.division.name']),
+                'publication' => 1,
+            ));
         }
 
         private function _club()
@@ -172,7 +202,6 @@
                 'visit_nb' => 0,
                 'publication' => 1,
             ));
-
         }
 
         private function _competition()
@@ -182,6 +211,8 @@
                 'division_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
                 'season_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
                 'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
+                'compet_type' => array('type' => 'string', 'length' => 127, 'notnull' => 1),
+                'match_type' => array('type' => 'string', 'length' => 127, 'notnull' => 1),
                 'is_sub_compet' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
                 'master' => array('type' => 'string', 'length' => 11, 'default' => "''"),
                 'sub_rank' => array('type' => 'string', 'length' => 11, 'default' => "''")
@@ -223,7 +254,7 @@
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_days, $fields, $options);
         }
 
-        private function _matchs()
+        private function _matches()
         {
             $fields = array(
                 'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
@@ -239,13 +270,13 @@
             $options = array(
                 'primary' => array('id'),
             );
-            PersistenceContext::get_dbms_utils()->create_table(self::$tsm_matchs, $fields, $options);
+            PersistenceContext::get_dbms_utils()->create_table(self::$tsm_matches, $fields, $options);
         }
 
         private function _parameters()
         {
             $fields = array(
-                'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+                'compet_id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
                 'favourite_team_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
                 // championship
                 'victory_points' => array('type' => 'string', 'length' => 11),
@@ -270,7 +301,7 @@
                 'set_number' => array('type' => 'string', 'length' => 11)
             );
             $options = array(
-                'primary' => array('id'),
+                'primary' => array('compet_id'),
             );
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_parameters, $fields, $options);
         }

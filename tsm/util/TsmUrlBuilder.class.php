@@ -33,6 +33,19 @@ class TsmUrlBuilder
 
 	private static $dispatcher = '/tsm';
 
+	// Seasons
+	public static function seasons_manager()          { return DispatchManager::get_url(self::$dispatcher, '/seasons/manager/'); }
+	public static function add_season()               { return DispatchManager::get_url(self::$dispatcher, '/season/add/'); }
+	public static function edit_season($id)           { return DispatchManager::get_url(self::$dispatcher, '/season/' . $id . '/edit/'); }
+	public static function delete_season($id)         { return DispatchManager::get_url(self::$dispatcher, '/season/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
+	public static function display_season($id, $name) { return DispatchManager::get_url(self::$dispatcher, '/' . $id . '-' . $name . '/'); }
+
+	// Divisions
+	public static function divisions_manager()          { return DispatchManager::get_url(self::$dispatcher, '/divisions/manager/'); }
+	public static function add_division()               { return DispatchManager::get_url(self::$dispatcher, '/division/add/'); }
+	public static function edit_division($id)           { return DispatchManager::get_url(self::$dispatcher, '/division/' . $id . '/edit/'); }
+	public static function delete_division($id)         { return DispatchManager::get_url(self::$dispatcher, '/division/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
+
 	// Clubs
 	public static function clubs_config()                    { return DispatchManager::get_url(self::$dispatcher, '/admin/clubs/'); }
 	public static function clubs_manager()                   { return DispatchManager::get_url(self::$dispatcher, '/clubs/manager/'); }
@@ -45,11 +58,20 @@ class TsmUrlBuilder
 	public static function home_club()                       { return DispatchManager::get_url(self::$dispatcher, '/clubs/'); }
 
 	// Seasons
-	public static function seasons_manager()          { return DispatchManager::get_url(self::$dispatcher, '/seasons/manager/'); }
-	public static function add_season()               { return DispatchManager::get_url(self::$dispatcher, '/season/add/'); }
-	public static function edit_season($id)           { return DispatchManager::get_url(self::$dispatcher, '/season/' . $id . '/edit/'); }
-	public static function delete_season($id)         { return DispatchManager::get_url(self::$dispatcher, '/season/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
-	public static function display_season($id, $name) { return DispatchManager::get_url(self::$dispatcher, '/season/' . $id . '-' . $name . '/'); }
+	public static function competitions_manager()          { return DispatchManager::get_url(self::$dispatcher, '/competitions/manager/'); }
+	public static function add_competition()               { return DispatchManager::get_url(self::$dispatcher, '/competition/add/'); }
+	public static function edit_competition($id)           { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/edit/'); }
+	public static function edit_competition_params($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function edit_competition_teams($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function edit_competition_days($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function edit_competition_matches($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function edit_competition_results($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function delete_competition($id)         { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
+	public static function display_competition($season_id, $season_name, $division_id, $division_rewrited_name)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/' . $season_id . '/' . $season_name . '/' . $division_id . '-' . $division_rewrited_name);
+	}
+
 
 	// Administration
 
@@ -75,16 +97,6 @@ class TsmUrlBuilder
 	public static function results_manager()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/results/');
-	}
-
-    // Competition
-
-	/**
-	 * @return Url
-	 */
-	public static function display_competition($season_id, $season_name, $division_id, $rewrited_division_name)
-	{
-		return DispatchManager::get_url(self::$dispatcher, '/' . $season_id . '/' . $season_name . '/' . $division_id . '-' . $rewrited_division_name);
 	}
 
 	//  Home/Seasons
