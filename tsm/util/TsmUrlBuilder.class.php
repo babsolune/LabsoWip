@@ -67,9 +67,9 @@ class TsmUrlBuilder
 	public static function edit_competition_matches($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
 	public static function edit_competition_results($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
 	public static function delete_competition($id)         { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
-	public static function display_competition($season_id, $season_name, $division_id, $division_rewrited_name)
+	public static function display_competition($season_id, $season_name, $id, $division_rewrited_name)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/' . $season_id . '/' . $season_name . '/' . $division_id . '-' . $division_rewrited_name);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $season_id . '/' . $season_name . '/' . $id . '-' . $division_rewrited_name);
 	}
 
 

@@ -47,7 +47,7 @@ class TsmConfig extends AbstractConfigData
     const SEASON_AUTH = 'season_auth';
     const DIVISION_AUTH = 'division_auth';
     const CLUB_AUTH = 'club_auth';
-    const COMPETITON_AUTH = 'competition_auth';
+    const COMPETITION_AUTH = 'competition_auth';
 
     public function get_seasons_cols_nb()
     {

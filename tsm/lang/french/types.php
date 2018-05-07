@@ -33,14 +33,33 @@
  #						French						#
  ####################################################
 
-$lang['sport.type'] = 'Type de sport';
-
 $lang['compet.type'] = 'Type de compétition';
 $lang['compet.type.1'] = 'Championnat';
-$lang['compet.type.2'] = 'Coupe';
-$lang['compet.type.3'] = 'Tournoi';
+$lang['compet.type.2'] = 'Championnat avec phases finales';
+$lang['compet.type.3'] = 'Coupe';
+$lang['compet.type.4'] = 'Coupe avec tirage au sort';
+$lang['compet.type.5'] = 'Tournoi';
 
-$lang['compet.type.one.way'] = 'Matches aller simple';
-$lang['compet.type.return'] = 'Matches aller/retour';
-$lang['compet.type.2.toss'] = 'Tirage au sort entre chaque tour du tableau final';
+$lang['compet.match'] = 'Types de matches';
+$lang['compet.match.1'] = 'Matches simples';
+$lang['compet.match.2'] = 'Matches aller/retour';
+
+$lang['sport.type'] = 'Type de sport';
+$lang['sport.type.1'] = 'Baseball';
+$lang['sport.type.1'] = 'Basket-ball';
+$lang['sport.type.1'] = 'Cricket';
+$lang['sport.type.1'] = 'Curling';
+$lang['sport.type.1'] = 'Football';
+$lang['sport.type.1'] = 'Football américain';
+$lang['sport.type.1'] = 'Football australien';
+$lang['sport.type.1'] = 'football gaélique';
+$lang['sport.type.1'] = 'Handball';
+$lang['sport.type.1'] = 'Hockey sur gazon';
+$lang['sport.type.1'] = 'Hockey sur glace';
+$lang['sport.type.1'] = 'Horse-ball';
+$lang['sport.type.1'] = 'Polo';
+$lang['sport.type.1'] = 'Rink hockey';
+$lang['sport.type.1'] = 'Rugby à VII';
+$lang['sport.type.1'] = 'Rugby à XIII';
+$lang['sport.type.1'] = 'Rugby à XV';
 ?>

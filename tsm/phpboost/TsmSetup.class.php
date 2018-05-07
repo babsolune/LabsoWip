@@ -210,12 +210,15 @@
                 'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
                 'division_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
                 'season_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
+                'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
                 'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
                 'compet_type' => array('type' => 'string', 'length' => 127, 'notnull' => 1),
                 'match_type' => array('type' => 'string', 'length' => 127, 'notnull' => 1),
-                'is_sub_compet' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-                'master' => array('type' => 'string', 'length' => 11, 'default' => "''"),
-                'sub_rank' => array('type' => 'string', 'length' => 11, 'default' => "''")
+                'enslavement' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
+                'compet_master' => array('type' => 'string', 'length' => 11, 'default' => "''"),
+                'sub_rank' => array('type' => 'string', 'length' => 11, 'default' => "''"),
+                'views_nb' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+                'publication' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0)
             );
             $options = array(
                 'primary' => array('id'),

@@ -37,6 +37,7 @@ class Club
     private $logo_url;
     private $logo_mini_url;
     private $website_url;
+    private $visit_nb;
 	private $author_user;
     private $colors;
     private $contact;
@@ -129,6 +130,16 @@ class Club
 	{
 		$website = $this->website_url->rel();
 		return !empty($website);
+	}
+
+	public function set_visit_nb($visit_nb)
+	{
+		$this->visit_nb = $visit_nb;
+	}
+
+	public function get_visit_nb()
+	{
+		return $this->visit_nb;
 	}
 
 	public function get_author_user()
@@ -301,6 +312,7 @@ class Club
 			'logo_url'        => $this->get_logo()->relative(),
 			'logo_mini_url'   => $this->get_logo_mini()->relative(),
 			'website_url'     => $this->get_website()->relative(),
+			'visit_nb'        => $this->get_visit_nb(),
 			'author_user_id'  => $this->get_author_user()->get_id(),
 			'publication'     => (int)$this->is_published(),
 			'colors'          => TextHelper::serialize($this->get_colors()),
@@ -323,6 +335,7 @@ class Club
 		$this->set_logo(new Url($properties['logo_url']));
 		$this->set_logo_mini(new Url($properties['logo_mini_url']));
 		$this->set_website(new Url($properties['website_url']));
+		$this->set_visit_nb($properties['visit_nb']);
         $this->colors = !empty($properties['colors']) ? TextHelper::unserialize($properties['colors']) : array();
         $this->contact = !empty($properties['contact']) ? TextHelper::unserialize($properties['contact']) : array();
         $this->facebook_link = new Url($properties['facebook_link']);
@@ -352,6 +365,7 @@ class Club
         $this->logo_url = new Url('');
         $this->logo_mini_url = new Url('');
         $this->website_url = new Url('');
+        $this->visit_nb = 0;
 		$this->author_user = AppContext::get_current_user();
 		$this->colors = array();
 		$this->contact = array();

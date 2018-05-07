@@ -66,21 +66,21 @@ class TsmDisplayHomeController extends ModuleController
 			'SEASONS_COLS_NB' => $this->config->get_seasons_cols_nb()
 		));
 
-		$result_home = PersistenceContext::get_querier()->select('SELECT *
+		$result = PersistenceContext::get_querier()->select('SELECT *
 		FROM ' . TsmSetup::$tsm_season . ' tsm_season
 		ORDER BY season_date DESC'
 		);
 
-		while($row_home = $result_home->fetch())
+		while($row = $result->fetch())
 		{
 			$season = new Season();
-			$season->set_properties($row_home);
+			$season->set_properties($row);
 
 			$this->view->assign_block_vars('seasons', $season->get_array_tpl_vars(
 
 			));
 		}
-		$result_home->dispose();
+		$result->dispose();
 	}
 
 	private function generate_response()

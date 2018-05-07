@@ -37,6 +37,7 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 		$club_lang = LangLoader::get('club', 'tsm');
 		$season_lang = LangLoader::get('season', 'tsm');
 		$division_lang = LangLoader::get('division', 'tsm');
+		$competition_lang = LangLoader::get('competition', 'tsm');
 		$tree = new ModuleTreeLinks();
 
 		$tree->add_link(new AdminModuleLink($admin_lang['admin.config'], TsmUrlBuilder::config()));
@@ -68,7 +69,11 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 			$tree->add_link($tsm_club_links);
 		}
 
-
+		// Competitions
+		$tsm_competition_links = new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition());
+		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
+		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competition.add'], TsmUrlBuilder::add_competition(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
+		$tree->add_link($tsm_competition_links);
 
 		$tree->add_link(new AdminModuleLink($admin_lang['admin.competitions.manager'], TsmUrlBuilder::compet_manager()));
 		$tree->add_link(new AdminModuleLink($admin_lang['admin.results.manager'], TsmUrlBuilder::results_manager()));
