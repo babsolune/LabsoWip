@@ -319,6 +319,8 @@ class TsmCompetitionsFormController extends AdminModuleController
 	private function generate_response(View $view)
 	{
         $competition = $this->get_competition();
+        $season = $this->get_competition()->get_season();
+        $division = $this->get_competition()->get_division();
 
         $response = new SiteDisplayResponse($view);
 		$graphical_environment = $response->get_graphical_environment();
@@ -337,10 +339,10 @@ class TsmCompetitionsFormController extends AdminModuleController
         {
             $graphical_environment->set_page_title($this->lang['competition.edit']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['competition.edit'], $this->lang['competitions.competition']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::edit_competition($competition->get_id()));
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::edit_competition($season()->get_id(),$season()->get_name(),$competition->get_id(), $division->get_rewrited_name()));
 
-			$breadcrumb->add($competition->get_name());
-			$breadcrumb->add($this->lang['competition.edit'], TsmUrlBuilder::edit_competition($competition->get_id()));
+			$breadcrumb->add($competition->get_division()->get_name());
+			$breadcrumb->add($this->lang['competition.edit'], TsmUrlBuilder::edit_competition($season()->get_id(),$season()->get_name(),$competition->get_id(), $division->get_rewrited_name()));
         }
         return $response;
     }

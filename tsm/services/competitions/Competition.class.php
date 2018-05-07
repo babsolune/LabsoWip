@@ -226,7 +226,7 @@ class Competition
 			'enslavement'    => (int)$this->is_sub_compet(),
 			'compet_master'  => $this->get_compet_master(),
 			'sub_rank'       => $this->get_sub_rank(),
-			'views_nb'   => $this->get_views_nb(),
+			'views_nb'   	 => $this->get_views_nb(),
 			'publication'    => (int)$this->is_published(),
 		);
 	}

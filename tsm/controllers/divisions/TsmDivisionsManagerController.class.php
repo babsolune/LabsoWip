@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class TsmDivisionsManagerController extends AdminModuleController
+class TsmDivisionsManagerController extends ModuleController
 {
 	private $lang;
 	private $tsm_lang;

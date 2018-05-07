@@ -38,13 +38,13 @@
  $lang['tools.results'] = 'Résultats';
  $lang['tools.params'] = 'Paramêtres';
 
- $lang['competitions.competitions'] = 'Competitions';
- $lang['competitions.competition'] = 'Competition';
+ $lang['competitions.competitions'] = 'Compétitions';
+ $lang['competitions.competition'] = 'Compétition';
 
 // Config
 
 // Manager
-$lang['competitions.management'] = 'Gestion des competitions';
+$lang['competitions.management'] = 'Gestion des compétitions';
 $lang['competitions.published'] = 'Publié';
 $lang['competitions.not.published'] = 'Non publié';
 
@@ -71,11 +71,11 @@ $lang['competition.auth.contrib'] = 'Autorisations de contribution';
 $lang['competition.auth.modo'] = 'Autorisations de modération';
 
 // Messages
-$lang['competition.message.success.add'] = 'La competition :name a bien été ajoutée';
-$lang['competition.message.success.edit'] = 'La competition :name a bien été modifiée';
-$lang['competition.message.success.delete'] = 'La competition :name a bien été supprimée';
+$lang['competition.message.success.add'] = 'La compétition :name a bien été ajoutée';
+$lang['competition.message.success.edit'] = 'La compétition :name a bien été modifiée';
+$lang['competition.message.success.delete'] = 'La compétition :name a bien été supprimée';
 
 // install
-$lang['default.competition.name'] = 'Competition de test';
+$lang['default.competition.name'] = 'Compétition de test';
 
 ?>

@@ -36,8 +36,6 @@ require_once PATH_TO_ROOT . '/kernel/init.php';
 $url_controller_mappers = array(
 	//Admin
 	new UrlControllerMapper('AdminTsmConfigController', '`^/admin(?:/config)?/?$`'),
-	new UrlControllerMapper('AdminTsmCompetitionsManagerController', '`^/admin(?:/compet)?/?$`'),
-	new UrlControllerMapper('AdminResultsManagerController', '`^/admin(?:/results)?/?$`'),
 
 	// Seasons
 	new UrlControllerMapper('TsmSeasonsManagerController', '`^/seasons/manager/?$`'),
@@ -64,17 +62,15 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('TsmClubsDisplayAllController', '`^/clubs/?$`'),
 
 	// Competitions
-	new UrlControllerMapper('TsmCompetitionsManagerController', '`^/competition/manager/?$`'),
+	new UrlControllerMapper('TsmCompetitionsManagerController', '`^/competitions/manager/?$`'),
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/add/?([0-9]+)?/?$`'),
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('TsmCompetitionsDeleteController', '`^/competition/([0-9]+)/delete/?$`', array('id')),
 	new UrlControllerMapper('TsmDisplayCompetitionController', '`^/([0-9]+)-([a-z0-9-_]+)?/?$`', array('season_id', 'season_name', 'division_id', 'division_rewrited_name')),
 
-	// Front
-	// new UrlControllerMapper('TsmDisplayCompetitionController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?([0-9]+)?/?$`', array('season_id', 'season_name', 'competition_id', 'rewrited_division_name')),
+	// Home
 	new UrlControllerMapper('TsmDisplayHomeController', '`^/?$`'),
 
-	// new UrlControllerMapper('TsmDisplaySeasonController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?([0-9]+)?/?$`', array('season_name')),
 );
 
 DispatchManager::dispatch($url_controller_mappers);

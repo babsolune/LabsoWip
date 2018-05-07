@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class TsmCompetitionsManagerController extends AdminModuleController
+class TsmCompetitionsManagerController extends ModuleController
 {
 	private $lang;
 	private $tsm_lang;
@@ -56,14 +56,14 @@ class TsmCompetitionsManagerController extends AdminModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn(LangLoader::get_message('form.name', 'common'), 'name'),
+			new HTMLTableColumn(LangLoader::get_message('form.name', 'common'), 'id'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
 			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
 			new HTMLTableColumn(''),
 			new HTMLTableColumn('')
 		);
 
-		$table_model = new SQLHTMLTableModel(TsmSetup::$tsm_competition, 'table', $columns, new HTMLTableSortingRule('name', HTMLTableSortingRule::ASC));
+		$table_model = new SQLHTMLTableModel(TsmSetup::$tsm_competition, 'table', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
 
 		$table_model->set_caption($this->lang['competitions.management']);
 
@@ -79,15 +79,17 @@ class TsmCompetitionsManagerController extends AdminModuleController
 			$competition = new Competition();
 			$competition->set_properties($row);
 			$user = $competition->get_author_user();
+			$season = $competition->get_season();
+			$division = $competition->get_division();
 
-			$edit_competition = new LinkHTMLElement(TsmUrlBuilder::edit_competition($competition->get_id()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
+			$edit_competition = new LinkHTMLElement(TsmUrlBuilder::edit_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division->get_rewrited_name()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
 			$delete_competition = new LinkHTMLElement(TsmUrlBuilder::delete_competition($competition->get_id()), '', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-delete');
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(TsmUrlBuilder::display_competition($competition->get_id(), $competition->get_rewrited_name()), $competition->get_name()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(TsmUrlBuilder::display_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division->get_rewrited_name()), $divison->get_name()), 'left'),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($competition->get_status()),
 				new HTMLTableRowCell($edit_competition->display()),
@@ -120,7 +122,6 @@ class TsmCompetitionsManagerController extends AdminModuleController
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->tsm_lang['tsm.module.title'], TsmUrlBuilder::home());
-		$breadcrumb->add($this->lang['competitions.competitions'], TsmUrlBuilder::home_competition());
 
 		$breadcrumb->add($this->lang['competitions.management'], TsmUrlBuilder::competitions_manager());
 

@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class TsmSeasonsManagerController extends AdminModuleController
+class TsmSeasonsManagerController extends ModuleController
 {
 	private $lang;
 	private $tsm_lang;

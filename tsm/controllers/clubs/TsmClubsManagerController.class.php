@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class TsmClubsManagerController extends AdminModuleController
+class TsmClubsManagerController extends ModuleController
 {
 	private $lang;
 	private $tsm_lang;
