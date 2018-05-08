@@ -71,6 +71,7 @@
             $this->insert_season_datas();
             $this->insert_division_datas();
             $this->insert_club_datas();
+            $this->insert_competition_datas();
         }
 
         public function uninstall()
@@ -119,6 +120,10 @@
             );
             $options = array(
                 'primary' => array('id'),
+                'indexes' => array(
+                    'season_type' => array('type' => 'key', 'fields' => 'season_type'),
+                    'season_date' => array('type' => 'key', 'fields' => 'season_date')
+                )
             );
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_season, $fields, $options);
         }
@@ -128,7 +133,7 @@
     		PersistenceContext::get_querier()->insert(self::$tsm_season, array(
                 'id' => 1,
                 'author_user_id' => 1,
-                'season_type' =>0,
+                'season_type' => 0,
                 'season_date' => 1525557600,
                 'publication' => 1,
             ));
@@ -145,6 +150,10 @@
             );
             $options = array(
                 'primary' => array('id'),
+                'indexes' => array(
+                    'name' => array('type' => 'fulltext', 'fields' => 'name'),
+                    'rewrited_name' => array('type' => 'fulltext', 'fields' => 'rewrited_name')
+                )
             );
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_division, $fields, $options);
         }
@@ -224,6 +233,23 @@
                 'primary' => array('id'),
             );
             PersistenceContext::get_dbms_utils()->create_table(self::$tsm_competition, $fields, $options);
+        }
+
+        private function insert_competition_datas()
+        {
+    		$lang = LangLoader::get('competition', 'tsm');
+
+    		// PersistenceContext::get_querier()->insert(self::$tsm_competition, array(
+            //     'id' => 1,
+            //     'author_user_id' => 1,
+            //     'season_id' => 1,
+            //     'division_id' => 1,
+            //     'views_nb' => 0,
+            //     'compet_type' => LangLoader::get_message('compet.type.1', 'types', 'tsm'),
+            //     'match_type' => LangLoader::get_message('match.type.2', 'types', 'tsm'),
+            //     'enslavement' => 0,
+            //     'publication' => 1,
+            // ));
         }
 
         private function _teams()

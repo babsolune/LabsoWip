@@ -86,10 +86,10 @@ class TsmCompetitionsFormController extends AdminModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRadioChoice('match_type', $this->type_lang['compet.match.1'], $this->get_competition()->get_match_type(),
+		$fieldset->add_field(new FormFieldRadioChoice('match_type', $this->type_lang['match.type.1'], $this->get_competition()->get_match_type(),
 			array(
-				new FormFieldRadioChoiceOption($this->type_lang['compet.match.1'], 1),
-				new FormFieldRadioChoiceOption($this->type_lang['compet.match.2'], 2),
+				new FormFieldRadioChoiceOption($this->type_lang['match.type.1'], 1),
+				new FormFieldRadioChoiceOption($this->type_lang['match.type.2'], 2),
 			),
 			array('required' => true)
 		));

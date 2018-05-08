@@ -253,6 +253,7 @@ class Competition
 		$season->set_properties($properties);
 		$this->set_season($season);
 
+
 		$division = new Division();
 		$division->set_properties($properties);
 		$this->set_division($division);
@@ -286,6 +287,7 @@ class Competition
 		$season_id = $this->get_season()->get_id();
 		$season_name = $this->get_season()->get_name();
 		$rewrited_name = $this->get_division()->get_rewrited_name();
+		$name = $this->get_division()->get_name();
 
 		return array(
 			//Conditions
@@ -293,12 +295,17 @@ class Competition
 
 			//Items
 			'ID'                 => $this->get_id(),
-			'NAME'               => $name,
-			'VIEWS_NUMBER'       => $this->get_views_nb(),
+			'NAME'               => $this->get_division()->get_name(),
+			'SEASON_NAME'        => $season_name,
+			'SEASON_DAY'        => $this->get_season()->get_season_date()->get_day(),
+			'SEASON_MONTH'        => $this->get_season()->get_season_date()->get_month(),
+			'VIEWS_NB'       	 => $this->get_views_nb(),
+			'AUTHOR'			 => $this->get_author_user()->get_display_name(),
 
 			//Links
 			'U_COMPETITION'     => TsmUrlBuilder::display_competition($season_id, $season_name, $this->get_id(), $rewrited_name)->rel(),
-			'U_THUMBNAIL'   	=> $this->get_thumbnail()->rel()
+			'U_THUMBNAIL'   	=> $this->get_thumbnail()->rel(),
+			'U_EDIT_SEASON'		=> TsmUrlBuilder::edit_season($season_id, $season_name)->rel()
 		);
 	}
 }

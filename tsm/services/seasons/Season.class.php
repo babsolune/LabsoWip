@@ -163,20 +163,20 @@ class Season
 
     public function set_properties(array $properties)
     {
-		$this->set_id($properties['id']);
+		$this->set_id($properties['id']); // ID de la saison
 
-        if($properties['season_type'])
+        if($properties['season_type']) // Etat de la checkbox "Annee Calendaire"
             $this->calendar_season_type();
         else
             $this->date_season_type();
 
-        $this->set_season_date(new Date($properties['season_date'], Timezone::SERVER_TIMEZONE));
+        $this->set_season_date(new Date($properties['season_date'], Timezone::SERVER_TIMEZONE)); // annee (de depart) de la saison
 
-        $season_name = $this->get_season_date()->get_year();
-        if($this->is_calendar())
-            $this->name = $season_name;
+        $season_name = $this->get_season_date()->get_year(); // On recupere l'annee du timestamp
+        if($this->is_calendar()) // si l'annee est calendaire
+            $this->name = $season_name; // le nom de la saison est [annee]
         else
-            $this->name = $season_name . '-' . ($season_name + 1);
+            $this->name = $season_name . '-' . ($season_name + 1); // le nom de la saison est [annee]-[annee+1]
 
 		$user = new User();
 		if (!empty($properties['user_id']))

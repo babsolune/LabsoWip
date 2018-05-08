@@ -42,6 +42,8 @@ class TsmDisplaySeasonController extends ModuleController
 	{
 		$this->init();
 
+		$this->check_season_auth();
+
 		$this->build_view();
 
 		return $this->generate_response();
@@ -108,6 +110,33 @@ class TsmDisplaySeasonController extends ModuleController
 		return $this->season;
 	}
 
+    private function check_season_auth()
+    {
+        $season = $this->get_season();
+
+		if ($season->get_id() === null)
+		{
+			if (!$season->is_authorized_to_add())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		else
+		{
+			if (!$season->is_authorized_to_edit())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+    }
+
 	private function generate_response()
 	{
 		$season = $this->get_season();
@@ -131,7 +160,7 @@ class TsmDisplaySeasonController extends ModuleController
 	{
 		$object = new self();
 		$object->init();
-		$object->check_authorizations();
+		$object->check_season_auth();
 		$object->build_view();
 		return $object->view;
 	}

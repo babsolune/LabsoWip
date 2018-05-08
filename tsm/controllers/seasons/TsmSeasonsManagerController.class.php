@@ -56,7 +56,7 @@ class TsmSeasonsManagerController extends ModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn(LangLoader::get_message('form.name', 'common'), 'season_date'),
+			new HTMLTableColumn(LangLoader::get_message('form.name', 'common'), 'name'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
 			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
 			new HTMLTableColumn(''),

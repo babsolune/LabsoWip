@@ -40,9 +40,9 @@ $lang['compet.type.3'] = 'Coupe';
 $lang['compet.type.4'] = 'Coupe avec tirage au sort';
 $lang['compet.type.5'] = 'Tournoi';
 
-$lang['compet.match'] = 'Types de matches';
-$lang['compet.match.1'] = 'Matches simples';
-$lang['compet.match.2'] = 'Matches aller/retour';
+$lang['match.type'] = 'Types de matches';
+$lang['match.type.1'] = 'Matches simples';
+$lang['match.type.2'] = 'Matches aller/retour';
 
 $lang['sport.type'] = 'Type de sport';
 $lang['sport.type.1'] = 'Baseball';

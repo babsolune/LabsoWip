@@ -125,11 +125,11 @@ class Division
     public function get_properties()
     {
         return array(
-            'id' => $this->get_id(),
-            'name' => $this->get_name(),
-            'rewrited_name' => $this->get_rewrited_name(),
-			'author_user_id'  => $this->get_author_user()->get_id(),
-			'publication'     => (int)$this->is_published(),
+            'id'             => $this->get_id(),
+            'name'           => $this->get_name(),
+            'rewrited_name'  => $this->get_rewrited_name(),
+			'author_user_id' => $this->get_author_user()->get_id(),
+			'publication'    => (int)$this->is_published(),
         );
     }
 

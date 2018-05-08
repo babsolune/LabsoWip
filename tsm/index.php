@@ -66,7 +66,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/add/?([0-9]+)?/?$`'),
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('TsmCompetitionsDeleteController', '`^/competition/([0-9]+)/delete/?$`', array('id')),
-	new UrlControllerMapper('TsmDisplayCompetitionController', '`^/([0-9]+)-([a-z0-9-_]+)?/?$`', array('season_id', 'season_name', 'division_id', 'division_rewrited_name')),
+	new UrlControllerMapper('TsmDisplayCompetitionController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?$`', array('season_id', 'season_name', 'id', 'division_rewrited_name')),
 
 	// Home
 	new UrlControllerMapper('TsmDisplayHomeController', '`^/?$`'),

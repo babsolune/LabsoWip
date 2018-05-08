@@ -32,26 +32,39 @@
 class TsmDisplayCompetitionController extends ModuleController
 {
 	private $lang;
+	private $tsm_lang;
 	private $tpl;
 	private $competition;
 	private $season;
+	private $division;
+	private $club;
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->check_authorizations();
+		$this->check_competition_auth();
 
 		$this->init();
 
-		$this->build_view($request);
+		$this->build_view();
 
 		return $this->generate_response();
 	}
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'tsm');
+		$this->lang = LangLoader::get('competition', 'tsm');
+		$this->tsm_lang = LangLoader::get('common', 'tsm');
 		$this->tpl = new FileTemplate('tsm/TsmDisplayCompetitionController.tpl');
 		$this->tpl->add_lang($this->lang);
+		$this->tpl->add_lang($this->tsm_lang);
+	}
+
+	private function build_view()
+	{
+		$competition = $this->get_competition();
+		$this->tpl->put_all(array_merge($competition->get_array_tpl_vars(), array(
+
+		)));
 	}
 
 	private function get_competition()
@@ -63,7 +76,7 @@ class TsmDisplayCompetitionController extends ModuleController
 			{
 				try
 				{
-					$this->competition = Competition::get_competition('WHERE tsm.id=:id', array('id' => $id));
+					$this->competition = TsmCompetitionsService::get_competition('WHERE competitions.id=:id', array('id' => $id));
 				}
 				catch (RowNotFoundException $e)
 				{
@@ -77,32 +90,66 @@ class TsmDisplayCompetitionController extends ModuleController
 		return $this->competition;
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function count_number_view(HTTPRequestCustom $request)
 	{
-		$config = TsmConfig::load();
-
-		$this->season = $this->competition->get_season();
+		if (!$this->competition->is_published())
+		{
+			$this->tpl->put('NOT_VISIBLE_MESSAGE', MessageHelper::display(LangLoader::get_message('element.not_visible', 'status-messages-common'), MessageHelper::WARNING));
+		}
+		else
+		{
+			if ($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), TsmUrlBuilder::display_competition($this->competition->get_season()->get_id(), $this->competition->get_season()->get_name(), $this->competition->get_id(), $this->competition->get_division()->get_rewrited_name())->rel()))
+			{
+				$this->competition->set_views_nb($this->competition->get_views_nb() + 1);
+				TsmCompetitionsService::update_views_nb($this->competition);
+			}
+		}
 	}
+
+    private function check_competition_auth()
+    {
+        $competition = $this->get_competition();
+
+		if ($competition->get_id() === null)
+		{
+			if (!$competition->is_authorized_to_add())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		else
+		{
+			if (!$competition->is_authorized_to_edit())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+    }
 
 	private function generate_response()
 	{
 		$response = new SiteDisplayResponse($this->tpl);
 
-		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->competition->get_title(), $this->lang['tsm.module.title']);
-		$graphical_environment->get_seo_meta_data()->set_description($this->competition->get_description());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->competition->get_id(), $this->competition->get_rewrited_title(), AppContext::get_request()->get_getint('page', 1)));
-
-		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['tsm.module.title'], TsmUrlBuilder::home());
-
-		$categories = array_reverse(TsmService::get_categories_manager()->get_parents($this->competition->get_category_id(), true));
-		foreach ($categories as $id => $category)
-		{
-			if ($category->get_id() != Category::ROOT_CATEGORY)
-				$breadcrumb->add($category->get_name(), TsmUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
-		}
-		$breadcrumb->add($this->competition->get_title(), TsmUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->competition->get_id(), $this->competition->get_rewrited_title()));
+		// $competition = $this->get_competition();
+		// $season = $competition->get_season();
+		// $division = $competition->get_division();
+		//
+		//
+		// $graphical_environment = $response->get_graphical_environment();
+		// $graphical_environment->set_page_title($division->get_name(), $this->tsm_lang['tsm.module.title']);
+		// $graphical_environment->get_seo_meta_data()->set_description($this->tsm_lang['tsm.module.title']);
+		// $graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::display_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division()->get_rewrited_name()));
+		//
+		// $breadcrumb = $graphical_environment->get_breadcrumb();
+		// $breadcrumb->add($this->tsm_lang['tsm.module.title'], TsmUrlBuilder::home());
+		// $breadcrumb->add($division->get_name(), TsmUrlBuilder::display_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division()->get_rewrited_name()));
 
 		return $response;
 	}

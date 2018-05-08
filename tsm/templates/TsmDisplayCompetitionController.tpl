@@ -2,7 +2,7 @@
 	<header>
 		<h1>
 			<a href="{U_SYNDICATION}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication"></i></a>
-			{@tsm.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller"></i></a># ENDIF #
+			{@tsm.module.title} - {SEASON_NAME} # IF IS_ADMIN #<a href="{U_EDIT_SEASON}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a># ENDIF #
 		</h1>
 	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
@@ -48,12 +48,12 @@
 			<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
 		</header>
 		<div class="content">
-
-			Vue des pages Compétitions
+			Compétition crée par {AUTHOR} dans {SEASON_NAME} / {NAME} / {SEASON_DAY}-{SEASON_MONTH}<br />
+			Vue de la page Compétition
 			<div class="spacer"></div>
 		</div>
 		<aside>
-			
+
 		</aside>
 		<footer></footer>
 	</article>

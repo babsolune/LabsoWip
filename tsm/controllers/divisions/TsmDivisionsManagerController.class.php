@@ -63,7 +63,7 @@ class TsmDivisionsManagerController extends ModuleController
 			new HTMLTableColumn('')
 		);
 
-		$table_model = new SQLHTMLTableModel(TsmSetup::$tsm_division, 'table', $columns, new HTMLTableSortingRule('name', HTMLTableSortingRule::ASC));
+		$table_model = new SQLHTMLTableModel(TsmSetup::$tsm_division, 'table', $columns, new HTMLTableSortingRule('id', HTMLTableSortingRule::ASC));
 
 		$table_model->set_caption($this->lang['divisions.management']);
 
