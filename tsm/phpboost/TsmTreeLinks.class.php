@@ -75,9 +75,6 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competition.add'], TsmUrlBuilder::add_competition(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
 		$tree->add_link($tsm_competition_links);
 
-		$tree->add_link(new AdminModuleLink($admin_lang['admin.competitions.manager'], TsmUrlBuilder::compet_manager()));
-		$tree->add_link(new AdminModuleLink($admin_lang['admin.results.manager'], TsmUrlBuilder::results_manager()));
-
 		return $tree;
 	}
 }

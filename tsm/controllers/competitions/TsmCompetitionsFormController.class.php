@@ -185,10 +185,10 @@ class TsmCompetitionsFormController extends AdminModuleController
     {
 		$competition = $this->get_competition();
 
-        $competition->set_compet_type($this->form->get_value('compet_type')->get_raw_value());
-        $competition->set_match_type($this->form->get_value('match_type')->get_raw_value());
         $competition->set_season(new Season($this->form->get_value('season')->get_raw_value()));
         $competition->set_division(new Division($this->form->get_value('division')->get_raw_value()));
+        $competition->set_compet_type($this->form->get_value('compet_type')->get_raw_value());
+        $competition->set_match_type($this->form->get_value('match_type')->get_raw_value());
 
         if($this->form->get_value('is_sub_compet')) {
             $competition->subservient();
