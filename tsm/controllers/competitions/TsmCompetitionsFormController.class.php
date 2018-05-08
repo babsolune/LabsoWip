@@ -82,7 +82,7 @@ class TsmCompetitionsFormController extends AdminModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('compet_type', $this->lang['competition.compet.type'], $this->get_competition()->get_compet_type(), $this->list_compet_type(),
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('compet_type', $this->lang['competition.compet.type'], $this->get_competition()->get_compet_type(), $this->list_compet_types(),
 			array('required' => true)
 		));
 
@@ -185,10 +185,10 @@ class TsmCompetitionsFormController extends AdminModuleController
     {
 		$competition = $this->get_competition();
 
-        $competition->set_season(new Season($this->form->get_value('season')->get_raw_value()));
-        $competition->set_division(new Division($this->form->get_value('division')->get_raw_value()));
         $competition->set_compet_type($this->form->get_value('compet_type')->get_raw_value());
         $competition->set_match_type($this->form->get_value('match_type')->get_raw_value());
+        $competition->set_season(new Season($this->form->get_value('season')->get_raw_value()));
+        $competition->set_division(new Division($this->form->get_value('division')->get_raw_value()));
 
         if($this->form->get_value('is_sub_compet')) {
             $competition->subservient();
@@ -244,7 +244,7 @@ class TsmCompetitionsFormController extends AdminModuleController
 
 		$result = PersistenceContext::get_querier()->select('SELECT *
 		FROM ' . TsmSetup::$tsm_season . ' tsm_season
-		ORDER BY season_date DESC'
+		ORDER BY id DESC'
 		);
 
 		while($row = $result->fetch())
@@ -281,7 +281,7 @@ class TsmCompetitionsFormController extends AdminModuleController
 		return $options;
 	}
 
-	private function list_compet_type()
+	private function list_compet_types()
 	{
 		$options = array();
 
@@ -319,8 +319,8 @@ class TsmCompetitionsFormController extends AdminModuleController
 	private function generate_response(View $view)
 	{
         $competition = $this->get_competition();
-        $season = $this->get_competition()->get_season();
-        $division = $this->get_competition()->get_division();
+        $season = $competition->get_season();
+        $division = $competition->get_division();
 
         $response = new SiteDisplayResponse($view);
 		$graphical_environment = $response->get_graphical_environment();
@@ -341,7 +341,7 @@ class TsmCompetitionsFormController extends AdminModuleController
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['competition.edit'], $this->lang['competitions.competition']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::edit_competition($season()->get_id(),$season()->get_name(),$competition->get_id(), $division->get_rewrited_name()));
 
-			$breadcrumb->add($competition->get_division()->get_name());
+			$breadcrumb->add($division->get_name());
 			$breadcrumb->add($this->lang['competition.edit'], TsmUrlBuilder::edit_competition($season()->get_id(),$season()->get_name(),$competition->get_id(), $division->get_rewrited_name()));
         }
         return $response;
