@@ -46,7 +46,7 @@
  			FROM ' . SmalladsSetup::$smallads_table . ' smallads
 			LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = smallads.id AND notes.module_name = \'smallads\'
 			WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
- 			ORDER BY creation_date DESC
+            ORDER BY creation_date DESC
  			LIMIT :module_mini_items_nb OFFSET 0', array(
  				'timestamp_now' => $now->get_timestamp(),
  				'module_mini_items_nb' => (int)SmalladsConfig::load()->get_mini_menu_items_nb()

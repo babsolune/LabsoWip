@@ -377,13 +377,18 @@ class SmalladsItemFormController extends ModuleController
 			$form->add_fieldset($fieldset);
 
 			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '',
-				array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))));
+				array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))
+			));
 		}
 		elseif ($this->get_smallad()->is_published() && $this->get_smallad()->is_authorized_to_edit() && !AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
 		{
 			$fieldset = new FormFieldsetHTML('member_edition', LangLoader::get_message('smallads.form.member.edition', 'common', 'smallads'));
 			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('smallads.form.member.edition.explain', 'common', 'smallads'), MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
+
+			$fieldset->add_field(new FormFieldRichTextEditor('edittion_description', LangLoader::get_message('smallads.form.member.edition.description', 'common', 'smallads'), '',
+				array('description' => LangLoader::get_message('smallads.form.member.edition.description.desc', 'common', 'smallads'))
+			));
 		}
 	}
 
@@ -602,37 +607,26 @@ class SmalladsItemFormController extends ModuleController
 
 	private function contribution_actions(Smallad $smallad, $id_smallad)
 	{
-		if ($smallad->get_id() === null)
+		if ($this->is_contributor_member())
 		{
-			if ($this->is_contributor_member())
-			{
-				$contribution = new Contribution();
-				$contribution->set_id_in_module($id_smallad);
+			$contribution = new Contribution();
+			$contribution->set_id_in_module($id_smallad);
+			if ($smallad->get_id() === null)
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
-				$contribution->set_entitled($smallad->get_title());
-				$contribution->set_fixing_url(SmalladsUrlBuilder::edit_item($id_smallad)->relative());
-				$contribution->set_poster_id(AppContext::get_current_user()->get_id());
-				$contribution->set_module('smallads');
-				$contribution->set_auth(
-					Authorizations::capture_and_shift_bit_auth(
-						SmalladsService::get_categories_manager()->get_heritated_authorizations($smallad->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
-						Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
-					)
-				);
-				ContributionService::save_contribution($contribution);
-			}
-		}
-		else
-		{
-			$corresponding_contributions = ContributionService::find_by_criteria('smallads', $id_smallad);
-			if (count($corresponding_contributions) > 0)
-			{
-				foreach ($corresponding_contributions as $contribution)
-				{
-					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
-					ContributionService::save_contribution($contribution);
-				}
-			}
+			else
+				$contribution->set_description(stripslashes($this->form->get_value('edittion_description')));
+
+			$contribution->set_entitled($smallad->get_title());
+			$contribution->set_fixing_url(SmalladsUrlBuilder::edit_item($id_smallad)->relative());
+			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
+			$contribution->set_module('smallads');
+			$contribution->set_auth(
+				Authorizations::capture_and_shift_bit_auth(
+					SmalladsService::get_categories_manager()->get_heritated_authorizations($smallad->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+					Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
+				)
+			);
+			ContributionService::save_contribution($contribution);
 		}
 		$smallad->set_id($id_smallad);
 	}

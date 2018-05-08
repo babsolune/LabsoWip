@@ -139,8 +139,9 @@ $lang['smallads.form.smallad.type'] = 'Type d\'annonce';
 $lang['smallads.form.smallads.types'] = 'Types d\'annonces';
 $lang['smallads.form.member.edition'] = 'Modification par l\'auteur';
 $lang['smallads.form.member.contribution.explain'] = 'Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution. La modification est possible à tout moment, tant qu\'elle est en attente d\'approbation, mais aussi lorsqu\'elle sera publiée. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.';
-$lang['smallads.form.member.edition.explain'] = 'La modification d\'une annonce n\'envoie pas de notification à l\'administrateur pour l\'instant, mais elle sera mise en attente lorsque vous la validerez.
-<br /><span class="error">Vous devez alerter un administrateur par messagerie privée de votre modification pour que celle-ci soit publiée.</span>';
+$lang['smallads.form.member.edition.explain'] = 'Vous êtes sur le point de modifier votre annonce. Elle va être déplacée dans les annonces en attente afin d\'être traitée et une nouvelle alerte sera envoyée à un administrateur.';
+$lang['smallads.form.member.edition.description'] = 'Complément de modification';
+$lang['smallads.form.member.edition.description.desc'] = 'Expliquez ce que vous avez modifié pour un meilleur traitement d\'approbation';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Vues';

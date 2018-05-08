@@ -133,7 +133,10 @@ $lang['smallads.form.author.phone'] = 'Phone number';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
 $lang['smallads.form.sold'] = 'Declare this ad completed';
-$lang['smallads.form.sold.warning'] = 'The ad will be deleted after :delay days <br /><span style="color:#CC0000">This action is irreversible</span>';
+$lang['smallads.form.sold.warning'] = 'You are about to modify your ad. It will be sent to pending ads to be processed and a new alert will be sent to administrators';
+$lang['smallads.form.member.edition.explain'] = 'Vous êtes sur le point de modifier votre annonce. Elle va être déplacée dans les annonces en attente et une nouvelle alerte sera envoyée à un administrateur afin d\'être traitée.';
+$lang['smallads.form.member.edition.description'] = 'Further modification';
+$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better process.';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';
