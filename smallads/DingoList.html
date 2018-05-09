@@ -116,6 +116,258 @@
 					<strong></strong>
 				</div>
 			</article>
+
+			<article>
+				<header>
+					<h2>MENU LISTE DES CATEGORIES</h2>
+				</header>
+				<div class="question">
+					<strong>mipel : </strong>
+					<p>que deviennent les infos qui existent dans certains champs de smallads mais qui ne sont pas reprises dans la nouvelle version comme shipping, approved, links_flag ou vid ?</p>
+				</div>
+				<div class="answer">
+					<strong>babso: </strong>
+
+					<h3>Anciens champs</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Ancienne</th>
+								<th>Nouvelle</th>
+								<th>Description</th>
+								<th>Action</th>
+								<th>Commentaires</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>id</td>
+								<td>id</td>
+								<td>identifiant primaire</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>cat_id</td>
+								<td>id_category</td>
+								<td>identifiant de catégorie</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>title</td>
+								<td>title</td>
+								<td>Titre</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>contents</td>
+								<td>contents</td>
+								<td>Description de l'annonce</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>picture</td>
+								<td>thumbnail_url</td>
+								<td>image vignette</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>id_created</td>
+								<td>author_user_id</td>
+								<td>identifiant de l'auteur</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>date_created</td>
+								<td>creation_date</td>
+								<td>date de création</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>type</td>
+								<td>smallad_type</td>
+								<td>type d'annonce</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>price</td>
+								<td>price</td>
+								<td>Prix</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>shipping</td>
+								<td>-</td>
+								<td>frais de port</td>
+								<td>suppression</td>
+								<td>On peut débattre sur l'utilité mais perso = pas utile + se discute entre acheteur et le vendeur + pas vu sur d'autres sites d'annonces</td>
+							</tr>
+							<tr>
+								<td>approved</td>
+								<td>published</td>
+								<td>publication de l'annonce</td>
+								<td>boolean -> integer</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>date_approved</td>
+								<td>-</td>
+								<td>Date réelle de publication</td>
+								<td>suppression</td>
+								<td>Sert à calculer le temps entre la publication et la fin de publication (max_week). Dans le new module, on se sert de la date de création et de toute façon ça ne passe pas par la contribution donc date_approved = date_created</td>
+							</tr>
+							<tr>
+								<td>id_updated</td>
+								<td>-</td>
+								<td>compteur d'éditions</td>
+								<td>suppression</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>date_updated</td>
+								<td>updated_date</td>
+								<td>date de dernière édition</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>links_flag</td>
+								<td>displayed_author_email/displayed_author_pm/displayed_author_phone</td>
+								<td>condition d'affichage mail/mp par le contributeur</td>
+								<td>integer -> boolean*3</td>
+								<td>Pas sur que ce soit simple à transposer ça ^^ . on passe d'un entier, compteur de 2 booléens, à 3 booléens (telephone en plus)</td>
+							</tr>
+							<tr>
+								<td>vid</td>
+								<td>-</td>
+								<td>-</td>
+								<td>suppression</td>
+								<td>De ce que j'ai compris : rien, reste à zero quelque soit l'action (modification par membre/admin) :) en le forçant à 1 en bdd on obtient "contribution de modification de l'annonce" ça veut tout et rien dire, pas réussi à le faire autrement que par la bdd ??? bref ... obsolète</td>
+							</tr>
+							<tr>
+								<td>max_weeks</td>
+								<td>max_weeks</td>
+								<td>nb de semaine de publication</td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>idem</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3>Champs en plus</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Nom du champ</th>
+								<th>Description</th>
+								<th>Action</th>
+								<th>Commentaires</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>rewrited_title</td>
+								<td>réécriture du titre pour l'url</td>
+								<td>string/250</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>description</td>
+								<td>Résumé de la description pour la page catégorie</td>
+								<td>text/65000</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>brand</td>
+								<td>Marque</td>
+								<td>string/255</td>
+								<td>Fonction cachée - sert à ajouter des marques pour un tri par marques (même modèle que pour le smallad_type). Implémenté mais commenté dans les différents fichiers si le proprio du site en a besoin.</td>
+							</tr>
+							<tr>
+								<td>sold</td>
+								<td>déclaration de fin d'annonce par l'auteur (vendu/donné/...)</td>
+								<td>boolean</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>location</td>
+								<td>Situation géographique du vendeur</td>
+								<td>text/65000</td>
+								<td>Pas encore mis en place - débat si nécessaire (perso = oui) - On peut faire comme pour brand, l'implémenter mais le commenter pour une utilisation plus facile- voire mettre une option dans la config pour l'utiliser ou pas dans le module - Pour l'instant je n'ai prévu que de déclarer les départements mais on peut se servir de GoogleMaps</td>
+							</tr>
+							<tr>
+								<td>views_number</td>
+								<td>Compteur de nombre de vues</td>
+								<td>integer/11</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>custom_author_email</td>
+								<td>Possibilité de modifier l'email de l'auteur</td>
+								<td>string/255</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>display_author_name</td>
+								<td>affichage du nom de l'auteur</td>
+								<td>boolean</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>custom_author_name</td>
+								<td>Possibilité de modifier le nom de l'auteur</td>
+								<td>string/255</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>author_phone</td>
+								<td>N° de tel de l'auteur</td>
+								<td>string/25</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>publication_start_date</td>
+								<td>Publication différée - début de publication</td>
+								<td>integer/11</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>publication_end_date</td>
+								<td>Publication différée - fin de publication</td>
+								<td>integer/11</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>sources</td>
+								<td>Liens vers d'autres sites</td>
+								<td>text/65000</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>carousel</td>
+								<td>Ajout d'autres images</td>
+								<td>text/65000</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</article>
 			<footer></footer>
 		</section>
 	</body>

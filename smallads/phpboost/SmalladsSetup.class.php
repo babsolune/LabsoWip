@@ -100,7 +100,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'displayed_author_name' => array('type' => 'boolean', 'notnull' => 1, 'default' => 1),
 			'custom_author_name' => array('type' => 'string', 'length' => 255, 'default' => "''"),
 			'displayed_author_phone' => array('type' => 'boolean', 'notnull' => 1, 'default' => 1),
-			'author_phone' => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'author_phone' => array('type' => 'string', 'length' => 25, 'default' => "''"),
 			'published' => array('type' => 'integer', 'length' => 1, 'notnull' => 1, 'default' => 0),
 			'publication_start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'publication_end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
