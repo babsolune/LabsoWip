@@ -81,10 +81,11 @@ $lang['smallads.type.add'] = 'Add types of ad';
 $lang['smallads.type.placeholder'] = 'Sale, purchase, leasing ...';
 $lang['smallads.brand.add'] = 'Add brands';
 $lang['smallads.brand.placeholder'] = 'Brand\'s name';
+$lang['config.location'] = 'Activate location';
 $lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';
 $lang['config.max.weeks.number'] = 'Default number of weeks of posting';
-$lang['config.sold.delay.display.before.delete'] = 'Display delay before delete';
-$lang['config.sold.delay.display.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
+$lang['config.display.delay.before.delete'] = 'Display delay before delete';
+$lang['config.display.delay.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
 $lang['config.display.contact.to.visitors'] = 'Allow visitors to contact ad authors';
 $lang['config.display.contact.to.visitors.desc'] = 'If not checked, only connected members can contact ad authors';
 $lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
@@ -133,10 +134,15 @@ $lang['smallads.form.author.phone'] = 'Phone number';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
 $lang['smallads.form.sold'] = 'Declare this ad completed';
-$lang['smallads.form.sold.warning'] = 'You are about to modify your ad. It will be sent to pending ads to be processed and a new alert will be sent to administrators';
-$lang['smallads.form.member.edition.explain'] = 'Vous êtes sur le point de modifier votre annonce. Elle va être déplacée dans les annonces en attente et une nouvelle alerte sera envoyée à un administrateur afin d\'être traitée.';
-$lang['smallads.form.member.edition.description'] = 'Further modification';
-$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better process.';
+$lang['smallads.form.sold.warning'] = '';
+
+$lang['smallads.form.smallad.type'] = 'Type of ad';
+$lang['smallads.form.smallads.types'] = 'Types of ads';
+$lang['smallads.form.member.edition'] = 'Modification by author';
+$lang['smallads.form.member.contribution.explain'] = 'Your contribution will be sent to pending ads, follow the approval processing in your contribution panel. Modification is possible before and after approbation. You can justify your contribution in the next field.';
+$lang['smallads.form.member.edition.explain'] = 'You are about to modify your ad. It will be sent to pending ads to be processed and a new alert will be sent to administrators';
+$lang['smallads.form.member.edition.description'] = 'Further description of modification';
+$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better approval processing';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';
