@@ -47,7 +47,14 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	public function upgrade($installed_version)
 	{
-		return 'alpha 0.0.3';
+		$this->db_utils = PersistenceContext::get_dbms_utils();
+		$this->change_fields();
+		$this->add_fields();
+		$this->delete_fields();
+		$this->create_smallads_cats_table();
+		$this->insert_smallads_cats_data();
+
+		return '5.1.2';
 	}
 
 	public function install()
@@ -90,10 +97,10 @@ class SmalladsSetup extends DefaultModuleSetup
 			'smallad_type' => array('type' => 'string', 'length' => 255),
 			'brand' => array('type' => 'string', 'length' => 255),
 			'sold' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-			'location' => array('type' => 'text', 'length' => 65000),
-
 			'views_number' => array('type' => 'integer', 'length' => 11, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'location' => array('type' => 'text', 'length' => 65000),
+			'other_location' => array('type' => 'string', 'length' => 255),
 			'displayed_author_email' => array('type' => 'boolean', 'notnull' => 1, 'default' => 1),
 			'custom_author_email' => array('type' => 'string', 'length' => 255, 'default' => "''"),
 			'displayed_author_pm' => array('type' => 'boolean', 'notnull' => 1, 'default' => 1),
@@ -174,6 +181,50 @@ class SmalladsSetup extends DefaultModuleSetup
 			'sources' => TextHelper::serialize(array()),
 			'carousel' => TextHelper::serialize(array())
 		));
+	}
+
+	private function delete_fields()
+	{
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP shipping');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP vid');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP id_updated');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP date_approved');
+	}
+
+	private function change_fields()
+	{
+		//fields rename
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE cat_id id_category INT(11) NULL DEFAULT NULL');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE picture thumbnail_url VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE type smallad_type VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE id_created author_user_id INT(11) NOT NULL');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE links_flag display_author_email TINYINT(1) NOT NULL DEFAULT 1');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE approved published INT(1) NOT NULL DEFAULT 0');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_created creation_date INT(11) NOT NULL DEFAULT 0');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_updated updated_date INT(11) NOT NULL DEFAULT 0');
+		//fields move
+		//PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE max_weeks max_weeks TEXT NOT NULL AFTER price');
+	}
+
+	private function add_fields()
+	{
+		$this->db_utils->add_column(PREFIX . 'smallads', 'rewrited_title', array('type' => 'string', 'length' => 255, 'default' => "''"));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'description', array('type' => 'text', 'length' => 65000));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'brand', array('type' => 'string', 'length' => 255));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'sold', array('type' => 'boolean', 'notnull' => 1, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'location', array('type' => 'text', 'length' => 65000));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'other_location', array('type' => 'string', 'length' => 255));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'views_number', array('type' => 'integer', 'length' => 11, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'custom_author_email', array('type' => 'string', 'length' => 255, 'default' => "''"));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_pm', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_name', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'custom_author_name', array('type' => 'string', 'length' => 255, 'default' => "''"));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_phone', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'author_phone', array('type' => 'string', 'length' => 25, 'default' => "''"));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'publication_start_date', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'publication_end_date', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'sources', array('type' => 'text', 'length' => 65000));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
 	}
 }
 ?>

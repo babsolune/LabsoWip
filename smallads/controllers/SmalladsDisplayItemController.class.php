@@ -32,6 +32,7 @@
 class SmalladsDisplayItemController extends ModuleController
 {
 	private $lang;
+	private $county_lang;
 	private $tpl;
 	private $smallad;
 	private $category;
@@ -55,8 +56,10 @@ class SmalladsDisplayItemController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
+		$this->county_lang = LangLoader::get('counties', 'smallads');
 		$this->tpl = new FileTemplate('smallads/SmalladsDisplayItemController.tpl');
 		$this->tpl->add_lang($this->lang);
+		$this->tpl->add_lang($this->county_lang);
 	}
 
 	private function get_smallad()

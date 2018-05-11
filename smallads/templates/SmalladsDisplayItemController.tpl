@@ -49,6 +49,21 @@
 		<div class="content">
 			<div class="options infos thumbnail-item">
 				# IF C_HAS_THUMBNAIL #<img src="{THUMBNAIL}" alt="{TITLE}" /># ELSE #<img src="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" alt="{TITLE}" /># ENDIF #
+				# IF C_LOCATION #
+					# IF C_GMAP #
+						# IF IS_LOCATED #
+							{@location} : {LOCATION}
+						# ENDIF #
+					# ELSE #
+						# IF IS_LOCATED #
+							# IF C_OTHER_LOCATION #
+								{@other.country} : {OTHER_LOCATION}
+							# ELSE #
+								{@county} : {LOCATION}
+							# ENDIF #
+						# ENDIF #
+					# ENDIF #
+				# ENDIF #
 				# IF NOT C_SOLD #
 					# IF C_CONTACT #
 						<hr />

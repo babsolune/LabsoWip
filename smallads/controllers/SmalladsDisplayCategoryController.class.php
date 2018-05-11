@@ -32,6 +32,7 @@
 class SmalladsDisplayCategoryController extends ModuleController
 {
 	private $lang;
+	private $county_lang;
 	private $config;
 	private $comments_config;
 	private $notation_config;
@@ -48,8 +49,10 @@ class SmalladsDisplayCategoryController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
+		$this->county_lang = LangLoader::get('counties', 'smallads');
 		$this->view = new FileTemplate('smallads/SmalladsDisplayCategoryController.tpl');
 		$this->view->add_lang($this->lang);
+		$this->view->add_lang($this->county_lang);
 		$this->config = SmalladsConfig::load();
 		$this->comments_config = new SmalladsComments();
 		$this->notation_config = new SmalladsNotation();
@@ -146,6 +149,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,
 			'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
+			'C_LOCATION'			 => $this->config->is_location_displayed(),
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_NOTATION_ENABLED'     => $this->notation_config->is_notation_enabled(),
 			'C_ITEMS_SORT_FILTERS'   => $this->config->are_sort_filters_enabled(),

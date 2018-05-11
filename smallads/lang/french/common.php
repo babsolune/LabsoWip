@@ -81,6 +81,7 @@ $lang['smallads.type.add'] = 'Ajouter des types d\'annonce';
 $lang['smallads.type.placeholder'] = 'Vente, achat, location ...';
 $lang['smallads.brand.add'] = 'Ajouter des marques';
 $lang['smallads.brand.placeholder'] = 'Nom de la marque';
+$lang['config.location'] = 'Activer la localisation';
 $lang['config.max.weeks.number.displayed'] = 'Limiter le nombre de semaines d\'affichage';
 $lang['config.max.weeks.number'] = 'Nombre de semaines d\'affichage';
 $lang['config.display.delay.before.delete'] = 'Delai d\'affichage avant suppression';

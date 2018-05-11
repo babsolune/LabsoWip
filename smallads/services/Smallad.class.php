@@ -46,6 +46,8 @@ class Smallad
 	private $sold;
 
 	private $author_user;
+	private $location;
+	private $other_location;
 	private $contact_level;
 	private $displayed_author_email;
 	private $enabled_author_email_customization;
@@ -289,6 +291,31 @@ class Smallad
 	public function get_author_user()
 	{
 	    return $this->author_user;
+	}
+
+	public function set_location($location)
+	{
+		$this->location = $location;
+	}
+
+	public function get_location()
+	{
+		return $this->location;
+	}
+
+	public function set_other_location($other_location)
+	{
+		$this->other_location = $other_location;
+	}
+
+	public function get_other_location()
+	{
+		return $this->other_location;
+	}
+
+	public function is_other_location()
+	{
+		return $this->other_location;
 	}
 
 	public function get_displayed_author_email()
@@ -564,6 +591,8 @@ class Smallad
 			'views_number'           => $this->get_views_number(),
 			'sold' 					 => $this->get_sold(),
 			'author_user_id'         => $this->get_author_user()->get_id(),
+			'location' 				 => $this->get_location(),
+			'other_location' 		 => $this->get_other_location(),
 			'displayed_author_email' => $this->get_displayed_author_email(),
 			'custom_author_email' 	 => $this->get_custom_author_email(),
 			'displayed_author_pm' 	 => $this->get_displayed_author_pm(),
@@ -596,6 +625,8 @@ class Smallad
 		$this->set_thumbnail(new Url($properties['thumbnail_url']));
 		$this->set_views_number($properties['views_number']);
 		$this->set_sold($properties['sold']);
+		$this->location = $properties['location'];
+		$this->other_location = $properties['other_location'];
 		$this->set_displayed_author_email($properties['displayed_author_email']);
 		$this->set_custom_author_email($properties['custom_author_email']);
 		$this->set_displayed_author_pm($properties['displayed_author_pm']);
@@ -731,6 +762,10 @@ class Smallad
 			'C_DIFFERED'                       => $this->published == self::PUBLICATION_DATE,
 			'C_NEW_CONTENT'                    => $new_content->check_if_is_new_content($this->publication_start_date != null ? $this->publication_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
 			'C_USAGE_TERMS'					   => $this->config->are_usage_terms_displayed(),
+			'C_LOCATION'				   	   => $this->config->is_location_displayed(),
+			'IS_LOCATED'					   => !empty($this->get_location()),
+			'C_OTHER_LOCATION'				   => $this->config->is_location_displayed() || !empty($this->get_other_location()),
+			'C_GMAP'					   	   => $this->config->is_googlemaps_available(),
 
 			//Smallads
 			'ID'                 	=> $this->get_id(),
@@ -756,6 +791,8 @@ class Smallad
 			'THUMBNAIL'          	=> $this->get_thumbnail()->rel(),
 			'USER_LEVEL_CLASS'   	=> UserService::get_level_class($user->get_level()),
 			'USER_GROUP_COLOR'   	=> $user_group_color,
+			'LOCATION'				=> $this->get_location(),
+			'OTHER_LOCATION'		=> $this->get_other_location(),
 
 			//Category
 			'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,

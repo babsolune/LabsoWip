@@ -43,6 +43,7 @@ class SmalladsItemFormController extends ModuleController
 	private $tpl;
 
 	private $lang;
+	private $county_lang;
 	private $common_lang;
 
 	private $smallad;
@@ -57,6 +58,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$tpl = new StringTemplate('# INCLUDE FORM #');
 		$tpl->add_lang($this->lang);
+		$tpl->add_lang($this->county_lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -72,6 +74,7 @@ class SmalladsItemFormController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
+		$this->county_lang = LangLoader::get('counties', 'smallads');
 		$this->common_lang = LangLoader::get('common');
 		$this->config = SmalladsConfig::load();
 	}
@@ -146,6 +149,40 @@ class SmalladsItemFormController extends ModuleController
 				'min' => 0,
 				'step' => 0.01
 		)));
+
+		// County
+		if($this->config->is_location_displayed()) {
+			if($this->config->is_googlemaps_available()) {
+				$unserialized_value = @unserialize($this->get_smallad()->get_location());
+				$location_value = $unserialized_value !== false ? $unserialized_value : $this->get_smallad()->get_location();
+
+				$location = '';
+				if (is_array($location_value) && isset($location_value['address']))
+					$location = $location_value['address'];
+				else if (!is_array($location_value))
+					$location = $location_value;
+
+				$fieldset->add_field(new GoogleMapsFormFieldSimpleAddress('location', $this->county_lang['location'], $location,
+					array('description' => $this->county_lang['location.desc'])
+				));
+			}
+			else {
+				$location = $this->get_smallad()->get_location();
+				$fieldset->add_field(new FormFieldSimpleSelectChoice('location', $this->county_lang['county'], $location, $this->list_counties(),
+					array('events' => array('change' =>
+						'if (HTMLForms.getField("location").getValue() == "other") {
+							HTMLForms.getField("other_location").enable();
+						} else {
+							HTMLForms.getField("other_location").disable();
+						}'
+					))
+				));
+
+				$fieldset->add_field(new FormFieldTextEditor('other_location', $this->county_lang['other.country'], $this->get_smallad()->get_other_location(),
+					array('description' => $this->county_lang['other.country.explain'], 'hidden' => $this->get_smallad()->get_location() != 'other')
+				));
+			}
+		}
 
 		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
 		{
@@ -264,7 +301,6 @@ class SmalladsItemFormController extends ModuleController
 				,array('delay' => SmalladsConfig::load()->get_display_delay_before_delete()))
 			)));
 		}
-
 
 		if (SmalladsAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category())->moderation())
 		{
@@ -451,6 +487,60 @@ class SmalladsItemFormController extends ModuleController
 		}
 	}
 
+	private function list_counties()
+	{
+		$installed_lang = LangsManager::get_lang(LangsManager::get_default_lang())->get_configuration()->get_name();
+		$options = array();
+
+		if ($this->get_smallad()->get_id() === null)
+			$options[] = new FormFieldSelectChoiceOption('', '');
+
+		$options[] = new FormFieldSelectChoiceOption($this->county_lang['other.country'], 'other');
+
+		if($installed_lang == 'Français')
+		{
+			for ($i = 1; $i <= 97 ; $i++)
+			{
+				if ($i == 20)
+				{
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.2A'], '2A');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.2B'], '2B');
+				}
+				else if ($i == 96)
+				{
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.971'], '971');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.972'], '972');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.973'], '973');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.974'], '974');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.975'], '975');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.976'], '976');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.977'], '977');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.978'], '978');
+				}
+				else if ($i == 97)
+				{
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.984'], '984');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.986'], '986');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.987'], '987');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.988'], '974');
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.989'], '989');
+				}
+				else
+					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.' . $i], $i);
+			}
+		}
+		else if ($installed_lang == 'English')
+		{
+			for ($i = 1; $i <= 48 ; $i++)
+			{
+				$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.' . $i], $i);
+			}
+		}
+
+
+		return $options;
+	}
+
 	private function save()
 	{
 		$smallad = $this->get_smallad();
@@ -479,6 +569,20 @@ class SmalladsItemFormController extends ModuleController
 				$smallad->set_max_weeks(SmalladsConfig::load()->get_max_weeks_number());
 			else
 				$smallad->set_max_weeks($this->form->get_value('max_weeks'));
+		}
+
+		if($this->config->is_location_displayed()) {
+			if($this->config->is_googlemaps_available()){
+				$smallad->set_location($this->form->get_value('location'));
+			} else {
+				$location = $this->form->get_value('location')->get_raw_value();
+				$smallad->set_location($location);
+				if ($location === 'other')
+					$smallad->set_other_location($this->form->get_value('other_location'));
+				else
+					$smallad->set_other_location('');
+
+			}
 		}
 
 

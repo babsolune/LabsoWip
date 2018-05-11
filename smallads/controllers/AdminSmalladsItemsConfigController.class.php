@@ -150,6 +150,8 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			array('description' => $this->lang['config.related.links.display.desc'])
 		));
 
+		$fieldset->add_field(new FormFieldCheckbox('display_location_enabled', $this->lang['config.location'], $this->config->is_location_displayed()));
+
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
@@ -225,11 +227,16 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		else
 			$this->config->hide_phone();
 
-			$this->config->set_enabled_items_suggestions($this->form->get_value('enabled_items_suggestions'));
-			if($this->form->get_value('enabled_items_suggestions'))
-				$this->config->set_suggested_items_nb($this->form->get_value('suggested_items_nb'));
+		$this->config->set_enabled_items_suggestions($this->form->get_value('enabled_items_suggestions'));
+		if($this->form->get_value('enabled_items_suggestions'))
+			$this->config->set_suggested_items_nb($this->form->get_value('suggested_items_nb'));
 
-			$this->config->set_enabled_navigation_links($this->form->get_value('enabled_navigation_links'));
+		$this->config->set_enabled_navigation_links($this->form->get_value('enabled_navigation_links'));
+
+		if ($this->form->get_value('display_location_enabled'))
+			$this->config->display_location();
+		else
+			$this->config->hide_location();
 
 		SmalladsConfig::save();
 		SmalladsService::get_categories_manager()->regenerate_cache();

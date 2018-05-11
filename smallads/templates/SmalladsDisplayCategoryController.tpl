@@ -97,7 +97,9 @@
 							<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
 							<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
-		 # IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
+		   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@county} <em class="sort-type">&#8593;</em></span></li>
+				   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@county} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+		# IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
 		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
@@ -126,6 +128,7 @@
 						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
 						<th>{@smallads.form.price}</th>
 						<th>{@smallads.ad.type}</th>
+						# IF C_LOCATION #<th>{@county}</th># ENDIF #
 						<th>${LangLoader::get_message('author', 'common')}</th>
 						# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
 						<th>${@smallads.publication.date}</th>
@@ -154,6 +157,19 @@
 									{items.CUSTOM_AUTHOR_NAME}
 								# ELSE #
 									# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
+								# ENDIF #
+							</td>
+						# ENDIF #
+						# IF C_LOCATION #
+							<td class="jp-location">
+								# IF items.C_GMAP #
+									{@county} : {items.LOCATION}
+								# ELSE #
+									# IF items.C_OTHER_LOCATION #
+										{@other.country} : {items.OTHER_LOCATION}
+									# ELSE #
+										{@county} : {items.LOCATION}
+									# ENDIF #
 								# ENDIF #
 							</td>
 						# ENDIF #
@@ -219,6 +235,23 @@
 								<span>
 									${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
 								</span>
+								# IF C_LOCATION #
+									<span class="jp-location">
+										# IF items.C_GMAP #
+											# IF items.IS_LOCATED #
+												, {@location} : {items.LOCATION}
+											# ENDIF #
+										# ELSE #
+											# IF items.IS_LOCATED #
+												# IF items.C_OTHER_LOCATION #
+													, {@other.country} : {items.OTHER_LOCATION}
+												# ELSE #
+													, {@county} : {items.LOCATION}
+												# ENDIF #
+											# ENDIF #
+										# ENDIF #
+									</span>
+								# ENDIF #
 								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 								<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
 								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>

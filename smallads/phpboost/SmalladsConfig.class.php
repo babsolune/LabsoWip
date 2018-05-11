@@ -34,19 +34,17 @@ class SmalladsConfig extends AbstractConfigData
 	// Categories
 	const ITEMS_DEFAULT_SORT_FIELD = 'items_default_sort_field';
 	const ITEMS_DEFAULT_SORT_MODE = 'items_default_sort_mode';
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
-	const COLS_NUMBER_DISPLAYED_PER_LINE = 'cols_number_displayed_per_line';
-	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
+	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
 	const ENABLED_CATS_ICON = 'enabled_cats_icon';
-	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
+	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
-	const ENABLED_ITEMS_SUGGESTIONS = 'enabled_items_suggestions';
-	const SUGGESTED_ITEMS_NB = 'suggested_items_nb';
-	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
 	const DISPLAY_TYPE = 'display_type';
 	const MOSAIC_DISPLAY = 'mosaic';
 	const LIST_DISPLAY = 'list';
 	const TABLE_DISPLAY = 'table';
+	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
+	const COLS_NUMBER_DISPLAYED_PER_LINE = 'cols_number_displayed_per_line';
+	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
 	const AUTHORIZATIONS = 'authorizations';
 
 	// Items
@@ -62,8 +60,11 @@ class SmalladsConfig extends AbstractConfigData
 	const DISPLAY_EMAIL_ENABLED = 'display_email_enabled';
 	const DISPLAY_PM_ENABLED = 'display_pm_enabled';
 	const DISPLAY_PHONE_ENABLED = 'display_phone_enabled';
-	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
+	const ENABLED_ITEMS_SUGGESTIONS = 'enabled_items_suggestions';
+	const SUGGESTED_ITEMS_NB = 'suggested_items_nb';
+	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
 	const BRANDS = 'brands';
+	const LOCATION = 'location';
 	const DEFERRED_OPERATIONS = 'deferred_operations';
 
 	// Mini Menu
@@ -357,6 +358,26 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::BRANDS, $brands);
 	}
 
+	public function display_location()
+	{
+		$this->set_property(self::LOCATION, true);
+	}
+
+	public function hide_location()
+	{
+		$this->set_property(self::LOCATION, false);
+	}
+
+	public function is_location_displayed()
+	{
+		return $this->get_property(self::LOCATION);
+	}
+
+	public function is_googlemaps_available()
+	{
+		return ModulesManager::is_module_installed('GoogleMaps') && ModulesManager::is_module_activated('GoogleMaps') && GoogleMapsConfig::load()->get_api_key();
+	}
+
 	public function get_deferred_operations()
 	{
 		return $this->get_property(self::DEFERRED_OPERATIONS);
@@ -458,31 +479,35 @@ class SmalladsConfig extends AbstractConfigData
 	{
 		$config_lang = LangLoader::get('install', 'smallads');
 		return array(
-			self::CURRENCY => self::EUROS,
-			self::ITEMS_NUMBER_PER_PAGE => 10,
-			self::COLS_NUMBER_DISPLAYED_PER_LINE => 2,
-			self::CHARACTERS_NUMBER_TO_CUT => 128,
+			// Categories
 			self::ITEMS_DEFAULT_SORT_FIELD => Smallad::SORT_DATE,
 			self::ITEMS_DEFAULT_SORT_MODE => Smallad::DESC,
-			self::CONTACT_LEVEL => true,
+			self::ENABLED_SORT_FILTERS => true,
+			self::ENABLED_CATS_ICON => false,
+			self::ITEMS_NUMBER_PER_PAGE => 10,
+			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
+			self::CHARACTERS_NUMBER_TO_CUT => 128,
+			self::COLS_NUMBER_DISPLAYED_PER_LINE => 2,
+			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
+			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
+			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
+
+			// Items
+			self::CURRENCY => self::EUROS,
+			self::SMALLAD_TYPES => array($config_lang['default.smallad.type']),
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
 			self::DISPLAY_DELAY_BEFORE_DELETE => 2,
+			self::CONTACT_LEVEL => true,
 			self::DISPLAY_EMAIL_ENABLED => true,
 			self::DISPLAY_PM_ENABLED => true,
 			self::DISPLAY_PHONE_ENABLED => true,
-			self::ENABLED_CATS_ICON => false,
-			self::ENABLED_SORT_FILTERS => true,
-			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
 			self::ENABLED_ITEMS_SUGGESTIONS => false,
 			self::SUGGESTED_ITEMS_NB => 4,
 			self::ENABLED_NAVIGATION_LINKS => false,
-			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
-			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
-			self::DEFERRED_OPERATIONS => array(),
-			self::SMALLAD_TYPES => array($config_lang['default.smallad.type']),
 			self::BRANDS => array(),
+			self::LOCATION => true,
+			self::DEFERRED_OPERATIONS => array(),
 
 			// Mini Menu
 			self::MINI_MENU_ITEMS_NB => 5,
