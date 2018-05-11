@@ -48,11 +48,12 @@ class SmalladsSetup extends DefaultModuleSetup
 	public function upgrade($installed_version)
 	{
 		$this->db_utils = PersistenceContext::get_dbms_utils();
+		$this->delete_fields();
 		$this->change_fields();
 		$this->add_fields();
-		$this->delete_fields();
 		$this->create_smallads_cats_table();
-		$this->insert_smallads_cats_data();
+		// $this->insert_smallads_cats_data();
+		$this->delete_files();
 
 		return '5.1.2';
 	}
@@ -136,8 +137,8 @@ class SmalladsSetup extends DefaultModuleSetup
 	private function insert_data()
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
-		$this->insert_smallads_cats_data();
 		$this->insert_smallads_data();
+		$this->insert_smallads_cats_data();
 	}
 
 	private function insert_smallads_cats_data()
@@ -185,6 +186,8 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function delete_fields()
 	{
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP cat_id');
+		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP links_flag');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP shipping');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP vid');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP id_updated');
@@ -194,11 +197,9 @@ class SmalladsSetup extends DefaultModuleSetup
 	private function change_fields()
 	{
 		//fields rename
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE cat_id id_category INT(11) NULL DEFAULT NULL');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE picture thumbnail_url VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE type smallad_type VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE id_created author_user_id INT(11) NOT NULL');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE links_flag display_author_email TINYINT(1) NOT NULL DEFAULT 1');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE approved published INT(1) NOT NULL DEFAULT 0');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_created creation_date INT(11) NOT NULL DEFAULT 0');
 		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_updated updated_date INT(11) NOT NULL DEFAULT 0');
@@ -208,6 +209,7 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function add_fields()
 	{
+		$this->db_utils->add_column(PREFIX . 'smallads', 'id_category', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'rewrited_title', array('type' => 'string', 'length' => 255, 'default' => "''"));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'description', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'brand', array('type' => 'string', 'length' => 255));
@@ -215,16 +217,47 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->db_utils->add_column(PREFIX . 'smallads', 'location', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'other_location', array('type' => 'string', 'length' => 255));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'views_number', array('type' => 'integer', 'length' => 11, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'displayed_author_email', array('type' => 'boolean', 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'custom_author_email', array('type' => 'string', 'length' => 255, 'default' => "''"));
-		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_pm', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
-		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_name', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'displayed_author_pm', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'displayed_author_name', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'custom_author_name', array('type' => 'string', 'length' => 255, 'default' => "''"));
-		$this->db_utils->add_column(PREFIX . 'smallads', 'display_author_phone', array('type' => 'boolean', 'notnull' => 1, 'default' => 1));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'displayed_author_phone', array('type' => 'boolean', 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'author_phone', array('type' => 'string', 'length' => 25, 'default' => "''"));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'publication_start_date', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'publication_end_date', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'sources', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
+		SmalladsConfig::save();
+		Feed::clear_cache('smallads');
+		SmalladsCache::invalidate();
+		SmalladsCategoriesCache::invalidate();
+		// PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE id_category id_category AFTER id');
+	}
+
+	private function delete_files()
+	{
+		$file = new File(Url::to_rel('/smallads/controllers/AdminSmalladsConfigController.class.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/controllers/SmalladsHomeController.class.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/lang/english/smallads_french.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/lang/french/smallads_french.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/phpboost/SmalladsModuleMiniMenu.class.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/templates/smallads.tpl'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/templates/SmalladsModuleMiniMenu.tpl'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/smallads.class.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/smallads.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/smallads_begin.php'));
+		$file->delete();
+		// TODO delete "pics" folder
 	}
 }
 ?>

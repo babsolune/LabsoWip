@@ -23,7 +23,7 @@
 	# IF C_TYPES_FILTERS #
 		<div class="jplist-panel">
 
-			<div class="elements-container columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE #3# ENDIF ## ENDIF ## ENDIF #">
+			<div class="elements-container columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
 				<!-- Categories -->
 				# IF C_CATEGORY #
 					<div class="category-select block">
