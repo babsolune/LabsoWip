@@ -97,8 +97,8 @@
 							<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
 							<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
-		   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@county} <em class="sort-type">&#8593;</em></span></li>
-				   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@county} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+		   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@location} <em class="sort-type">&#8593;</em></span></li>
+				   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@location} <em class="sort-type">&#8595;</em></span></li># ENDIF #
 		# IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
 		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
