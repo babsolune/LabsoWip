@@ -228,11 +228,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->db_utils->add_column(PREFIX . 'smallads', 'publication_end_date', array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'sources', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
-		SmalladsConfig::save();
-		Feed::clear_cache('smallads');
-		SmalladsCache::invalidate();
-		SmalladsCategoriesCache::invalidate();
-		// PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE id_category id_category AFTER id');
 	}
 
 	private function delete_files()
