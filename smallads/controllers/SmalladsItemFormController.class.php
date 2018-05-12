@@ -581,10 +581,8 @@ class SmalladsItemFormController extends ModuleController
 					$smallad->set_other_location($this->form->get_value('other_location'));
 				else
 					$smallad->set_other_location('');
-
 			}
 		}
-
 
 		$displayed_author_phone = $this->form->get_value('displayed_author_phone') ? $this->form->get_value('displayed_author_phone') : Smallad::NOTDISPLAYED_AUTHOR_PHONE;
 		$smallad->set_displayed_author_phone($displayed_author_phone);

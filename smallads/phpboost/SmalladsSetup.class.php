@@ -232,25 +232,25 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function delete_files()
 	{
-		$file = new File(Url::to_rel('/smallads/controllers/AdminSmalladsConfigController.class.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/controllers/AdminSmalladsConfigController.class.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/controllers/SmalladsHomeController.class.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/controllers/SmalladsHomeController.class.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/lang/english/smallads_french.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/lang/english/smallads_french.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/lang/french/smallads_french.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/lang/french/smallads_french.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/phpboost/SmalladsModuleMiniMenu.class.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/phpboost/SmalladsModuleMiniMenu.class.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/templates/smallads.tpl'));
+		$file = new File(PATH_TO_ROOT . '/smallads/templates/smallads.tpl');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/templates/SmalladsModuleMiniMenu.tpl'));
+		$file = new File(PATH_TO_ROOT . '/smallads/templates/SmalladsModuleMiniMenu.tpl');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/smallads.class.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/smallads.class.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/smallads.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/smallads.php');
 		$file->delete();
-		$file = new File(Url::to_rel('/smallads/smallads_begin.php'));
+		$file = new File(PATH_TO_ROOT . '/smallads/smallads_begin.php');
 		$file->delete();
 		// TODO delete "pics" folder
 		// $folder = new Folder(Url::to_rel('/smallads/pics'));
