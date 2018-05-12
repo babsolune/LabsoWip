@@ -48,11 +48,12 @@ class SmalladsSetup extends DefaultModuleSetup
 	public function upgrade($installed_version)
 	{
 		$this->db_utils = PersistenceContext::get_dbms_utils();
+		$this->columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'smallads');
 		$this->delete_fields();
 		$this->change_fields();
 		$this->add_fields();
 		$this->create_smallads_cats_table();
-		// $this->insert_smallads_cats_data();
+		$this->insert_smallads_cats_data();
 		$this->delete_files();
 
 		return '5.1.2';
@@ -143,6 +144,7 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function insert_smallads_cats_data()
 	{
+		$this->messages = LangLoader::get('install', 'smallads');
 		PersistenceContext::get_querier()->insert(self::$smallads_cats_table, array(
 			'id' => 1,
 			'id_parent' => 0,
@@ -186,25 +188,12 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function delete_fields()
 	{
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP cat_id');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP links_flag');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP shipping');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP vid');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP id_updated');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP date_approved');
-	}
-
-	private function change_fields()
-	{
-		//fields rename
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE picture thumbnail_url VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE type smallad_type VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE id_created author_user_id INT(11) NOT NULL');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE approved published INT(1) NOT NULL DEFAULT 0');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_created creation_date INT(11) NOT NULL DEFAULT 0');
-		PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE date_updated updated_date INT(11) NOT NULL DEFAULT 0');
-		//fields move
-		//PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE max_weeks max_weeks TEXT NOT NULL AFTER price');
+		if ($this->columns['cat_id']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP cat_id');
+		if ($this->columns['links_flag']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP links_flag');
+		if ($this->columns['shipping']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP shipping');
+		if ($this->columns['vid']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP vid');
+		if ($this->columns['id_updated']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP id_updated');
+		if ($this->columns['date_approved']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP date_approved');
 	}
 
 	private function add_fields()
@@ -230,6 +219,17 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->db_utils->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
 	}
 
+	private function change_fields()
+	{
+		//fields rename
+		if ($this->columns['picture']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `picture` `thumbnail_url` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 0');
+		if ($this->columns['type']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `type` `smallad_type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL');
+		if ($this->columns['id_created']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `id_created` `author_user_id` INT(11) NOT NULL DEFAULT 0');
+		if ($this->columns['approved']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `approved` `published` INT(11) NOT NULL DEFAULT 0');
+		if ($this->columns['date_created']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `date_created` `creation_date` INT(11) NOT NULL DEFAULT 0');
+		if ($this->columns['date_updated']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads CHANGE COLUMN `date_updated` `updated_date` INT(11) NOT NULL DEFAULT 0');
+	}
+
 	private function delete_files()
 	{
 		$file = new File(Url::to_rel('/smallads/controllers/AdminSmalladsConfigController.class.php'));
@@ -253,6 +253,9 @@ class SmalladsSetup extends DefaultModuleSetup
 		$file = new File(Url::to_rel('/smallads/smallads_begin.php'));
 		$file->delete();
 		// TODO delete "pics" folder
+		// $folder = new Folder(Url::to_rel('/smallads/pics'));
+		// $folder->delete();
 	}
+
 }
 ?>
