@@ -162,13 +162,15 @@
 						# ENDIF #
 						# IF C_LOCATION #
 							<td class="jp-location">
-								# IF items.C_GMAP #
-									{@county} : {items.LOCATION}
-								# ELSE #
-									# IF items.C_OTHER_LOCATION #
-										{@other.country} : {items.OTHER_LOCATION}
+								# IF items.IS_LOCATED #
+									# IF items.C_GMAP #
+										{@location} : {items.LOCATION}
 									# ELSE #
-										{@county} : {items.LOCATION}
+										# IF items.C_OTHER_LOCATION #
+											{@other.country} : {items.OTHER_LOCATION}
+										# ELSE #
+											{@location} : {items.LOCATION}
+										# ENDIF #
 									# ENDIF #
 								# ENDIF #
 							</td>
