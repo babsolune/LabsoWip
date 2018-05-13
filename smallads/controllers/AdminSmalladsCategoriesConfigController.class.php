@@ -63,9 +63,8 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY);
-			$this->form->get_field_by_id('cols_number_displayed_per_line')->set_hidden($this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY);
-			$this->form->get_field_by_id('display_descriptions_to_guests')->set_hidden($this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY);
+			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() === SmalladsConfig::TABLE_DISPLAY);
+			$this->form->get_field_by_id('displayed_cols_number_per_line')->set_hidden(!$this->config->get_display_type() === SmalladsConfig::MOSAIC_DISPLAY);
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
@@ -110,32 +109,27 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			array('events' => array('change' => '
 				if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::MOSAIC_DISPLAY . '\') {
 					HTMLForms.getField("characters_number_to_cut").enable();
-					HTMLForms.getField("cols_number_displayed_per_line").enable();
-					HTMLForms.getField("display_descriptions_to_guests").enable();
+					HTMLForms.getField("displayed_cols_number_per_line").enable();
 				} else if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::LIST_DISPLAY . '\') {
-					HTMLForms.getField("characters_number_to_cut").disable();
-					HTMLForms.getField("cols_number_displayed_per_line").disable();
-					HTMLForms.getField("display_descriptions_to_guests").enable();
+					HTMLForms.getField("characters_number_to_cut").enable();
+					HTMLForms.getField("displayed_cols_number_per_line").disable();
 				} else {
 					HTMLForms.getField("characters_number_to_cut").disable();
-					HTMLForms.getField("cols_number_displayed_per_line").disable();
-					HTMLForms.getField("display_descriptions_to_guests").disable();
+					HTMLForms.getField("displayed_cols_number_per_line").disable();
 				}'))
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('characters_number_to_cut', $this->lang['config.characters.number.to.cut'], $this->config->get_characters_number_to_cut(),
-			array('min' => 20, 'max' => 1000, 'hidden' => !$this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY),
+			array('min' => 20, 'max' => 1000, 'hidden' => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY),
 			array(new FormFieldConstraintIntegerRange(20, 1000))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('cols_number_displayed_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_cols_number_displayed_per_line(),
+		$fieldset->add_field(new FormFieldNumberEditor('displayed_cols_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_displayed_cols_number_per_line(),
 			array('min' => 1, 'max' => 6, 'hidden' => !$this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY),
 			array(new FormFieldConstraintIntegerRange(1, 6))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display.descriptions.to.guests'], $this->config->are_descriptions_displayed_to_guests(),
-			array('hidden' => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY)
-		));
+		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display.descriptions.to.guests'], $this->config->are_descriptions_displayed_to_guests()));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->admin_common_lang['config.root_category_description'], $this->config->get_root_category_description(),
 			array('rows' => 8, 'cols' => 47)
@@ -187,21 +181,18 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			$this->config->disable_cats_icon();
 
 		$this->config->set_display_type($this->form->get_value('display_type')->get_raw_value());
-		if($this->form->get_value('display_type') == SmalladsConfig::MOSAIC_DISPLAY) {
-			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut', $this->config->get_characters_number_to_cut()));
-			$this->config->set_cols_number_displayed_per_line($this->form->get_value('cols_number_displayed_per_line'));
-			if ($this->form->get_value('display_descriptions_to_guests')) {
-				$this->config->display_descriptions_to_guests();
-			} else {
-				$this->config->hide_descriptions_to_guests();
-			}				
-		} else if ($this->form->get_value('display_type') == SmalladsConfig::LIST_DISPLAY) {
-			if ($this->form->get_value('display_descriptions_to_guests')) {
-				$this->config->display_descriptions_to_guests();
-			} else {
-				$this->config->hide_descriptions_to_guests();
-			}
+		if($this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY) {
+			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut'));
+			$this->config->set_displayed_cols_number_per_line($this->form->get_value('displayed_cols_number_per_line'));
+		} else if ($this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY) {
+			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut'));
 		}
+
+		if ($this->form->get_value('display_descriptions_to_guests'))
+			$this->config->display_descriptions_to_guests();
+		else
+			$this->config->hide_descriptions_to_guests();
+
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());

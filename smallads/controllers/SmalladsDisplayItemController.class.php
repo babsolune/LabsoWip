@@ -226,7 +226,7 @@ class SmalladsDisplayItemController extends ModuleController
 
 		$this->tpl->put_all(array(
 			'C_SUGGESTED_ITEMS' => $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_items_suggestions(),
-			'SUGGESTED_COLUMNS' => SmalladsConfig::load()->get_cols_number_displayed_per_line()
+			'SUGGESTED_COLUMNS' => SmalladsConfig::load()->get_displayed_cols_number_per_line()
 		));
 
 		while ($row = $result->fetch())

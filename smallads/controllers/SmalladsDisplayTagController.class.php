@@ -127,7 +127,7 @@ class SmalladsDisplayTagController extends ModuleController
 		$this->build_sorting_form($field, TextHelper::strtolower($mode));
 		$this->build_sorting_smallad_type();
 
-		$columns_number_displayed_per_line = $this->config->get_cols_number_displayed_per_line();
+		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 
 		$this->view->put_all(array(
 			'C_ITEMS'                => $result->get_rows_count() > 0,

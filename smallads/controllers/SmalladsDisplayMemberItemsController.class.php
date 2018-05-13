@@ -108,7 +108,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 				'user_id' => AppContext::get_current_user()->get_id()
 			)));
 
-			$columns_number_displayed_per_line = $this->config->get_cols_number_displayed_per_line();
+			$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 
 			$this->view->put_all(array(
 				'C_ITEMS'                => $result->get_rows_count() > 0,

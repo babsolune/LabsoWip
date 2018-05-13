@@ -140,7 +140,7 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 		if ($nbr_items_pending > 0)
 		{
-			$columns_number_displayed_per_line = $this->config->get_cols_number_displayed_per_line();
+			$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 
 			$this->view->put_all(array(
 				'C_ITEMS_SORT_FILTERS' => $this->config->are_sort_filters_enabled(),

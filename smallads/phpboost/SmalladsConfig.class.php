@@ -43,7 +43,7 @@ class SmalladsConfig extends AbstractConfigData
 	const LIST_DISPLAY = 'list';
 	const TABLE_DISPLAY = 'table';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
-	const COLS_NUMBER_DISPLAYED_PER_LINE = 'cols_number_displayed_per_line';
+	const DISPLAYED_COLS_NUMBER_PER_LINE = 'displayed_cols_number_per_line';
 	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
 	const AUTHORIZATIONS = 'authorizations';
 
@@ -120,14 +120,14 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $number);
 	}
 
-	public function get_cols_number_displayed_per_line()
+	public function get_displayed_cols_number_per_line()
 	{
-		return $this->get_property(self::COLS_NUMBER_DISPLAYED_PER_LINE);
+		return $this->get_property(self::DISPLAYED_COLS_NUMBER_PER_LINE);
 	}
 
-	public function set_cols_number_displayed_per_line($number)
+	public function set_displayed_cols_number_per_line($number)
 	{
-		$this->set_property(self::COLS_NUMBER_DISPLAYED_PER_LINE, $number);
+		$this->set_property(self::DISPLAYED_COLS_NUMBER_PER_LINE, $number);
 	}
 
 	public function get_characters_number_to_cut()
@@ -484,7 +484,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::ITEMS_NUMBER_PER_PAGE => 10,
 			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
 			self::CHARACTERS_NUMBER_TO_CUT => 128,
-			self::COLS_NUMBER_DISPLAYED_PER_LINE => 2,
+			self::DISPLAYED_COLS_NUMBER_PER_LINE => 2,
 			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
