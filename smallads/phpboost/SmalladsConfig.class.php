@@ -49,9 +49,6 @@ class SmalladsConfig extends AbstractConfigData
 
 	// Items
 	const CURRENCY = 'currency';
-	const EUROS = '€';
-	const DOLLARS = '$';
-	const POUNDS = '£';
 	const SMALLAD_TYPES = 'smallad_types';
 	const MAX_WEEKS_NUMBER_DISPLAYED = 'max_weeks_number_displayed';
 	const MAX_WEEKS_NUMBER = 'max_weeks_number';
@@ -493,7 +490,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
 
 			// Items
-			self::CURRENCY => self::EUROS,
+			self::CURRENCY => '€',
 			self::SMALLAD_TYPES => array($config_lang['default.smallad.type']),
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,

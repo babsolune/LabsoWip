@@ -63,8 +63,8 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden(!$this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY);
-			$this->form->get_field_by_id('cols_number_displayed_per_line')->set_hidden(!$this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY);
+			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY);
+			$this->form->get_field_by_id('cols_number_displayed_per_line')->set_hidden($this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY);
 			$this->form->get_field_by_id('display_descriptions_to_guests')->set_hidden($this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY);
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
@@ -190,15 +190,17 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		if($this->form->get_value('display_type') == SmalladsConfig::MOSAIC_DISPLAY) {
 			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut', $this->config->get_characters_number_to_cut()));
 			$this->config->set_cols_number_displayed_per_line($this->form->get_value('cols_number_displayed_per_line'));
-			if ($this->form->get_value('display_descriptions_to_guests'))
+			if ($this->form->get_value('display_descriptions_to_guests')) {
 				$this->config->display_descriptions_to_guests();
-			else
+			} else {
 				$this->config->hide_descriptions_to_guests();
+			}				
 		} else if ($this->form->get_value('display_type') == SmalladsConfig::LIST_DISPLAY) {
-			if ($this->form->get_value('display_descriptions_to_guests'))
+			if ($this->form->get_value('display_descriptions_to_guests')) {
 				$this->config->display_descriptions_to_guests();
-			else
+			} else {
 				$this->config->hide_descriptions_to_guests();
+			}
 		}
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
