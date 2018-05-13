@@ -128,8 +128,8 @@
 						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
 						<th>{@smallads.form.price}</th>
 						<th>{@smallads.ad.type}</th>
-						# IF C_LOCATION #<th>{@county}</th># ENDIF #
 						<th>${LangLoader::get_message('author', 'common')}</th>
+						# IF C_LOCATION #<th>{@location}</th># ENDIF #
 						# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
 						<th>${@smallads.publication.date}</th>
 						# IF C_MODERATION #
@@ -164,12 +164,12 @@
 							<td class="jp-location">
 								# IF items.IS_LOCATED #
 									# IF items.C_GMAP #
-										{@location} : {items.LOCATION}
+										{items.LOCATION}
 									# ELSE #
 										# IF items.C_OTHER_LOCATION #
 											{@other.country} : {items.OTHER_LOCATION}
 										# ELSE #
-											{@location} : {items.LOCATION}
+											{items.LOCATION}
 										# ENDIF #
 									# ENDIF #
 								# ENDIF #

@@ -723,6 +723,22 @@ class Smallad
 		$new_content        = new SmalladsNewContent();
 		$notation_config    = new SmalladsNotation();
 
+		if($this->config->is_googlemaps_available()) {
+			$unserialized_value = @unserialize($this->get_location());
+			$location_value = $unserialized_value !== false ? $unserialized_value : $this->get_location();
+			$location = '';
+			if (is_array($location_value) && isset($location_value['address']))
+				$location = $location_value['address'];
+			else if (!is_array($location_value))
+				$location = $location_value;
+		} else
+			if(is_numeric($this->get_location()))
+				$location = LangLoader::get_message('county.' . $this->get_location(), 'counties', 'smallads');
+			else
+				$location = $this->get_location();
+
+
+
 		if($this->config->is_user_allowed())
 			$contact_level = AppContext::get_current_user()->check_level(User::VISITOR_LEVEL);
 		else
@@ -762,9 +778,8 @@ class Smallad
 			'C_DIFFERED'                       => $this->published == self::PUBLICATION_DATE,
 			'C_NEW_CONTENT'                    => $new_content->check_if_is_new_content($this->publication_start_date != null ? $this->publication_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
 			'C_USAGE_TERMS'					   => $this->config->are_usage_terms_displayed(),
-			'C_LOCATION'				   	   => $this->config->is_location_displayed(),
 			'IS_LOCATED'					   => !empty($this->get_location()),
-			'C_OTHER_LOCATION'				   => $this->config->is_location_displayed() || !empty($this->get_other_location()),
+			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
 			'C_GMAP'					   	   => $this->config->is_googlemaps_available(),
 
 			//Smallads
@@ -791,7 +806,7 @@ class Smallad
 			'THUMBNAIL'          	=> $this->get_thumbnail()->rel(),
 			'USER_LEVEL_CLASS'   	=> UserService::get_level_class($user->get_level()),
 			'USER_GROUP_COLOR'   	=> $user_group_color,
-			'LOCATION'				=> $this->get_location(),
+			'LOCATION'				=> $location,
 			'OTHER_LOCATION'		=> $this->get_other_location(),
 
 			//Category
