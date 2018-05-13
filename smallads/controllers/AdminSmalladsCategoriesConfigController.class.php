@@ -64,7 +64,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		{
 			$this->save();
 			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() === SmalladsConfig::TABLE_DISPLAY);
-			$this->form->get_field_by_id('displayed_cols_number_per_line')->set_hidden(!$this->config->get_display_type() === SmalladsConfig::MOSAIC_DISPLAY);
+			$this->form->get_field_by_id('displayed_cols_number_per_line')->set_hidden($this->config->get_display_type() === SmalladsConfig::LIST_DISPLAY || SmalladsConfig::TABLE_DISPLAY);
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
@@ -120,12 +120,12 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('characters_number_to_cut', $this->lang['config.characters.number.to.cut'], $this->config->get_characters_number_to_cut(),
-			array('min' => 20, 'max' => 1000, 'hidden' => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY),
+			array('min' => 20, 'max' => 1000, 'hidden' => $this->config->get_display_type() === SmalladsConfig::TABLE_DISPLAY),
 			array(new FormFieldConstraintIntegerRange(20, 1000))
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('displayed_cols_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_displayed_cols_number_per_line(),
-			array('min' => 1, 'max' => 6, 'hidden' => !$this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY),
+			array('min' => 1, 'max' => 6, 'hidden' => $this->config->get_display_type() === SmalladsConfig::LIST_DISPLAY || SmalladsConfig::TABLE_DISPLAY),
 			array(new FormFieldConstraintIntegerRange(1, 6))
 		));
 
