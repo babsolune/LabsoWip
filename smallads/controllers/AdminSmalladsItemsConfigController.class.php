@@ -88,8 +88,8 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 
 		$fieldset = new FormFieldsetHTML('smallads_options_config', $this->lang['config.items.title']);
 		$form->add_fieldset($fieldset);
-		
-		$fieldset->add_field(new SmalladsCurrenciesSelect('currency', $this->lang['config.currency'], $this->config->get_currency()));
+
+		$fieldset->add_field(new FormFieldSelectCurrencies('currency', $this->lang['config.currency'], $this->config->get_currency()));
 
 		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
 

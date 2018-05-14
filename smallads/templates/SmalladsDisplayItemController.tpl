@@ -9,7 +9,7 @@
 	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<header>
 			<h2>
-				<p>{SMALLAD_TYPE}# IF C_SOLD # - <span class="sold-article">- {@smallads.sold.item}</span># ENDIF #</p>
+				<p>{SMALLAD_TYPE}# IF C_SOLD # - <span class="sold-article">{@smallads.sold.item}</span># ENDIF #</p>
 				{TITLE}
 				<span class="actions">
 					# IF NOT C_SOLD #
@@ -59,7 +59,7 @@
 							# IF C_OTHER_LOCATION #
 								{@other.country} : {OTHER_LOCATION}
 							# ELSE #
-								{@county} : {LOCATION}
+								{@location} : {LOCATION}
 							# ENDIF #
 						# ENDIF #
 					# ENDIF #
@@ -87,7 +87,7 @@
 							# ENDIF #
 							# IF C_DISPLAYED_AUTHOR_PM # | <a href="{U_AUTHOR_PM}" class="smallad-pm" title="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope-o"></i></a># ENDIF #
 							# IF C_DISPLAYED_AUTHOR_PHONE #
-								 |<a href="#tel-modal" class="tel-modal-btn"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
+								 | <a href="#tel-modal" class="tel-modal-btn"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
 								<div id="tel-modal" class="smallad-modal">
 									<a href="#tel-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 									# IF C_CONTACT_LEVEL #

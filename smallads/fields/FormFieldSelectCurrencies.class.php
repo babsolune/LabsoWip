@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                       SmalladsUrlBuilder.class.php
+ *                       FormFieldSelectCurrencies.class.php
  *                            -------------------
  *   begin                : March 15, 2018
  *   copyright            : (C) 2018 Sebastien LARTIGUE
@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class SmalladsCurrenciesSelect extends FormFieldSimpleSelectChoice
+class FormFieldSelectCurrencies extends FormFieldSimpleSelectChoice
 {
 		const AFN = '؋';
 		const ALL = 'Lek';
