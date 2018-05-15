@@ -9,10 +9,10 @@
 	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<header>
 			<h2>
-				<p>{SMALLAD_TYPE}# IF C_SOLD # - <span class="sold-article">{@smallads.sold.item}</span># ENDIF #</p>
+				<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="completed-article">{@smallads.completed.item}</span># ENDIF #</p>
 				{TITLE}
 				<span class="actions">
-					# IF NOT C_SOLD #
+					# IF NOT C_COMPLETED #
 						# IF C_EDIT #
 							<a href="{U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit"></i></a>
 						# ENDIF #
@@ -64,7 +64,7 @@
 						# ENDIF #
 					# ENDIF #
 				# ENDIF #
-				# IF NOT C_SOLD #
+				# IF NOT C_COMPLETED #
 					# IF C_CONTACT #
 						<hr />
 						<div>

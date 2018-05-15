@@ -139,17 +139,17 @@
 				</thead>
 				<tbody>
 					# START items #
-					<tr class="list-item# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_SOLD # sold-smallad# ENDIF #">
+					<tr class="list-item# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #">
 						<td>
-							# IF NOT items.C_SOLD #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
+							# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
 								<span class="jp-title" itemprop="name">{items.TITLE}</span>
-							# IF NOT items.C_SOLD #</a># ENDIF #
+							# IF NOT items.C_COMPLETED #</a># ENDIF #
 							<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 							<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
 							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 						</td>
-						<td class="jp-price"># IF items.C_SOLD #{@smallads.sold.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
+						<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
 						<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
 						# IF items.C_DISPLAYED_AUTHOR #
 							<td class="jp-author">
@@ -185,7 +185,7 @@
 						</td>
 						# IF C_MODERATION #
 							<td>
-								# IF NOT items.C_SOLD #
+								# IF NOT items.C_COMPLETED #
 									# IF items.C_EDIT #
 										<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
 									# ENDIF #
@@ -204,8 +204,8 @@
 
 			<div class="list elements-container# IF C_SEVERAL_COLUMNS # columns-{COLUMNS_NUMBER}# ENDIF #">
 				# START items #
-					<article id="smallads-items-{items.ID}" class="list-item smallads-items several-items# IF items.C_SOLD# sold-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-						# IF items.C_SOLD # <div class="sold-item"><span>{@smallads.sold.item}</span></div># ENDIF #
+					<article id="smallads-items-{items.ID}" class="list-item smallads-items several-items# IF items.C_COMPLETED# completed-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+						# IF items.C_COMPLETED # <div class="completed-item"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header>
 							<h2>
 								<p class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</p>

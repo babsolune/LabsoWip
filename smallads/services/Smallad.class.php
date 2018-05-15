@@ -43,7 +43,7 @@ class Smallad
 	private $smallad_type;
 	private $brand;
 	private $max_weeks;
-	private $sold;
+	private $completed;
 
 	private $author_user;
 	private $location;
@@ -97,8 +97,8 @@ class Smallad
 	const PUBLISHED_NOW = 1;
 	const PUBLICATION_DATE = 2;
 
-	const NOTSOLD = 0;
-	const SOLD = 1;
+	const NOTCOMPLETED = 0;
+	const COMPLETED = 1;
 
 	const NOTDISPLAYED_AUTHOR_NAME = 0;
 	const DISPLAYED_AUTHOR_NAME = 1;
@@ -268,19 +268,19 @@ class Smallad
 		return $this->views_number;
 	}
 
-	public function get_sold()
+	public function get_completed()
 	{
-		return $this->sold;
+		return $this->completed;
 	}
 
-	public function set_sold($sold)
+	public function set_completed($completed)
 	{
-		$this->sold= $sold;
+		$this->completed= $completed;
 	}
 
-	public function is_sold()
+	public function is_completed()
 	{
-		return $this->sold;
+		return $this->completed;
 	}
 
 	public function set_author_user(User $user)
@@ -589,7 +589,7 @@ class Smallad
 			'brand'               	 => $this->get_brand(),
 			'thumbnail_url'          => $this->get_thumbnail()->relative(),
 			'views_number'           => $this->get_views_number(),
-			'sold' 					 => $this->get_sold(),
+			'completed' 					 => $this->get_completed(),
 			'author_user_id'         => $this->get_author_user()->get_id(),
 			'location' 				 => $this->get_location(),
 			'other_location' 		 => $this->get_other_location(),
@@ -624,7 +624,7 @@ class Smallad
 		$this->set_brand($properties['brand']);
 		$this->set_thumbnail(new Url($properties['thumbnail_url']));
 		$this->set_views_number($properties['views_number']);
-		$this->set_sold($properties['sold']);
+		$this->set_completed($properties['completed']);
 		$this->location = $properties['location'];
 		$this->other_location = $properties['other_location'];
 		$this->set_displayed_author_email($properties['displayed_author_email']);
@@ -676,7 +676,7 @@ class Smallad
 			$max_weeks_config_number = null;
 
 		$this->id_category = $id_category;
-		$this->sold = self::NOTSOLD;
+		$this->completed = self::NOTCOMPLETED;
 		$this->displayed_author_name = self::DISPLAYED_AUTHOR_NAME;
 		$this->author_user = AppContext::get_current_user();
 		$this->published = self::PUBLISHED_NOW;
@@ -764,7 +764,7 @@ class Smallad
 			'C_UPDATED_DATE'                   => $this->updated_date != null,
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
 			'C_CONTACT_LEVEL'				   => $contact_level,
-			'C_SOLD'         				   => $this->is_sold(),
+			'C_COMPLETED'         				   => $this->is_completed(),
 			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
 			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
 			'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),

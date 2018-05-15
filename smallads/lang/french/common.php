@@ -50,7 +50,7 @@ $lang['smallads.category.select'] = 'Choisir une catégorie';
 $lang['smallads.category.all'] = 'Toutes les catégories';
 $lang['smallads.select.category'] = 'Sélectionnez une catégorie';
 
-$lang['smallads.sold.item'] = 'Terminé';
+$lang['smallads.completed.item'] = 'Terminé';
 $lang['smallads.ad.type'] = 'Type';
 $lang['smallads.category'] = 'Catégorie';
 
@@ -130,8 +130,8 @@ $lang['smallads.form.displayed.author.phone'] = 'Afficher le numéro de téléph
 $lang['smallads.form.author.phone'] = 'Numéro de téléphone';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Personnaliser le nom de l\'auteur';
 $lang['smallads.form.custom.author.name'] = 'Nom de l\'auteur personnalisé';
-$lang['smallads.form.sold'] = 'Déclarer cette annonce terminée';
-$lang['smallads.form.sold.warning'] = 'L\'annonce sera supprimée après :delay jours<br /><span style="color:#CC0000">Cette action est irréversible</span>';
+$lang['smallads.form.completed'] = 'Déclarer cette annonce terminée';
+$lang['smallads.form.completed.warning'] = 'L\'annonce sera supprimée après :delay jours<br /><span style="color:#CC0000">Cette action est irréversible</span>';
 
 $lang['smallads.form.smallad.type'] = 'Type d\'annonce';
 $lang['smallads.form.smallads.types'] = 'Types d\'annonces';

@@ -98,7 +98,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'max_weeks' => array('type' => 'integer', 'length' => 11),
 			'smallad_type' => array('type' => 'string', 'length' => 255),
 			'brand' => array('type' => 'string', 'length' => 255),
-			'sold' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
+			'completed' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'views_number' => array('type' => 'integer', 'length' => 11, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'location' => array('type' => 'text', 'length' => 65000),
@@ -202,7 +202,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->db_utils->add_column(PREFIX . 'smallads', 'rewrited_title', array('type' => 'string', 'length' => 255, 'default' => "''"));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'description', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'brand', array('type' => 'string', 'length' => 255));
-		$this->db_utils->add_column(PREFIX . 'smallads', 'sold', array('type' => 'boolean', 'notnull' => 1, 'default' => 0));
+		$this->db_utils->add_column(PREFIX . 'smallads', 'completed', array('type' => 'boolean', 'notnull' => 1, 'default' => 0));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'location', array('type' => 'text', 'length' => 65000));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'other_location', array('type' => 'string', 'length' => 255));
 		$this->db_utils->add_column(PREFIX . 'smallads', 'views_number', array('type' => 'integer', 'length' => 11, 'default' => 0));

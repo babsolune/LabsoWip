@@ -53,11 +53,11 @@
     color: #009900;
 }
 
-.nbs-flexisel-item a.sold-smallad .smallads-mini-infos {
+.nbs-flexisel-item a.completed-smallad .smallads-mini-infos {
     color: #CC0000;
 }
 
-#flexisel .nbs-flexisel-item a.sold-smallad span.sold-item {
+#flexisel .nbs-flexisel-item a.completed-smallad span.completed-item {
     color: #CC0000;
     position: absolute;
     padding: 5px;
@@ -69,7 +69,7 @@
     z-index: 8;
 }
 
-.nbs-flexisel-item a.sold-smallad span.sold-item span {
+.nbs-flexisel-item a.completed-smallad span.completed-item span {
     color: #FFFFFF;
     position: absolute;
     top: 50%;

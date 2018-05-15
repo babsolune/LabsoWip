@@ -61,7 +61,7 @@ class SmalladsItemsManagerController extends ModuleController
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
 			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'published'),
-			new HTMLTableColumn(LangLoader::get_message('smallads.sold.item', 'common', 'smallads'), 'sold'),
+			new HTMLTableColumn(LangLoader::get_message('smallads.completed.item', 'common', 'smallads'), 'completed'),
 			new HTMLTableColumn('')
 		);
 
@@ -114,10 +114,10 @@ class SmalladsItemsManagerController extends ModuleController
 
 			$start_and_end_dates = new SpanHTMLElement($dates, array(), 'smaller');
 
-			if($smallad->is_sold())
-				$sold = LangLoader::get_message('smallads.sold.item', 'common', 'smallads');
+			if($smallad->is_completed())
+				$completed = LangLoader::get_message('smallads.completed.item', 'common', 'smallads');
 			else
-				$sold = '';
+				$completed = '';
 
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()), $smallad->get_title()), 'left'),
@@ -125,7 +125,7 @@ class SmalladsItemsManagerController extends ModuleController
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($smallad->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($smallad->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),
-				new HTMLTableRowCell($sold),
+				new HTMLTableRowCell($completed),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display()),
 			);
 

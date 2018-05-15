@@ -296,8 +296,8 @@ class SmalladsItemFormController extends ModuleController
 
 		if($this->get_smallad()->get_id() !== null)
 		{
-			$other_fieldset->add_field(new FormFieldCheckbox('sold', $this->lang['smallads.form.sold'], $this->get_smallad()->get_sold(),
-				array('description' => StringVars::replace_vars($this->lang['smallads.form.sold.warning']
+			$other_fieldset->add_field(new FormFieldCheckbox('completed', $this->lang['smallads.form.completed'], $this->get_smallad()->get_completed(),
+				array('description' => StringVars::replace_vars($this->lang['smallads.form.completed.warning']
 				,array('delay' => SmalladsConfig::load()->get_display_delay_before_delete()))
 			)));
 		}
@@ -609,7 +609,7 @@ class SmalladsItemFormController extends ModuleController
 		$smallad->set_carousel($this->form->get_value('carousel'));
 
 		if($this->get_smallad()->get_id() !== null)
-			$smallad->set_sold($this->form->get_value('sold'));
+			$smallad->set_completed($this->form->get_value('completed'));
 
 		if (!SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->moderation())
 		{

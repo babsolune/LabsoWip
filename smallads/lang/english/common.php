@@ -50,7 +50,7 @@ $lang['smallads.category.select'] = 'Choose a category';
 $lang['smallads.category.all'] = 'All categories';
 $lang['smallads.select.category'] = 'Select a category';
 
-$lang['smallads.sold.item'] = 'Completed';
+$lang['smallads.completed.item'] = 'Completed';
 $lang['smallads.ad.type'] = 'Type';
 $lang['smallads.category'] = 'Category';
 
@@ -130,8 +130,8 @@ $lang['smallads.form.displayed.author.phone'] = 'Display the phone number';
 $lang['smallads.form.author.phone'] = 'Phone number';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
-$lang['smallads.form.sold'] = 'Declare this ad completed';
-$lang['smallads.form.sold.warning'] = '';
+$lang['smallads.form.completed'] = 'Declare this ad completed';
+$lang['smallads.form.completed.warning'] = '';
 
 $lang['smallads.form.smallad.type'] = 'Type of ad';
 $lang['smallads.form.smallads.types'] = 'Types of ads';

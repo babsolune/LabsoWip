@@ -43,11 +43,11 @@
 }
 
 /* --- Sold item --- */
-article.sold-smallad {
+article.completed-smallad {
 	position: relative;
 }
 
-.sold-item {
+.completed-item {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -57,7 +57,7 @@ article.sold-smallad {
 	z-index: 9;
 }
 
-.sold-item span {
+.completed-item span {
 	display: block;
 	position: absolute;
 	top:50%;
@@ -67,7 +67,7 @@ article.sold-smallad {
 	font-size: 2.618em;
 }
 
-.sold-article {
+.completed-article {
 	color: #CC0000;
 }
 
@@ -79,7 +79,7 @@ tr.new-content td {
 	background-color: #67e967;
 }
 
-tr.sold-smallad td {
+tr.completed-smallad td {
 	background-color: #f06363;
 	color: #CC0000;
 }
