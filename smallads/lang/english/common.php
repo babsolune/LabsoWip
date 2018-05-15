@@ -74,9 +74,6 @@ $lang['config.display.descriptions.to.guests'] = 'Display the ads summary to vis
 //Smallads items configuration
 $lang['config.items.title'] = 'Ads configuration';
 $lang['config.currency'] = 'Currency';
-$lang['config.euros'] = '€';
-$lang['config.dollars'] = '$';
-$lang['config.pounds'] = '£';
 $lang['smallads.type.add'] = 'Add types of ad';
 $lang['smallads.type.placeholder'] = 'Sale, purchase, leasing ...';
 $lang['smallads.brand.add'] = 'Add brands';
@@ -152,8 +149,8 @@ $lang['smallads.sort.date'] = 'Creation date';
 $lang['smallads.sort.title'] = 'Title';
 $lang['smallads.sort.price'] = 'Price';
 $lang['smallads.sort.author'] = 'Author';
-$lang['smallads.sort.coms'] = 'Comments number';
-$lang['smallads.sort.view'] = 'Views number';
+$lang['smallads.sort.coms'] = 'Comments';
+$lang['smallads.sort.view'] = 'Views';
 $lang['smallads.sort.note'] = 'Note';
 $lang['smallads.pagination'] = 'Page {current} on {pages}';
 

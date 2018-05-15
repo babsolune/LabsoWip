@@ -72,16 +72,19 @@
 							# IF C_DISPLAYED_AUTHOR_EMAIL #
 								<a href="#email-modal" class="email-modal-btn"><i class="fa fa-fw fa-at"></i></a>
 								<div id="email-modal" class="smallad-modal">
-									<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 									# IF C_CONTACT_LEVEL #
 										<div class="email-form">
+											<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 											# INCLUDE MSG #
 											# IF NOT C_SMALLAD_EMAIL_SENT #
 												# INCLUDE EMAIL_FORM #
 											# ENDIF  #
 										</div>
 									# ELSE #
-										<div class="warning is-not-connected">{@smallads.email.modal}</div>
+										<div class="warning is-not-connected">
+											<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
+											{@smallads.email.modal}
+										</div>
 									# ENDIF #
 								</div>
 							# ENDIF #
@@ -89,11 +92,16 @@
 							# IF C_DISPLAYED_AUTHOR_PHONE #
 								 | <a href="#tel-modal" class="tel-modal-btn"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
 								<div id="tel-modal" class="smallad-modal">
-									<a href="#tel-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 									# IF C_CONTACT_LEVEL #
-										<div class="tel-form is-connected">{AUTHOR_PHONE}</div>
+										<div class="tel-form is-connected">
+											<a href="#tel-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
+											{AUTHOR_PHONE}
+										</div>
 									# ELSE #
-										<div class="warning is-not-connected">{@smallads.tel.modal}</div>
+										<div class="warning is-not-connected">
+											<a href="#tel-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
+											{@smallads.tel.modal}
+										</div>
 									# ENDIF #
 								</div>
 							# ENDIF #

@@ -74,9 +74,6 @@ $lang['config.display.descriptions.to.guests'] = 'Afficher le condensé des anno
 //Smallads items configuration
 $lang['config.items.title'] = 'Configuration des annonces';
 $lang['config.currency'] = 'Devise';
-$lang['config.euros'] = '€';
-$lang['config.dollars'] = '$';
-$lang['config.pounds'] = '£';
 $lang['smallads.type.add'] = 'Ajouter des types d\'annonce';
 $lang['smallads.type.placeholder'] = 'Vente, achat, location ...';
 $lang['smallads.brand.add'] = 'Ajouter des marques';
@@ -152,8 +149,8 @@ $lang['smallads.sort.date'] = 'Date de création';
 $lang['smallads.sort.title'] = 'Titre';
 $lang['smallads.sort.price'] = 'Prix';
 $lang['smallads.sort.author'] = 'Auteur';
-$lang['smallads.sort.coms'] = 'Nombre de commentaires';
-$lang['smallads.sort.view'] = 'Nombre de vues';
+$lang['smallads.sort.coms'] = 'Commentaires';
+$lang['smallads.sort.view'] = 'Vues';
 $lang['smallads.sort.note'] = 'Note';
 $lang['smallads.pagination'] = 'Page {current} sur {pages}';
 

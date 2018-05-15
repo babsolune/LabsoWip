@@ -166,6 +166,10 @@ a[data-lightbox] {
 	text-align: center;
 }
 
+.tel-form.is-connected .modal-close {
+	font-size: 0.309em;
+}
+
 .tel-form.is-connected,
 .is-not-connected {
 	position: absolute;
@@ -180,8 +184,8 @@ a[data-lightbox] {
 	right: 0.618em;
 	text-align: right;
 	background-color: #FFFFFF;
-	padding: 0.618em;
-	border: 2px solid #CC0000;
+	padding: 0.456em 0.618em 0.618em 0.61em;
+	border: 2px solid #366493;
 	border-radius: 100%;
 }
 
