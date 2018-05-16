@@ -79,10 +79,11 @@
     font-size: 2rem;
 }
 
-/* .relative-container ul li a span span {
-    position: relative;
-    background-color: transparent;
-} */
+.smallads-mini-infos h6 p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
 .nbs-flexisel-item img {
     cursor: pointer;

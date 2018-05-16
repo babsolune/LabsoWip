@@ -55,6 +55,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->create_smallads_cats_table();
 		$this->insert_smallads_cats_data();
 		$this->delete_files();
+		$this->update_fields();
 
 		return '5.1.2';
 	}
@@ -255,6 +256,21 @@ class SmalladsSetup extends DefaultModuleSetup
 		// TODO delete "pics" folder
 		// $folder = new Folder(Url::to_rel('/smallads/pics'));
 		// $folder->delete();
+	}
+
+	private function update_fields()
+	{
+		$this->messages = LangLoader::get('install', 'smallads');
+		$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'title', 'thumbnail_url', 'smallad_type', 'id_category'));
+		while ($row = $result->fetch()) {
+			PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+				'rewrited_title' => Url::encode_rewrite($row['title']),
+				'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
+				'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
+				'id_category' => 1,
+			  ), 'WHERE id = :id', array('id' => $row['id']));
+		}
+		$result->dispose();
 	}
 
 }
