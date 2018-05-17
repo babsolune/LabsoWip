@@ -492,8 +492,7 @@ class SmalladsItemFormController extends ModuleController
 		$installed_lang = LangsManager::get_lang(LangsManager::get_default_lang())->get_configuration()->get_name();
 		$options = array();
 
-		if ($this->get_smallad()->get_id() === null)
-			$options[] = new FormFieldSelectChoiceOption('', '');
+		$options[] = new FormFieldSelectChoiceOption('', '');
 
 		$options[] = new FormFieldSelectChoiceOption($this->county_lang['other.country'], 'other');
 

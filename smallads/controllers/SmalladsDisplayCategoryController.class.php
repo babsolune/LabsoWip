@@ -138,7 +138,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 
-			'C_CATEGORY'             => SmalladsService::get_categories_manager()->get_categories_cache()->has_categories(),
+			'C_CATEGORY'             => true, // SmalladsService::get_categories_manager()->get_categories_cache()->has_categories()
 			'C_ROOT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_CATEGORY_IMAGE'       => !empty($category_image),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),

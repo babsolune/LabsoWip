@@ -268,10 +268,9 @@ class SmalladsSetup extends DefaultModuleSetup
 				'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
 				'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
 				'id_category' => 1,
-			  ), 'WHERE id = :id', array('id' => $row['id']));
+			), 'WHERE id = :id', array('id' => $row['id']));
 		}
 		$result->dispose();
 	}
-
 }
 ?>
