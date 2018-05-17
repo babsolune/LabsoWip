@@ -62,10 +62,10 @@ class TsmUrlBuilder
 	public static function add_competition()             { return DispatchManager::get_url(self::$dispatcher, '/competition/add/'); }
 	public static function edit_competition($id)         { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/edit/'); }
 	public static function edit_competition_params($id)  { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
-	public static function edit_competition_teams($id)   { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
-	public static function edit_competition_days($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
-	public static function edit_competition_matches($id) { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
-	public static function edit_competition_results($id) { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/params/'); }
+	public static function edit_competition_teams($id)   { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/teams/'); }
+	public static function edit_competition_days($id)    { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/days/'); }
+	public static function edit_competition_matches($id) { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/matches/'); }
+	public static function edit_competition_results($id) { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/results/'); }
 	public static function delete_competition($id)       { return DispatchManager::get_url(self::$dispatcher, '/competition/' . $id . '/delete/?token=' . AppContext::get_session()->get_token()); }
 	public static function display_competition($season_id, $season_name, $id, $division_rewrited_name)
 	{

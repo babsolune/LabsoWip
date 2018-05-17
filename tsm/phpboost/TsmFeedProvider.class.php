@@ -36,9 +36,9 @@ class TsmFeedProvider implements FeedProvider
 
 	}
 
-	public function get_feed_data_struct($idcat = 0, $name = '')
+	public function get_feed_data_struct($competition = 0, $name = '')
 	{
-		
+
 	}
 }
 ?>

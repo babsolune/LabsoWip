@@ -127,10 +127,10 @@ class Season
 	{
 		switch ($this->is_published()) {
 			case self::PUBLISHED:
-				return LangLoader::get_message('seasons.published', 'season', 'tsm');
+				return LangLoader::get_message('tsm.published', 'common', 'tsm');
 			break;
 			case self::NOT_PUBLISHED:
-				return LangLoader::get_message('seasons.not.published', 'season', 'tsm');
+				return LangLoader::get_message('tsm.not.published', 'common', 'tsm');
 			break;
 		}
 	}
@@ -163,14 +163,14 @@ class Season
 
     public function set_properties(array $properties)
     {
-		$this->set_id($properties['id']); // ID de la saison
+		$this->id = $properties['id']; // ID de la saison
 
         if($properties['season_type']) // Etat de la checkbox "Annee Calendaire"
             $this->calendar_season_type();
         else
             $this->date_season_type();
 
-        $this->set_season_date(new Date($properties['season_date'], Timezone::SERVER_TIMEZONE)); // annee (de depart) de la saison
+        $this->season_date = new Date($properties['season_date'], Timezone::SERVER_TIMEZONE); // annee (de depart) de la saison
 
         $season_name = $this->get_season_date()->get_year(); // On recupere l'annee du timestamp
         if($this->is_calendar()) // si l'annee est calendaire

@@ -68,5 +68,10 @@ class TsmExtensionPointProvider extends ExtensionPointProvider
 	{
 		return new UrlMappings(array(new DispatcherUrlMapping('/tsm/index.php')));
 	}
+
+	public function division()
+	{
+		return new TsmDivisionExtensionPoint();
+	}
 }
 ?>

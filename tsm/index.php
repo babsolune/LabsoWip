@@ -65,6 +65,11 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('TsmCompetitionsManagerController', '`^/competitions/manager/?$`'),
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/add/?([0-9]+)?/?$`'),
 	new UrlControllerMapper('TsmCompetitionsFormController', '`^/competition/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsFormParamsController', '`^/competition/([0-9]+)/params/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsFormTeamsController', '`^/competition/([0-9]+)/teams/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsFormDaysController', '`^/competition/([0-9]+)/days/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsFormMatchesController', '`^/competition/([0-9]+)/matches/?$`', array('id')),
+	new UrlControllerMapper('TsmCompetitionsFormResultsController', '`^/competition/([0-9]+)/results/?$`', array('id')),
 	new UrlControllerMapper('TsmCompetitionsDeleteController', '`^/competition/([0-9]+)/delete/?$`', array('id')),
 	new UrlControllerMapper('TsmDisplayCompetitionController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?$`', array('season_id', 'season_name', 'id', 'division_rewrited_name')),
 

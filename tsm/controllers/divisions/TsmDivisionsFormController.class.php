@@ -76,10 +76,10 @@ class TsmDivisionsFormController extends ModuleController
 
         if (TsmdivisionsAuthService::check_division_auth($this->get_division()->get_id())->moderation_division())
 		{
-            $publication_fieldset = new FormFieldsetHTML('publication', $this->lang['division.publication']);
+            $publication_fieldset = new FormFieldsetHTML('publication', $this->tsm_lang['form.publication']);
             $form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->lang['division.is.published'], $this->get_division()->is_published()));
+			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->tsm_lang['form.is.published'], $this->get_division()->is_published()));
 		}
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
@@ -178,10 +178,18 @@ class TsmDivisionsFormController extends ModuleController
 
 		if ($division->is_published())
 		{
-			AppContext::get_response()->redirect(TsmUrlBuilder::divisions_manager(), StringVars::replace_vars($this->lang['division.message.success.add'], array('name' => $division->get_name())));
+            if($this->is_new_division)
+			    AppContext::get_response()->redirect(TsmUrlBuilder::divisions_manager(), StringVars::replace_vars($this->lang['division.message.success.add'], array('name' => $division->get_name())));
+            else
+                AppContext::get_response()->redirect(TsmUrlBuilder::divisions_manager(), StringVars::replace_vars($this->lang['division.message.success.edit'], array('name' => $division->get_name())));
 		}
-        else
-            AppContext::get_response()->redirect(TsmUrlBuilder::home());
+        else {
+            if($this->is_new_division)
+                AppContext::get_response()->redirect(TsmUrlBuilder::divisions_manager(), StringVars::replace_vars($this->lang['division.message.success.add.not.published'], array('name' => $division->get_name())));
+            else
+                AppContext::get_response()->redirect(TsmUrlBuilder::divisions_manager(), StringVars::replace_vars($this->lang['division.message.success.add.not.published'], array('name' => $division->get_name())));
+        }
+
 	}
 
 	private function generate_response(View $view)

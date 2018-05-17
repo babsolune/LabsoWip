@@ -35,8 +35,6 @@
  $lang['seasons.seasons'] = 'Saisons';
  $lang['seasons.season'] = 'Saison';
  $lang['seasons.management'] = 'Gestion des saisons';
- $lang['seasons.published'] = 'Publiée';
- $lang['seasons.not.published'] = 'Non publiée';
 
 // Config
 $lang['season.config'] = 'Configuration des saisons';
@@ -47,6 +45,4 @@ $lang['season.edit'] = 'Modifier une saison';
 $lang['season.type.calendar'] = 'Année calendaire';
 $lang['season.type.desc'] = 'année civile du 1er janvier au 31 décembre';
 $lang['season.date'] = 'Année de la saison';
-$lang['season.publication'] = 'Publication';
-$lang['season.is.published'] = 'Publier';
 ?>

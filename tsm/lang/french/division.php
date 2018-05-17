@@ -35,15 +35,18 @@
  $lang['divisions.divisions'] = 'Divisions';
  $lang['divisions.division'] = 'Division';
  $lang['divisions.management'] = 'Gestion des divisions';
- $lang['divisions.published'] = 'Publiée';
- $lang['divisions.not.published'] = 'Non publiée';
 
 // Form
 $lang['division.add'] = 'Ajouter une division';
 $lang['division.edit'] = 'Modifier une division';
 $lang['division.name'] = 'Nom de la division';
-$lang['division.publication'] = 'Publication';
-$lang['division.is.published'] = 'Publier';
+
+// Messages
+$lang['division.message.success.delete'] = 'La division <strong>:name</strong> a été supprimée';
+$lang['division.message.success.add'] = 'La division <strong>:name</strong> a été ajoutée';
+$lang['division.message.success.add.not.published'] = 'La division <strong>:name</strong> a été ajoutée, mais n\'est pas publiée';
+$lang['division.message.success.edit'] = 'La division <strong>:name</strong> a été modifiée';
+$lang['division.message.success.edit.not.published'] = 'La division <strong>:name</strong> a été modifiée, mais n\'est pas publiée';
 
 // install
 $lang['default.division.name'] = 'Division de test';

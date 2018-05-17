@@ -33,8 +33,6 @@ class TsmCompetitionsService
 {
 	private static $db_querier;
 
-	private static $categories_manager;
-
 	public static function __static()
 	{
 		self::$db_querier = PersistenceContext::get_querier();

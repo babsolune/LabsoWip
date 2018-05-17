@@ -40,8 +40,7 @@ class AdminTsmConfigController extends AdminModuleController
 	 */
 	private $submit_button;
 
-	private $admin_lang;
-	private $admin_common_lang;
+	private $tsm_lang;
 
 	/**
 	 * @var TsmConfig
@@ -55,7 +54,7 @@ class AdminTsmConfigController extends AdminModuleController
 		$this->build_form();
 
 		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->admin_lang);
+		$tpl->add_lang($this->tsm_lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -65,13 +64,12 @@ class AdminTsmConfigController extends AdminModuleController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminTsmDisplayResponse($tpl, $this->admin_lang['admin.config']);
+		return new AdminTsmDisplayResponse($tpl, $this->tsm_lang['config']);
 	}
 
 	private function init()
 	{
-		$this->admin_lang = LangLoader::get('admin', 'tsm');
-		$this->admin_common_lang = LangLoader::get('admin-common');
+		$this->tsm_lang = LangLoader::get('common', 'tsm');
 		$this->config = TsmConfig::load();
 	}
 
@@ -79,15 +77,15 @@ class AdminTsmConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('tsm_configuration', LangLoader::get_message('configuration', 'admin-common'));
+		$fieldset = new FormFieldsetHTML('tsm_configuration', $this->tsm_lang['config']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldNumberEditor('seasons_cols_nb', $this->admin_lang['admin.seasons.cols.nb'], $this->config->get_seasons_cols_nb(),
+		$fieldset->add_field(new FormFieldNumberEditor('seasons_cols_nb', $this->tsm_lang['config.seasons.cols.nb'], $this->config->get_seasons_cols_nb(),
 			array('min' => 1, 'max' => 6, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 6))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('competition_cols_nb', $this->admin_lang['admin.competition.cols.nb'], $this->config->get_competitions_cols_nb(),
+		$fieldset->add_field(new FormFieldNumberEditor('competition_cols_nb', $this->tsm_lang['config.competition.cols.nb'], $this->config->get_competitions_cols_nb(),
 			array('min' => 1, 'max' => 6, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 6))
 		));

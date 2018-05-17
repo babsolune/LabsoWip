@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               TsmSeasonsDeleteController.class.php
+ *                               TsmDivisionsDeleteController.class.php
  *                            -------------------
  *   begin                : February 13, 2018
  *   copyright            : (C) 2018 Sebastien LARTIGUE
@@ -29,7 +29,7 @@
  * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
 
-class TsmSeasonsDeleteController extends ModuleController
+class TsmDivisionsDeleteController extends ModuleController
 {
 	private $division;
 
@@ -41,7 +41,7 @@ class TsmSeasonsDeleteController extends ModuleController
 
 		$this->check_division_auth();
 
-		TsmSeasonsService::delete_division('WHERE id=:id', array('id' => $this->division->get_id()));
+		TsmDivisionsService::delete_division('WHERE id=:id', array('id' => $this->division->get_id()));
 		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'divisions', 'id' => $this->division->get_id()));
 
 		Feed::clear_cache('divisions');
@@ -56,7 +56,7 @@ class TsmSeasonsDeleteController extends ModuleController
 		if (!empty($id))
 		{
 			try {
-				$this->division = TsmSeasonsService::get_division('WHERE divisions.id=:id', array('id' => $id));
+				$this->division = TsmDivisionsService::get_division('WHERE divisions.id=:id', array('id' => $id));
 			} catch (RowNotFoundException $e) {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);

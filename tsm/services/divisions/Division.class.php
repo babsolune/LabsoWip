@@ -99,10 +99,10 @@ class Division
 	{
 		switch ($this->is_published()) {
 			case self::PUBLISHED:
-				return LangLoader::get_message('divisions.published', 'division', 'tsm');
+				return LangLoader::get_message('tsm.published', 'common', 'tsm');
 			break;
 			case self::NOT_PUBLISHED:
-				return LangLoader::get_message('divisions.not.published', 'division', 'tsm');
+				return LangLoader::get_message('tsm.not.published', 'common', 'tsm');
 			break;
 		}
 	}
@@ -169,6 +169,7 @@ class Division
 			'C_EDIT' => $this->is_authorized_to_edit(),
 			'C_DELETE' => $this->is_authorized_to_delete(),
 
+            'ID' => $this->get_id(),
             'NAME' => $this->get_name(),
         );
     }

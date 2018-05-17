@@ -239,17 +239,17 @@
         {
     		$lang = LangLoader::get('competition', 'tsm');
 
-    		// PersistenceContext::get_querier()->insert(self::$tsm_competition, array(
-            //     'id' => 1,
-            //     'author_user_id' => 1,
-            //     'season_id' => 1,
-            //     'division_id' => 1,
-            //     'views_nb' => 0,
-            //     'compet_type' => LangLoader::get_message('compet.type.1', 'types', 'tsm'),
-            //     'match_type' => LangLoader::get_message('match.type.2', 'types', 'tsm'),
-            //     'enslavement' => 0,
-            //     'publication' => 1,
-            // ));
+    		PersistenceContext::get_querier()->insert(self::$tsm_competition, array(
+                'id' => 1,
+                'author_user_id' => 1,
+                'season_id' => 1,
+                'division_id' => 1,
+                'views_nb' => 0,
+                'compet_type' => 1, // $lang['compet.type.1']
+                'match_type' => 2, // $lang['match.type.2']
+                'enslavement' => 0,
+                'publication' => 1,
+            ));
         }
 
         private function _teams()

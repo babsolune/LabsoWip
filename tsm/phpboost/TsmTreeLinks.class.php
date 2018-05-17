@@ -33,14 +33,20 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 {
 	public function get_actions_tree_links()
 	{
-		$admin_lang = LangLoader::get('admin', 'tsm');
+		$tsm_lang = LangLoader::get('common', 'tsm');
 		$club_lang = LangLoader::get('club', 'tsm');
 		$season_lang = LangLoader::get('season', 'tsm');
 		$division_lang = LangLoader::get('division', 'tsm');
 		$competition_lang = LangLoader::get('competition', 'tsm');
 		$tree = new ModuleTreeLinks();
 
-		$tree->add_link(new AdminModuleLink($admin_lang['admin.config'], TsmUrlBuilder::config()));
+		$tree->add_link(new AdminModuleLink($tsm_lang['config'], TsmUrlBuilder::config()));
+
+		// Competitions
+		$tsm_competition_links = new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition());
+		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
+		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competition.add'], TsmUrlBuilder::add_competition(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
+		$tree->add_link($tsm_competition_links);
 
 		// Seasons
 		$tsm_season_links = new ModuleLink($season_lang['seasons.management'], TsmUrlBuilder::seasons_manager(), TsmUrlBuilder::seasons_manager(), TsmSeasonsAuthService::check_season_auth()->moderation_season());
@@ -68,12 +74,6 @@ class TsmTreeLinks implements ModuleTreeLinksExtensionPoint
 			$tsm_club_links->add_sub_link(new ModuleLink($club_lang['club.add'], TsmUrlBuilder::add_club(), TsmClubsAuthService::check_club_auth()->moderation_club()));
 			$tree->add_link($tsm_club_links);
 		}
-
-		// Competitions
-		$tsm_competition_links = new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition());
-		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competitions.management'], TsmUrlBuilder::competitions_manager(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
-		$tsm_competition_links->add_sub_link(new ModuleLink($competition_lang['competition.add'], TsmUrlBuilder::add_competition(), TsmCompetitionsAuthService::check_competition_auth()->moderation_competition()));
-		$tree->add_link($tsm_competition_links);
 
 		return $tree;
 	}

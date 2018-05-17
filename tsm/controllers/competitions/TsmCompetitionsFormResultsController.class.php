@@ -31,51 +31,81 @@
 
 class TsmCompetitionsFormResultsController extends AdminModuleController
 {
-	private $admin_lang,
-			$tpl,
-			$form,
-			$competition;
+	private $lang,
+            $tsm_lang,
+            $form,
+            $submit_button,
+            $competition,
+            $view;
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
-		$this->build_form($request);
+        $this->init();
+        $this->check_competition_auth();
+        $this->build_form($request);
+		$view = new StringTemplate('# INCLUDE FORM #');
+		$view->add_lang($this->lang);
+		$view->add_lang($this->tsm_lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
-			$this->build_form();
-			$this->tpl->put('COMPETITION_MSG', MessageHelper::display($this->admin_lang['admin.create.season.success'], MessageHelper::SUCCESS, 5));
+			$this->save();
+			$this->redirect();
 		}
 
-		$this->tpl->put_all(array(
+		$view->put_all(array(
 			'FORM' => $this->form->display()
 		));
+
+		return $this->generate_response($view);
 	}
 
 	private function init()
 	{
-		$this->tpl = new FileTemplate('tsm/AdminCompetitionsManagerController.tpl');
-		$this->admin_lang = LangLoader::get('admin', 'tsm');
-		$this->tpl->add_lang($this->admin_lang);
+		$this->lang = LangLoader::get('competition', 'tsm');
+		$this->tsm_lang = LangLoader::get('common', 'tsm');
 	}
 
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('add_competition', $this->admin_lang['admin.create.competition']);
+		$fieldset = new FormFieldsetHTML('results_management', $this->lang['tools.results.manager']);
 		$form->add_fieldset($fieldset);
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('select_season', $this->admin_lang['admin.select.season'], '', array())); //$this->season_list()
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('select_division', $this->admin_lang['admin.select.division'], '', array()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
 
-		$this->_form = $form;
+		$this->form = $form;
 	}
+
+    private function check_competition_auth()
+    {
+        $competition = $this->get_competition();
+
+		if ($competition->get_id() === null)
+		{
+			if (!$competition->is_authorized_to_add())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		else
+		{
+			if (!$competition->is_authorized_to_edit())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+    }
 
 	private function get_competition()
 	{
@@ -84,12 +114,9 @@ class TsmCompetitionsFormResultsController extends AdminModuleController
 			$id = AppContext::get_request()->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try
-				{
-					$this->competition = Competition::get_competition('WHERE tsm_competition.id=:id', array('id' => $id));
-				}
-				catch(RowNotFoundException $e)
-				{
+				try {
+					$this->competition = TsmCompetitionsService::get_competition('WHERE competitions.id=:id', array('id' => $id));
+				} catch (RowNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -98,29 +125,52 @@ class TsmCompetitionsFormResultsController extends AdminModuleController
 			{
 				$this->is_new_competition = true;
 				$this->competition = new Competition();
+				$this->competition->init_default_properties();
 			}
 		}
 		return $this->competition;
-	}
-
-	private function season_list()
-	{
-		$season_options = array();
-
-		$result = PersistenceContext::get_querier()->select('SELECT seasons.*
-		FROM ' . TsmSetup::$tsm_season . ' seasons
-		ORDER BY season_start_date DESC');
-
-		while($row = $result->fetch())
-		{
-			$season_options[] = new FormFieldSelectChoiceOption($row['name'], $row['id']);
-		}
-		var_dump($result);
 	}
 
 	private function save()
 	{
 
 	}
+
+	private function redirect()
+	{
+		$competition = $this->get_competition();
+
+		if ($competition->is_published())
+		{
+			if ($this->is_new_competition)
+				AppContext::get_response()->redirect(TsmUrlBuilder::display_competition($competition->get_season()->get_id(), $competition->get_season()->get_name(), $competition->get_id(), $competition->get_division()->get_rewrited_name()), StringVars::replace_vars($this->lang['competition.message.success.add'], array('name' => $competition->get_division()->get_name())));
+			else
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : TsmUrlBuilder::display_competition($competition->get_id(), $competition->get_rewrited_name())), StringVars::replace_vars($this->lang['competition.message.success.edit'], array('name' => $competition->get_division()->get_name())));
+		}
+        else
+            AppContext::get_response()->redirect(TsmUrlBuilder::home());
+	}
+
+	private function generate_response(View $view)
+	{
+        $competition = $this->get_competition();
+        $season = $competition->get_season();
+        $division = $competition->get_division();
+
+        $response = new SiteDisplayResponse($view);
+		$graphical_environment = $response->get_graphical_environment();
+
+		$breadcrumb = $graphical_environment->get_breadcrumb();
+		$breadcrumb->add($this->tsm_lang['tsm.module.title'], TsmUrlBuilder::home());
+
+        $graphical_environment->set_page_title($this->lang['tools.results.manager']);
+		$graphical_environment->get_seo_meta_data()->set_description($this->lang['competition.edit'], $this->lang['competitions.competition']);
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(TsmUrlBuilder::edit_competition_results($competition->get_id()));
+
+		$breadcrumb->add('plop'); //$division->get_name(), TsmUrlBuilder::edit_competition($season()->get_id(), $season()->get_name(), $competition->get_id(), $division->get_rewrited_name())
+		$breadcrumb->add($this->lang['tools.results.manager']);
+
+        return $response;
+    }
 }
 ?>

@@ -65,26 +65,35 @@ class TsmDisplaySeasonController extends ModuleController
 	{
 		$season = $this->get_season();
 
-		$result = PersistenceContext::get_querier()->select('SELECT tsm_compet.*
-			FROM ' . TsmSetup::$tsm_competition . ' tsm_compet
-			WHERE tsm_compet.season_id = :season_id
-			ORDER BY tsm_compet.id ASC', array(
-				'season_id' => $season->get_id()
-			)
-		);
+		$competitions = TsmCompetitionsCache::load()->get_competition();
 
-		$this->tpl->put_all(array(
-			'COMPET_COLS_NBR' => $this->config->get_competitions_cols_nb()
-		));
-
-		while($row = $result->fetch())
-		{
-			$competition = new Competition();
-			$competition->set_properties($row);
-
-			$this->tpl->assign_block_vars('competitions', $competition->get_array_tpl_vars());
+		foreach ($competitions as $competition) {
+			$this->tpl->assign_block_vars('competitions', array(
+				'NAME' => $competition['division_id'],
+				'U_COMPETITION' => $competition['id'] . '-' . $competition['division_id']
+			));
 		}
-		$result->dispose();
+
+		// $result = PersistenceContext::get_querier()->select('SELECT tsm_compet.*
+		// 	FROM ' . TsmSetup::$tsm_competition . ' tsm_compet
+		// 	WHERE tsm_compet.season_id = :season_id
+		// 	ORDER BY tsm_compet.id ASC', array(
+		// 		'season_id' => $season->get_id()
+		// 	)
+		// );
+		//
+		// $this->tpl->put_all(array(
+		// 	'COMPET_COLS_NBR' => $this->config->get_competitions_cols_nb()
+		// ));
+		//
+		// while($row = $result->fetch())
+		// {
+		// 	$competition = new Competition();
+		// 	$competition->set_properties($row);
+		//
+		// 	$this->tpl->assign_block_vars('competitions', $competition->get_array_tpl_vars());
+		// }
+		// $result->dispose();
 	}
 
 	private function get_season()

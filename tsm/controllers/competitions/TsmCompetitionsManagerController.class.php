@@ -2,8 +2,8 @@
 /*##################################################
  *                      TsmCompetitionsManagerController.class.php
  *                            -------------------
- *   begin                : June 23, 2017
- *   copyright            : (C) 2017 Sebastien LARTIGUE
+ *   begin                : February 13, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
  *   email                : babsolune@phpboost.com
  *
  *
@@ -56,9 +56,10 @@ class TsmCompetitionsManagerController extends ModuleController
 	private function build_table()
 	{
 		$columns = array(
-			new HTMLTableColumn(LangLoader::get_message('form.name', 'common'), 'id'),
+			new HTMLTableColumn($this->tsm_lang['tsm.competition'], 'id'),
+			new HTMLTableColumn($this->tsm_lang['tsm.season'], 'season_id'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
-			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
+			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'publication'),
 			new HTMLTableColumn(''),
 			new HTMLTableColumn('')
 		);
@@ -89,7 +90,8 @@ class TsmCompetitionsManagerController extends ModuleController
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(TsmUrlBuilder::display_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division->get_rewrited_name()), $divison->get_name()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(TsmUrlBuilder::display_competition($season->get_id(), $season->get_name(), $competition->get_id(), $division->get_rewrited_name()), '#' . $competition->get_id() . ' Plop' ), 'left'), // $divison->get_name()
+				new HTMLTableRowCell($season->get_name() . ' (' . $season->get_id() . '/' . $season->get_season_date()->get_timestamp() . ')'),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($competition->get_status()),
 				new HTMLTableRowCell($edit_competition->display()),

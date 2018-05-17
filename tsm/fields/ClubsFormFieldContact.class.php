@@ -2,9 +2,9 @@
 /*##################################################
  *		      ClubsFormFieldContact.class.php
  *                            -------------------
- *   begin                : April 21, 2016
- *   copyright            : (C) 2016 Sebastien Lartigue
- *   eemail                : babso@web33.fr
+ *   begin                : February 13, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################

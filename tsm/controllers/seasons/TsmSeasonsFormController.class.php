@@ -84,10 +84,10 @@ class TsmSeasonsFormController extends ModuleController
 
         if (TsmseasonsAuthService::check_season_auth($this->get_season()->get_id())->moderation_season())
 		{
-            $publication_fieldset = new FormFieldsetHTML('publication', $this->lang['season.publication']);
+            $publication_fieldset = new FormFieldsetHTML('publication', $this->tsm_lang['form.publication']);
             $form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->lang['season.is.published'], $this->get_season()->is_published()));
+			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->tsm_lang['form.is.published'], $this->get_season()->is_published()));
 		}
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));

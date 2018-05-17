@@ -33,9 +33,10 @@ class TsmCompetitionsFormController extends AdminModuleController
 {
 	private $lang,
             $tsm_lang,
-            $type_lang,
             $form,
             $submit_button,
+			$season,
+			$division,
             $competition,
             $view,
             $is_new_competition;
@@ -64,7 +65,6 @@ class TsmCompetitionsFormController extends AdminModuleController
 	{
 		$this->lang = LangLoader::get('competition', 'tsm');
 		$this->tsm_lang = LangLoader::get('common', 'tsm');
-		$this->type_lang = LangLoader::get('types', 'tsm');
 	}
 
 	private function build_form(HTTPRequestCustom $request)
@@ -86,13 +86,15 @@ class TsmCompetitionsFormController extends AdminModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRadioChoice('match_type', $this->type_lang['match.type.1'], $this->get_competition()->get_match_type(),
+		$fieldset->add_field(new FormFieldRadioChoice('match_type', $this->lang['match.type.1'], $this->get_competition()->get_match_type(),
 			array(
-				new FormFieldRadioChoiceOption($this->type_lang['match.type.1'], 1),
-				new FormFieldRadioChoiceOption($this->type_lang['match.type.2'], 2),
+				new FormFieldRadioChoiceOption($this->lang['match.type.1'], 1),
+				new FormFieldRadioChoiceOption($this->lang['match.type.2'], 2),
 			),
 			array('required' => true)
 		));
+
+		$fieldset->add_field(new FormFieldUploadFile('thumbnail_url', $this->lang['competition.thumbnail'], $this->get_competition()->get_thumbnail()->relative()));
 
 		$fieldset->add_field(new FormFieldCheckbox('enslavement', $this->lang['competition.sub.compet'], $this->get_competition()->is_sub_compet(),
 			array('events' => array('click' => '
@@ -115,10 +117,10 @@ class TsmCompetitionsFormController extends AdminModuleController
 
 		if (TsmcompetitionsAuthService::check_competition_auth($this->get_competition()->get_id())->moderation_competition())
 		{
-            $publication_fieldset = new FormFieldsetHTML('publication', $this->lang['competition.publication']);
+            $publication_fieldset = new FormFieldsetHTML('publication', $this->tsm_lang['form.publication']);
             $form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->lang['competition.is.published'], $this->get_competition()->is_published()));
+			$publication_fieldset->add_field(new FormFieldCheckbox('is_published', $this->tsm_lang['form.is.published'], $this->get_competition()->is_published()));
 		}
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
@@ -184,11 +186,11 @@ class TsmCompetitionsFormController extends AdminModuleController
     private function save()
     {
 		$competition = $this->get_competition();
-
         $competition->set_season(new Season($this->form->get_value('season')->get_raw_value()));
         $competition->set_division(new Division($this->form->get_value('division')->get_raw_value()));
         $competition->set_compet_type($this->form->get_value('compet_type')->get_raw_value());
         $competition->set_match_type($this->form->get_value('match_type')->get_raw_value());
+        $competition->set_thumbnail(new Url($this->form->get_value('thumnail_url')));
 
         if($this->form->get_value('is_sub_compet')) {
             $competition->subservient();
@@ -262,8 +264,9 @@ class TsmCompetitionsFormController extends AdminModuleController
 	{
 		$options = array();
 
-		if ($this->get_competition()->get_id() === null)
+		if ($this->get_competition()->get_id() === null) {
 			$options[] = new FormFieldSelectChoiceOption('', '');
+		}
 
 		$result = PersistenceContext::get_querier()->select('SELECT *
 		FROM ' . TsmSetup::$tsm_division . ' tsm_division
@@ -290,7 +293,7 @@ class TsmCompetitionsFormController extends AdminModuleController
 
 		for ($i = 1; $i <= 5 ; $i++)
 		{
-			$options[] = new FormFieldSelectChoiceOption($this->type_lang['compet.type.' . $i], $i);
+			$options[] = new FormFieldSelectChoiceOption($this->lang['compet.type.' . $i], $i);
 		}
 
 		return $options;
@@ -300,18 +303,28 @@ class TsmCompetitionsFormController extends AdminModuleController
 	{
 		$options = array();
 
-		$result = PersistenceContext::get_querier()->select('SELECT *
-		FROM ' . TsmSetup::$tsm_competition . ' tsm_competition
-		ORDER BY id ASC'
-		);
-
-		while($row = $result->fetch())
-		{
-			$competition = new Competition();
-			$competition->set_properties($row);
-
-			$options[] = new FormFieldSelectChoiceOption($competition->get_division()->get_name(), $competition->get_id());
+		if ($this->get_competition()->not_subservient() === null) {
+			$options[] = new FormFieldSelectChoiceOption('', '');
 		}
+
+		$competitions = TsmCompetitionsCache::load()->get_competition();
+
+		foreach ($competitions as $competition) {
+			$options[] = new FormFieldSelectChoiceOption($competition['division_id'], $competition['id']);
+		}
+
+		// $result = PersistenceContext::get_querier()->select('SELECT *
+		// FROM ' . TsmSetup::$tsm_competition . ' tsm_competition
+		// ORDER BY id ASC'
+		// );
+		//
+		// while($row = $result->fetch())
+		// {
+		// 	$competition = new Competition();
+		// 	$competition->set_properties($row);
+		//
+		// 	$options[] = new FormFieldSelectChoiceOption($competition->get_division()->get_name(), $competition->get_id());
+		// }
 
 		return $options;
 	}

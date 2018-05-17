@@ -35,12 +35,12 @@ class AdminTsmDisplayResponse extends AdminMenuDisplayResponse
 	{
 		parent::__construct($view);
 
-		$lang = LangLoader::get('common', 'tsm');
-		$admin_lang = LangLoader::get('admin', 'tsm');
+		$tsm_lang = LangLoader::get('common', 'tsm');
 		$club_lang = LangLoader::get('club', 'tsm');
-		$this->set_title($lang['tsm.module.title']);
 		
-		$this->add_link($admin_lang['admin.config'], TsmUrlBuilder::config());
+		$this->set_title($tsm_lang['tsm.module.title']);
+
+		$this->add_link($tsm_lang['config'], TsmUrlBuilder::config());
 
 		// Clubs
 		$this->add_link($club_lang['clubs.config'], TsmUrlBuilder::clubs_config());
@@ -48,7 +48,7 @@ class AdminTsmDisplayResponse extends AdminMenuDisplayResponse
 		$this->add_link(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('tsm')->get_configuration()->get_documentation());
 
 		$env = $this->get_graphical_environment();
-		$env->set_page_title($title_page, $lang['tsm.module.title']);
+		$env->set_page_title($title_page, $tsm_lang['tsm.module.title']);
 	}
 }
 ?>

@@ -80,14 +80,14 @@ class Competition
 		return $this->division;
 	}
 
-	public function get_author_user()
-	{
-		return $this->author_user;
-	}
-
 	public function set_author_user(User $user)
 	{
 		$this->author_user = $user;
+	}
+
+	public function get_author_user()
+	{
+		return $this->author_user;
 	}
 
 	public function set_thumbnail(Url $thumbnail)
@@ -190,10 +190,10 @@ class Competition
 	{
 		switch ($this->is_published()) {
 			case self::PUBLISHED:
-				return LangLoader::get_message('competitions.published', 'competition', 'tsm');
+				return LangLoader::get_message('tsm.published', 'common', 'tsm');
 			break;
 			case self::NOT_PUBLISHED:
-				return LangLoader::get_message('competitions.not.published', 'competition', 'tsm');
+				return LangLoader::get_message('tsm.not.published', 'common', 'tsm');
 			break;
 		}
 	}
@@ -250,12 +250,11 @@ class Competition
 		$this->set_author_user($user);
 
 		$season = new Season();
-		$season->set_properties($properties);
+		// $season->set_properties($properties);
 		$this->set_season($season);
 
-
 		$division = new Division();
-		$division->set_properties($properties);
+		// $division->set_properties($properties);
 		$this->set_division($division);
 
 		if ($properties['publication'])
@@ -291,21 +290,26 @@ class Competition
 
 		return array(
 			//Conditions
-			'C_HAS_THUMBNAIL'    => $this->has_thumbnail(),
+			'C_HAS_THUMBNAIL' => $this->has_thumbnail(),
 
 			//Items
-			'ID'                 => $this->get_id(),
-			'NAME'               => $this->get_division()->get_name(),
-			'SEASON_NAME'        => $season_name,
-			'SEASON_DAY'        => $this->get_season()->get_season_date()->get_day(),
-			'SEASON_MONTH'        => $this->get_season()->get_season_date()->get_month(),
-			'VIEWS_NB'       	 => $this->get_views_nb(),
-			'AUTHOR'			 => $this->get_author_user()->get_display_name(),
+			'ID'            => $this->get_id(),
+			'NAME'          => $this->get_division()->get_name(),
+			'SEASON_NAME'   => $season_name,
+			// 'SEASON_DAY'    => $this->get_season()->get_season_date()->get_day(),
+			// 'SEASON_MONTH'  => $this->get_season()->get_season_date()->get_month(),
+			'VIEWS_NB'      => $this->get_views_nb(),
+			'AUTHOR'        => $this->get_author_user()->get_display_name(),
 
 			//Links
-			'U_COMPETITION'     => TsmUrlBuilder::display_competition($season_id, $season_name, $this->get_id(), $rewrited_name)->rel(),
-			'U_THUMBNAIL'   	=> $this->get_thumbnail()->rel(),
-			'U_EDIT_SEASON'		=> TsmUrlBuilder::edit_season($season_id, $season_name)->rel()
+			'U_COMPETITION' => TsmUrlBuilder::display_competition($season_id, $season_name, $this->get_id(), $rewrited_name)->rel(),
+			'U_THUMBNAIL'   => $this->get_thumbnail()->rel(),
+			'U_EDIT_SEASON' => TsmUrlBuilder::edit_season($season_id, $season_name)->rel(),
+			'U_TEAMS'       => TsmUrlBuilder::edit_competition_teams($this->get_id())->rel(),
+			'U_DAYS'        => TsmUrlBuilder::edit_competition_days($this->get_id())->rel(),
+			'U_MATCHES'     => TsmUrlBuilder::edit_competition_matches($this->get_id())->rel(),
+			'U_RESULTS'     => TsmUrlBuilder::edit_competition_results($this->get_id())->rel(),
+			'U_PARAMS'      => TsmUrlBuilder::edit_competition_params($this->get_id())->rel()
 		);
 	}
 }

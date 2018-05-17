@@ -2,8 +2,8 @@
 /*##################################################
  *                      TsmClubsManagerController.class.php
  *                            -------------------
- *   begin                : June 23, 2017
- *   copyright            : (C) 2017 Sebastien LARTIGUE
+ *   begin                : February 13, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
  *   email                : babsolune@phpboost.com
  *
  *

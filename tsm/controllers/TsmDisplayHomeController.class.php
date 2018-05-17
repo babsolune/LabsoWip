@@ -41,6 +41,8 @@ class TsmDisplayHomeController extends ModuleController
 
 		$this->build_view();
 
+		$this->check_season_auth();
+
 		return $this->generate_response();
 	}
 
@@ -83,6 +85,56 @@ class TsmDisplayHomeController extends ModuleController
 		$result->dispose();
 	}
 
+	private function get_season()
+	{
+		if ($this->season === null)
+		{
+			$id = AppContext::get_request()->get_getint('id', 0);
+			if (!empty($id))
+			{
+				try
+				{
+					$this->season = TsmSeasonsService::get_season('WHERE seasons.id=:id', array('id' => $id));
+				}
+				catch (RowNotFoundException $e)
+				{
+					$error_controller = PHPBoostErrors::unexisting_page();
+   					DispatchManager::redirect($error_controller);
+				}
+			}
+			else
+				$this->season = new Season();
+		}
+		return $this->season;
+	}
+
+    private function check_season_auth()
+    {
+        $season = $this->get_season();
+
+		if ($season->get_id() === null)
+		{
+			if (!$season->is_authorized_to_add())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		else
+		{
+			if (!$season->is_authorized_to_edit())
+			{
+				$error_controller = PHPBoostErrors::user_not_authorized();
+				DispatchManager::redirect($error_controller);
+			}
+		}
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+    }
+
 	private function generate_response()
 	{
 		$response = new SiteDisplayResponse($this->view);
@@ -104,7 +156,7 @@ class TsmDisplayHomeController extends ModuleController
 	{
 		$object = new self();
 		$object->init();
-		$object->check_authorizations();
+		$object->check_season_auth();
 		$object->build_view();
 		return $object->view;
 	}
