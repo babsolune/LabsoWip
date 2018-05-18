@@ -251,6 +251,7 @@
 										# ENDIF #
 									</span>
 								# ENDIF #
+								# IF C_MEMBER # | <i class="fa fa-fw fa-eye"></i> {items.VIEWS_NUMBER} # ENDIF #
 								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
