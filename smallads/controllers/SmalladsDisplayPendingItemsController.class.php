@@ -85,7 +85,6 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$this->config = SmalladsConfig::load();
 		$comments_config = new SmalladsComments();
-		$notation_config = new SmalladsNotation();
 
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
@@ -109,12 +108,10 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 		$page = AppContext::get_request()->get_getint('page', 1);
 
-		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments, notes.number_notes, notes.average_notes, note.note
+		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
 		FROM '. SmalladsSetup::$smallads_table .' smallads
 		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = smallads.author_user_id
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = "smallads"
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = smallads.id AND notes.module_name = "smallads"
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = smallads.id AND note.module_name = "smallads" AND note.user_id = :user_id
 		' . $condition . '
 		ORDER BY ' . $sort_field . ' ' . $sort_mode . '
 		', array_merge($parameters, array(
@@ -145,7 +142,6 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 			$this->view->put_all(array(
 				'C_ITEMS_SORT_FILTERS' => $this->config->are_sort_filters_enabled(),
 				'C_COMMENTS_ENABLED'   => $comments_config->are_comments_enabled(),
-				'C_NOTATION_ENABLED'   => $notation_config->is_notation_enabled(),
 				'C_SEVERAL_COLUMNS'    => $columns_number_displayed_per_line > 1,
 				'COLUMNS_NUMBER'       => $columns_number_displayed_per_line
 			));

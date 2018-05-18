@@ -104,9 +104,7 @@
 		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
 							<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
 							<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li>
-							<li><span data-path=".jp-note" data-order="asc" data-type="number">{@smallads.sort.note} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-note" data-order="desc" data-type="number">{@smallads.sort.note} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li># ENDIF #
 						</ul>
 					</div>
 				</div>
@@ -145,7 +143,6 @@
 								<span class="jp-title" itemprop="name">{items.TITLE}</span>
 							# IF NOT items.C_COMPLETED #</a># ENDIF #
 							<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
-							<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
 							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 						</td>
@@ -255,7 +252,6 @@
 									</span>
 								# ENDIF #
 								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
-								<span class="jp-note hidden">{items.AVERAGE_NOTE}</span>
 								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 							</div>

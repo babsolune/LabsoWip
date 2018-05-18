@@ -2,7 +2,7 @@
 /*##################################################
  *                        SmalladsService.class.php
  *                            -------------------
- *   begin                : March 15, 2018 
+ *   begin                : March 15, 2018
  *   copyright            : (C) 2018 Sebastien LARTIGUE
  *   email                : babsolune@phpboost.com
  *
@@ -67,11 +67,9 @@ class SmalladsService
 
 	public static function get_smallad($condition, array $parameters)
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT smallads.*, member.*, notes.average_notes, notes.number_notes, note.note
+		$row = self::$db_querier->select_single_row_query('SELECT smallads.*, member.*
 		FROM ' . SmalladsSetup::$smallads_table . ' smallads
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = smallads.id AND notes.module_name = \'smallads\'
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = smallads.id AND note.module_name = \'smallads\' AND note.user_id = ' . AppContext::get_current_user()->get_id() . '
 		' . $condition, $parameters);
 
 		$smallad = new Smallad();

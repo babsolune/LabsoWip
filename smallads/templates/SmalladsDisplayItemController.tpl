@@ -23,22 +23,6 @@
 				</span>
 			</h2>
 
-			<div class="more">
-				# IF C_DISPLAYED_AUTHOR #
-				<i class="fa fa-fw fa-user" title="${LangLoader::get_message('author', 'common')}"></i>
-					# IF C_CUSTOM_AUTHOR_NAME #
-						{CUSTOM_AUTHOR_NAME}
-					# ELSE #
-						# IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>&nbsp;{PSEUDO}&nbsp;</a># ELSE #{PSEUDO}# ENDIF #|&nbsp;
-					# ENDIF #
-				# ENDIF #
-				<i class="fa fa-fw fa-calendar" title="${LangLoader::get_message('date', 'date-common')}"></i>&nbsp;<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>&nbsp;|
-				&nbsp;<i class="fa fa-fw fa-eye" title="{VIEWS_NUMBER} {@smallads.sort.field.views}"></i>&nbsp;<span title="{VIEWS_NUMBER} {@smallads.sort.field.views}">{VIEWS_NUMBER}</span>
-				# IF C_COMMENTS_ENABLED #
-					&nbsp;|&nbsp;<i class="fa fa-fw fa-comment" title="${LangLoader::get_message('comments', 'comments-common')}"></i><a itemprop="discussionUrl" class="small" href="{U_COMMENTS}">&nbsp;{L_COMMENTS}</a>
-				# ENDIF #
-			</div>
-
 			<meta itemprop="url" content="{U_ITEM}">
 			<meta itemprop="description" content="${escape(DESCRIPTION)}">
 			<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #">
@@ -109,12 +93,21 @@
 						<div class="spacer"></div>
 					# ENDIF #
 				# ENDIF #
-				# IF C_NOTATION_ENABLED #
+				# IF C_DISPLAYED_AUTHOR #
 					<hr />
-					<div class="left small">
-						{KERNEL_NOTATION}
-					</div>
-					<div class="spacer"></div>
+					<i class="fa fa-fw fa-user" title="${LangLoader::get_message('author', 'common')}"></i>
+						# IF C_CUSTOM_AUTHOR_NAME #
+							{CUSTOM_AUTHOR_NAME}
+						# ELSE #
+							# IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{PSEUDO}</a># ELSE #{PSEUDO}# ENDIF #
+						# ENDIF #
+				# ENDIF #
+				<hr />
+				<i class="fa fa-fw fa-calendar" title="${LangLoader::get_message('date', 'date-common')}"></i>&nbsp;<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>
+				<hr /><i class="fa fa-fw fa-eye" title="{VIEWS_NUMBER} {@smallads.sort.field.views}"></i>&nbsp;<span title="{VIEWS_NUMBER} {@smallads.sort.field.views}">{VIEWS_NUMBER}</span>
+				# IF C_COMMENTS_ENABLED #
+					<hr />
+					<i class="fa fa-fw fa-comment" title="${LangLoader::get_message('comments', 'comments-common')}"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}">&nbsp;{L_COMMENTS}</a>
 				# ENDIF #
 				# IF C_KEYWORDS #
 					<hr />

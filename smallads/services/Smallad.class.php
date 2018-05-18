@@ -58,7 +58,6 @@ class Smallad
 	private $custom_author_name;
 	private $displayed_author_phone;
 	private $author_phone;
-	private $notation;
 
 	private $published;
 	private $publication_start_date;
@@ -75,7 +74,6 @@ class Smallad
 	const SORT_DATE = 'creation_date';
 	const SORT_AUTHOR = 'display_name';
 	const SORT_NUMBER_VIEWS = 'views_number';
-	const SORT_NOTATION = 'average_notes';
 	const SORT_NUMBER_COMMENTS = 'number_comments';
 	const SORT_PRICE = 'price';
 
@@ -84,7 +82,6 @@ class Smallad
 		self::SORT_DATE => 'date',
 		self::SORT_AUTHOR => 'author',
 		self::SORT_NUMBER_VIEWS => 'views',
-		self::SORT_NOTATION => 'notes',
 		self::SORT_NUMBER_COMMENTS => 'comments',
 		self::SORT_PRICE => 'price'
 	);
@@ -428,16 +425,6 @@ class Smallad
 		$this->author_phone = $author_phone;
 	}
 
-	public function set_notation(Notation $notation)
-	{
-		$this->notation = $notation;
-	}
-
-	public function get_notation()
-	{
-	    return $this->notation;
-	}
-
 	public function set_publication_state($published)
 	{
 		$this->published = $published;
@@ -655,17 +642,6 @@ class Smallad
 
 		$this->custom_author_name = !empty($properties['custom_author_name']) ? $properties['custom_author_name'] : $this->author_user->get_display_name();
 		$this->enabled_author_name_customization = !empty($properties['custom_author_name']);
-
-		$notation = new Notation();
-		$notation_config = new SmalladsNotation();
-
-		$notation->set_module_name('smallads');
-		$notation->set_notation_scale($notation_config->get_notation_scale());
-		$notation->set_id_in_module($properties['id']);
-		$notation->set_number_notes($properties['number_notes']);
-		$notation->set_average_notes($properties['average_notes']);
-		$notation->set_user_already_noted(!empty($properties['note']));
-		$this->notation = $notation;
 	}
 
 	public function init_default_properties($id_category = Category::ROOT_CATEGORY)
@@ -721,7 +697,6 @@ class Smallad
 		$carousel           = $this->get_carousel();
 		$nbr_pictures		= count($carousel);
 		$new_content        = new SmalladsNewContent();
-		$notation_config    = new SmalladsNotation();
 
 		if($this->config->is_googlemaps_available()) {
 			$unserialized_value = @unserialize($this->get_location());
@@ -737,13 +712,10 @@ class Smallad
 			else
 				$location = $this->get_location();
 
-
-
 		if($this->config->is_user_allowed())
 			$contact_level = AppContext::get_current_user()->check_level(User::VISITOR_LEVEL);
 		else
 			$contact_level = AppContext::get_current_user()->check_level(User::MEMBER_LEVEL);
-
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
@@ -755,7 +727,7 @@ class Smallad
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_PRICE'                  		   => $this->get_price() != 0,
-			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail() && file_exists($this->get_thumbnail()->rel()),
+			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(),
 			'C_USER_GROUP_COLOR'               => !empty($user_group_color),
 			'C_PUBLISHED'                      => $this->is_published(),
 			'C_PUBLICATION_START_AND_END_DATE' => $this->publication_start_date != null && $this->publication_end_date != null,
@@ -764,14 +736,13 @@ class Smallad
 			'C_UPDATED_DATE'                   => $this->updated_date != null,
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
 			'C_CONTACT_LEVEL'				   => $contact_level,
-			'C_COMPLETED'         				   => $this->is_completed(),
+			'C_COMPLETED'         			   => $this->is_completed(),
 			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
 			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
 			'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),
 			'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone(),
 			'C_DISPLAYED_AUTHOR'               => $this->is_displayed_author_name(),
 			'C_CUSTOM_AUTHOR_NAME' 			   => $this->is_enabled_author_name_customization(),
-			'C_NOTATION_ENABLED'               => $notation_config->is_notation_enabled(),
 			'C_READ_MORE'                      => !$this->get_description_enabled() && TextHelper::strlen($contents) > SmalladsConfig::load()->get_characters_number_to_cut() && $description != @strip_tags($contents, '<br><br/>'),
 			'C_SOURCES'                        => $nbr_sources > 0,
 			'C_CAROUSEL'                       => $nbr_pictures > 0,
@@ -789,8 +760,6 @@ class Smallad
 			'L_COMMENTS'         	=> CommentsService::get_number_and_lang_comments('smallads', $this->get_id()),
 			'COMMENTS_NUMBER'    	=> CommentsService::get_number_comments('smallads', $this->get_id()),
 			'VIEWS_NUMBER'       	=> $this->get_views_number(),
-			'NOTE'               	=> $this->get_notation()->get_number_notes() > 0 ? NotationService::display_static_image($this->get_notation()) : '&nbsp;',
-			'AVERAGE_NOTE'          => $this->get_notation()->get_average_notes(),
 			'C_AUTHOR_EXIST'     	=> $user->get_id() !== User::VISITOR_LEVEL,
 			'AUTHOR_EMAIL'       	=> $user->get_email(),
 			'CUSTOM_AUTHOR_EMAIL'	=> $this->custom_author_email,

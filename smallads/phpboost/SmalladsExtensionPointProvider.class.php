@@ -69,11 +69,6 @@ class SmalladsExtensionPointProvider extends ExtensionPointProvider
 		return new SmalladsNewContent();
 	}
 
-	public function notation()
-	{
-		return new SmalladsNotation();
-	}
-
 	public function scheduled_jobs()
 	{
 		return new SmalladsScheduledJobs();

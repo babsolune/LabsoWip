@@ -175,12 +175,6 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_NUMBER_COMMENTS . '-' . Smallad::DESC);
 		}
 
-		if ($this->content_management_config->is_notation_enabled('smallads'))
-		{
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_NOTATION . '-' . Smallad::ASC);
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_NOTATION . '-' . Smallad::DESC);
-		}
-
 		return $sort_options;
 	}
 

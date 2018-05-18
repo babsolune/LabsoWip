@@ -36,7 +36,6 @@ class SmalladsDisplayTagController extends ModuleController
 	private $keyword;
 
 	private $config;
-	private $notation_config;
 	private $comments_config;
 
 	public function execute(HTTPRequestCustom $request)
@@ -56,7 +55,6 @@ class SmalladsDisplayTagController extends ModuleController
 		$this->view = new FileTemplate('smallads/SmalladsDisplayCategoryController.tpl');
 		$this->view->add_lang($this->lang);
 		$this->config = SmalladsConfig::load();
-		$this->notation_config = new SmalladsNotation();
 		$this->comments_config = new SmalladsComments();
 	}
 
@@ -112,13 +110,11 @@ class SmalladsDisplayTagController extends ModuleController
 
 		$page = AppContext::get_request()->get_getint('page', 1);
 
-		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments, notes.number_notes, notes.average_notes, note.note
+		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
 		FROM ' . SmalladsSetup::$smallads_table . ' smallads
 		LEFT JOIN ' . DB_TABLE_KEYWORDS_RELATIONS . ' relation ON relation.module_id = \'smallads\' AND relation.id_in_module = smallads.id
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = smallads.id AND notes.module_name = \'smallads\'
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = smallads.id AND note.module_name = \'smallads\' AND note.user_id = ' . AppContext::get_current_user()->get_id() . '
 		' . $condition . '
 		ORDER BY ' .$sort_field . ' ' . $sort_mode . '
 		', array_merge($parameters, array(
@@ -139,7 +135,6 @@ class SmalladsDisplayTagController extends ModuleController
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
 			'C_ITEMS_CAT'            => false,
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
-			'C_NOTATION_ENABLED'     => $this->notation_config->is_notation_enabled(),
 			'C_ITEMS_SORT_FILTERS'   => $this->config->are_sort_filters_enabled(),
 			'CATEGORY_NAME'          => $this->get_keyword()->get_name(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
@@ -244,9 +239,6 @@ class SmalladsDisplayTagController extends ModuleController
 
 		if ($this->comments_config->are_comments_enabled())
 			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'], 'com');
-
-		if ($this->notation_config->is_notation_enabled())
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.best_note'], 'note');
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
 			array('events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name())->rel() .'" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))

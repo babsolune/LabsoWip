@@ -76,8 +76,6 @@ class SmalladsItemsManagerController extends ModuleController
 
 		$results = array();
 		$result = $table_model->get_sql_results('smallads
-			LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = smallads.id AND notes.module_name = \'smallads\'
-			LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = smallads.id AND note.module_name = \'smallads\' AND note.user_id = ' . AppContext::get_current_user()->get_id() . '
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id',
 			array('*', 'smallads.id')
 		);

@@ -55,7 +55,6 @@ class SmalladsDeleteItemController extends ModuleController
 		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'smallads', 'id' => $smallad->get_id()));
 
 		CommentsService::delete_comments_topic_module('smallads', $smallad->get_id());
-		NotationService::delete_notes_id_in_module('smallads', $smallad->get_id());
 
 		Feed::clear_cache('smallads');
 		SmalladsCache::invalidate();

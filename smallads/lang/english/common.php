@@ -151,7 +151,6 @@ $lang['smallads.sort.price'] = 'Price';
 $lang['smallads.sort.author'] = 'Author';
 $lang['smallads.sort.coms'] = 'Comments';
 $lang['smallads.sort.view'] = 'Views';
-$lang['smallads.sort.note'] = 'Note';
 $lang['smallads.pagination'] = 'Page {current} on {pages}';
 
 //SEO

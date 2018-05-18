@@ -104,7 +104,6 @@ class SmalladsDisplayItemController extends ModuleController
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$comments_config = new SmalladsComments();
-		$notation_config = new SmalladsNotation();
 
 		$this->category = $this->smallad->get_category();
 
@@ -117,8 +116,6 @@ class SmalladsDisplayItemController extends ModuleController
 
 		$this->tpl->put_all(array_merge($this->smallad->get_array_tpl_vars(), array(
 			'C_COMMENTS_ENABLED' => $comments_config->are_comments_enabled(),
-			'C_NOTATION_ENABLED' => $notation_config->is_notation_enabled(),
-			'KERNEL_NOTATION'    => NotationService::display_active_image($this->smallad->get_notation()),
 			'CONTENTS'           => FormatingHelper::second_parse($this->smallad->get_contents()),
 			'U_EDIT_ITEM'     	 => SmalladsUrlBuilder::edit_item($this->smallad->get_id())->rel()
 		)));
