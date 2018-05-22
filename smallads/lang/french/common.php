@@ -58,6 +58,7 @@ $lang['smallads.publication.date'] = 'Publié depuis';
 $lang['smallads.contact'] = 'Contacter l\'auteur';
 $lang['smallads.contact.email'] = 'par email';
 $lang['smallads.contact.pm'] = 'par messagerie privée';
+$lang['smallads.contact.phone'] = 'par téléphone';
 
 //Smallads categories configuration
 $lang['config.categories.title'] = 'Configuration des catégories';

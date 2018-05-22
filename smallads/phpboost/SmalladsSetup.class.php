@@ -1,5 +1,5 @@
 <?php
-/*##################################################
+/* ##################################################
  *                             SmalladsSetup.class.php
  *                            -------------------
  *   begin                : March 15, 2018
@@ -7,7 +7,7 @@
  *   email                : babsolune@phpboost.com
  *
  *
- ###################################################
+  ###################################################
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,11 +23,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- ###################################################*/
+  ################################################### */
 
 /**
- * @author Sebastien LARTIGUE <babsolune@phpboost.com>
- */
+* 	@author Sebastien LARTIGUE <babsolune@phpboost.com>
+* 	@author Mipel <mipel@phpboost.com>
+* 	@author Code validation by Julien BRISWALTER <j1.seth@phpboost.com>
+*/
 
 class SmalladsSetup extends DefaultModuleSetup
 {
@@ -36,7 +38,7 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	/**
 	 * @var string[string] localized messages
-	*/
+	 */
 	private $messages;
 
 	public static function __static()
@@ -56,6 +58,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->insert_smallads_cats_data();
 		$this->delete_files();
 		$this->update_fields();
+		$this->pics_to_upload();
 
 		return '5.1.2';
 	}
@@ -116,7 +119,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			'publication_end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'updated_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-
 			'sources' => array('type' => 'text', 'length' => 65000),
 			'carousel' => array('type' => 'text', 'length' => 65000),
 		);
@@ -253,9 +255,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		$file->delete();
 		$file = new File(PATH_TO_ROOT . '/smallads/smallads_begin.php');
 		$file->delete();
-		// TODO delete "pics" folder
-		// $folder = new Folder(Url::to_rel('/smallads/pics'));
-		// $folder->delete();
 	}
 
 	private function update_fields()
@@ -265,12 +264,45 @@ class SmalladsSetup extends DefaultModuleSetup
 		while ($row = $result->fetch()) {
 			PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
 				'rewrited_title' => Url::encode_rewrite($row['title']),
-				'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
 				'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
 				'id_category' => 1,
 			), 'WHERE id = :id', array('id' => $row['id']));
 		}
 		$result->dispose();
 	}
+
+	public static function pics_to_upload()
+	{
+		// Move pics content to upload and delete pics
+		$source = realpath(PATH_TO_ROOT . '/smallads/pics') . '/';
+		$dest = realpath(PATH_TO_ROOT . '/upload/') . '/';
+		if (is_dir($source)) {
+			if ($dh = opendir($source)) {
+				while (($file = readdir($dh)) !== false) {
+					if ($file != '.' && $file != '..') {
+						rename($source . $file, $dest . $file);
+					}
+				}
+				closedir($dh);
+			}
+		}
+		rmdir($source);
+
+		// update thumbnail_url files to /upload/files
+		$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'thumbnail_url'));
+		while ($row = $result->fetch()) {
+			if ($row['thumbnail_url'] != "") {
+				PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+					'thumbnail_url' => '/upload/' . $row['thumbnail_url'],
+				), 'WHERE id = :id', array('id' => $row['id']));
+			} else {
+				PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+					'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
+				), 'WHERE id = :id', array('id' => $row['id']));
+			}
+		}
+		$result->dispose();
+	}
 }
+
 ?>

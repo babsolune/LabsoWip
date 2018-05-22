@@ -32,7 +32,15 @@
 		</header>
 		<div class="content">
 			<div class="options infos thumbnail-item">
-				# IF C_HAS_THUMBNAIL #<img src="{THUMBNAIL}" alt="{TITLE}" /># ELSE #<img src="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" alt="{TITLE}" /># ENDIF #
+				# IF C_HAS_THUMBNAIL #
+					<a href="{THUMBNAIL}" title="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
+						<img src="{THUMBNAIL}" alt="{TITLE}" />
+					</a>
+				# ELSE #
+					<a href="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" title="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
+						<img src="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" alt="{TITLE}" />
+					</a>
+				# ENDIF #
 				# IF C_LOCATION #
 					# IF C_GMAP #
 						# IF IS_LOCATED #
@@ -54,7 +62,7 @@
 						<div>
 							{@smallads.contact} :
 							# IF C_DISPLAYED_AUTHOR_EMAIL #
-								<a href="#email-modal" class="email-modal-btn"><i class="fa fa-fw fa-at"></i></a>
+								<a href="#email-modal" class="email-modal-btn" title="{@smallads.contact.email}"><i class="fa fa-fw fa-at"></i></a>
 								<div id="email-modal" class="smallad-modal">
 									# IF C_CONTACT_LEVEL #
 										<div class="email-form">
@@ -74,7 +82,7 @@
 							# ENDIF #
 							# IF C_DISPLAYED_AUTHOR_PM # | <a href="{U_AUTHOR_PM}" class="smallad-pm" title="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope-o"></i></a># ENDIF #
 							# IF C_DISPLAYED_AUTHOR_PHONE #
-								 | <a href="#tel-modal" class="tel-modal-btn"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
+								 | <a href="#tel-modal" class="tel-modal-btn" title="{@smallads.contact.phone}"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone"></i></a>
 								<div id="tel-modal" class="smallad-modal">
 									# IF C_CONTACT_LEVEL #
 										<div class="tel-form is-connected">
