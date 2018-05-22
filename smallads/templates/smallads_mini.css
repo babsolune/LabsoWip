@@ -1,4 +1,4 @@
-#flexisel .flexisel-thumbnail {
+#smallads-flexisel .flexisel-thumbnail {
     height:185px;
     background-position: center;
     background-repeat: no-repeat;
@@ -57,7 +57,7 @@
     color: #CC0000;
 }
 
-#flexisel .nbs-flexisel-item a.completed-smallad span.completed-item {
+#smallads-flexisel .nbs-flexisel-item a.completed-smallad span.completed-item {
     color: #CC0000;
     position: absolute;
     padding: 5px;

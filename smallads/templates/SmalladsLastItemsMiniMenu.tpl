@@ -8,7 +8,7 @@
 	# ENDIF #
 		# IF C_ONE_SMALLAD #{@mini.there.is}# ELSE #{@mini.there.are}# ENDIF # {SMALLADS_TOTAL_NB} # IF C_ONE_SMALLAD #{@mini.one.smallad}# ELSE #{@mini.several.smallads}# ENDIF #
 		<div class="relative-container">
-			<ul id="flexisel">
+			<ul id="smallads-flexisel">
 	            # START items #
 				<li>
 	        		<a
@@ -38,7 +38,7 @@
 # IF C_SMALLADS #
 	<script src="{PATH_TO_ROOT}/smallads/templates/js/flexisel.js"></script>
 	<script>
-		$("#flexisel").flexisel({
+		$("#smallads-flexisel").flexisel({
 			# IF C_HORIZONTAL #
 			visibleItems: 4,
 			# ELSE #
