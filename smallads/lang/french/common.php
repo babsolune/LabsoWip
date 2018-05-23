@@ -117,6 +117,7 @@ $lang['smallads.form.enabled.description'] = 'Activer le condensé de l\'annonce
 $lang['smallads.form.enabled.description.description'] = 'ou laissez PHPBoost couper le contenu à :number caractères';
 $lang['smallads.form.price'] = 'Prix';
 $lang['smallads.form.price.desc'] = 'Laisser à 0 pour ne pas afficher le prix.<br />Utiliser une virgule pour les décimales';
+$lang['smallads.form.thumbnail'] = 'Vignette de l\'annonce';
 $lang['smallads.form.carousel'] = 'Ajouter un carrousel d\'images';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Adresse image';
@@ -131,6 +132,7 @@ $lang['smallads.form.displayed.author.phone'] = 'Afficher le numéro de téléph
 $lang['smallads.form.author.phone'] = 'Numéro de téléphone';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Personnaliser le nom de l\'auteur';
 $lang['smallads.form.custom.author.name'] = 'Nom de l\'auteur personnalisé';
+$lang['smallads.form.completed.ad'] = 'Annonce terminée';
 $lang['smallads.form.completed'] = 'Déclarer cette annonce terminée';
 $lang['smallads.form.completed.warning'] = 'L\'annonce sera supprimée après :delay jours<br /><span style="color:#CC0000">Cette action est irréversible</span>';
 

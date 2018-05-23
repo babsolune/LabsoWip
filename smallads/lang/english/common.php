@@ -117,6 +117,7 @@ $lang['smallads.form.enabled.description'] = 'Enable ad description';
 $lang['smallads.form.enabled.description.description'] = 'or let PHPBoost cut the content at :number characters';
 $lang['smallads.form.price'] = 'Price';
 $lang['smallads.form.price.desc'] = 'Leave to 0 to not display the price.<br />Use a comma for decimals.';
+$lang['smallads.form.thumbnail'] = 'Ad\'s thumbnail';
 $lang['smallads.form.carousel'] = 'Add a picture carousel';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Picture address';
@@ -131,6 +132,7 @@ $lang['smallads.form.displayed.author.phone'] = 'Display the phone number';
 $lang['smallads.form.author.phone'] = 'Phone number';
 $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
+$lang['smallads.form.completed.ad'] = 'Completed ad';
 $lang['smallads.form.completed'] = 'Declare this ad completed';
 $lang['smallads.form.completed.warning'] = '';
 

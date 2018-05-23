@@ -184,6 +184,8 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
+		$fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative()));
+
 		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
 		{
 			$contact_fieldset = new FormFieldsetHTML('contact', $this->lang['smallads.form.contact']);
@@ -284,8 +286,6 @@ class SmalladsItemFormController extends ModuleController
 			'hidden' => !$this->get_smallad()->is_displayed_author_name() ||  !$this->get_smallad()->is_enabled_author_name_customization(),
 		)));
 
-		$other_fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->common_lang['form.picture'], $this->get_smallad()->get_thumbnail()->relative()));
-
 		$other_fieldset->add_field(SmalladsService::get_keywords_manager()->get_form_field($this->get_smallad()->get_id(), 'keywords', $this->common_lang['form.keywords'],
 			array('description' => $this->common_lang['form.keywords.description'])
 		));
@@ -296,7 +296,10 @@ class SmalladsItemFormController extends ModuleController
 
 		if($this->get_smallad()->get_id() !== null)
 		{
-			$other_fieldset->add_field(new FormFieldCheckbox('completed', $this->lang['smallads.form.completed'], $this->get_smallad()->get_completed(),
+			$completed_fieldset = new FormFieldsetHTML('completed_ad', $this->lang['smallads.form.completed.ad']);
+			$form->add_fieldset($completed_fieldset);
+
+			$completed_fieldset->add_field(new FormFieldCheckbox('completed', $this->lang['smallads.form.completed'], $this->get_smallad()->get_completed(),
 				array('description' => StringVars::replace_vars($this->lang['smallads.form.completed.warning']
 				,array('delay' => SmalladsConfig::load()->get_display_delay_before_delete()))
 			)));
