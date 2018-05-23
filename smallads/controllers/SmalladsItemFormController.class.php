@@ -123,6 +123,10 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
+		$fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative(),
+			array('description' => $this->lang['smallads.form.thumbnail.desc'])
+		));
+
 		$fieldset->add_field(new FormFieldCheckbox('enable_description', $this->lang['smallads.form.enabled.description'], $this->get_smallad()->get_description_enabled(),
 			array('description' => StringVars::replace_vars($this->lang['smallads.form.enabled.description.description'],
 			array('number' => SmalladsConfig::load()->get_characters_number_to_cut())),
@@ -183,8 +187,6 @@ class SmalladsItemFormController extends ModuleController
 				));
 			}
 		}
-
-		$fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative()));
 
 		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
 		{

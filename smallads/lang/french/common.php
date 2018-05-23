@@ -118,6 +118,7 @@ $lang['smallads.form.enabled.description.description'] = 'ou laissez PHPBoost co
 $lang['smallads.form.price'] = 'Prix';
 $lang['smallads.form.price.desc'] = 'Laisser à 0 pour ne pas afficher le prix.<br />Utiliser une virgule pour les décimales';
 $lang['smallads.form.thumbnail'] = 'Vignette de l\'annonce';
+$lang['smallads.form.thumbnail.desc'] = 'Accompagne l\'annonce sur l\'ensemble du site';
 $lang['smallads.form.carousel'] = 'Ajouter un carrousel d\'images';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Adresse image';
