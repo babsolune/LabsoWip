@@ -210,7 +210,7 @@ a[data-lightbox] {
 
 /* --- Sort/filter Options
 ---------------------------------------------------------------------------- */
-.jplist-panel {
+.jplist-panel .block {
 	position: relative;
 }
 
@@ -273,46 +273,8 @@ a[data-lightbox] {
 .category-select.reveal-subcat #category-nav {
 	opacity: 1;
 	visibility: visible;
-	top: 75px;
+	top: 100%;
 	transition: top 0.5s ease;
-}
-
-@media (min-width: 769px) {
-	.category-select.reveal-subcat #category-nav {
-		top: 100%;
-	}
-}
-
-.category-nav .has-sub {
-  position: relative;
-}
-
-.category-nav .has-sub::after {
-  position: absolute;
-  font-family: 'fontawesome';
-  content: '\f067';
-  right: 0;
-  top: 10px;
-}
-
-.category-nav .has-sub:hover::after {
-  content: '\f068';
-}
-
-.category-nav .has-sub > ul {
-  position: absolute ;
-  top: 100%;
-  left: 800px;
-  min-width: 130px;
-}
-
-.category-nav .has-sub:hover > ul {
-  left: 0;
-}
-
-.category-nav ul ul .has-sub:hover ul {
-    top: 0;
-    left: 100%;
 }
 
 /* --- Filter types --- */
@@ -347,14 +309,8 @@ a[data-lightbox] {
 .label-list.reveal-list {
 	opacity: 1;
 	visibility: visible;
-	top: 75px;
+	top: 100%;
 	transition: 0.3s;
-}
-
-@media (min-width: 769px) {
-	.label-list.reveal-list {
-		top: 100%;
-	}
 }
 
 .jplist-type-filter .jplist-label {
@@ -408,11 +364,7 @@ a[data-lightbox] {
 	opacity: 1;
 	visibility: visible;
 	transition: all 0.3s ease;
-	top: 75px;
-}
-
-@media (min-width: 769px) {
-	.jplist-drop-down ul.reveal-ul { top: 100%; }
+	top: 100%;
 }
 
 .jplist-drop-down ul li {
