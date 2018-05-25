@@ -83,21 +83,21 @@ $lang['config.location'] = 'Activate location';
 $lang['config.max.weeks.number.displayed'] = 'Limit the number of weeks of posting';
 $lang['config.max.weeks.number'] = 'Default number of weeks of posting';
 $lang['config.display.delay.before.delete'] = 'Display delay before delete';
-$lang['config.display.delay.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days)';
+$lang['config.display.delay.before.delete.desc'] = 'when the "completed" checkbox is enabled (in days).';
 $lang['config.display.contact.to.visitors'] = 'Allow visitors to contact ad authors';
-$lang['config.display.contact.to.visitors.desc'] = 'If not checked, only connected members can contact ad authors';
+$lang['config.display.contact.to.visitors.desc'] = 'If not checked, only connected members can contact ad authors.';
 $lang['config.display.email.enabled'] = 'Enable the link to the author\'s email';
 $lang['config.display.pm.enabled'] = 'Enable the link to the author\'s pm';
 $lang['config.display.phone.enabled'] = 'Enable the display to the author\'s phone number';
 $lang['config.suggestions.display'] = 'Display ad suggestions';
 $lang['config.suggestions.nb'] = 'Number of ads to display';
 $lang['config.related.links.display'] = 'Display related links to ads';
-$lang['config.related.links.display.desc'] = 'Previous link, next link';
+$lang['config.related.links.display.desc'] = 'Previous link, next link.';
 
 // Smallads mini menu configuration
 $lang['config.mini.title'] = 'Mini menu configuration';
 $lang['config.mini.items.nb'] = 'Ads number to display mini menu';
-$lang['config.mini.speed.desc'] = 'in milisecondes';
+$lang['config.mini.speed.desc'] = 'in milisecondes.';
 $lang['config.mini.animation.speed'] = 'Speed scrolling';
 $lang['config.mini.autoplay'] = 'Enable autoplay';
 $lang['config.mini.autoplay.speed'] = 'Time between 2 scrolls';
@@ -107,7 +107,7 @@ $lang['config.mini.autoplay.hover'] = 'Enable pause on slideshow hover';
 $lang['config.usage.terms'] = 'Usage terms management';
 $lang['smallads.usage.terms'] = 'Usage terms';
 $lang['config.usage.terms.displayed'] = 'Display the usage terms';
-$lang['config.usage.terms.desc'] = 'Usage terms description';
+$lang['config.usage.terms.desc'] = 'Usage terms description.';
 
 //Form
 $lang['smallads.form.add'] = 'Add an ad';
@@ -118,7 +118,7 @@ $lang['smallads.form.enabled.description.description'] = 'or let PHPBoost cut th
 $lang['smallads.form.price'] = 'Price';
 $lang['smallads.form.price.desc'] = 'Leave to 0 to not display the price.<br />Use a comma for decimals.';
 $lang['smallads.form.thumbnail'] = 'Ad\'s thumbnail';
-$lang['smallads.form.thumbnail.desc'] = 'Follows the ad on the entire website';
+$lang['smallads.form.thumbnail.desc'] = 'Follows the ad on the entire website.';
 $lang['smallads.form.carousel'] = 'Add a picture carousel';
 $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Picture address';
@@ -127,7 +127,7 @@ $lang['smallads.form.max.weeks'] = 'Number of weeks of display';
 $lang['smallads.form.displayed.author.pm'] = 'Display the link to pm';
 $lang['smallads.form.displayed.author.email'] = 'Display the link to email';
 $lang['smallads.form.enabled.author.email.customisation'] = 'Customize email';
-$lang['smallads.form.enabled.author.email.customisation.desc'] = 'if you want to be contacted on another email than your account one';
+$lang['smallads.form.enabled.author.email.customisation.desc'] = 'if you want to be contacted on another email than your account one.';
 $lang['smallads.form.custom.author.email'] = 'Contact email';
 $lang['smallads.form.displayed.author.phone'] = 'Display the phone number';
 $lang['smallads.form.author.phone'] = 'Phone number';
@@ -135,7 +135,7 @@ $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author nam
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
 $lang['smallads.form.completed.ad'] = 'Completed ad';
 $lang['smallads.form.completed'] = 'Declare this ad completed';
-$lang['smallads.form.completed.warning'] = '';
+$lang['smallads.form.completed.warning'] = 'The ad is deleted :delay day(s) after<br /><span style="color:#CC0000">This action is irreversible</span>';
 
 $lang['smallads.form.smallad.type'] = 'Type of ad';
 $lang['smallads.form.smallads.types'] = 'Types of ads';
@@ -143,7 +143,7 @@ $lang['smallads.form.member.edition'] = 'Modification by author';
 $lang['smallads.form.member.contribution.explain'] = 'Your contribution will be sent to pending ads, follow the approval processing in your contribution panel. Modification is possible before and after approbation. You can justify your contribution in the next field.';
 $lang['smallads.form.member.edition.explain'] = 'You are about to modify your ad. It will be sent to pending ads to be processed and a new alert will be sent to administrators';
 $lang['smallads.form.member.edition.description'] = 'Further description of modification';
-$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better approval processing';
+$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better approval processing.';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';

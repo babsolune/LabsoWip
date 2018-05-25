@@ -51,6 +51,7 @@ class SmalladsSetup extends DefaultModuleSetup
 	{
 		$this->db_utils = PersistenceContext::get_dbms_utils();
 		$this->columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'smallads');
+		$this->disable_mini_menu();
 		$this->delete_fields();
 		$this->change_fields();
 		$this->add_fields();
@@ -59,6 +60,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->delete_files();
 		$this->update_fields();
 		$this->pics_to_upload();
+		// $this->change_mini($param);
 
 		return '5.1.2';
 	}
@@ -189,6 +191,21 @@ class SmalladsSetup extends DefaultModuleSetup
 		));
 	}
 
+	private function disable_mini_menu()
+	{
+		$menu_id = 0;
+		try {
+			$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsModuleMiniMenu"');
+		} catch (RowNotFoundException $e) {}
+
+		if ($menu_id)
+ 		{
+			$menu = MenuService::load($menu_id);
+			MenuService::disable($menu);
+			MenuService::generate_cache();
+		}
+	}
+
 	private function delete_fields()
 	{
 		if ($this->columns['cat_id']) PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads DROP cat_id');
@@ -303,6 +320,40 @@ class SmalladsSetup extends DefaultModuleSetup
 		}
 		$result->dispose();
 	}
+
+// 	private function change_mini($param)
+// 	{
+// 		switch ($param) {
+// 			case $param == 'off':
+// 				$menu_id = 0;
+// 				try {
+// 					$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsLastItemsMiniMenu"');
+// 				} catch (RowNotFoundException $e) {
+//
+// 				}
+// 				if ($menu_id) {
+// 					$menu = MenuService::load($menu_id);
+// 					MenuService::disable($menu);
+// 					MenuService::generate_cache();
+// 				}
+// 				break;
+// 			case $param == 'on':
+// 				$menu_id = 0;
+// 				try {
+// 					$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsLastItemsMiniMenu"');
+// 				} catch (RowNotFoundException $e) {
+//
+// 				}
+// 				if ($menu_id) {
+// 					$menu = MenuService::load($menu_id);
+// 					$menu->set_block_position(1);
+// 					MenuService::enable($menu);
+// //					Debug::dump($menu);
+// 					MenuService::generate_cache();
+// 				}
+// 				break;
+// 		}
+// 	}
 }
 
 ?>

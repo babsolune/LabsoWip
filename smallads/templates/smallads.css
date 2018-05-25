@@ -267,7 +267,9 @@ a[data-lightbox] {
 	visibility: hidden;
 	top: 150%;
 	left: 0;
+	right: -205.5%;
 	transition: all 0.5s ease;
+	padding-bottom: 10px;
 }
 
 .category-select.reveal-subcat #category-nav {

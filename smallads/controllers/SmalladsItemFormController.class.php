@@ -118,7 +118,7 @@ class SmalladsItemFormController extends ModuleController
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_smallad()->get_id_category(), $search_category_children_options,
+			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['smallads.category'], $this->get_smallad()->get_id_category(), $search_category_children_options,
 				array('description' => $this->lang['smallads.select.category'])
 			));
 		}
