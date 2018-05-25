@@ -85,7 +85,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config.usage.terms.configuration', LangLoader::get_message('configuration', 'admin-common'));
+		$fieldset = new FormFieldsetHTML('config_usage_terms_configuration', $this->lang['config.usage.terms']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('usage_terms_displayed', $this->lang['config.usage.terms.displayed'], $this->config->are_usage_terms_displayed(),
@@ -98,7 +98,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 			)
 		)));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['config.usage.terms'], $this->config->get_usage_terms(),
+		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['config.usage.terms.desc'], $this->config->get_usage_terms(),
 			array('rows' => 25, 'hidden' => !$this->config->are_usage_terms_displayed())
 		));
 
