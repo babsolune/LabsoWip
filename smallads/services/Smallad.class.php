@@ -727,7 +727,7 @@ class Smallad
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_PRICE'                  		   => $this->get_price() != 0,
-			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail() && file_exists(PATH_TO_ROOT . $this->get_thumbnail()->relative()),
+			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(), //&& file_exists(PATH_TO_ROOT . $this->get_thumbnail()->relative())
 			'C_USER_GROUP_COLOR'               => !empty($user_group_color),
 			'C_PUBLISHED'                      => $this->is_published(),
 			'C_PUBLICATION_START_AND_END_DATE' => $this->publication_start_date != null && $this->publication_end_date != null,
@@ -740,7 +740,7 @@ class Smallad
 			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
 			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
 			'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),
-			'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone(),
+			'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone() && !empty($this->get_author_phone()),
 			'C_DISPLAYED_AUTHOR'               => $this->is_displayed_author_name(),
 			'C_CUSTOM_AUTHOR_NAME' 			   => $this->is_enabled_author_name_customization(),
 			'C_READ_MORE'                      => !$this->get_description_enabled() && TextHelper::strlen($contents) > SmalladsConfig::load()->get_characters_number_to_cut() && $description != @strip_tags($contents, '<br><br/>'),
