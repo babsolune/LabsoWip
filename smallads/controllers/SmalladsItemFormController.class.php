@@ -734,6 +734,18 @@ class SmalladsItemFormController extends ModuleController
 			);
 			ContributionService::save_contribution($contribution);
 		}
+		else
+		{
+			$corresponding_contributions = ContributionService::find_by_criteria('smallads', $id_smallad);
+			if (count($corresponding_contributions) > 0)
+			{
+				foreach ($corresponding_contributions as $contribution)
+				{
+					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+					ContributionService::save_contribution($contribution);
+				}
+			}
+		}
 		$smallad->set_id($id_smallad);
 	}
 
