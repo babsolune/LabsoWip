@@ -308,7 +308,7 @@ class SmalladsDisplayItemController extends ModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('sender_message', $this->lang['email.sender.message'], '',
+		$fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['email.sender.message'], '',
 			array('required' => true)
 		));
 
