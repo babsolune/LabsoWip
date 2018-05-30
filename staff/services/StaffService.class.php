@@ -70,6 +70,16 @@ class StaffService
 	}
 
 	 /**
+	 * @desc Update the position of a member.
+	 * @param string[] $course_id : id of the member to update
+	 * @param string[] $position : new member position
+	 */
+	public static function update_position($member_id, $position)
+	{
+		self::$db_querier->update(StaffSetup::$staff_table, array('order_id' => $position), 'WHERE id=:id', array('id' => $member_id));
+	}
+
+	 /**
 	 * @desc Delete an entry.
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition

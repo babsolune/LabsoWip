@@ -81,6 +81,8 @@ class StaffItemFormController extends ModuleController
 		$fieldset = new FormFieldsetHTML('staff', $this->get_member()->get_id() === null ? $this->lang['staff.add'] : $this->lang['staff.edit']);
 		$form->add_fieldset($fieldset);
 
+		// $fieldset->add_field(new StaffFormFieldSelectUser('user_completition', 'Membre du site', ''));
+
 		$fieldset->add_field(new FormFieldTextEditor('lastname', $this->lang['staff.form.lastname'], $this->get_member()->get_lastname(), array('required' => true)));
 
         $fieldset->add_field(new FormFieldTextEditor('firstname', $this->lang['staff.form.firstname'], $this->get_member()->get_firstname(), array('required' => true)));
@@ -107,25 +109,14 @@ class StaffItemFormController extends ModuleController
 
 		if (StaffAuthorizationsService::check_authorizations($this->get_member()->get_id_category())->moderation())
 		{
-			$publication_fieldset = new FormFieldsetHTML('publication', $this->common_lang['form.approbation']);
+			$publication_fieldset = new FormFieldsetHTML('publication', $this->lang['form.publication']);
 			$form->add_fieldset($publication_fieldset);
 
 			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->common_lang['form.date.creation'], $this->get_member()->get_creation_date(),
 				array('required' => true)
 			));
 
-			if (!$this->get_member()->is_visible())
-			{
-				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->common_lang['form.update.date.creation'], false, array('hidden' => $this->get_member()->get_status() != Member::NOT_APPROVAL)
-				));
-			}
-
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('approbation_type', $this->common_lang['form.approbation'], $this->get_member()->get_approbation_type(),
-				array(
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.not'], Member::NOT_APPROVAL),
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], Member::APPROVAL_NOW),
-				)
-			));
+			$publication_fieldset->add_field(new FormFieldCheckbox('publication', $this->lang['form.is.published'], $this->get_member()->is_published()));
 		}
 
 		$this->build_contribution_fieldset($form);
@@ -151,7 +142,7 @@ class StaffItemFormController extends ModuleController
 		$i = 1;
 		foreach($roles as $name)
 		{
-			$options[] = new FormFieldSelectChoiceOption($name, str_replace(' ', '-', $name));
+			$options[] = new FormFieldSelectChoiceOption($name, Url::encode_rewrite($name));
 			$i++;
 		}
 
@@ -230,6 +221,12 @@ class StaffItemFormController extends ModuleController
 	{
 		$member = $this->get_member();
 
+		if ($member->get_order_id() === null)
+		{
+			$member_nb = StaffService::count('WHERE id_category = :id_category', array('id_category' => $member->get_id_category()));
+			$member->set_order_id($member_nb + 1);
+		}
+
 		$member->set_lastname($this->form->get_value('lastname'));
 		$member->set_firstname($this->form->get_value('firstname'));
 		$member->set_rewrited_name(Url::encode_rewrite($member->get_lastname() . '-' . $member->get_firstname()));
@@ -238,7 +235,7 @@ class StaffItemFormController extends ModuleController
 			$member->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
 		$member->set_contents($this->form->get_value('contents'));
-        $member->set_role((string)$this->form->get_value('role')->get_raw_value());
+        $member->set_role($this->form->get_value('role')->get_raw_value());
         $member->set_member_phone((string)$this->form->get_value('member_phone'));
         $member->set_member_email((string)$this->form->get_value('member_email'));
 		$member->set_picture(new Url($this->form->get_value('picture')));
@@ -248,22 +245,17 @@ class StaffItemFormController extends ModuleController
 		{
 			if ($member->get_id() === null )
 				$member->set_creation_date(new Date());
-
-			if (StaffAuthorizationsService::check_authorizations($member->get_id_category())->contribution() && !StaffAuthorizationsService::check_authorizations($member->get_id_category())->write())
-				$member->set_approbation_type(Member::NOT_APPROVAL);
+				
+			$member->not_published();
 		}
 		else
 		{
-			if ($this->form->get_value('update_creation_date'))
-			{
-				$member->set_creation_date(new Date());
-			}
-			else
-			{
-				$member->set_creation_date($this->form->get_value('creation_date'));
-			}
+			$member->set_creation_date($this->form->get_value('creation_date'));
 
-			$member->set_approbation_type($this->form->get_value('approbation_type')->get_raw_value());
+			if($this->form->get_value('publication'))
+				$member->published();
+			else
+				$member->not_published();
 		}
 
 		if ($member->get_id() === null)
@@ -338,7 +330,7 @@ class StaffItemFormController extends ModuleController
 		else
 		{
 			if ($this->is_new_member)
-				AppContext::get_response()->redirect(StaffUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['staff.message.success.add'], array('name' => $member->get_name())));
+				AppContext::get_response()->redirect(StaffUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['staff.message.success.add'], array('firstname' => $member->get_firstname(), 'lastname' => $member->get_lastname())));
 			else
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : StaffUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['staff.message.success.edit'], array('firstname' => $member->get_firstname(), 'lastname' => $member->get_lastname())));
 		}

@@ -47,7 +47,7 @@ class StaffDeleteController extends ModuleController
 		Feed::clear_cache('staff');
 		StaffCategoriesCache::invalidate();
 
-		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), StaffUrlBuilder::display($this->member->get_category()->get_id(), $this->member->get_category()->get_rewrited_name(), $this->member->get_id(), $this->member->get_rewrited_name())->rel()) ? $request->get_url_referrer() : StaffUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('staff.message.success.delete', 'common', 'staff'), array('name' => $this->member->get_lastname() . ' ' . $this->member->get_firstname())));
+		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), StaffUrlBuilder::display($this->member->get_category()->get_id(), $this->member->get_category()->get_rewrited_name(), $this->member->get_id(), $this->member->get_rewrited_name())->rel()) ? $request->get_url_referrer() : StaffUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('staff.message.success.delete', 'common', 'staff'), array('firstname' => $this->member->get_firstname(), 'lastname' => $this->member->get_lastname())));
 	}
 
 	private function get_member(HTTPRequestCustom $request)

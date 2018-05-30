@@ -161,15 +161,15 @@ class StaffDisplayItemController extends ModuleController
 		$current_user = AppContext::get_current_user();
 		$not_authorized = !StaffAuthorizationsService::check_authorizations($member->get_id_category())->moderation() && !StaffAuthorizationsService::check_authorizations($member->get_id_category())->write() && (!StaffAuthorizationsService::check_authorizations($member->get_id_category())->contribution() || $member->get_author_user()->get_id() != $current_user->get_id());
 
-		switch ($member->get_approbation_type()) {
-			case Member::APPROVAL_NOW:
+		switch ($member->is_published()) {
+			case Member::PUBLISHED:
 				if (!StaffAuthorizationsService::check_authorizations($member->get_id_category())->read())
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 					DispatchManager::redirect($error_controller);
 				}
 			break;
-			case Member::NOT_APPROVAL:
+			case Member::NOT_PUBLISHED:
 				if ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();

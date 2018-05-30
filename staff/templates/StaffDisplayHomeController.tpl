@@ -5,6 +5,11 @@
 			{@staff.module.title}
 		</h1>
 	</header>
+	# IF C_ROOT_DESCRIPTION #
+		<div class="root-desc">
+			{ROOT_DESCRIPTION}
+		</div>
+	# ENDIF #
 
 	<div class="right">
 		<span class="expand-all expand">{@expand.all}</span><span class="expand-all">{@close.all}</span>
@@ -29,7 +34,7 @@
 										<div class="li-table li-leader"># IF staffcats.members.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF #</div>
 										<div class="li-table li-member"><a href="{staffcats.members.U_MEMBER}" itemprop="name">{staffcats.members.FIRSTNAME} <span class="member-name">{staffcats.members.LASTNAME}</span></a></div>
 									</div>
-									<div class="li-options">
+									<div class="li-options# IF C_MODERATE # moderator# ENDIF #">
 										<div class="li-table li-role">{staffcats.members.ROLE}</div>
 										# IF staffcats.members.C_MEMBER_PHONE #
 											<div class="li-table li-phone">
@@ -38,6 +43,12 @@
 											</div>
 										# ENDIF #
 									</div>
+									# IF C_MODERATE #
+										<div class="moderate">
+											<a href="{staffcats.members.U_EDIT}"><i class="fa fa-edit fa-fw" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+											<a href="{staffcats.members.U_DELETE}"><i class="fa fa-trash fa-fw" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+										</div>
+									# ENDIF #
 								</div>
 							</li>
 						# END staffcats.members #

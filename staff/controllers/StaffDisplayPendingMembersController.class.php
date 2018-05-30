@@ -60,7 +60,7 @@ class StaffDisplayPendingMembersController extends ModuleController
 
 		$condition = 'WHERE id_category IN :authorized_categories
 		' . (!StaffAuthorizationsService::check_authorizations()->moderation() ? ' AND author_user_id = :user_id' : '') . '
-		AND approbation_type = 0';
+		AND publication = 0';
 		$parameters = array(
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorized_categories' => $authorized_categories,
@@ -87,7 +87,7 @@ class StaffDisplayPendingMembersController extends ModuleController
 			'C_AVATARS_ALLOWED' => $config->are_avatars_shown(),
 			'PAGINATION' => $pagination->display(),
 			'TABLE_COLSPAN' => 3,
-			'C_MODERATE' => AppContext::get_current_user()->check_level(User::ADMIN_LEVEL)
+			'C_MODERATE' => AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)
 		));
 
 		while ($row = $result->fetch())

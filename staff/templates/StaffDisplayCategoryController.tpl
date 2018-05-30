@@ -2,7 +2,23 @@
 	<header>
 		<h1>
 			<a href="${relative_url(SyndicationUrlBuilder::rss('staff', ID_CAT))}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication"></i></a>
-			# IF C_PENDING #{@staff.pending}# ELSE #{@staff.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller"></i></a># ENDIF ## ENDIF #
+			# IF C_PENDING #
+				{@staff.pending}
+			# ELSE #
+				{@staff.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
+			# ENDIF # # IF C_CATEGORY #
+				<span class="actions">
+					# IF IS_ADMIN #
+						<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}">
+							<i class="fa fa-edit"></i>
+						</a>
+					# ENDIF # # IF C_DISPLAY_REORDER_LINK #
+						<a href="{U_REORDER_ITEMS}" title="{@staff.reorder}">
+							<i class="fa fa-exchange"></i>
+						</a>
+					# ENDIF #
+				</span>
+			# ENDIF #
 		</h1>
 
 		# IF C_CATEGORY_DESCRIPTION #
@@ -55,7 +71,7 @@
 						<div class="li-options# IF C_MODERATE # moderator# ENDIF #">
 							# IF C_PENDING #
 								<div class="li-table li-role">{members.ROLE}</div>
-								<div class="li-table li-phone">{members.CATEGORY_NAME}</div>
+								<div class="li-table li-phone center">{members.CATEGORY_NAME}</div>
 							# ELSE #
 								<div class="li-table li-role">{members.ROLE}</div>
 								<div class="li-table li-phone">
@@ -68,8 +84,8 @@
 						</div>
 						# IF C_MODERATE #
 							<div class="moderate">
-								<a href="{members.U_EDIT}"><i class="fa fa-edit fa-fw"></i></a>
-								<a href="{members.U_DELETE}"><i class="fa fa-trash fa-fw"></i></a>
+								<a href="{members.U_EDIT}"><i class="fa fa-edit fa-fw" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+								<a href="{members.U_DELETE}"><i class="fa fa-trash fa-fw" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"></i></a>
 							</div>
 						# ENDIF #
 					</div>

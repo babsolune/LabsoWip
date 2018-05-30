@@ -80,11 +80,12 @@ class StaffSetup extends DefaultModuleSetup
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'order_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1),
 			'lastname' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'firstname' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'rewrited_name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'contents' => array('type' => 'text', 'length' => 65000),
-			'approbation_type' => array('type' => 'integer', 'length' => 1, 'notnull' => 1, 'default' => 0),
+            'publication' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'picture_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
@@ -97,6 +98,7 @@ class StaffSetup extends DefaultModuleSetup
 			'primary' => array('id'),
 			'indexes' => array(
 				'id_category' => array('type' => 'key', 'fields' => 'id_category'),
+				'order_id' => array('type' => 'key', 'fields' => 'order_id'),
 				'title' => array('type' => 'fulltext', 'fields' => 'lastname'),
 				'contents' => array('type' => 'fulltext', 'fields' => 'contents')
 			)
@@ -135,6 +137,7 @@ class StaffSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$staff_table, array(
 			'id' => 1,
 			'id_category' => 1,
+			'order_id' => 1,
 			'lastname' => $this->messages['default.member.lastname'],
 			'firstname' => $this->messages['default.member.firstname'],
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.member.lastname'] . '-' . $this->messages['default.member.firstname']),
@@ -143,7 +146,7 @@ class StaffSetup extends DefaultModuleSetup
 			'member_phone' => $this->messages['default.member.phone'],
 			'member_email' => $this->messages['default.member.email'],
             'picture_url' => '/staff/templates/images/no_avatar.png',
-			'approbation_type' => Member::APPROVAL_NOW,
+			'publication' => 1,
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'group_leader' => 1

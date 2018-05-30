@@ -1,16 +1,13 @@
-.staff-category h2 {
-	text-align: left;
+.root-desc {
+	margin-bottom: 2.618em;
 }
 
-.staff-picture,
-.staff-partner-picture {
+.staff-picture {
 	display: block;
 	padding-bottom: 10px;
 }
 
-figure {
-	text-align: center;
-}
+.staff-reorder-form { width: 100%; }
 
 /* --- Table
 -------------------------------------  */
@@ -76,16 +73,16 @@ ul .ul-table .li-table {font-size:1.4rem;}
 }
 
 @media (min-width: 769px) {
-	.li-avatar {width: 40px;}
+	.li-avatar { width: 40px; padding: 0.1618em; }
 	.li-avatar + .li-infos { width: calc(100% - 40px); }
 	.li-leader { width: 20px; text-align: center; }
 
-	.li-title {width:50%; }
-	.li-options {width:50%; }
-		.li-role {width:50%; }
-		.li-phone {width:50%; text-align: right;}
-	.li-options.moderator {width: calc(50% - 40px); }
+	.li-title { width: 50%; }
+	.li-options { width: 50%; }
+	.li-role { width: 50%; }
+	.li-phone { width: 50%; text-align: right;}
 	.moderate { width: 40px; }
+	.li-options.moderator {width: calc(50% - 40px); }
 
 	[class*=member-table] li,
 	.li-infos,

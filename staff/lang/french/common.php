@@ -48,6 +48,8 @@ $lang['expand.all'] = 'Déplier tout l\'organigramme';
 $lang['close.all'] = 'Replier tout l\'organigramme';
 $lang['reveal.member.phone'] = 'Voir le n° de téléphone';
 
+$lang['staff.reorder'] = 'Ordonner la liste des membres';
+
 //config
 $lang['config.role.add'] = 'Ajouter des rôles';
 $lang['config.display.avatars'] = 'Afficher les avatars sur les pages catégories du module';
@@ -69,6 +71,8 @@ $lang['staff.form.description'] = 'Description';
 $lang['staff.form.member.phone'] = 'Téléphone';
 $lang['staff.form.member.email'] = 'Email';
 $lang['staff.form.group.leader'] = 'Responsable';
+$lang['form.publication'] = 'Publication';
+$lang['form.is.published'] = 'Publier';
 
 // email
 $lang['email.contact'] = 'Contacter par email';

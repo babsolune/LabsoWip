@@ -47,8 +47,6 @@ class AdminStaffConfigController extends AdminModuleController
 	 * @var StaffConfig
 	 */
 	private $config;
-	private $comments_config;
-	private $notation_config;
 
 	public function execute(HTTPRequestCustom $request)
 	{

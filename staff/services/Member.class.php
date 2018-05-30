@@ -33,6 +33,7 @@ class Member
 {
 	private $id;
 	private $id_category;
+	private $order_id;
 	private $lastname;
 	private $firstname;
 	private $rewrited_name;
@@ -41,16 +42,15 @@ class Member
 	private $role;
 	private $member_phone;
 	private $member_email;
-
-	private $approbation_type;
+	private $group_leader;
 
 	private $creation_date;
 	private $author_user;
 
-	private $group_leader;
+	private $is_published;
 
-	const NOT_APPROVAL = 0;
-	const APPROVAL_NOW = 1;
+    const NOT_PUBLISHED = 0;
+    const PUBLISHED = 1;
 
 	const DEFAULT_PICTURE = '/staff/templates/images/no_avatar.png';
 
@@ -77,6 +77,16 @@ class Member
 	public function get_category()
 	{
 		return StaffService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+	}
+
+	public function get_order_id()
+	{
+		return $this->order_id;
+	}
+
+	public function set_order_id($order_id)
+	{
+		$this->order_id = $order_id;
 	}
 
 	public function get_lastname()
@@ -149,29 +159,34 @@ class Member
 		$this->member_email = $member_email;
 	}
 
-	public function get_approbation_type()
+	public function published()
 	{
-		return $this->approbation_type;
+		$this->publication = true;
 	}
 
-	public function set_approbation_type($approbation_type)
+	public function not_published()
 	{
-		$this->approbation_type = $approbation_type;
+		$this->publication = false;
+	}
+
+	public function is_published()
+	{
+		return $this->publication;
 	}
 
 	public function is_visible()
 	{
 		$now = new Date();
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->read() && $this->get_approbation_type() == self::APPROVAL_NOW;
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->read() && $this->is_published() == self::PUBLISHED;
 	}
 
 	public function get_status()
 	{
-		switch ($this->approbation_type) {
-			case self::APPROVAL_NOW:
+		switch ($this->is_published) {
+			case self::PUBLISHED:
 				return LangLoader::get_message('status.approved.now', 'common');
 			break;
-			case self::NOT_APPROVAL:
+			case self::NOT_PUBLISHED:
 				return LangLoader::get_message('status.approved.not', 'common');
 			break;
 		}
@@ -243,6 +258,7 @@ class Member
 		return array(
 			'id' => $this->get_id(),
 			'id_category' => $this->get_id_category(),
+			'order_id'              => $this->get_order_id(),
 			'lastname' => $this->get_lastname(),
 			'firstname' => $this->get_firstname(),
 			'rewrited_name' => $this->get_rewrited_name(),
@@ -250,7 +266,7 @@ class Member
 			'role' => $this->get_role(),
 			'member_phone' => $this->get_member_phone(),
 			'member_email' => $this->get_member_email(),
-			'approbation_type' => $this->get_approbation_type(),
+			'publication'       => (int)$this->is_published(),
 			'creation_date' => $this->get_creation_date()->get_timestamp(),
 			'author_user_id' => $this->get_author_user()->get_id(),
 			'picture_url' => $this->get_picture()->relative(),
@@ -262,6 +278,7 @@ class Member
 	{
 		$this->id = $properties['id'];
 		$this->id_category = $properties['id_category'];
+		$this->order_id = $properties['order_id'];
 		$this->lastname = $properties['lastname'];
 		$this->firstname = $properties['firstname'];
 		$this->rewrited_name = $properties['rewrited_name'];
@@ -269,7 +286,6 @@ class Member
 		$this->role = $properties['role'];
 		$this->member_phone = $properties['member_phone'];
 		$this->member_email = $properties['member_email'];
-		$this->approbation_type = $properties['approbation_type'];
 		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->picture_url = new Url($properties['picture_url']);
 		$this->group_leader = (bool)$properties['group_leader'];
@@ -281,15 +297,24 @@ class Member
 			$user->init_visitor_user();
 
 		$this->set_author_user($user);
+
+		if ($properties['publication'])
+			$this->published();
+		else
+			$this->not_published();
 	}
 
 	public function init_default_properties($id_category = Category::ROOT_CATEGORY)
 	{
 		$this->id_category = $id_category;
-		$this->approbation_type = self::APPROVAL_NOW;
 		$this->author_user = AppContext::get_current_user();
 		$this->creation_date = new Date();
 		$this->picture_url = new Url(self::DEFAULT_PICTURE);
+
+		if (StaffAuthorizationsService::check_authorizations()->write())
+			$this->published();
+		else
+			$this->not_published();
 	}
 
 	public function get_array_tpl_vars()

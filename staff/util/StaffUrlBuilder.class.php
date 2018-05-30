@@ -88,6 +88,15 @@ class StaffUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function reorder_items($id_category, $rewrited_name)
+	{
+		$category = $id_category > 0 ? $id_category . '-' . $rewrited_name . '/' : '';
+		return DispatchManager::get_url(self::$dispatcher, '/reorder/' . $category);
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function display_pending($page = 1)
 	{
 		$page = $page !== 1 ? $page . '/' : '';

@@ -32,8 +32,6 @@ class StaffDisplayCategoryController extends ModuleController
 {
 	private $lang;
 	private $config;
-	private $comments_config;
-	private $notation_config;
 	private $category;
 
 	public function execute(HTTPRequestCustom $request)
@@ -69,7 +67,7 @@ class StaffDisplayCategoryController extends ModuleController
 	private function build_members_listing_view(Date $now, $page, $subcategories_page)
 	{
 		$condition = 'WHERE id_category = :id_category
-		AND approbation_type = 1';
+		AND publication = 1';
 		$parameters = array(
 			'id_category' => $this->get_category()->get_id(),
 			'timestamp_now' => $now->get_timestamp()
@@ -81,7 +79,7 @@ class StaffDisplayCategoryController extends ModuleController
 		FROM ' . StaffSetup::$staff_table . ' staff
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = staff.author_user_id
 		' . $condition . '
-		ORDER BY creation_date
+		ORDER BY order_id ASC
 		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'number_items_per_page' => $pagination->get_number_items_per_page(),
@@ -94,9 +92,11 @@ class StaffDisplayCategoryController extends ModuleController
 			'C_ONE_MEMBER_AVAILABLE' => $result->get_rows_count() == 1,
 			'C_TWO_MEMBERS_AVAILABLE' => $result->get_rows_count() == 2,
 			'C_AVATARS_ALLOWED' => $this->config->are_avatars_shown(),
+			'C_DISPLAY_REORDER_LINK' => $result->get_rows_count() > 1 && StaffAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'PAGINATION' => $pagination->display(),
 			'ID_CAT' => $this->get_category()->get_id(),
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? StaffUrlBuilder::configuration()->rel() : StaffUrlBuilder::edit_category($this->get_category()->get_id())->rel()
+			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? StaffUrlBuilder::configuration()->rel() : StaffUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
+			'U_REORDER_ITEMS' => StaffUrlBuilder::reorder_items($this->get_category()->get_id(), $this->get_category()->get_rewrited_name())->rel(),
 		));
 
 		while($row = $result->fetch())
@@ -150,7 +150,7 @@ class StaffDisplayCategoryController extends ModuleController
 			'C_SEVERAL_CATS_COLUMNS' => $this->config->get_sub_categories_nb() > 1,
 			'NUMBER_CATS_COLUMNS' => $this->config->get_sub_categories_nb(),
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
-			'C_MODERATE' => AppContext::get_current_user()->check_level(User::ADMIN_LEVEL)
+			'C_MODERATE' => AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)
 		));
 	}
 

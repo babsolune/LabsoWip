@@ -64,7 +64,7 @@ class StaffFeedProvider implements FeedProvider
 				FROM ' . StaffSetup::$staff_table . ' staff
 				LEFT JOIN '. StaffSetup::$staff_cats_table .' cat ON cat.id = staff.id_category
 				WHERE staff.id_category IN :ids_categories
-				AND approbation_type = 1
+				AND publication = 1
 				ORDER BY staff.creation_date DESC', array(
 					'ids_categories' => $ids_categories,
 					'timestamp_now' => $now->get_timestamp()

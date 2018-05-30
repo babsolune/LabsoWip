@@ -47,7 +47,7 @@ class StaffSearchable extends AbstractSearchableExtensionPoint
 			LEFT JOIN ". StaffSetup::$staff_cats_table ." cat ON w.id_category = cat.id
 			WHERE ( FT_SEARCH(w.name, '" . $args['search'] . "') OR FT_SEARCH(w.contents, '" . $args['search'] . "') OR FT_SEARCH_RELEVANCE(w.short_contents, '" . $args['search'] . "') )
 			AND id_category IN(" . implode(", ", $authorized_categories) . ")
-			AND approbation_type = 1
+			AND publication = 1
 			ORDER BY relevance DESC
 			LIMIT 100 OFFSET 0";
 	}

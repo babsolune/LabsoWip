@@ -60,7 +60,7 @@ class StaffManageController extends AdminModuleController
 			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
 			new HTMLTableColumn($this->lang['staff.form.role'], 'role'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
-			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
+			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'publication'),
 			new HTMLTableColumn('')
 		);
 

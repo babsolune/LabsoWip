@@ -49,7 +49,7 @@ class StaffCategoriesCache extends CategoriesCache
 	protected function get_category_elements_number($id_category)
 	{
 		$now = new Date();
-		return StaffService::count('WHERE id_category = :id_category AND approbation_type = 1',
+		return StaffService::count('WHERE id_category = :id_category AND publication = 1',
 			array(
 				'timestamp_now' => $now->get_timestamp(),
 				'id_category' => $id_category
