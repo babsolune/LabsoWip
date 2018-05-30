@@ -209,7 +209,7 @@ class SmalladsDisplayItemController extends ModuleController
 		$now = new Date();
 
 		$result = PersistenceContext::get_querier()->select('
-		SELECT id, title, id_category, rewrited_title, thumbnail_url,
+		SELECT id, title, id_category, rewrited_title, thumbnail_url, completed,
 		(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(contents, :search_content) / 3) AS relevance
 		FROM ' . SmalladsSetup::$smallads_table . '
 		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(contents, :search_content)) AND id <> :excluded_id
@@ -235,6 +235,7 @@ class SmalladsDisplayItemController extends ModuleController
 
 			$this->tpl->assign_block_vars('suggested_items', array(
 				'C_PTR' => $ptr,
+				'C_COMPLETED' => $row['completed'],
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE' => $row['title'],
 				'THUMBNAIL' => $row['thumbnail_url'],
@@ -250,11 +251,11 @@ class SmalladsDisplayItemController extends ModuleController
 		$timestamp_smallad = $smallad->get_creation_date()->get_timestamp();
 
 		$result = PersistenceContext::get_querier()->select('
-		(SELECT id, title, id_category, rewrited_title, thumbnail_url, \'PREVIOUS\' as type
+		(SELECT id, title, id_category, rewrited_title, thumbnail_url, completed, \'PREVIOUS\' as type
 		FROM '. SmalladsSetup::$smallads_table .'
 		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date < :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date DESC LIMIT 1 OFFSET 0)
 		UNION
-		(SELECT id, title, id_category, rewrited_title, thumbnail_url, \'NEXT\' as type
+		(SELECT id, title, id_category, rewrited_title, thumbnail_url, completed, \'NEXT\' as type
 		FROM '. SmalladsSetup::$smallads_table .'
 		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date > :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date ASC LIMIT 1 OFFSET 0)
 		', array(
@@ -275,6 +276,7 @@ class SmalladsDisplayItemController extends ModuleController
 				$ptr = true;
 
 			$this->tpl->put_all(array(
+				'C_'. $row['type'] .'_COMPLETED' => $row['completed'],
 				'C_'. $row['type'] .'_ITEM' => true,
 				'C_' . $row['type'] . '_PTR' => $ptr,
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),

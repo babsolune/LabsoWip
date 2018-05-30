@@ -60,7 +60,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->delete_files();
 		$this->update_fields();
 		$this->pics_to_upload();
-		// $this->change_mini($param);
 
 		return '5.1.2';
 	}
@@ -320,40 +319,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		}
 		$result->dispose();
 	}
-
-// 	private function change_mini($param)
-// 	{
-// 		switch ($param) {
-// 			case $param == 'off':
-// 				$menu_id = 0;
-// 				try {
-// 					$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsLastItemsMiniMenu"');
-// 				} catch (RowNotFoundException $e) {
-//
-// 				}
-// 				if ($menu_id) {
-// 					$menu = MenuService::load($menu_id);
-// 					MenuService::disable($menu);
-// 					MenuService::generate_cache();
-// 				}
-// 				break;
-// 			case $param == 'on':
-// 				$menu_id = 0;
-// 				try {
-// 					$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsLastItemsMiniMenu"');
-// 				} catch (RowNotFoundException $e) {
-//
-// 				}
-// 				if ($menu_id) {
-// 					$menu = MenuService::load($menu_id);
-// 					$menu->set_block_position(1);
-// 					MenuService::enable($menu);
-// //					Debug::dump($menu);
-// 					MenuService::generate_cache();
-// 				}
-// 				break;
-// 		}
-// 	}
 }
 
 ?>

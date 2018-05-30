@@ -166,12 +166,19 @@
 				<div class="elements-container columns-{SUGGESTED_COLUMNS} no-style">
 					# START suggested_items #
 					<div class="block suggested-thumbnail">
-						<a href="{suggested_items.U_ITEM}">
+						# IF suggested_items.C_COMPLETED #
 							<figure>
 								# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
-								<figcaption>{suggested_items.TITLE}</figcaption>
+								<figcaption>{suggested_items.TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
 							</figure>
-						</a>
+						# ELSE #
+							<a href="{suggested_items.U_ITEM}">
+								<figure>
+									# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
+									<figcaption>{suggested_items.TITLE}</figcaption>
+								</figure>
+							</a>
+						# ENDIF #
 					</div>
 					# END suggested_items #
 				</div>
@@ -181,24 +188,42 @@
 				<hr />
 				<div class="navigation-link">
 					# IF C_PREVIOUS_ITEM #
+						# IF C_PREVIOUS_COMPLETED #
 						<span class="navigation-link-previous">
-							<a href="{U_PREVIOUS_ITEM}">
-								<figure class="navigation-link-thumbnail">
-									# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
-									<figcaption><i class="fa fa-fw fa-arrow-circle-left"></i> {PREVIOUS_ITEM_TITLE}</figcaption>
-								</figure>
-							</a>
+							<figure class="navigation-link-thumbnail">
+								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+								<figcaption><i class="fa fa-fw fa-arrow-circle-left"></i> {PREVIOUS_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
+							</figure>
 						</span>
+						# ELSE #
+							<span class="navigation-link-previous">
+								<a href="{U_PREVIOUS_ITEM}">
+									<figure class="navigation-link-thumbnail">
+										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+										<figcaption><i class="fa fa-fw fa-arrow-circle-left"></i> {PREVIOUS_ITEM_TITLE}</figcaption>
+									</figure>
+								</a>
+							</span>
+						# ENDIF #
 					# ENDIF #
 					# IF C_NEXT_ITEM #
+						# IF C_NEXT_COMPLETED #
 						<span class="navigation-link-next">
-							<a href="{U_NEXT_ITEM}">
-								<figure class="navigation-link-thumbnail">
-									# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
-									<figcaption>{NEXT_ITEM_TITLE} <i class="fa fa-fw fa-arrow-circle-right"></i></figcaption>
-								</figure>
-							</a>
+							<figure class="navigation-link-thumbnail">
+								# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
+								<figcaption>{NEXT_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item} <i class="fa fa-fw fa-arrow-circle-right"></i></figcaption>
+							</figure>
 						</span>
+						# ELSE #
+							<span class="navigation-link-next">
+								<a href="{U_NEXT_ITEM}">
+									<figure class="navigation-link-thumbnail">
+										# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
+										<figcaption>{NEXT_ITEM_TITLE} <i class="fa fa-fw fa-arrow-circle-right"></i></figcaption>
+									</figure>
+								</a>
+							</span>
+						# ENDIF #
 					# ENDIF #
 					<div class="spacer"></div>
 				</div>
