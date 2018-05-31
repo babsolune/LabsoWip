@@ -32,12 +32,9 @@
 class SponsorsConfig extends AbstractConfigData
 {
 	// Configuration
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
+	const NEW_WINDOW = 'new_window';
 	const ITEMS_NUMBER_PER_LINE = 'items_number_per_line';
-	const LEVELS = 'levels';
-	const ENABLED_ITEMS_SUGGESTIONS = 'enabled_items_suggestions';
-	const SUGGESTED_ITEMS_NB = 'suggested_items_nb';
-	const ENABLED_NAVIGATION_LINKS = 'enabled_navigation_links';
+	const PARTNERSHIP_LEVELS = 'partnership_levels';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const DEFERRED_OPERATIONS = 'deferred_operations';
 	const AUTHORIZATIONS = 'authorizations';
@@ -53,15 +50,22 @@ class SponsorsConfig extends AbstractConfigData
 	const MEMBERSHIP_TERMS = 'membership_terms';
 
 	// Configuration
-	public function get_items_number_per_page()
+
+	public function open_new_window()
 	{
-		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
+		$this->set_property(self::NEW_WINDOW, true);
 	}
 
-	public function set_items_number_per_page($number)
+	public function no_new_window()
 	{
-		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $number);
+		$this->set_property(self::NEW_WINDOW, false);
 	}
+
+	public function is_new_window()
+	{
+		return $this->get_property(self::NEW_WINDOW);
+	}
+
 	public function get_items_number_per_line()
 	{
 		return $this->get_property(self::ITEMS_NUMBER_PER_LINE);
@@ -82,44 +86,14 @@ class SponsorsConfig extends AbstractConfigData
 		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
 	}
 
-	public function get_enabled_items_suggestions()
+	public function get_partnership_levels()
 	{
-		return $this->get_property(self::ENABLED_ITEMS_SUGGESTIONS);
+		return $this->get_property(self::PARTNERSHIP_LEVELS);
 	}
 
-	public function set_enabled_items_suggestions($enabled_items_suggestions)
+	public function set_partnership_levels(Array $partnership_levels)
 	{
-		$this->set_property(self::ENABLED_ITEMS_SUGGESTIONS, $enabled_items_suggestions);
-	}
-
-	public function get_suggested_items_nb()
-	{
-		return $this->get_property(self::SUGGESTED_ITEMS_NB);
-	}
-
-	public function set_suggested_items_nb($number)
-	{
-		$this->set_property(self::SUGGESTED_ITEMS_NB, $number);
-	}
-
-	public function get_enabled_navigation_links()
-	{
-		return $this->get_property(self::ENABLED_NAVIGATION_LINKS);
-	}
-
-	public function set_enabled_navigation_links($enabled_navigation_links)
-	{
-		$this->set_property(self::ENABLED_NAVIGATION_LINKS, $enabled_navigation_links);
-	}
-
-	public function get_levels()
-	{
-		return $this->get_property(self::LEVELS);
-	}
-
-	public function set_levels(Array $levels)
-	{
-		$this->set_property(self::LEVELS, $levels);
+		$this->set_property(self::PARTNERSHIP_LEVELS, $partnership_levels);
 	}
 
 	public function get_authorizations()
@@ -219,12 +193,9 @@ class SponsorsConfig extends AbstractConfigData
 		$config_lang = LangLoader::get('install', 'sponsors');
 		return array(
 			// Categories
-			self::ITEMS_NUMBER_PER_PAGE => 10,
+			self::NEW_WINDOW => true,
 			self::ITEMS_NUMBER_PER_LINE => 4,
-			self::LEVELS => array(1 => LangLoader::get_message('default.level', 'config', 'sponsors')),
-			self::SUGGESTED_ITEMS_NB => 4,
-			self::ENABLED_NAVIGATION_LINKS => false,
-			self::ENABLED_ITEMS_SUGGESTIONS => false,
+			self::PARTNERSHIP_LEVELS => array(1 => LangLoader::get_message('default.level', 'config', 'sponsors')),
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'sponsors'),
 			self::DEFERRED_OPERATIONS => array(),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),

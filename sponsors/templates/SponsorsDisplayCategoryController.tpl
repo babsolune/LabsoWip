@@ -68,7 +68,7 @@
 								<header>
 									<h2>
 										# IF level_links.items.C_HAS_WEBSITE #
-											<a href="{level_links.items.U_WEBSITE}" target="_blank" rel="noopener noreferrer nofollow">{level_links.items.TITLE}</a>
+											<a href="{level_links.items.U_WEBSITE}" # IF level_links.items.C_NEW_WINDOW #target="_blank"# ENDIF # rel="noopener noreferrer nofollow">{level_links.items.TITLE}</a>
 										# ELSE #
 											<a href="{level_links.items.U_ITEM}">{level_links.items.TITLE}</a>
 										# ENDIF #
@@ -100,37 +100,9 @@
 		# END level_links #
 	</div>
 
-		<div class="jplist-panel">
-
-			<!-- Pagination -->
-			<div class="pagination options no-style">
-				<div
-				   class="jplist-label"
-				   data-type="{@sponsors.pagination}"
-				   data-control-type="pagination-info"
-				   data-control-name="paging"
-				   data-control-action="paging">
-				</div>
-
-				<div
-				   class="jplist-pagination"
-				   data-control-type="pagination"
-				   data-control-name="paging"
-				   data-control-action="paging"
-				   data-items-per-page="{ITEMS_PER_PAGE}">
-				</div>
-			</div>
-			<div class="spacer"></div>
-		</div>
-
 	<div class="spacer"></div>
 	<footer></footer>
 </section>
-
-<!-- jpList -->
-<script src="{PATH_TO_ROOT}/sponsors/templates/js/jplist.core.min.js"></script>
-<!-- Pagination -->
-<script src="{PATH_TO_ROOT}/sponsors/templates/js/jplist.pagination-bundle.min.js"></script>
 
 <script src="{PATH_TO_ROOT}/sponsors/templates/js/hashchange.js"></script>
 <script src="{PATH_TO_ROOT}/sponsors/templates/js/easytabs.js"></script>
@@ -140,13 +112,6 @@
 
 <script>
 	jQuery('document').ready(function(){
-
-		// jpList
-		jQuery('.pbt-items-container').jplist({
-			itemsBox: '.list',
-			itemPath: '.list-item',
-			panelPath: '.jplist-panel'
-		});
 
 		// Categories
 			// build order

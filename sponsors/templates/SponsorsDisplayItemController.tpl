@@ -39,7 +39,7 @@
 								<i class="fa fa-unlink"></i>
 							</a>
 						# ENDIF #
-						<a href="{U_WEBSITE}" rel="noopener nofollow noreferrer" class="website-link">
+						<a href="{U_WEBSITE}" rel="noopener nofollow noreferrer" class="website-link" # IF C_NEW_WINDOW #target="_blank"# ENDIF #>
 							<i class="fa fa-globe"></i> {@sponsors.visit}
 						</a>
 					# ELSE #

@@ -108,7 +108,7 @@ class SponsorsItemFormController extends ModuleController
 
 		$fieldset->add_field(new FormFieldUrlEditor('website_url', $this->lang['sponsors.form.website'], $this->get_partner()->get_website()->absolute()));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('partner_level', $this->lang['sponsors.form.level'], $this->get_partner()->get_partner_level(), $this->levels_list(),
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('partner_level', $this->lang['sponsors.form.level'], $this->get_partner()->get_partner_level(), $this->partnership_levels_list(),
 			array('required' => true)
 		));
 
@@ -195,16 +195,16 @@ class SponsorsItemFormController extends ModuleController
 		$this->form = $form;
 	}
 
-	private function levels_list()
+	private function partnership_levels_list()
 	{
 		$options = array();
-		$levels = SponsorsConfig::load()->get_levels();
+		$partnership_levels = SponsorsConfig::load()->get_partnership_levels();
 
 		// laisser un vide en début de liste
 		$options[] = new FormFieldSelectChoiceOption('', '');
 
 		$i = 1;
-		foreach($levels as $name)
+		foreach($partnership_levels as $name)
 		{
 			$options[] = new FormFieldSelectChoiceOption($name, $i);
 			$i++;

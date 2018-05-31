@@ -82,8 +82,7 @@ class SponsorsDisplayPendingItemsController extends ModuleController
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 			'C_PENDING'              => true,
-			'C_NO_ITEM_AVAILABLE'    => $nbr_items_pending == 0,
-			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page()
+			'C_NO_ITEM_AVAILABLE'    => $nbr_items_pending == 0
 		));
 
 		if ($nbr_items_pending > 0)

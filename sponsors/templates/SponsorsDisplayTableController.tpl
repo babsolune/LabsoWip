@@ -13,7 +13,7 @@
 				</div>
 			# ENDIF #
 		# ELSE #
-		<table>
+		<table id="table">
 			<thead>
 				<tr>
 					<th>{@sponsors.items}</th>
@@ -26,7 +26,7 @@
 			<tbody>
 				# START items #
 					<tr>
-						<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+						<td class="left"><a href="{items.U_ITEM}">{items.TITLE}</a></td>
 						# IF C_PENDING #<td>{items.PSEUDO}</td># ENDIF #
 						<td>{items.DATE}</td>
 						<td>{items.STATUS}</td>

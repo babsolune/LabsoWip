@@ -60,9 +60,6 @@ class SponsorsDisplayItemController extends ModuleController
 	{
 		$this->category = $this->partner->get_category();
 
-		$this->build_suggested_items($this->partner);
-		$this->build_navigation_links($this->partner);
-
 		$this->tpl->put_all(array_merge($this->partner->get_array_tpl_vars(), array(
 			'CONTENTS'           => FormatingHelper::second_parse($this->partner->get_contents()),
 			'U_EDIT_ITEM'     	 => SponsorsUrlBuilder::edit_item($this->partner->get_id())->rel()
@@ -106,87 +103,6 @@ class SponsorsDisplayItemController extends ModuleController
 				SponsorsService::update_views_number($this->partner);
 			}
 		}
-	}
-
-	private function build_suggested_items(Partner $partner)
-	{
-		$now = new Date();
-
-		$result = PersistenceContext::get_querier()->select('
-		SELECT id, title, id_category, rewrited_title, thumbnail_url,
-		(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(contents, :search_content) / 3) AS relevance
-		FROM ' . SponsorsSetup::$sponsors_table . '
-		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(contents, :search_content)) AND id <> :excluded_id
-		AND (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
-		ORDER BY relevance DESC LIMIT 0, :limit_nb', array(
-			'excluded_id' => $partner->get_id(),
-			'search_content' => $partner->get_title() .','. $partner->get_contents(),
-			'timestamp_now' => $now->get_timestamp(),
-			'limit_nb' => (int) SponsorsConfig::load()->get_suggested_items_nb()
-		));
-
-		$this->tpl->put_all(array(
-			'C_SUGGESTED_ITEMS' => $result->get_rows_count() > 0 && SponsorsConfig::load()->get_enabled_items_suggestions()
-		));
-
-		while ($row = $result->fetch())
-		{
-			if(filter_var($row['thumbnail_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
-
-			$this->tpl->assign_block_vars('suggested_items', array(
-				'C_PTR' => $ptr,
-				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
-				'TITLE' => $row['title'],
-				'THUMBNAIL' => $row['thumbnail_url'],
-				'U_ITEM' => SponsorsUrlBuilder::display_item($row['id_category'], SponsorsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
-			));
-		}
-		$result->dispose();
-	}
-
-	private function build_navigation_links(Partner $partner)
-	{
-		$now = new Date();
-		$timestamp_partner = $partner->get_creation_date()->get_timestamp();
-
-		$result = PersistenceContext::get_querier()->select('
-		(SELECT id, title, id_category, rewrited_title, thumbnail_url, \'PREVIOUS\' as type
-		FROM '. SponsorsSetup::$sponsors_table .'
-		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date < :timestamp_partner AND id_category IN :authorized_categories ORDER BY creation_date DESC LIMIT 1 OFFSET 0)
-		UNION
-		(SELECT id, title, id_category, rewrited_title, thumbnail_url, \'NEXT\' as type
-		FROM '. SponsorsSetup::$sponsors_table .'
-		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date > :timestamp_partner AND id_category IN :authorized_categories ORDER BY creation_date ASC LIMIT 1 OFFSET 0)
-		', array(
-			'timestamp_now' => $now->get_timestamp(),
-			'timestamp_partner' => $timestamp_partner,
-			'authorized_categories' => array($partner->get_id_category())
-		));
-
-		$this->tpl->put_all(array(
-			'C_NAVIGATION_LINKS' => $result->get_rows_count() > 0 && SponsorsConfig::load()->get_enabled_navigation_links(),
-		));
-
-		while ($row = $result->fetch())
-		{
-			if(filter_var($row['thumbnail_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
-
-			$this->tpl->put_all(array(
-				'C_'. $row['type'] .'_ITEM' => true,
-				'C_' . $row['type'] . '_PTR' => $ptr,
-				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
-				$row['type'] . '_ITEM_TITLE' => $row['title'],
-				$row['type'] . '_THUMBNAIL' => $row['thumbnail_url'],
-				'U_'. $row['type'] .'_ITEM' => SponsorsUrlBuilder::display_item($row['id_category'], SponsorsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
-			));
-		}
-		$result->dispose();
 	}
 
 	private function check_authorizations()

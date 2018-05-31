@@ -91,16 +91,13 @@ class SponsorsDisplayMemberItemsController extends ModuleController
 			$this->view->put_all(array(
 				'C_ITEMS'                => $result->get_rows_count() > 0,
 				'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
-
 				'C_MEMBER'			     => true,
 				'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
 				'C_MODERATION'           => SponsorsAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 				'C_ONE_ITEM_AVAILABLE'   => $result->get_rows_count() == 1,
 				'C_TWO_ITEMS_AVAILABLE'  => $result->get_rows_count() == 2,
-				'C_MEMBERSHIP_TERMS'	         => $this->config->are_membership_terms_displayed(),
-				'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 				'ID_CATEGORY'            => $this->get_category()->get_id(),
-				'U_MEMBERSHIP_TERMS' 		 => SponsorsUrlBuilder::membership_terms()->rel()
+				'U_MEMBERSHIP_TERMS'     => SponsorsUrlBuilder::membership_terms()->rel()
 			));
 
 			while($row = $result->fetch())

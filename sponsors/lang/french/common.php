@@ -62,6 +62,7 @@ $lang['sponsors.publication.date'] = 'Créé le';
 
 //Sponsors configuration
 $lang['config.categories.title'] = 'Configuration';
+$lang['config.new.window'] = 'Ouvrir les liens de visite dans une nouvelle fenêtre';
 $lang['sponsors.level.add'] = 'Ajouter des niveaux de partenariat';
 $lang['sponsors.level.placeholder'] = 'Premium, Gold, ...';
 $lang['sponsors.items.per.tab'] = 'Nombre d\'éléments max affichés par onglet';
@@ -109,6 +110,7 @@ $lang['sponsors.message.success.delete'] = 'Le partenaire <b>:title</b> a été 
 $lang['sponsors.no.type'] = '<div class="warning">Vous devez déclarer les niveaux de partenariat (Premium, Gold, ...) dans la <a href="'. PATH_TO_ROOT . SponsorsUrlBuilder::configuration()->relative() . '">configuration des partenaires</a></div>';
 $lang['sponsors.all.types.filters'] = 'Toutes';
 
+// Mini menu
 $lang['mini.last.sponsors'] = 'Derniers partenaires';
 $lang['mini.no.partner'] = 'Aucun partenaire disponible';
 $lang['mini.there.is'] = 'Il y a';

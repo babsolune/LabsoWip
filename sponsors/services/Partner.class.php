@@ -376,6 +376,7 @@ class Partner
 			Date::get_array_tpl_vars($this->publication_end_date, 'publication_end_date'),
 			array(
 			//Conditions
+			'C_NEW_WINDOW'                     => $this->config->is_new_window(),
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail() && file_exists(PATH_TO_ROOT . $this->get_thumbnail()->relative()),

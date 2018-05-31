@@ -85,17 +85,14 @@ class AdminSponsorsConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('sponsors_configuration', $this->lang['config.categories.title']);
 		$form->add_fieldset($fieldset);
 
-		// $fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->lang['sponsors.items.per.tab'], $this->config->get_items_number_per_page(),
-		// 	array('min' => 1, 'max' => 50, 'required' => true),
-		// 	array(new FormFieldConstraintIntegerRange(1, 50))
-		// ));
+		$fieldset->add_field(new FormFieldCheckbox('new_window', $this->lang['config.new.window'], $this->config->is_new_window()));
 
 		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_line', $this->lang['sponsors.items.per.line'], $this->config->get_items_number_per_line(),
 			array('min' => 2, 'max' => 6, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(2, 6))
 		));
 
-		$fieldset->add_field(new LevelsFormField('levels', $this->lang['sponsors.level.add'], $this->config->get_levels()));
+		$fieldset->add_field(new LevelsFormField('partnership_levels', $this->lang['sponsors.level.add'], $this->config->get_partnership_levels()));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->admin_common_lang['config.root_category_description'], $this->config->get_root_category_description(),
 			array('rows' => 8, 'cols' => 47)
@@ -130,9 +127,13 @@ class AdminSponsorsConfigController extends AdminModuleController
 
 	private function save()
 	{
-		// $this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
+		if($this->form->get_value('new_window'))
+			$this->config->open_new_window();
+		else
+			$this->config->no_new_window();
+
 		$this->config->set_items_number_per_line($this->form->get_value('items_number_per_line'));
-		$this->config->set_levels($this->form->get_value('levels'));
+		$this->config->set_partnership_levels($this->form->get_value('partnership_levels'));
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 

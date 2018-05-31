@@ -56,7 +56,6 @@ class SponsorsDisplayCategoryController extends ModuleController
 		$now = new Date();
 		$request = AppContext::get_request();
 
-		// $this->build_items_listing_view($now);
 		$this->build_category_list();
 		$this->build_items_listing_view($now);
 	}
@@ -89,8 +88,8 @@ class SponsorsDisplayCategoryController extends ModuleController
 
 	private function build_items_listing_view(Date $now)
 	{
-		$levels = SponsorsConfig::load()->get_levels();
-		$levels_nb = count($levels);
+		$partnership_levels = SponsorsConfig::load()->get_partnership_levels();
+		$partnership_levels_nb = count($partnership_levels);
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 		$category_image = $this->get_category()->get_image()->rel();
@@ -105,14 +104,13 @@ class SponsorsDisplayCategoryController extends ModuleController
 			'CATEGORY_DESCRIPTION'   => $category_description,
 			'CATEGORY_IMAGE'         => $category_image,
 			'C_MODERATION'           => SponsorsAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
-			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'ITEMS_PER_LINE'         => $this->config->get_items_number_per_line(),
 			'ID_CATEGORY'            => $this->get_category()->get_id(),
 			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SponsorsUrlBuilder::configuration()->rel() : SponsorsUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
 		));
 
 		$i = 1;
-		foreach($levels as $id => $name)
+		foreach($partnership_levels as $id => $name)
 		{
 			// $this->view->assign_block_vars('level_links', array(
 			// ));
@@ -139,7 +137,7 @@ class SponsorsDisplayCategoryController extends ModuleController
 			)));
 
 			$this->view->assign_block_vars('level_links', array(
-				'WIDTH'  => $levels_nb,
+				'WIDTH'  => $partnership_levels_nb,
 				'TARGET' => Url::encode_rewrite($name),
 				'NAME'   => $name,
 				'ID'     => $i,
