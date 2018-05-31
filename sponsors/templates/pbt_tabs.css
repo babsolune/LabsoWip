@@ -1,0 +1,79 @@
+.pbt-etabs {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    align-content: flex-start;
+    -ms-flex-line-pack: start;
+    -webkit-align-content: flex-start;
+    justify-content: space-between;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+}
+
+@media (min-width: 769px) {
+    .pbt-etabs {
+        flex-direction: row;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+    }
+}
+
+@media (max-width: 480px) {
+    .pbt-tab {
+        width: 100% !important;
+    }
+}
+
+.pbt-tab {
+    list-style: none;
+    background-color: #FFFFFF;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    position: relative;
+}
+
+.pbt-tab a {
+    text-align: center;
+    display: block;
+    padding: 0.618em;
+    outline: none;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    -moz-hyphens: none;
+    border-radius: 4px 4px 0 0;
+    text-decoration: none;
+}
+
+.pbt-tab.current-tab {
+    background-color: transparent;
+    border-color: #DDDDDD;
+}
+
+.pbt-tab:hover {
+    background-color: transparent;
+    border-color: #DDDDDD;
+}
+
+.pbt-tab.current-tab a {
+    text-decoration: underline;
+}
+
+.pbt-tab span {
+    position: absolute;
+    top: 0.1618em;
+    right: 0.228em;
+}
+
+.pbt-items-container {
+    padding: 1.618em 0 0;
+}

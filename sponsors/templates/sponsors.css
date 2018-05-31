@@ -1,0 +1,249 @@
+#sponsors-module {
+	position: relative;
+	padding-bottom: 4em;
+	min-height: 50em;
+}
+
+#sponsors-module hr {
+	margin: 10px 0;
+}
+
+#sponsors-module .formatter-content {display: table;}
+
+/* --- categories
+-------------------------------------- */
+.membership {
+	text-align: right;
+}
+
+.membership-link {
+	display: inline-block;
+	padding: 1.309em;
+}
+
+#sponsors-module .block {
+	margin: 0 0 1.618em;
+}
+
+.list.elements-container {
+	flex-direction: row;
+	-ms-flex-direction: row;
+	-webkit-flex-direction: row;
+}
+
+.list.elements-container > .block {
+	align-self: center;
+}
+
+.several-items {
+	/* margin: 10px 10px 10px 0; */
+	position: relative;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.several-items .actions {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.several-items h2 {
+	margin: 0;
+	border: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	background-color: rgba(255, 255, 255, 0);
+	transition: all 0.3s;
+}
+
+.several-items:hover h2 {
+	opacity: 1;
+	visibility: visible;
+	background-color: rgba(255, 255, 255, 0.8);
+	transition: all 0.3s;
+}
+
+.several-items h2 a {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translateY(0);
+	text-align: center;
+	transition: all 0.3s;
+}
+
+.several-items:hover h2 a {
+	transform: translateY(-50%);
+	transition: all 0.3s;
+}
+
+/* --- Items
+--------------------------------------- */
+.suggested-thumbnail a {
+	display: block;
+	text-align: center;
+}
+
+[class*='navigation-link-'] a {text-decoration: none;}
+
+.navigation-link-previous {float: left;}
+.navigation-link-next {float: right;}
+
+@media (min-width: 769px) {
+	.options.infos.thumbnail-item {
+	margin-bottom: 1.618em;
+		max-width: calc(100% / 3);
+	}
+}
+
+.no-style {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.website {
+	background-color: #fff;
+}
+
+.website-link,
+.website-dl,
+.no-website {
+	display: block;
+	padding: 1.309em;
+	text-align: center;
+}
+
+.website-dl + .website-link {
+	display: table-cell;
+}
+
+.website-dl {
+	background-color: #f0d472;
+	float: right;
+}
+
+.no-website {
+	display: block;
+}
+
+/* --- Options
+---------------------------------------------------------------------------- */
+
+/* --- Pagination --- */
+.jplist-panel {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.jplist-panel .pagination {
+	margin-bottom: 20px;
+	min-height: 30px;
+}
+.pagination .jplist-label {
+	display: none;
+}
+
+.jplist-pagingprev,
+.jplist-pagingmid,
+.jplist-pagingnext { display: inline-block; }
+
+.jplist-hidden { display: none; }
+
+.jplist-current { background-color: rgba(0, 0, 0, 0.2); }
+
+.jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
+
+/* Category-nav */
+.category-select {
+	position: relative;
+}
+
+.category-selected {
+	cursor: pointer;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+.category-selected i.fa {
+	float: right;
+}
+
+.category-select #category-nav {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	top: 150%;
+	left: 0;
+	transition: all 0.5s ease;
+}
+
+.category-select #category-nav.cssmenu.small-screen .menu-button {
+	display: none;
+}
+
+.category-select #category-nav.cssmenu.small-screen .close {
+	left: 0 !important;
+	height: auto;
+}
+
+.category-select.reveal-subcat #category-nav {
+	opacity: 1;
+	visibility: visible;
+	top: 75px;
+	transition: top 0.5s ease;
+}
+
+.bg-container {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	box-shadow: 0 3px 6px #BBBBBB;
+	z-index: 10;
+}
+
+@media (min-width: 769px) {
+	.category-select.reveal-subcat #category-nav {
+		top: 100%;
+	}
+}
+
+.category-nav .has-sub {
+  position: relative;
+}
+
+.category-nav .has-sub::after {
+  position: absolute;
+  font-family: 'fontawesome';
+  content: '\f067';
+  right: 0;
+  top: 10px;
+}
+
+.category-nav .has-sub:hover::after {
+  content: '\f068';
+}
+
+.category-nav .has-sub > ul {
+  position: absolute ;
+  top: 100%;
+  left: 800px;
+  min-width: 130px;
+}
+
+.category-nav .has-sub:hover > ul {
+  left: 0;
+}
+
+.category-nav ul ul .has-sub:hover ul {
+    top: 0;
+    left: 100%;
+}
