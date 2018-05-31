@@ -33,9 +33,9 @@ class StaffHomePageExtensionPoint implements HomePageExtensionPoint
 {
 	public function get_home_page()
 	{
-		return new DefaultHomePage($this->get_title(), StaffDisplayCategoryController::get_view());
+		return new DefaultHomePage($this->get_title(), StaffDisplayHomeController::get_view());
 	}
-	
+
 	private function get_title()
 	{
 		return LangLoader::get_message('staff.module.title', 'common', 'staff');
