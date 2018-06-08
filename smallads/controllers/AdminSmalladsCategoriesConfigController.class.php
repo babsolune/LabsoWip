@@ -40,9 +40,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 	 */
 	private $submit_button;
 
-	private $comments_config;
-	private $content_management_config;
-
 	private $lang;
 	private $admin_common_lang;
 
@@ -78,8 +75,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		$this->lang = LangLoader::get('common', 'smallads');
 		$this->admin_common_lang = LangLoader::get('admin-common');
 		$this->config = SmalladsConfig::load();
-		$this->comments_config = CommentsConfig::load();
-		$this->content_management_config = ContentManagementConfig::load();
 	}
 
 	private function build_form()
