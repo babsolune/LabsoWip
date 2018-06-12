@@ -51,32 +51,32 @@ class StaffService
 
 	 /**
 	 * @desc Create a new entry in the database table.
-	 * @param string[] $member : new Member
+	 * @param string[] $adherent : new Adherent
 	 */
-	public static function add(Member $member)
+	public static function add(Adherent $adherent)
 	{
-		$result = self::$db_querier->insert(StaffSetup::$staff_table, $member->get_properties());
+		$result = self::$db_querier->insert(StaffSetup::$staff_table, $adherent->get_properties());
 
 		return $result->get_last_inserted_id();
 	}
 
 	 /**
 	 * @desc Update an entry.
-	 * @param string[] $member : Member to update
+	 * @param string[] $adherent : Adherent to update
 	 */
-	public static function update(Member $member)
+	public static function update(Adherent $adherent)
 	{
-		self::$db_querier->update(StaffSetup::$staff_table, $member->get_properties(), 'WHERE id=:id', array('id' => $member->get_id()));
+		self::$db_querier->update(StaffSetup::$staff_table, $adherent->get_properties(), 'WHERE id=:id', array('id' => $adherent->get_id()));
 	}
 
 	 /**
-	 * @desc Update the position of a member.
-	 * @param string[] $course_id : id of the member to update
-	 * @param string[] $position : new member position
+	 * @desc Update the position of a adherent.
+	 * @param string[] $course_id : id of the adherent to update
+	 * @param string[] $position : new adherent position
 	 */
-	public static function update_position($member_id, $position)
+	public static function update_position($adherent_id, $position)
 	{
-		self::$db_querier->update(StaffSetup::$staff_table, array('order_id' => $position), 'WHERE id=:id', array('id' => $member_id));
+		self::$db_querier->update(StaffSetup::$staff_table, array('order_id' => $position), 'WHERE id=:id', array('id' => $adherent_id));
 	}
 
 	 /**
@@ -90,20 +90,20 @@ class StaffService
 	}
 
 	 /**
-	 * @desc Return the properties of a member.
+	 * @desc Return the properties of a adherent.
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function get_member($condition, array $parameters)
+	public static function get_adherent($condition, array $parameters)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT staff.*, member.*
 		FROM ' . StaffSetup::$staff_table . ' staff
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = staff.author_user_id
 		' . $condition, $parameters);
 
-		$member = new Member();
-		$member->set_properties($row);
-		return $member;
+		$adherent = new Adherent();
+		$adherent->set_properties($row);
+		return $adherent;
 	}
 
 	 /**

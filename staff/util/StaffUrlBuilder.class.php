@@ -77,12 +77,10 @@ class StaffUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_category($id, $rewrited_name, $page = 1, $subcategories_page = 1)
+	public static function display_category($id, $rewrited_name)
 	{
 		$category = $id > 0 ? $id . '-' . $rewrited_name . '/' : '';
-		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/' : '';
-		$subcategories_page = $subcategories_page !== 1 ? $subcategories_page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $page . $subcategories_page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $category);
 	}
 
 	/**
@@ -97,10 +95,9 @@ class StaffUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_pending($page = 1)
+	public static function display_pending()
 	{
-		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/pending/');
 	}
 
 	/**

@@ -1,14 +1,14 @@
-# IF C_MEMBERS #
+# IF C_ADHERENTS #
 <script>
 <!--
-	var StaffMembers = function(id){
+	var StaffAdherents = function(id){
 		this.id = id;
-		this.members_number = {MEMBERS_NUMBER};
+		this.adherents_number = {ADHERENTS_NUMBER};
 	};
 
-	StaffMembers.prototype = {
+	StaffAdherents.prototype = {
 		init_sortable : function() {
-			jQuery("ul#members-list").sortable({
+			jQuery("ul#adherents-list").sortable({
 				handle: '.sortable-selector',
 				placeholder: '<div class="dropzone">' + ${escapejs(LangLoader::get_message('position.drop_here', 'common'))} + '</div>'
 			});
@@ -17,7 +17,7 @@
 			jQuery('#tree').val(JSON.stringify(this.get_sortable_sequence()));
 		},
 		get_sortable_sequence : function() {
-			var sequence = jQuery("ul#members-list").sortable("serialize").get();
+			var sequence = jQuery("ul#adherents-list").sortable("serialize").get();
 			return sequence[0];
 		},
 		change_reposition_pictures : function() {
@@ -38,19 +38,19 @@
 		}
 	};
 
-	var StaffMember = function(id, staff_members){
+	var StaffAdherent = function(id, staff_adherents){
 		this.id = id;
-		this.StaffMembers = staff_members;
+		this.StaffAdherents = staff_adherents;
 
-		if (StaffMembers.members_number > 1)
-			StaffMembers.change_reposition_pictures();
+		if (StaffAdherents.adherents_number > 1)
+			StaffAdherents.change_reposition_pictures();
 	};
 
-	var StaffMembers = new StaffMembers('members-list');
+	var StaffAdherents = new StaffAdherents('adherents-list');
 	jQuery(document).ready(function() {
-		StaffMembers.init_sortable();
+		StaffAdherents.init_sortable();
 		jQuery('li.sortable-element').on('mouseout',function(){
-			StaffMembers.change_reposition_pictures();
+			StaffAdherents.change_reposition_pictures();
 		});
 	});
 -->
@@ -70,49 +70,49 @@
 		# ENDIF #
 	</header>
 
-	# IF C_MEMBERS #
+	# IF C_ADHERENTS #
 		<div class="content elements-container">
-			<form action="{REWRITED_SCRIPT}" method="post" id="position-update-form" onsubmit="StaffMembers.serialize_sortable();" class="staff-reorder-form">
-				<fieldset id="members-management">
-					<ul id="members-list" class="sortable-block">
-						# START members #
-						<li class="sortable-element# IF members.C_NEW_CONTENT # new-content# ENDIF #" id="list-{members.ID}" data-id="{members.ID}">
+			<form action="{REWRITED_SCRIPT}" method="post" id="position-update-form" onsubmit="StaffAdherents.serialize_sortable();" class="staff-reorder-form">
+				<fieldset id="adherents-management">
+					<ul id="adherents-list" class="sortable-block">
+						# START items #
+						<li class="sortable-element# IF items.C_NEW_CONTENT # new-content# ENDIF #" id="list-{items.ID}" data-id="{items.ID}">
 							<div class="sortable-selector" title="${LangLoader::get_message('position.move', 'common')}"></div>
 							<div class="sortable-title">
-								<span class="member-title"># IF members.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF # {members.FIRSTNAME} {members.LASTNAME}</span> <em>{members.ROLE}</em>
+								<span class="adherent-title"># IF items.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF # {items.FIRSTNAME} {items.LASTNAME}</span> <em>{items.ROLE}</em>
 							</div>
 							<div class="sortable-actions">
-								# IF C_MORE_THAN_ONE_MEMBER #
-								<a href="" title="${LangLoader::get_message('position.move_up', 'common')}" id="move-up-{members.ID}" onclick="return false;"><i class="fa fa-arrow-up fa-fw"></i></a>
-								<a href="" title="${LangLoader::get_message('position.move_down', 'common')}" id="move-down-{members.ID}" onclick="return false;"><i class="fa fa-arrow-down fa-fw"></i></a>
+								# IF C_MORE_THAN_ONE_ADHERENT #
+								<a href="" title="${LangLoader::get_message('position.move_up', 'common')}" id="move-up-{items.ID}" onclick="return false;"><i class="fa fa-arrow-up fa-fw"></i></a>
+								<a href="" title="${LangLoader::get_message('position.move_down', 'common')}" id="move-down-{items.ID}" onclick="return false;"><i class="fa fa-arrow-down fa-fw"></i></a>
 								# ENDIF #
 							</div>
 
 							<script>
 							<!--
 							jQuery(document).ready(function() {
-								var staff_members = new StaffMember({members.ID}, StaffMembers);
+								var staff_adherents = new StaffAdherent({adherents.ID}, StaffAdherents);
 
-								if (StaffMembers.members_number > 1) {
-									jQuery('#move-up-{members.ID}').on('click',function(){
+								if (StaffAdherents.adherents_number > 1) {
+									jQuery('#move-up-{adherents.ID}').on('click',function(){
 										var li = jQuery(this).closest('li');
 										li.insertBefore( li.prev() );
-										StaffMembers.change_reposition_pictures();
+										StaffAdherents.change_reposition_pictures();
 									});
-									jQuery('#move-down-{members.ID}').on('click',function(){
+									jQuery('#move-down-{adherents.ID}').on('click',function(){
 										var li = jQuery(this).closest('li');
 										li.insertAfter( li.next() );
-										StaffMembers.change_reposition_pictures();
+										StaffAdherents.change_reposition_pictures();
 									});
 								}
 							});
 							-->
 							</script>
 						</li>
-						# END members #
+						# END adherents #
 					</ul>
 				</fieldset>
-				# IF C_MORE_THAN_ONE_MEMBER #
+				# IF C_MORE_THAN_ONE_ADHERENT #
 				<fieldset class="fieldset-submit" id="position-update-button">
 					<button type="submit" name="submit" value="true" class="submit">${LangLoader::get_message('position.update', 'common')}</button>
 					<input type="hidden" name="token" value="{TOKEN}">
@@ -123,7 +123,7 @@
 		</div>
 	# ENDIF #
 	# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-		<div id="no-item-message"# IF C_MEMBERS # style="display: none;"# ENDIF #>
+		<div id="no-item-message"# IF C_ADHERENTS # style="display: none;"# ENDIF #>
 			<div class="center">
 				${LangLoader::get_message('no_item_now', 'common')}
 			</div>

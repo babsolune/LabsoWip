@@ -73,12 +73,12 @@ class StaffFeedProvider implements FeedProvider
 			foreach ($results as $row)
 			{
 				$row['rewrited_name_cat'] = !empty($row['id_category']) ? $row['rewrited_name_cat'] : 'root';
-				$member = StaffUrlBuilder::display($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_name']);
+				$adherent = StaffUrlBuilder::display($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_name']);
 
 				$item = new FeedItem();
 				$item->set_title($row['lastname'] . ' ' . $row['firstname']);
-				$item->set_link($member);
-				$item->set_guid($member);
+				$item->set_link($adherent);
+				$item->set_guid($adherent);
 				$item->set_desc(FormatingHelper::second_parse($row['contents']));
 				$item->set_date(new Date($row['creation_date'], Timezone::SERVER_TIMEZONE));
 				$item->set_image_url($row['picture_url']);

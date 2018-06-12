@@ -23,21 +23,21 @@
 					</span>
 				</h2>
 
-				<meta itemprop="url" content="{U_MEMBER}">
+				<meta itemprop="url" content="{U_ADHERENT}">
 				<meta itemprop="description" content="${escape(FIRSTNAME)} ${escape(LASTNAME)}" />
 
 			</header>
 			<div class="content">
 				<div class="options infos">
 					# IF C_ROLE # <p>{ROLE}</p># ENDIF #
-					# IF C_MEMBER_PHONE # <p>{MEMBER_PHONE}</p># ENDIF #
-					# IF C_MEMBER_EMAIL #
+					# IF C_ADHERENT_PHONE # <p>{ADHERENT_PHONE}</p># ENDIF #
+					# IF C_ADHERENT_EMAIL #
 						<a href="#email-modal" class="email-modal-btn">{@email.contact} <i class="fa fa-fw fa-at"></i></a>
-						<div id="email-modal" class="member-modal">
+						<div id="email-modal" class="adherent-modal">
 							<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 							<div class="email-form">
 								# INCLUDE MSG #
-								# IF NOT C_SMALLAD_EMAIL_SENT #
+								# IF NOT C_ADHERENT_EMAIL_SENT #
 									# INCLUDE EMAIL_FORM #
 								# ENDIF  #
 							</div>

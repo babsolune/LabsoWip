@@ -67,7 +67,7 @@ class StaffReorderCategoryItemsController extends ModuleController
 
 		$result = PersistenceContext::get_querier()->select('SELECT *
 		FROM '. StaffSetup::$staff_table .' staff
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = staff.author_user_id
+		LEFT JOIN '. DB_TABLE_ADHERENT .' adherent ON adherent.user_id = staff.author_user_id
 		WHERE publication = 1
 		AND staff.id_category = :id_category
 		ORDER BY order_id ASC', array(
@@ -81,22 +81,22 @@ class StaffReorderCategoryItemsController extends ModuleController
 			'C_ROOT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_HIDE_NO_ITEM_MESSAGE' => $this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($category_description),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
-			'C_MEMBERS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_MEMBER' => $result->get_rows_count() > 1,
+			'C_ADHERENTS' => $result->get_rows_count() > 0,
+			'C_MORE_THAN_ONE_ADHERENT' => $result->get_rows_count() > 1,
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
 			'CATEGORY_IMAGE' => $this->get_category()->get_image()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? StaffUrlBuilder::configuration()->rel() : StaffUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
-			'MEMBERS_NUMBER' => $result->get_rows_count()
+			'ADHERENTS_NUMBER' => $result->get_rows_count()
 		));
 
 		while ($row = $result->fetch())
 		{
-			$staff_member = new Member();
-			$staff_member->set_properties($row);
+			$staff_adherent = new Adherent();
+			$staff_adherent->set_properties($row);
 
-			$this->tpl->assign_block_vars('members', $staff_member->get_array_tpl_vars());
+			$this->tpl->assign_block_vars('items', $staff_adherent->get_array_tpl_vars());
 		}
 		$result->dispose();
 	}
@@ -135,8 +135,8 @@ class StaffReorderCategoryItemsController extends ModuleController
 
 	private function update_position(HTTPRequestCustom $request)
 	{
-		$members_list = json_decode(TextHelper::html_entity_decode($request->get_value('tree')));
-		foreach($members_list as $position => $tree)
+		$adherents_list = json_decode(TextHelper::html_entity_decode($request->get_value('tree')));
+		foreach($adherents_list as $position => $tree)
 		{
 			StaffService::update_position($tree->id, $position);
 		}

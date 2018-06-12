@@ -52,7 +52,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('StaffDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_name')),
 	new UrlControllerMapper('StaffReorderCategoryItemsController', '`^/reorder/([0-9]+)-?([a-z0-9-_]+)?/?$`', array('id_category', 'rewrited_name')),
 
-	new UrlControllerMapper('StaffDisplayPendingMembersController', '`^/pending(?:/([a-z]+))?/?([a-z]+)?/?([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('StaffDisplayPendingItemsController', '`^/pending(?:/([a-z]+))?/?([a-z]+)?/?([0-9]+)?/?$`', array('page')),
 
 	// Home
 	new UrlControllerMapper('StaffDisplayHomeController', '`^/?$`'),

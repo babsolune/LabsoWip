@@ -31,33 +31,33 @@
 
 class StaffDeleteController extends ModuleController
 {
-	private $member;
+	private $adherent;
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		AppContext::get_session()->csrf_get_protect();
 
-		$this->get_member($request);
+		$this->get_adherent($request);
 
 		$this->check_authorizations();
 
-		StaffService::delete('WHERE id=:id', array('id' => $this->member->get_id()));
-		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'staff', 'id' => $this->member->get_id()));
+		StaffService::delete('WHERE id=:id', array('id' => $this->adherent->get_id()));
+		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'staff', 'id' => $this->adherent->get_id()));
 
 		Feed::clear_cache('staff');
 		StaffCategoriesCache::invalidate();
 
-		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), StaffUrlBuilder::display($this->member->get_category()->get_id(), $this->member->get_category()->get_rewrited_name(), $this->member->get_id(), $this->member->get_rewrited_name())->rel()) ? $request->get_url_referrer() : StaffUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('staff.message.success.delete', 'common', 'staff'), array('firstname' => $this->member->get_firstname(), 'lastname' => $this->member->get_lastname())));
+		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), StaffUrlBuilder::display($this->adherent->get_category()->get_id(), $this->adherent->get_category()->get_rewrited_name(), $this->adherent->get_id(), $this->adherent->get_rewrited_name())->rel()) ? $request->get_url_referrer() : StaffUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('staff.message.success.delete', 'common', 'staff'), array('firstname' => $this->adherent->get_firstname(), 'lastname' => $this->adherent->get_lastname())));
 	}
 
-	private function get_member(HTTPRequestCustom $request)
+	private function get_adherent(HTTPRequestCustom $request)
 	{
 		$id = $request->get_getint('id', 0);
 
 		if (!empty($id))
 		{
 			try {
-				$this->member = StaffService::get_member('WHERE staff.id=:id', array('id' => $id));
+				$this->adherent = StaffService::get_adherent('WHERE staff.id=:id', array('id' => $id));
 			} catch (RowNotFoundException $e) {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
@@ -67,7 +67,7 @@ class StaffDeleteController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!$this->member->is_authorized_to_delete())
+		if (!$this->adherent->is_authorized_to_delete())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);

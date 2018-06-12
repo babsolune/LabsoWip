@@ -40,8 +40,6 @@ class AdminSponsorsConfigController extends AdminModuleController
 	 */
 	private $submit_button;
 
-	private $content_management_config;
-
 	private $lang;
 	private $admin_common_lang;
 
@@ -75,7 +73,6 @@ class AdminSponsorsConfigController extends AdminModuleController
 		$this->lang = LangLoader::get('common', 'sponsors');
 		$this->admin_common_lang = LangLoader::get('admin-common');
 		$this->config = SponsorsConfig::load();
-		$this->content_management_config = ContentManagementConfig::load();
 	}
 
 	private function build_form()

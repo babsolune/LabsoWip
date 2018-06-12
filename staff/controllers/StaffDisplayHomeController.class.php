@@ -82,7 +82,7 @@ class StaffDisplayHomeController extends ModuleController
 
 		while ($row_cat = $result_cat->fetch())
 		{
-			$this->tpl->assign_block_vars('staffcats', array(
+			$this->tpl->assign_block_vars('staff', array(
 				'ID' => $row_cat['id'],
 				'SUB_ORDER' => $row_cat['c_order'],
 				'ID_PARENT' => $row_cat['id_parent'],
@@ -105,10 +105,10 @@ class StaffDisplayHomeController extends ModuleController
 
 			while ($row = $result->fetch())
 			{
-				$member = new Member();
-				$member->set_properties($row);
+				$adherent = new Adherent();
+				$adherent->set_properties($row);
 
-				$this->tpl->assign_block_vars('staffcats.members', $member->get_array_tpl_vars());
+				$this->tpl->assign_block_vars('staff.items', $adherent->get_array_tpl_vars());
 			}
 			$result->dispose();
 		}
@@ -141,7 +141,7 @@ class StaffDisplayHomeController extends ModuleController
 	{
 		if (AppContext::get_current_user()->is_guest())
 		{
-			if ((!Authorizations::check_auth(RANK_TYPE, User::MEMBER_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS)) || !StaffAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
+			if ((!Authorizations::check_auth(RANK_TYPE, User::ADHERENT_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS)) || !StaffAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);

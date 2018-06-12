@@ -32,10 +32,10 @@
 
 $lang['default.cat.name'] = 'Catégorie de test';
 $lang['default.cat.description'] = 'Comité de direction';
-$lang['default.member.lastname'] = 'Martin';
-$lang['default.member.firstname'] = 'Jean';
-$lang['default.member.content'] = 'Élu depuis 1999';
+$lang['default.adherent.lastname'] = 'Martin';
+$lang['default.adherent.firstname'] = 'Jean';
+$lang['default.adherent.content'] = 'Élu depuis 1999';
 $lang['default.role'] = 'Président';
-$lang['default.member.phone'] = '01 23 45 67 89';
-$lang['default.member.email'] = 'president@email.fr';
+$lang['default.adherent.phone'] = '01 23 45 67 89';
+$lang['default.adherent.email'] = 'president@email.fr';
 ?>

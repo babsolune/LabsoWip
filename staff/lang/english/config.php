@@ -31,14 +31,14 @@
  ####################################################
 
 $lang['default.role'] = 'President';
-$lang['root_category_description'] = 'Welcome to the staff members section of the staffsite!
+$lang['root_category_description'] = 'Welcome to the staff adherents section of the staffsite!
 <br /><br />
-One category and one member were created to show you how this module works. Here are some tips to get started on this module.
+One category and one adherent were created to show you how this module works. Here are some tips to get started on this module.
 <br /><br />
 <ul class="formatter-ul">
 	<li class="formatter-li"> To configure or customize the module homepage your module, go into the <a href="' . StaffUrlBuilder::configuration()->relative() . '">module administration</a></li>
 	<li class="formatter-li"> To create categories, <a href="' . StaffUrlBuilder::add_category()->relative() . '">clic here</a></li>
-	<li class="formatter-li"> To create members, <a href="' . StaffUrlBuilder::add()->relative() . '">clic here</a></li>
+	<li class="formatter-li"> To create adherents, <a href="' . StaffUrlBuilder::add()->relative() . '">clic here</a></li>
 </ul>
 <br />To learn more, don \'t hesitate to consult the documentation for the module on <a href="http://www.phpboost.com">PHPBoost</a> staffsite.';
 ?>

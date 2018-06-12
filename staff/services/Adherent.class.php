@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               Member.class.php
+ *                               Adherent.class.php
  *                            -------------------
  *   begin                : June 29, 2017
  *   copyright            : (C) 2017 Sebastien LARTIGUE
@@ -29,7 +29,7 @@
  * @author Seabstien LARTIGUE <babsolune@phpboost.com>
  */
 
-class Member
+class Adherent
 {
 	private $id;
 	private $id_category;
@@ -40,8 +40,8 @@ class Member
 	private $contents;
 	private $picture_url;
 	private $role;
-	private $member_phone;
-	private $member_email;
+	private $adherent_phone;
+	private $adherent_email;
 	private $group_leader;
 
 	private $creation_date;
@@ -139,24 +139,24 @@ class Member
 		$this->role = $role;
 	}
 
-	public function get_member_phone()
+	public function get_adherent_phone()
 	{
-		return $this->member_phone;
+		return $this->adherent_phone;
 	}
 
-	public function set_member_phone($member_phone)
+	public function set_adherent_phone($adherent_phone)
 	{
-		$this->member_phone = $member_phone;
+		$this->adherent_phone = $adherent_phone;
 	}
 
-	public function get_member_email()
+	public function get_adherent_email()
 	{
-		return $this->member_email;
+		return $this->adherent_email;
 	}
 
-	public function set_member_email($member_email)
+	public function set_adherent_email($adherent_email)
 	{
-		$this->member_email = $member_email;
+		$this->adherent_email = $adherent_email;
 	}
 
 	public function published()
@@ -245,12 +245,12 @@ class Member
 
 	public function is_authorized_to_edit()
 	{
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::ADHERENT_LEVEL));
 	}
 
 	public function is_authorized_to_delete()
 	{
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::ADHERENT_LEVEL));
 	}
 
 	public function get_properties()
@@ -264,8 +264,8 @@ class Member
 			'rewrited_name' => $this->get_rewrited_name(),
 			'contents' => $this->get_contents(),
 			'role' => $this->get_role(),
-			'member_phone' => $this->get_member_phone(),
-			'member_email' => $this->get_member_email(),
+			'adherent_phone' => $this->get_adherent_phone(),
+			'adherent_email' => $this->get_adherent_email(),
 			'publication'       => (int)$this->is_published(),
 			'creation_date' => $this->get_creation_date()->get_timestamp(),
 			'author_user_id' => $this->get_author_user()->get_id(),
@@ -284,8 +284,8 @@ class Member
 		$this->rewrited_name = $properties['rewrited_name'];
 		$this->contents = $properties['contents'];
 		$this->role = $properties['role'];
-		$this->member_phone = $properties['member_phone'];
-		$this->member_email = $properties['member_email'];
+		$this->adherent_phone = $properties['adherent_phone'];
+		$this->adherent_email = $properties['adherent_email'];
 		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->picture_url = new Url($properties['picture_url']);
 		$this->group_leader = (bool)$properties['group_leader'];
@@ -336,15 +336,15 @@ class Member
 			'C_IS_GROUP_LEADER' => $this->is_group_leader(),
 			'C_NEW_CONTENT' => $new_content->check_if_is_new_content($this->get_creation_date()->get_timestamp()) && $this->is_visible(),
             'C_ROLE' => !empty($this->role),
-            'C_MEMBER_PHONE' => !empty($this->member_phone),
-            'C_MEMBER_EMAIL' => !empty($this->member_email),
-			//Member
+            'C_ADHERENT_PHONE' => !empty($this->adherent_phone),
+            'C_ADHERENT_EMAIL' => !empty($this->adherent_email),
+			//Adherent
 			'ID' => $this->id,
 			'LASTNAME' => $this->lastname,
 			'FIRSTNAME' => $this->firstname,
 			'ROLE' => str_replace('-',' ', $this->role),
-			'MEMBER_PHONE' => $this->member_phone,
-			'MEMBER_EMAIL' => $this->member_email,
+			'ADHERENT_PHONE' => $this->adherent_phone,
+			'ADHERENT_EMAIL' => $this->adherent_email,
 			'CONTENTS' => $contents,
 			'STATUS' => $this->get_status(),
 			'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
@@ -362,7 +362,7 @@ class Member
 
 			'U_SYNDICATION' => SyndicationUrlBuilder::rss('staff', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_MEMBER' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
+			'U_ADHERENT' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
 			'U_CATEGORY' => StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_EDIT' => StaffUrlBuilder::edit($this->id)->rel(),
 			'U_DELETE' => StaffUrlBuilder::delete($this->id)->rel(),
