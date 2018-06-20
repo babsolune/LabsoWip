@@ -67,7 +67,7 @@ class StaffReorderCategoryItemsController extends ModuleController
 
 		$result = PersistenceContext::get_querier()->select('SELECT *
 		FROM '. StaffSetup::$staff_table .' staff
-		LEFT JOIN '. DB_TABLE_ADHERENT .' adherent ON adherent.user_id = staff.author_user_id
+		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = staff.author_user_id
 		WHERE publication = 1
 		AND staff.id_category = :id_category
 		ORDER BY order_id ASC', array(

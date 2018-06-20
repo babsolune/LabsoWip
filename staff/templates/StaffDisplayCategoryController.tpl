@@ -38,7 +38,7 @@
 					<br />
 					<a itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
 					<br />
-					<span class="small">{sub_categories_list.ADHERENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ADHERENT #${TextHelper::lcfirst(LangLoader::get_message('items', 'common', 'staff'))}# ELSE #${TextHelper::lcfirst(LangLoader::get_message('adherent', 'common', 'staff'))}# ENDIF #</span>
+					<span class="small">{sub_categories_list.ADHERENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ADHERENT #${TextHelper::lcfirst(LangLoader::get_message('adherents', 'common', 'staff'))}# ELSE #${TextHelper::lcfirst(LangLoader::get_message('adherent', 'common', 'staff'))}# ENDIF #</span>
 				</div>
 			</div>
 			# END sub_categories_list #
@@ -57,7 +57,7 @@
 				<li>
 					<div class="li-avatar">
 						# IF C_AVATARS_ALLOWED #
-							<img src="{items.U_PICTURE}" alt="{items.FIRSTNAME} {items.LASTNAME}" />
+							<img src="{items.U_THUMBNAIL}" alt="{items.FIRSTNAME} {items.LASTNAME}" />
 						# ENDIF #
 					</div>
 					<div class="li-infos">
@@ -65,7 +65,7 @@
 							<div class="li-table li-leader">
 								# IF items.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF #
 							</div>
-							<div class="li-table li-adherent"><a href="{items.U_ADHERENT}" itemprop="name">{items.FIRSTNAME} <span class="adherent-name">{items.LASTNAME}</span></a></div>
+							<div class="li-table li-adherent"><a href="{items.U_ITEM}" itemprop="name">{items.FIRSTNAME} <span class="adherent-name">{items.LASTNAME}</span></a></div>
 						</div>
 						<div class="li-options# IF C_MODERATE # moderator# ENDIF #">
 							# IF C_PENDING #
@@ -74,8 +74,8 @@
 							# ELSE #
 								<div class="li-table li-role">{items.ROLE}</div>
 								<div class="li-table li-phone">
-									# IF items.C_ADHERENT_PHONE #
-										<span class="show-phone">{items.ADHERENT_PHONE}</span>
+									# IF items.C_ITEM_PHONE #
+										<span class="show-phone">{items.ITEM_PHONE}</span>
 										<span class="hide-phone">{@reveal.adherent.phone}</span>
 									# ENDIF #
 								</div>
@@ -103,16 +103,3 @@
 
 	<footer></footer>
 </section>
-
-<script>
-	jQuery(document).ready(function () {
-		//reveal phone nb
-		jQuery('.show-phone').hide();
-		jQuery('.hide-phone').show();
-		jQuery('.li-phone').click(function(){
-			jQuery(this).toggleClass('is-revealed');
-			jQuery('.show-phone').toggle();
-			jQuery('.hide-phone').toggle();
-		});
-	});
-</script>

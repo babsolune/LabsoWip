@@ -75,7 +75,7 @@ class StaffManageController extends AdminModuleController
 
 		$results = array();
 		$result = $table_model->get_sql_results('staff
-			LEFT JOIN ' . DB_TABLE_ADHERENT . ' adherent ON adherent.user_id = staff.author_user_id',
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = staff.author_user_id',
 			array('*', 'staff.id')
 		);
 		foreach ($result as $row)

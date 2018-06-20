@@ -33,22 +33,22 @@
 $lang['staff.module.title'] = 'Organigramme';
 $lang['module_config_title'] = 'Configuration de l\'organigramme';
 
-$lang['staff.actions.add'] = 'Ajouter un adhérent';
-$lang['staff.add'] = 'Ajout d\'un adhérent';
-$lang['staff.edit'] = 'Modification d\'un adhérent';
-$lang['staff.pending'] = 'Adhérents en attente';
-$lang['staff.manage'] = 'Gérer les adhérents';
-$lang['staff.management'] = 'Gestion des adhérents';
+$lang['staff.actions.add'] = 'Ajouter un membre';
+$lang['staff.add'] = 'Ajout d\'un membre';
+$lang['staff.edit'] = 'Modification d\'un membre';
+$lang['staff.pending'] = 'Membres en attente';
+$lang['staff.manage'] = 'Gérer les membres';
+$lang['staff.management'] = 'Gestion des membres';
 
 $lang['group_leader'] = 'Responsable de commission';
-$lang['adherent_infos'] = 'Informations sur l\'adhérent';
-$lang['adherent'] = 'Adhérent';
-$lang['adherents'] = 'Adhérents';
+$lang['adherent_infos'] = 'Informations sur le membre';
+$lang['adherent'] = 'Membre';
+$lang['adherents'] = 'Membres';
 $lang['expand.all'] = 'Déplier tout l\'organigramme';
 $lang['close.all'] = 'Replier tout l\'organigramme';
 $lang['reveal.adherent.phone'] = 'Voir le n° de téléphone';
 
-$lang['staff.reorder'] = 'Ordonner la liste des adhérents';
+$lang['staff.reorder'] = 'Ordonner la liste des membres';
 
 //config
 $lang['config.role.add'] = 'Ajouter des rôles';
@@ -56,11 +56,11 @@ $lang['config.display.avatars'] = 'Afficher les avatars sur les pages catégorie
 $lang['config.sub.categories.nb'] = 'Nombre de sous-catégories à afficher par ligne';
 
 //SEO
-$lang['staff.seo.description.tag'] = 'Tous les adhérents de la commission :subject.';
-$lang['staff.seo.description.pending'] = 'Tous les adhérents en attente.';
+$lang['staff.seo.description.tag'] = 'Tous les membres de la commission :subject.';
+$lang['staff.seo.description.pending'] = 'Tous les membres en attente.';
 
 //contribution
-$lang['staff.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter un adhérent, cependant vous pouvez en proposer un.';
+$lang['staff.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter un membre, cependant vous pouvez en proposer un.';
 
 //form
 $lang['staff.form.lastname'] = 'Nom';
@@ -76,7 +76,7 @@ $lang['form.is.published'] = 'Publier';
 
 // email
 $lang['email.contact'] = 'Contacter par email';
-$lang['email.adherent.contact'] = 'Contacter cet adhérent';
+$lang['email.adherent.contact'] = 'Contacter ce membre';
 $lang['email.subject'] = 'Sujet du message';
 $lang['email.sender.name'] = 'Votre nom';
 $lang['email.sender.email'] = 'Votre adresse email';
@@ -86,7 +86,7 @@ $lang['staff.message.success.email'] = 'Votre message a bien été envoyé.';
 $lang['staff.message.error.email'] = 'Une erreur est survenue lors de l\'envoi de votre message.';
 
 //Messages
-$lang['staff.message.success.add'] = 'L\'adhérent <b>:firstname :lastname</b> a été ajouté';
-$lang['staff.message.success.edit'] = 'L\'adhérent <b>:firstname :lastname</b> a été modifié';
-$lang['staff.message.success.delete'] = 'L\'adhérent <b>:firstname :lastname</b> a été supprimé';
+$lang['staff.message.success.add'] = 'Le membre <b>:firstname :lastname</b> a été ajouté';
+$lang['staff.message.success.edit'] = 'Le membre <b>:firstname :lastname</b> a été modifié';
+$lang['staff.message.success.delete'] = 'Le membre <b>:firstname :lastname</b> a été supprimé';
 ?>

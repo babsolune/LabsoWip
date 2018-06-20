@@ -26,19 +26,19 @@
 							<li>
 								<div class="li-avatar">
 									# IF C_AVATARS_ALLOWED #
-										<img src="{staff.items.U_PICTURE}" alt="{staff.items.FIRSTNAME} {staff.items.LASTNAME}" />
+										<img src="{staff.items.U_THUMBNAIL}" alt="{staff.items.FIRSTNAME} {staff.items.LASTNAME}" />
 									# ENDIF #
 								</div>
 								<div class="li-infos">
 									<div class="li-title">
 										<div class="li-table li-leader"># IF staff.items.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF #</div>
-										<div class="li-table li-adherent"><a href="{staff.items.U_ADHERENT}" itemprop="name">{staff.items.FIRSTNAME} <span class="adherent-name">{staff.items.LASTNAME}</span></a></div>
+										<div class="li-table li-adherent"><a href="{staff.items.U_ITEM}" itemprop="name">{staff.items.FIRSTNAME} <span class="adherent-name">{staff.items.LASTNAME}</span></a></div>
 									</div>
 									<div class="li-options# IF C_MODERATE # moderator# ENDIF #">
 										<div class="li-table li-role">{staff.items.ROLE}</div>
-										# IF staff.items.C_ADHERENT_PHONE #
+										# IF staff.items.C_ITEM_PHONE #
 											<div class="li-table li-phone">
-												<span class="show-phone">{staff.items.ADHERENT_PHONE}</span>
+												<span class="show-phone">{staff.items.ITEM_PHONE}</span>
 												<span class="hide-phone">{@reveal.adherent.phone}</span>
 											</div>
 										# ENDIF #

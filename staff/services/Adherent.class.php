@@ -38,10 +38,10 @@ class Adherent
 	private $firstname;
 	private $rewrited_name;
 	private $contents;
-	private $picture_url;
+	private $thumbnail_url;
 	private $role;
-	private $adherent_phone;
-	private $adherent_email;
+	private $item_phone;
+	private $item_email;
 	private $group_leader;
 
 	private $creation_date;
@@ -52,7 +52,7 @@ class Adherent
     const NOT_PUBLISHED = 0;
     const PUBLISHED = 1;
 
-	const DEFAULT_PICTURE = '/staff/templates/images/no_avatar.png';
+	const DEFAULT_THUMBNAIL = '/staff/templates/images/no_avatar.png';
 
 	public function get_id()
 	{
@@ -139,24 +139,24 @@ class Adherent
 		$this->role = $role;
 	}
 
-	public function get_adherent_phone()
+	public function get_item_phone()
 	{
-		return $this->adherent_phone;
+		return $this->item_phone;
 	}
 
-	public function set_adherent_phone($adherent_phone)
+	public function set_item_phone($item_phone)
 	{
-		$this->adherent_phone = $adherent_phone;
+		$this->item_phone = $item_phone;
 	}
 
-	public function get_adherent_email()
+	public function get_item_email()
 	{
-		return $this->adherent_email;
+		return $this->item_email;
 	}
 
-	public function set_adherent_email($adherent_email)
+	public function set_item_email($item_email)
 	{
-		$this->adherent_email = $adherent_email;
+		$this->item_email = $item_email;
 	}
 
 	public function published()
@@ -212,20 +212,20 @@ class Adherent
 		$this->author_user = $user;
 	}
 
-	public function get_picture()
+	public function get_thumbnail()
 	{
-		return $this->picture_url;
+		return $this->thumbnail_url;
 	}
 
-	public function set_picture(Url $picture)
+	public function set_thumbnail(Url $thumbnail)
 	{
-		$this->picture_url = $picture;
+		$this->thumbnail_url = $thumbnail;
 	}
 
-	public function has_picture()
+	public function has_thumbnail()
 	{
-		$picture = $this->picture_url->rel();
-		return !empty($picture);
+		$thumbnail = $this->thumbnail_url->rel();
+		return !empty($thumbnail);
 	}
 
 	public function is_group_leader()
@@ -245,12 +245,12 @@ class Adherent
 
 	public function is_authorized_to_edit()
 	{
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::ADHERENT_LEVEL));
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function is_authorized_to_delete()
 	{
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::ADHERENT_LEVEL));
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((StaffAuthorizationsService::check_authorizations($this->id_category)->write() || (StaffAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_visible())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function get_properties()
@@ -264,12 +264,12 @@ class Adherent
 			'rewrited_name' => $this->get_rewrited_name(),
 			'contents' => $this->get_contents(),
 			'role' => $this->get_role(),
-			'adherent_phone' => $this->get_adherent_phone(),
-			'adherent_email' => $this->get_adherent_email(),
+			'item_phone' => $this->get_item_phone(),
+			'item_email' => $this->get_item_email(),
 			'publication'       => (int)$this->is_published(),
 			'creation_date' => $this->get_creation_date()->get_timestamp(),
 			'author_user_id' => $this->get_author_user()->get_id(),
-			'picture_url' => $this->get_picture()->relative(),
+			'thumbnail_url' => $this->get_thumbnail()->relative(),
 			'group_leader' => (int)$this->is_group_leader()
 		);
 	}
@@ -284,10 +284,10 @@ class Adherent
 		$this->rewrited_name = $properties['rewrited_name'];
 		$this->contents = $properties['contents'];
 		$this->role = $properties['role'];
-		$this->adherent_phone = $properties['adherent_phone'];
-		$this->adherent_email = $properties['adherent_email'];
+		$this->item_phone = $properties['item_phone'];
+		$this->item_email = $properties['item_email'];
 		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
-		$this->picture_url = new Url($properties['picture_url']);
+		$this->thumbnail_url = new Url($properties['thumbnail_url']);
 		$this->group_leader = (bool)$properties['group_leader'];
 
 		$user = new User();
@@ -309,7 +309,7 @@ class Adherent
 		$this->id_category = $id_category;
 		$this->author_user = AppContext::get_current_user();
 		$this->creation_date = new Date();
-		$this->picture_url = new Url(self::DEFAULT_PICTURE);
+		$this->thumbnail_url = new Url(self::DEFAULT_THUMBNAIL);
 
 		if (StaffAuthorizationsService::check_authorizations()->write())
 			$this->published();
@@ -332,19 +332,19 @@ class Adherent
 			'C_EDIT' => $this->is_authorized_to_edit(),
 			'C_DELETE' => $this->is_authorized_to_delete(),
 			'C_USER_GROUP_COLOR' => !empty($user_group_color),
-			'C_PICTURE' => $this->has_picture(),
+			'C_HAS_THUMBNAIL' => $this->has_thumbnail(),
 			'C_IS_GROUP_LEADER' => $this->is_group_leader(),
 			'C_NEW_CONTENT' => $new_content->check_if_is_new_content($this->get_creation_date()->get_timestamp()) && $this->is_visible(),
             'C_ROLE' => !empty($this->role),
-            'C_ADHERENT_PHONE' => !empty($this->adherent_phone),
-            'C_ADHERENT_EMAIL' => !empty($this->adherent_email),
+            'C_ITEM_PHONE' => !empty($this->item_phone),
+            'C_ITEM_EMAIL' => !empty($this->item_email),
 			//Adherent
 			'ID' => $this->id,
 			'LASTNAME' => $this->lastname,
 			'FIRSTNAME' => $this->firstname,
-			'ROLE' => str_replace('-',' ', $this->role),
-			'ADHERENT_PHONE' => $this->adherent_phone,
-			'ADHERENT_EMAIL' => $this->adherent_email,
+			'ROLE' => $this->role,
+			'ITEM_PHONE' => $this->item_phone,
+			'ITEM_EMAIL' => $this->item_email,
 			'CONTENTS' => $contents,
 			'STATUS' => $this->get_status(),
 			'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
@@ -362,11 +362,11 @@ class Adherent
 
 			'U_SYNDICATION' => SyndicationUrlBuilder::rss('staff', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_ADHERENT' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
+			'U_ITEM' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
 			'U_CATEGORY' => StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_EDIT' => StaffUrlBuilder::edit($this->id)->rel(),
 			'U_DELETE' => StaffUrlBuilder::delete($this->id)->rel(),
-			'U_PICTURE' => $this->get_picture()->rel()
+			'U_THUMBNAIL' => $this->get_thumbnail()->rel()
 			)
 		);
 	}

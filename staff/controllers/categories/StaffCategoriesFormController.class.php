@@ -33,39 +33,39 @@ class StaffCategoriesFormController extends AbstractRichCategoriesFormController
 {
 	protected function get_id_category()
 	{
-		return AppContext::get_request()->get_getint('id', 0);
+		return AppContext::get_request()->get_getint('id', 1);
 	}
-	
+
 	protected function get_categories_manager()
 	{
 		return StaffService::get_categories_manager();
 	}
-	
+
 	protected function get_categories_management_url()
 	{
 		return StaffUrlBuilder::manage_categories();
 	}
-	
+
 	protected function get_add_category_url()
 	{
 		return StaffUrlBuilder::add_category(AppContext::get_request()->get_getint('id_parent', 0));
 	}
-	
+
 	protected function get_edit_category_url(Category $category)
 	{
 		return StaffUrlBuilder::edit_category($category->get_id());
 	}
-	
+
 	protected function get_module_home_page_url()
 	{
 		return StaffUrlBuilder::home();
 	}
-	
+
 	protected function get_module_home_page_title()
 	{
 		return LangLoader::get_message('staff.module.title', 'common', 'staff');
 	}
-	
+
 	protected function check_authorizations()
 	{
 		if (!StaffAuthorizationsService::check_authorizations()->manage_categories())

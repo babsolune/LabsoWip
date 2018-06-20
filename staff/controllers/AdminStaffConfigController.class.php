@@ -47,6 +47,7 @@ class AdminStaffConfigController extends AdminModuleController
 	 * @var StaffConfig
 	 */
 	private $config;
+	private $options_config;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -54,23 +55,24 @@ class AdminStaffConfigController extends AdminModuleController
 
 		$this->build_form();
 
-		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
+		$view = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
+		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return new AdminStaffDisplayResponse($tpl, $this->lang['module_config_title']);
+		return new AdminStaffDisplayResponse($view, $this->lang['module_config_title']);
 	}
 
 	private function init()
 	{
 		$this->config = StaffConfig::load();
+		$this->options_config = StaffService::get_options_config();
 		$this->lang = LangLoader::get('common', 'staff');
 		$this->admin_common_lang = LangLoader::get('admin-common');
 	}
@@ -82,7 +84,7 @@ class AdminStaffConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new StaffFormFieldRole('role', $this->lang['config.role.add'], $this->config->get_role()));
+		$fieldset->add_field(new StaffFormFieldRole('roles', $this->lang['config.role.add'], $this->options_config->get_roles()));
 
 		$fieldset->add_field(new FormFieldCheckbox('avatars', $this->lang['config.display.avatars'], $this->config->are_avatars_shown()));
 
@@ -131,7 +133,7 @@ class AdminStaffConfigController extends AdminModuleController
 
 	private function save()
 	{
-		$this->config->set_role($this->form->get_value('role'));
+		StaffService::update_options_config(TextHelper::serialize($this->form->get_value('roles')));
 
 		if($this->form->get_value('avatars'))
 			$this->config->show_avatars();

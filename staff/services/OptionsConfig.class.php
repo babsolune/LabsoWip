@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               config.php
+ *                               OptionsConfig.class.php
  *                            -------------------
  *   begin                : June 29, 2017
  *   copyright            : (C) 2017 Sebastien LARTIGUE
@@ -25,20 +25,44 @@
  *
  ###################################################*/
 
+ /**
+ * @author Seabstien LARTIGUE <babsolune@phpboost.com>
+ */
 
- ####################################################
- #						English						#
- ####################################################
+class OptionsConfig
+{
+	private $roles;
 
-$lang['default.role'] = 'President';
-$lang['root_category_description'] = 'Welcome to the organizational charts section of the site!
-<br /><br />
-One category and one member were created to show you how this module works. Here are some tips to get started on this module.
-<br /><br />
-<ul class="formatter-ul">
-	<li class="formatter-li"> To configure or customize the module homepage, go into the <a href="' . StaffUrlBuilder::configuration()->relative() . '">module administration</a></li>
-	<li class="formatter-li"> To create categories, <a href="' . StaffUrlBuilder::add_category()->relative() . '">clic here</a></li>
-	<li class="formatter-li"> To create members, <a href="' . StaffUrlBuilder::add()->relative() . '">clic here</a></li>
-</ul>
-<br />To learn more, please consult the documentation for the module on the <a href="http://www.phpboost.com">PHPBoost</a> website.';
+	public function add_role($role)
+	{
+		$this->roles[] = $role;
+	}
+
+	public function set_roles($roles)
+	{
+		$this->roles = $roles;
+	}
+
+	public function get_roles()
+	{
+		return $this->roles;
+	}
+
+	public function get_properties()
+	{
+		return array(
+			'roles' => TextHelper::serialize($this->get_roles()),
+		);
+	}
+
+	public function set_properties(array $properties)
+	{
+		$this->set_roles(!empty($properties['roles']) ? TextHelper::unserialize($properties['roles']) : array());
+	}
+
+	public function init_default_properties()
+	{
+		$this->roles = array();
+	}
+}
 ?>

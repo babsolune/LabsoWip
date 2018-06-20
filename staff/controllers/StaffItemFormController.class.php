@@ -40,6 +40,7 @@ class StaffItemFormController extends ModuleController
 	 */
 	private $submit_button;
 
+private $tpl;
 	private $lang;
 	private $common_lang;
 
@@ -54,23 +55,25 @@ class StaffItemFormController extends ModuleController
 
 		$this->build_form($request);
 
-		$tpl = new StringTemplate('# INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
-
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
 			$this->redirect();
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$this->tpl->put_all(array(
+			'FORM' =>  $this->form->display(),
+			'C_CATEGORIES' => StaffService::get_categories_manager()->get_categories_cache()->has_categories()
+		));
 
-		return $this->generate_response($tpl);
+		return $this->generate_response($this->tpl);
 	}
 
 	private function init()
 	{
+		$this->tpl = new FileTemplate('staff/StaffItemFormController.tpl');
 		$this->lang = LangLoader::get('common', 'staff');
+		$this->tpl->add_lang($this->lang);
 		$this->common_lang = LangLoader::get('common');
 	}
 
@@ -80,8 +83,6 @@ class StaffItemFormController extends ModuleController
 
 		$fieldset = new FormFieldsetHTML('staff', $this->get_adherent()->get_id() === null ? $this->lang['staff.add'] : $this->lang['staff.edit']);
 		$form->add_fieldset($fieldset);
-
-		// $fieldset->add_field(new StaffFormFieldSelectUser('user_completition', 'Membre du site', ''));
 
 		$fieldset->add_field(new FormFieldTextEditor('lastname', $this->lang['staff.form.lastname'], $this->get_adherent()->get_lastname(), array('required' => true)));
 
@@ -97,11 +98,11 @@ class StaffItemFormController extends ModuleController
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('role', $this->lang['staff.form.role'], $this->get_adherent()->get_role(), $this->role_list()));
 
-        $fieldset->add_field(new FormFieldTelEditor('adherent_phone', $this->lang['staff.form.adherent.phone'], $this->get_adherent()->get_adherent_phone()));
+        $fieldset->add_field(new FormFieldTelEditor('item_phone', $this->lang['staff.form.adherent.phone'], $this->get_adherent()->get_item_phone()));
 
-        $fieldset->add_field(new FormFieldMailEditor('adherent_email', $this->lang['staff.form.adherent.email'], $this->get_adherent()->get_adherent_email()));
+        $fieldset->add_field(new FormFieldMailEditor('item_email', $this->lang['staff.form.adherent.email'], $this->get_adherent()->get_item_email()));
 
-		$fieldset->add_field(new FormFieldUploadPictureFile('picture', $this->lang['staff.form.avatar'], $this->get_adherent()->get_picture()->relative()));
+		$fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->lang['staff.form.avatar'], $this->get_adherent()->get_thumbnail()->relative()));
 
 		$fieldset->add_field(new FormFieldCheckbox('group_leader', $this->lang['staff.form.group.leader'], $this->get_adherent()->is_group_leader()));
 
@@ -133,16 +134,16 @@ class StaffItemFormController extends ModuleController
 	private function role_list()
 	{
 		$options = array();
-		$this->config = StaffConfig::load();
-		$roles = $this->config->get_role();
+		$options_config = StaffService::get_options_config();
+		$roles = $options_config->get_roles();
 
 		// laisser un vide en début de liste
 		$options[] = new FormFieldSelectChoiceOption('', '');
 
-		$i = 1;
+		$i = 0;
 		foreach($roles as $name)
 		{
-			$options[] = new FormFieldSelectChoiceOption($name, Url::encode_rewrite($name));
+			$options[] = new FormFieldSelectChoiceOption($name, $name);
 			$i++;
 		}
 
@@ -236,16 +237,16 @@ class StaffItemFormController extends ModuleController
 
 		$adherent->set_contents($this->form->get_value('contents'));
         $adherent->set_role($this->form->get_value('role')->get_raw_value());
-        $adherent->set_adherent_phone((string)$this->form->get_value('adherent_phone'));
-        $adherent->set_adherent_email((string)$this->form->get_value('adherent_email'));
-		$adherent->set_picture(new Url($this->form->get_value('picture')));
+        $adherent->set_item_phone((string)$this->form->get_value('item_phone'));
+        $adherent->set_item_email((string)$this->form->get_value('item_email'));
+		$adherent->set_thumbnail(new Url($this->form->get_value('thumbnail')));
 		$adherent->set_group_leader($this->form->get_value('group_leader'));
 
 		if (!StaffAuthorizationsService::check_authorizations($adherent->get_id_category())->moderation())
 		{
 			if ($adherent->get_id() === null )
 				$adherent->set_creation_date(new Date());
-				
+
 			$adherent->not_published();
 		}
 		else

@@ -31,7 +31,7 @@
 
 class StaffFormFieldRole extends AbstractFormField
 {
-	private $max_input = 200;
+	private $max_input = 2000;
 
 	public function __construct($id, $label, array $value = array(), array $field_options = array(), array $constraints = array())
 	{

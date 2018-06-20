@@ -33,6 +33,7 @@ class StaffSetup extends DefaultModuleSetup
 {
 	public static $staff_table;
 	public static $staff_cats_table;
+	public static $staff_config_table;
 
 	/**
 	 * @var string[string] localized messages
@@ -43,6 +44,7 @@ class StaffSetup extends DefaultModuleSetup
 	{
 		self::$staff_table = PREFIX . 'staff';
 		self::$staff_cats_table = PREFIX . 'staff_cats';
+		self::$staff_config_table = PREFIX . 'staff_config';
 	}
 
 	public function upgrade($installed_version)
@@ -66,13 +68,14 @@ class StaffSetup extends DefaultModuleSetup
 
 	private function drop_tables()
 	{
-		PersistenceContext::get_dbms_utils()->drop(array(self::$staff_table, self::$staff_cats_table));
+		PersistenceContext::get_dbms_utils()->drop(array(self::$staff_table, self::$staff_cats_table, self::$staff_config_table));
 	}
 
 	private function create_tables()
 	{
 		$this->create_staff_table();
 		$this->create_staff_cats_table();
+		$this->create_staff_config_table();
 	}
 
 	private function create_staff_table()
@@ -84,15 +87,15 @@ class StaffSetup extends DefaultModuleSetup
 			'lastname' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'firstname' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'rewrited_name' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
+			'role' => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'item_phone' => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'item_email' => array('type' => 'string', 'length' => 255, 'default' => "''"),
 			'contents' => array('type' => 'text', 'length' => 65000),
+			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
             'publication' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'picture_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'group_leader' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
-			'role' => array('type' => 'string', 'length' => 255, 'default' => "''"),
-			'adherent_phone' => array('type' => 'string', 'length' => 255, 'default' => "''"),
-			'adherent_email' => array('type' => 'string', 'length' => 255, 'default' => "''"),
 		);
 		$options = array(
 			'primary' => array('id'),
@@ -106,6 +109,18 @@ class StaffSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$staff_table, $fields, $options);
 	}
 
+	private function create_staff_config_table()
+	{
+		$fields = array(
+			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+			'roles' => array('type' => 'text', 'length' => 65000),
+		);
+		$options = array(
+			'primary' => array('id'),
+		);
+		PersistenceContext::get_dbms_utils()->create_table(self::$staff_config_table, $fields, $options);
+	}
+
 	private function create_staff_cats_table()
 	{
 		RichCategory::create_categories_table(self::$staff_cats_table);
@@ -114,8 +129,17 @@ class StaffSetup extends DefaultModuleSetup
 	private function insert_data()
 	{
 		$this->messages = LangLoader::get('install', 'staff');
+		$this->insert_staff_config_data();
 		$this->insert_staff_cats_data();
 		$this->insert_staff_data();
+	}
+
+	private function insert_staff_config_data()
+	{
+		PersistenceContext::get_querier()->insert(self::$staff_config_table, array(
+			'id' => 1,
+			'roles' => TextHelper::serialize(array($this->messages['default.role'], 'Administrateur'))
+		));
 	}
 
 	private function insert_staff_cats_data()
@@ -128,7 +152,7 @@ class StaffSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.cat.name']),
 			'name' => $this->messages['default.cat.name'],
 			'description' => $this->messages['default.cat.description'],
-			'image' => '/staff/staff.png'
+			'image' => '/staff/templates/images/president.png'
 		));
 	}
 
@@ -143,9 +167,9 @@ class StaffSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.adherent.lastname'] . '-' . $this->messages['default.adherent.firstname']),
 			'contents' => $this->messages['default.adherent.content'],
 			'role' => $this->messages['default.role'],
-			'adherent_phone' => $this->messages['default.adherent.phone'],
-			'adherent_email' => $this->messages['default.adherent.email'],
-            'picture_url' => '/staff/templates/images/no_avatar.png',
+			'item_phone' => $this->messages['default.adherent.phone'],
+			'item_email' => $this->messages['default.adherent.email'],
+            'thumbnail_url' => '/staff/templates/images/no_avatar.png',
 			'publication' => 1,
 			'creation_date' => time(),
 			'author_user_id' => 1,

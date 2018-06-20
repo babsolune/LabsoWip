@@ -90,6 +90,25 @@ class StaffService
 	}
 
 	 /**
+	 * @desc Return the properties of roles.
+	 */
+	public static function get_options_config()
+	{
+		$row = self::$db_querier->select_single_row_query('SELECT config.*
+		FROM ' . StaffSetup::$staff_config_table . ' config
+		');
+
+		$options_config = new OptionsConfig();
+		$options_config->set_properties($row);
+		return $options_config;
+	}
+
+	public static function update_options_config($roles)
+	{
+		self::$db_querier->update(StaffSetup::$staff_config_table, array('roles' => $roles), 'WHERE id = 1');
+	}
+
+	 /**
 	 * @desc Return the properties of a adherent.
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition

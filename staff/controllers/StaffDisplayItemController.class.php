@@ -69,10 +69,10 @@ class StaffDisplayItemController extends ModuleController
 		// Envoi d'email
 		if ($this->submit_button->has_been_submited() && $this->email_form->validate())
 		{
-			if ($this->send_adherent_email())
+			if ($this->send_item_email())
 			{
 				$this->tpl->put('MSG', MessageHelper::display($this->lang['staff.message.success.email'], MessageHelper::SUCCESS));
-				$this->tpl->put('C_ADHERENT_EMAIL_SENT', true);
+				$this->tpl->put('C_ITEM_EMAIL_SENT', true);
 			}
 			else
 				$this->tpl->put('MSG', MessageHelper::display($this->lang['staff.message.error.email'], MessageHelper::ERROR, 5));
@@ -113,14 +113,14 @@ class StaffDisplayItemController extends ModuleController
 		$this->email_form = $email_form;
 	}
 
-	private function send_adherent_email()
+	private function send_item_email()
 	{
 		$email_message = '';
 		$email_subject = $this->email_form->get_value('subject');
 		$email_sender_name = $this->email_form->get_value('sender_name');
 		$email_sender_email = $this->email_form->get_value('sender_email');
 		$email_message = $this->email_form->get_value('sender_message');
-		$email_recipient_email = $this->get_adherent()->get_adherent_email();
+		$email_recipient_email = $this->get_adherent()->get_item_email();
 
 		$email = new Mail();
 		$email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['staff.module.title']);
