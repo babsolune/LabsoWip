@@ -102,7 +102,7 @@ class StaffDisplayItemController extends ModuleController
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('sender_message', $this->lang['email.sender.message'], '',
+		$fieldset->add_field(new FormFieldShortMultiLineTextEditor('sender_message', $this->lang['email.sender.message'], '',
 			array('required' => true)
 		));
 
