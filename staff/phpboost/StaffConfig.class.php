@@ -33,8 +33,6 @@ class StaffConfig extends AbstractConfigData
 {
 	const ROLE = 'role';
 	const AVATARS = 'avatars';
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
-	const CATEGORIES_NUMBER_PER_PAGE = 'categories_number_per_page';
 	const SUB_CATEGORIES_NUMBER_PER_LINE = 'sub_categories_number_per_line';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const AUTHORIZATIONS = 'authorizations';
@@ -63,26 +61,6 @@ class StaffConfig extends AbstractConfigData
 	public function are_avatars_shown()
 	{
 		return $this->get_property(self::AVATARS);
-	}
-
-	public function get_items_number_per_page()
-	{
-		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
-	}
-
-	public function set_items_number_per_page($value)
-	{
-		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $value);
-	}
-
-	public function get_categories_number_per_page()
-	{
-		return $this->get_property(self::CATEGORIES_NUMBER_PER_PAGE);
-	}
-
-	public function set_categories_number_per_page($value)
-	{
-		$this->set_property(self::CATEGORIES_NUMBER_PER_PAGE, $value);
 	}
 
 	public function get_sub_categories_nb()
@@ -123,8 +101,6 @@ class StaffConfig extends AbstractConfigData
 		return array(
 			self::ROLE => array(LangLoader::get_message('default.role', 'config', 'staff')),
 			self::AVATARS => true,
-			self::ITEMS_NUMBER_PER_PAGE => 15,
-			self::CATEGORIES_NUMBER_PER_PAGE => 15,
 			self::SUB_CATEGORIES_NUMBER_PER_LINE => 4,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'staff'),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)

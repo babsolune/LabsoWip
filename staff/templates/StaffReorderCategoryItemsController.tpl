@@ -91,15 +91,15 @@
 							<script>
 							<!--
 							jQuery(document).ready(function() {
-								var staff_adherents = new StaffAdherent({adherents.ID}, StaffAdherents);
+								var staff_adherents = new StaffAdherent({items.ID}, StaffAdherents);
 
 								if (StaffAdherents.adherents_number > 1) {
-									jQuery('#move-up-{adherents.ID}').on('click',function(){
+									jQuery('#move-up-{items.ID}').on('click',function(){
 										var li = jQuery(this).closest('li');
 										li.insertBefore( li.prev() );
 										StaffAdherents.change_reposition_pictures();
 									});
-									jQuery('#move-down-{adherents.ID}').on('click',function(){
+									jQuery('#move-down-{items.ID}').on('click',function(){
 										var li = jQuery(this).closest('li');
 										li.insertAfter( li.next() );
 										StaffAdherents.change_reposition_pictures();

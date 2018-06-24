@@ -88,16 +88,6 @@ class AdminStaffConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldCheckbox('avatars', $this->lang['config.display.avatars'], $this->config->are_avatars_shown()));
 
-		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
-		));
-
-		$fieldset->add_field(new FormFieldNumberEditor('categories_number_per_page', $this->admin_common_lang['config.categories_number_per_page'], $this->config->get_categories_number_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
-		));
-
 		$fieldset->add_field(new FormFieldNumberEditor('sub_categories_number_per_line', $this->lang['config.sub.categories.nb'], $this->config->get_sub_categories_nb(),
 			array('min' => 1, 'max' => 6, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 6))
@@ -139,9 +129,7 @@ class AdminStaffConfigController extends AdminModuleController
 			$this->config->show_avatars();
 		else
 			$this->config->hide_avatars();
-
-		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
-		$this->config->set_categories_number_per_page($this->form->get_value('categories_number_per_page'));
+			
 		$this->config->set_sub_categories_nb($this->form->get_value('sub_categories_number_per_line'));
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
