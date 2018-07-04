@@ -1,0 +1,231 @@
+/*
+* Surchargez ce fichier dans votre thème pour personnaliser le module
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+section header, article header {
+    overflow: hidden;
+}
+
+#module-wiki hr {
+	margin-top: 0.618em;
+}
+
+.pages-pagination {
+	float: right;
+	width: 38%;
+	margin-bottom: 0.618em;
+}
+
+span.contents + hr {
+	margin: 2.618em 0 1.482em 0;
+	clear: both;
+}
+
+.document-items a.submit {
+	padding: 0.618em 1.618em;
+	display: inline-block;
+	margin-top: 0.618em;
+}
+
+/* --- C_TABLE
+----------------------------------------------------------------------------- */
+
+table .subcat-title {
+    display: inline-block;
+}
+
+table .subcat-title + em {
+	font-size: 0.8em;
+}
+
+.thumbnail-document {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+/* --- C_MOSAIC
+----------------------------------------------------------------------------- */
+
+.block, .block header {
+    border: none !important;
+}
+
+.subcat-thumbnail {
+    width: 25%;
+}
+
+.subcat-content {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.document-mosaic .thumbnail-document {
+	height: 250px;
+	display: block;
+}
+
+.document-mosaic {
+	padding: 0;
+	position: relative;
+}
+
+.document-mosaic header {
+	margin: 0;
+	background-color: transparent;
+}
+
+.document-mosaic h2 { font-size: 1.618em; }
+.document-mosaic .more { font-size: 0.618em; }
+.document-mosaic .more time { display: block;}
+
+.document-description {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 0.618em;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+	transition: 0.5s;
+	text-decoration: none;
+}
+
+.document-mosaic:hover .document-description {
+	height: 100%;
+	opacity: 1;
+	visibility: visible;
+}
+
+.document-description br + br {
+	display: none;
+}
+
+.document-mosaic .description {
+	height: 50%;
+	overflow: hidden;
+}
+
+.document-actions {
+	position: absolute;
+	bottom: 0.228em;
+	left: 0.618em;
+}
+
+/* --- C_LIST
+----------------------------------------------------------------------------- */
+.document-list {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.document-list header {
+	margin: 0;
+}
+
+.document-list .thumbnail-document {
+	width: calc(100% / 3);
+}
+
+.document-list .content-document {
+	width: calc(100% / 3 * 2);
+}
+
+.document-list-description {
+	padding: 0 0 0 1.618em;
+}
+
+/* --- pagebreak
+----------------------------------------------------------------------------- */
+.form-field-action-link ul {
+	margin: 0;
+    list-style-type: none;
+}
+
+.form-field-action-link i {
+	font-size: 1.618em;
+}
+
+.fa-pagebreak:before { content: "\f477"; }
+
+/* --- pages menu
+----------------------------------------------------------------------------- */
+.pages-menu {
+	position: relative;
+	padding: 0 1.618em;
+}
+
+.form-field-action-link ul:before,
+.form-field-action-link ul:after {
+	position: absolute;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	bottom: 0;
+	left: 0;
+	content: '\f015';
+}
+
+.form-field-action-link ul:after {
+	content: '\f091';
+	right: 0;
+	left: auto;
+}
+
+.pages-menu .horizontal-fieldset {
+	margin-top: 0;
+}
+
+.pages-menu ul {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.pages-menu .horizontal-fieldset-desc {
+	display: block;
+}
+
+.pages-menu li {
+	background-color: #bff;
+	border: 1px solid #555;
+	margin-right: 0.228em;
+}
+
+.pages-menu .current-link {
+	background-color: #366493;
+}
+
+.pages-menu li a {
+	padding: 0.618em;
+	display: block;
+}
+
+.pages-menu li a span{
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.pages-menu li:hover a span{
+	opacity: 1;
+	visibility: visible;
+}
+/* --- Reorder
+----------------------------------------------------------------------------- */
+.wiki-reorder-form { width: 100%; }
