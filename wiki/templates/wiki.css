@@ -34,6 +34,12 @@ table .subcat-title {
     display: inline-block;
 }
 
+table tbody tr td:first-child {
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-left-color: transparent;
+}
+
 table .subcat-title + em {
 	font-size: 0.8em;
 }
@@ -118,6 +124,13 @@ table .subcat-title + em {
 
 /* --- C_LIST
 ----------------------------------------------------------------------------- */
+
+.subcat-list {
+    border-width: 0 0 0 5px;
+    border-style: solid;
+    border-color: transparent;
+}
+
 .document-list {
     display: -ms-flexbox;
     display: -webkit-flex;

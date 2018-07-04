@@ -15,12 +15,15 @@
 					<span class="actions">
 						# IF C_EDIT #
 							<a href="{U_EDIT_DOCUMENT}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+							<a href="{U_HISTORY}" title="{@wiki.historic}"><i class="fa fa-clock"></i></a>
 						# ENDIF #
+						# IF IS_USER_CONNECTED #
+							<a href="{U_FAVORITE}" title="{@wiki.favorite}"><i class="fa fa-heart"></i></a>
+						# ENDIF #
+						<a href="{U_PRINT_DOCUMENT}" title="${LangLoader::get_message('printable_version', 'main')}" target="blank"><i class="fa fa-print"></i></a>
 						# IF C_DELETE #
 							<a href="{U_DELETE_DOCUMENT}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
 						# ENDIF #
-						<a href="{U_PRINT_DOCUMENT}" title="${LangLoader::get_message('printable_version', 'main')}" target="blank"><i class="fa fa-print"></i></a>
-						<a href="{U_HISTORY}" title="{@wiki.historic}"><i class="fa fa-clock"></i></a>
 					</span>
 				</h2>
 

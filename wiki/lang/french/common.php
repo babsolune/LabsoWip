@@ -51,6 +51,7 @@ $lang['wiki.views.nb'] = 'Nombres de vues';
 $lang['wiki.creation.date'] = 'Date de création';
 $lang['wiki.updated.date'] = 'Dernière mise à jour';
 $lang['wiki.historic'] = 'Historique des modifications';
+$lang['wiki.favorite'] = 'Mettre cet article en favori';
 
 $lang['wiki.sub.categories'] = 'Sous-catégories';
 $lang['wiki.documents.nb'] = 'Nombre d\'articles';

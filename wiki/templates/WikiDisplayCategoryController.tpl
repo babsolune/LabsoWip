@@ -40,7 +40,7 @@
 				<tbody>
 					# START sub_categories_list #
 					<tr>
-						<td class="left">
+						<td class="left" # IF C_DISPLAY_CATS_COLOR #style="border-left-color: {sub_categories_list.CATEGORY_COLOR}"# ENDIF #>
 							<a class="subcat-title" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
 								{sub_categories_list.CATEGORY_NAME}
 							</a># IF sub_categories_list.C_CATEGORY_DESCRIPTION # - <em>{sub_categories_list.CATEGORY_DESCRIPTION}</em># ENDIF #
@@ -61,34 +61,65 @@
 				</tbody>
 			</table>
 		# ELSE #
-			<div class="subcat-container elements-container# IF C_SEVERAL_CATS_COLUMNS # columns-{NUMBER_CATS_COLUMNS}# ENDIF #">
-				# START sub_categories_list #
-					<article class="subcat-element block">
-						<header # IF C_DISPLAY_CATS_COLOR #style="background-color: {sub_categories_list.CATEGORY_COLOR}"# ENDIF #>
-							<h2><a class="subcat-title" itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a></h2>
-							<span class="subcat-options">
-								{sub_categories_list.DOCUMENTS_NUMBER}
-								# IF sub_categories_list.C_MORE_THAN_ONE_DOCUMENT #
-									${TextHelper::lcfirst(LangLoader::get_message('documents', 'common', 'wiki'))}
-								# ELSE #
-									${TextHelper::lcfirst(LangLoader::get_message('document', 'common', 'wiki'))}
+			# IF C_MOSAIC #
+				<div class="subcat-container elements-container# IF C_SEVERAL_CATS_COLUMNS # columns-{NUMBER_CATS_COLUMNS}# ENDIF #">
+					# START sub_categories_list #
+						<article class="subcat-element block">
+							<header # IF C_DISPLAY_CATS_COLOR #style="background-color: {sub_categories_list.CATEGORY_COLOR}"# ENDIF #>
+								<h2><a class="subcat-title" itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a></h2>
+								<span class="subcat-options">
+									{sub_categories_list.DOCUMENTS_NUMBER}
+									# IF sub_categories_list.C_MORE_THAN_ONE_DOCUMENT #
+										${TextHelper::lcfirst(LangLoader::get_message('documents', 'common', 'wiki'))}
+									# ELSE #
+										${TextHelper::lcfirst(LangLoader::get_message('document', 'common', 'wiki'))}
+									# ENDIF #
+								</span>
+							</header>
+							<div class="subcat-content">
+								# IF C_DISPLAY_CATS_ICON #
+									# IF sub_categories_list.C_CATEGORY_IMAGE #
+										<a class="subcat-thumbnail" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
+											<img itemprop="thumbnailUrl" src="{sub_categories_list.CATEGORY_IMAGE}" alt="{sub_categories_list.CATEGORY_NAME}" />
+										</a>
+									# ENDIF #
 								# ENDIF #
-							</span>
-						</header>
-						<div class="subcat-content">
-							# IF C_DISPLAY_CATS_ICON #
-								# IF sub_categories_list.C_CATEGORY_IMAGE #
-									<a class="subcat-thumbnail" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
-										<img itemprop="thumbnailUrl" src="{sub_categories_list.CATEGORY_IMAGE}" alt="{sub_categories_list.CATEGORY_NAME}" />
-									</a>
+								{sub_categories_list.CATEGORY_DESCRIPTION}
+							</div>
+						</article>
+					# END sub_categories_list #
+				</div>
+				# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
+			# ELSE #
+				<div class="subcat-container">
+					# START sub_categories_list #
+						<article class="subcat-element subcat-list" # IF C_DISPLAY_CATS_COLOR #style="border-color: {sub_categories_list.CATEGORY_COLOR}"# ENDIF #>
+							<div class="subcat-content">
+								# IF C_DISPLAY_CATS_ICON #
+									# IF sub_categories_list.C_CATEGORY_IMAGE #
+										<a class="subcat-thumbnail" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
+											<img itemprop="thumbnailUrl" src="{sub_categories_list.CATEGORY_IMAGE}" alt="{sub_categories_list.CATEGORY_NAME}" />
+										</a>
+									# ENDIF #
 								# ENDIF #
-							# ENDIF #
-							{sub_categories_list.CATEGORY_DESCRIPTION}
-						</div>
-					</article>
-				# END sub_categories_list #
-			</div>
-			# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
+								<header>
+									<h2><a class="subcat-title" itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a></h2>
+									<span class="subcat-options">
+										{sub_categories_list.DOCUMENTS_NUMBER}
+										# IF sub_categories_list.C_MORE_THAN_ONE_DOCUMENT #
+											${TextHelper::lcfirst(LangLoader::get_message('documents', 'common', 'wiki'))}
+										# ELSE #
+											${TextHelper::lcfirst(LangLoader::get_message('document', 'common', 'wiki'))}
+										# ENDIF #
+									</span>
+									{sub_categories_list.CATEGORY_DESCRIPTION}
+								</header>
+							</div>
+						</article>
+					# END sub_categories_list #
+				</div>
+				# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
+			# ENDIF #
 		# ENDIF #
 	# ENDIF #
 
@@ -166,7 +197,7 @@
 
 							<header>
 								<h2>
-									<a itemprop="url" href="{items.U_DOCUMENT}"><span itemprop="name">{items.TITLE}</span></a>
+									<span itemprop="name">{items.TITLE}</span>
 								</h2>
 
 								<div class="more">
@@ -182,8 +213,8 @@
 							</header>
 
 							<div class="document-description">
-								<p><strong>{items.TITLE}</strong></p>
-								<div class="description">{items.DESCRIPTION}</div>
+								<p><a itemprop="url" href="{items.U_DOCUMENT}"><strong>{items.TITLE}</strong></a></p>
+								<div class="description">{items.DESCRIPTION}...</div>
 								<a href="{items.U_DOCUMENT}" class="submit">${LangLoader::get_message('read-more', 'common')}</a>
 								<span class="document-actions">
 									# IF items.C_EDIT #
