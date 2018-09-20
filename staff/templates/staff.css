@@ -88,15 +88,15 @@ ul .ul-table .li-table {font-size:1.4rem;}
 	.li-infos,
 	.li-title,
 	.li-options {
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
-	flex-direction: row;
-	-webkit-flex-wrap: nowrap;
-	-ms-flex-wrap: nowrap;
-	flex-wrap: nowrap;
-	-webkit-align-items: center;
-	-ms-flex-align: center;
-	align-items: center;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-flex-wrap: nowrap;
+		-ms-flex-wrap: nowrap;
+		flex-wrap: nowrap;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
 	}
 }
 
@@ -110,8 +110,9 @@ ul .ul-table .li-table {font-size:1.4rem;}
 
 .has-adherent:before {
 	position: absolute;
-	font-family: fontawesome;
+	font-family: 'Font Awesome 5 Free';
 	font-size: 1.6em;
+	font-weight: 900;
 	content: '\f107';
 	top: 0;
 	right: 0.309em;
