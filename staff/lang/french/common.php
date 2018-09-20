@@ -41,12 +41,14 @@ $lang['staff.manage'] = 'Gérer les membres';
 $lang['staff.management'] = 'Gestion des membres';
 
 $lang['group_leader'] = 'Responsable de commission';
-$lang['member_infos'] = 'Informations sur le membre';
-$lang['member'] = 'Membre';
-$lang['members'] = 'Membres';
+$lang['adherent_infos'] = 'Informations sur le membre';
+$lang['adherent'] = 'Membre';
+$lang['adherents'] = 'Membres';
 $lang['expand.all'] = 'Déplier tout l\'organigramme';
 $lang['close.all'] = 'Replier tout l\'organigramme';
-$lang['reveal.member.phone'] = 'Voir le n° de téléphone';
+$lang['reveal.adherent.phone'] = 'Voir le n° de téléphone';
+
+$lang['staff.reorder'] = 'Ordonner la liste des membres';
 
 //config
 $lang['config.role.add'] = 'Ajouter des rôles';
@@ -66,13 +68,15 @@ $lang['staff.form.firstname'] = 'Prénom';
 $lang['staff.form.role'] = 'Rôle';
 $lang['staff.form.avatar'] = 'Avatar';
 $lang['staff.form.description'] = 'Description';
-$lang['staff.form.member.phone'] = 'Téléphone';
-$lang['staff.form.member.email'] = 'Email';
+$lang['staff.form.adherent.phone'] = 'Téléphone';
+$lang['staff.form.adherent.email'] = 'Email';
 $lang['staff.form.group.leader'] = 'Responsable';
+$lang['form.publication'] = 'Publication';
+$lang['form.is.published'] = 'Publier';
 
 // email
 $lang['email.contact'] = 'Contacter par email';
-$lang['email.member.contact'] = 'Contacter ce membre';
+$lang['email.adherent.contact'] = 'Contacter ce membre';
 $lang['email.subject'] = 'Sujet du message';
 $lang['email.sender.name'] = 'Votre nom';
 $lang['email.sender.email'] = 'Votre adresse email';

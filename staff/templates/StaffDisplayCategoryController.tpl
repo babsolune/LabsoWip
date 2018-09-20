@@ -2,7 +2,23 @@
 	<header>
 		<h1>
 			<a href="${relative_url(SyndicationUrlBuilder::rss('staff', ID_CAT))}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication"></i></a>
-			# IF C_PENDING #{@staff.pending}# ELSE #{@staff.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller"></i></a># ENDIF ## ENDIF #
+			# IF C_PENDING #
+				{@staff.pending}
+			# ELSE #
+				{@staff.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
+			# ENDIF # # IF C_CATEGORY #
+				<span class="actions">
+					# IF IS_ADMIN #
+						<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}">
+							<i class="fa fa-edit"></i>
+						</a>
+					# ENDIF # # IF C_DISPLAY_REORDER_LINK #
+						<a href="{U_REORDER_ITEMS}" title="{@staff.reorder}">
+							<i class="fa fa-exchange"></i>
+						</a>
+					# ENDIF #
+				</span>
+			# ENDIF #
 		</h1>
 
 		# IF C_CATEGORY_DESCRIPTION #
@@ -22,59 +38,58 @@
 					<br />
 					<a itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
 					<br />
-					<span class="small">{sub_categories_list.MEMBERS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_MEMBER #${TextHelper::lcfirst(LangLoader::get_message('members', 'common', 'staff'))}# ELSE #${TextHelper::lcfirst(LangLoader::get_message('member', 'common', 'staff'))}# ENDIF #</span>
+					<span class="small">{sub_categories_list.ADHERENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ADHERENT #${TextHelper::lcfirst(LangLoader::get_message('adherents', 'common', 'staff'))}# ELSE #${TextHelper::lcfirst(LangLoader::get_message('adherent', 'common', 'staff'))}# ENDIF #</span>
 				</div>
 			</div>
 			# END sub_categories_list #
 			<div class="spacer"></div>
 		</div>
-		# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
 	# ELSE #
 		<div class="spacer"></div>
 	# ENDIF #
 
-	# IF C_MEMBERS #
-		# IF C_MORE_THAN_ONE_MEMBER #
+	# IF C_ADHERENTS #
+		# IF C_MORE_THAN_ONE_ADHERENT #
 			<div class="spacer"></div>
 		# ENDIF #
-		<ul class="member-table show-table">
-			# START members #
+		<ul class="adherent-table show-table">
+			# START items #
 				<li>
 					<div class="li-avatar">
 						# IF C_AVATARS_ALLOWED #
-							<img src="{members.U_PICTURE}" alt="{members.FIRSTNAME} {members.LASTNAME}" />
+							<img src="{items.U_THUMBNAIL}" alt="{items.FIRSTNAME} {items.LASTNAME}" />
 						# ENDIF #
 					</div>
 					<div class="li-infos">
 						<div class="li-title">
 							<div class="li-table li-leader">
-								# IF members.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF #
+								# IF items.C_IS_GROUP_LEADER # <i class="fa fa-user" title="{@staff.form.group.leader}"></i># ENDIF #
 							</div>
-							<div class="li-table li-member"><a href="{members.U_MEMBER}" itemprop="name">{members.FIRSTNAME} <span class="member-name">{members.LASTNAME}</span></a></div>
+							<div class="li-table li-adherent"><a href="{items.U_ITEM}" itemprop="name">{items.FIRSTNAME} <span class="adherent-name">{items.LASTNAME}</span></a></div>
 						</div>
 						<div class="li-options# IF C_MODERATE # moderator# ENDIF #">
 							# IF C_PENDING #
-								<div class="li-table li-role">{members.ROLE}</div>
-								<div class="li-table li-phone">{members.CATEGORY_NAME}</div>
+								<div class="li-table li-role">{items.ROLE}</div>
+								<div class="li-table li-phone center">{items.CATEGORY_NAME}</div>
 							# ELSE #
-								<div class="li-table li-role">{members.ROLE}</div>
+								<div class="li-table li-role">{items.ROLE}</div>
 								<div class="li-table li-phone">
-									# IF members.C_MEMBER_PHONE #
-										<span class="show-phone">{members.MEMBER_PHONE}</span>
-										<span class="hide-phone">{@reveal.member.phone}</span>
+									# IF items.C_ITEM_PHONE #
+										<span class="show-phone">{items.ITEM_PHONE}</span>
+										<span class="hide-phone">{@reveal.adherent.phone}</span>
 									# ENDIF #
 								</div>
 							# ENDIF #
 						</div>
 						# IF C_MODERATE #
 							<div class="moderate">
-								<a href="{members.U_EDIT}"><i class="fa fa-edit fa-fw"></i></a>
-								<a href="{members.U_DELETE}"><i class="fa fa-trash fa-fw"></i></a>
+								<a href="{items.U_EDIT}"><i class="fa fa-edit fa-fw" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+								<a href="{items.U_DELETE}"><i class="fa fa-trash fa-fw" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"></i></a>
 							</div>
 						# ENDIF #
 					</div>
 				</li>
-			# END members #
+			# END items #
 		</ul>
 	# ELSE #
 		<div class="content">
@@ -86,18 +101,5 @@
 		</div>
 	# ENDIF #
 
-	<footer># IF C_PAGINATION # # INCLUDE PAGINATION # # ENDIF #</footer>
+	<footer></footer>
 </section>
-
-<script>
-	jQuery(document).ready(function () {
-		//reveal phone nb
-		jQuery('.show-phone').hide();
-		jQuery('.hide-phone').show();
-		jQuery('.li-phone').click(function(){
-			jQuery(this).toggleClass('is-revealed');
-			jQuery('.show-phone').toggle();
-			jQuery('.hide-phone').toggle();
-		});
-	});
-</script>

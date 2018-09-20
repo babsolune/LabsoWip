@@ -1,16 +1,13 @@
-.staff-category h2 {
-	text-align: left;
+.root-desc {
+	margin-bottom: 2.618em;
 }
 
-.staff-picture,
-.staff-partner-picture {
+.staff-picture {
 	display: block;
 	padding-bottom: 10px;
 }
 
-figure {
-	text-align: center;
-}
+.staff-reorder-form { width: 100%; }
 
 /* --- Table
 -------------------------------------  */
@@ -48,11 +45,11 @@ ul .ul-table .li-table {font-size:1.4rem;}
 .ul-table h2 { padding-left: 20px;}
 
 .li-table { padding: 0.618em; }
-.member-name { text-transform: uppercase; }
+.adherent-name { text-transform: uppercase; }
 .li-avatar { width: 100px; }
 .li-avatar + .li-infos { width: calc(100% - 100px); }
 
-[class*=member-table] li,
+[class*=adherent-table] li,
 .li-title,
 .li-infos,
 .li-options {
@@ -76,18 +73,18 @@ ul .ul-table .li-table {font-size:1.4rem;}
 }
 
 @media (min-width: 769px) {
-	.li-avatar {width: 40px;}
+	.li-avatar { width: 40px; padding: 0.1618em; }
 	.li-avatar + .li-infos { width: calc(100% - 40px); }
 	.li-leader { width: 20px; text-align: center; }
 
-	.li-title {width:50%; }
-	.li-options {width:50%; }
-		.li-role {width:50%; }
-		.li-phone {width:50%; text-align: right;}
-	.li-options.moderator {width: calc(50% - 40px); }
+	.li-title { width: 50%; }
+	.li-options { width: 50%; }
+	.li-role { width: 50%; }
+	.li-phone { width: 50%; text-align: right;}
 	.moderate { width: 40px; }
+	.li-options.moderator {width: calc(50% - 40px); }
 
-	[class*=member-table] li,
+	[class*=adherent-table] li,
 	.li-infos,
 	.li-title,
 	.li-options {
@@ -104,14 +101,14 @@ ul .ul-table .li-table {font-size:1.4rem;}
 }
 
 /* Accordeon menu*/
-.has-member {
+.has-adherent {
 	position: relative;
 	cursor: pointer;
 	font-size: 0.9em;
 	float: right;
 }
 
-.has-member:before {
+.has-adherent:before {
 	position: absolute;
 	font-family: fontawesome;
 	font-size: 1.6em;
@@ -123,11 +120,11 @@ ul .ul-table .li-table {font-size:1.4rem;}
 	cursor: pointer;
 }
 
-.is-opened-list.has-member:before {
+.is-opened-list.has-adherent:before {
 	content: '\f106';
 }
 
-[class*="member-table"] {
+[class*="adherent-table"] {
 	opacity: 0;
 	visibility: hidden;
 	height: 0;
@@ -135,7 +132,7 @@ ul .ul-table .li-table {font-size:1.4rem;}
 	transition: height 0.3s ease 0.3s, opacity 0.3s ease;
 }
 
-[class*="member-table"].show-table {
+[class*="adherent-table"].show-table {
 	opacity: 1;
 	visibility: visible;
 	height: 100%;
@@ -143,7 +140,7 @@ ul .ul-table .li-table {font-size:1.4rem;}
 	background-color: rgba(0, 0, 0, 0.05);
 }
 
-[class*="member-table"] li:not(:last-child) {
+[class*="adherent-table"] li:not(:last-child) {
 	border-width: 0 0 1px;
 	border-style: solid;
 	border-color: #DDDDDD;
@@ -163,7 +160,7 @@ ul .ul-table .li-table {font-size:1.4rem;}
 
 /* --- Email
 ---------------- */
-.member-modal {
+.adherent-modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -177,7 +174,7 @@ ul .ul-table .li-table {font-size:1.4rem;}
 	overflow-y: auto;
 }
 
-.member-modal:target {
+.adherent-modal:target {
 	visibility: visible;
 	opacity: 1;
 	transition: all 0.3s ease;

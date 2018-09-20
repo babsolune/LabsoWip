@@ -23,21 +23,21 @@
 					</span>
 				</h2>
 
-				<meta itemprop="url" content="{U_MEMBER}">
+				<meta itemprop="url" content="{U_ITEM}">
 				<meta itemprop="description" content="${escape(FIRSTNAME)} ${escape(LASTNAME)}" />
 
 			</header>
 			<div class="content">
 				<div class="options infos">
 					# IF C_ROLE # <p>{ROLE}</p># ENDIF #
-					# IF C_MEMBER_PHONE # <p>{MEMBER_PHONE}</p># ENDIF #
-					# IF C_MEMBER_EMAIL #
+					# IF C_ITEM_PHONE # <p>{ITEM_PHONE}</p># ENDIF #
+					# IF C_ITEM_EMAIL #
 						<a href="#email-modal" class="email-modal-btn">{@email.contact} <i class="fa fa-fw fa-at"></i></a>
-						<div id="email-modal" class="member-modal">
+						<div id="email-modal" class="adherent-modal">
 							<a href="#email-modal-close" class="modal-close"><i class="fa fa-fw fa-remove"></i></a>
 							<div class="email-form">
 								# INCLUDE MSG #
-								# IF NOT C_SMALLAD_EMAIL_SENT #
+								# IF NOT C_ITEM_EMAIL_SENT #
 									# INCLUDE EMAIL_FORM #
 								# ENDIF  #
 							</div>
@@ -45,9 +45,9 @@
 					# ENDIF #
 				</div>
 
-				# IF C_PICTURE #
+				# IF C_HAS_THUMBNAIL #
 				<span class="staff-picture">
-					<img src="{U_PICTURE}" alt="{FIRSTNAME} {LASTNAME}" itemprop="image" />
+					<img src="{U_THUMBNAIL}" alt="{FIRSTNAME} {LASTNAME}" itemprop="image" />
 				</span>
 				# ENDIF #
 				<div class="spacer"></div>

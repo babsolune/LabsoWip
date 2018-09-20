@@ -60,7 +60,7 @@ class StaffManageController extends AdminModuleController
 			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
 			new HTMLTableColumn($this->lang['staff.form.role'], 'role'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
-			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'approbation_type'),
+			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'publication'),
 			new HTMLTableColumn('')
 		);
 
@@ -80,21 +80,21 @@ class StaffManageController extends AdminModuleController
 		);
 		foreach ($result as $row)
 		{
-			$member = new Member();
-			$member->set_properties($row);
-			$category = $member->get_category();
-			$user = $member->get_author_user();
+			$adherent = new Adherent();
+			$adherent->set_properties($row);
+			$category = $adherent->get_category();
+			$user = $adherent->get_author_user();
 
-			$edit_member = new LinkHTMLElement(StaffUrlBuilder::edit($member->get_id()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
-			$delete_member = new LinkHTMLElement(StaffUrlBuilder::delete($member->get_id()), '', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-delete');
+			$edit_adherent = new LinkHTMLElement(StaffUrlBuilder::edit($adherent->get_id()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
+			$delete_adherent = new LinkHTMLElement(StaffUrlBuilder::delete($adherent->get_id()), '', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-delete');
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $member->get_id(), $member->get_rewrited_name()), $member->get_firstname() . ' ' . $member->get_lastname()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $adherent->get_id(), $adherent->get_rewrited_name()), $adherent->get_firstname() . ' ' . $adherent->get_lastname()), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
-				new HTMLTableRowCell($member->get_role()),
-				new HTMLTableRowCell($member->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
-				new HTMLTableRowCell($member->get_status()),
-				new HTMLTableRowCell($edit_member->display() . $delete_member->display())
+				new HTMLTableRowCell($adherent->get_role()),
+				new HTMLTableRowCell($adherent->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
+				new HTMLTableRowCell($adherent->get_status()),
+				new HTMLTableRowCell($edit_adherent->display() . $delete_adherent->display())
 			);
 
 			if (!$display_categories)

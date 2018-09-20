@@ -60,11 +60,11 @@ class StaffFeedProvider implements FeedProvider
 			$ids_categories = array_keys($categories);
 
 			$now = new Date();
-			$results = $querier->select('SELECT staff.id, staff.id_category, staff.lastname, staff.firstname, staff.rewrited_name, staff.contents, staff.creation_date, staff.picture_url, cat.rewrited_name AS rewrited_name_cat
+			$results = $querier->select('SELECT staff.id, staff.id_category, staff.lastname, staff.firstname, staff.rewrited_name, staff.contents, staff.creation_date, staff.thumbnail_url, cat.rewrited_name AS rewrited_name_cat
 				FROM ' . StaffSetup::$staff_table . ' staff
 				LEFT JOIN '. StaffSetup::$staff_cats_table .' cat ON cat.id = staff.id_category
 				WHERE staff.id_category IN :ids_categories
-				AND approbation_type = 1
+				AND publication = 1
 				ORDER BY staff.creation_date DESC', array(
 					'ids_categories' => $ids_categories,
 					'timestamp_now' => $now->get_timestamp()
@@ -73,15 +73,15 @@ class StaffFeedProvider implements FeedProvider
 			foreach ($results as $row)
 			{
 				$row['rewrited_name_cat'] = !empty($row['id_category']) ? $row['rewrited_name_cat'] : 'root';
-				$member = StaffUrlBuilder::display($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_name']);
+				$adherent = StaffUrlBuilder::display($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_name']);
 
 				$item = new FeedItem();
 				$item->set_title($row['lastname'] . ' ' . $row['firstname']);
-				$item->set_link($member);
-				$item->set_guid($member);
+				$item->set_link($adherent);
+				$item->set_guid($adherent);
 				$item->set_desc(FormatingHelper::second_parse($row['contents']));
 				$item->set_date(new Date($row['creation_date'], Timezone::SERVER_TIMEZONE));
-				$item->set_image_url($row['picture_url']);
+				$item->set_image_url($row['thumbnail_url']);
 				$item->set_auth(StaffService::get_categories_manager()->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 				$data->add_item($item);
 			}

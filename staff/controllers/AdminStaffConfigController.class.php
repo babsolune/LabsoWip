@@ -47,8 +47,7 @@ class AdminStaffConfigController extends AdminModuleController
 	 * @var StaffConfig
 	 */
 	private $config;
-	private $comments_config;
-	private $notation_config;
+	private $options_config;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -56,23 +55,24 @@ class AdminStaffConfigController extends AdminModuleController
 
 		$this->build_form();
 
-		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
+		$view = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
+		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return new AdminStaffDisplayResponse($tpl, $this->lang['module_config_title']);
+		return new AdminStaffDisplayResponse($view, $this->lang['module_config_title']);
 	}
 
 	private function init()
 	{
 		$this->config = StaffConfig::load();
+		$this->options_config = StaffService::get_options_config();
 		$this->lang = LangLoader::get('common', 'staff');
 		$this->admin_common_lang = LangLoader::get('admin-common');
 	}
@@ -84,19 +84,9 @@ class AdminStaffConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new StaffFormFieldRole('role', $this->lang['config.role.add'], $this->config->get_role()));
+		$fieldset->add_field(new StaffFormFieldRole('roles', $this->lang['config.role.add'], $this->options_config->get_roles()));
 
 		$fieldset->add_field(new FormFieldCheckbox('avatars', $this->lang['config.display.avatars'], $this->config->are_avatars_shown()));
-
-		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
-		));
-
-		$fieldset->add_field(new FormFieldNumberEditor('categories_number_per_page', $this->admin_common_lang['config.categories_number_per_page'], $this->config->get_categories_number_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
-		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('sub_categories_number_per_line', $this->lang['config.sub.categories.nb'], $this->config->get_sub_categories_nb(),
 			array('min' => 1, 'max' => 6, 'required' => true),
@@ -133,15 +123,13 @@ class AdminStaffConfigController extends AdminModuleController
 
 	private function save()
 	{
-		$this->config->set_role($this->form->get_value('role'));
+		StaffService::update_options_config(TextHelper::serialize($this->form->get_value('roles')));
 
 		if($this->form->get_value('avatars'))
 			$this->config->show_avatars();
 		else
 			$this->config->hide_avatars();
-
-		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
-		$this->config->set_categories_number_per_page($this->form->get_value('categories_number_per_page'));
+			
 		$this->config->set_sub_categories_nb($this->form->get_value('sub_categories_number_per_line'));
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));

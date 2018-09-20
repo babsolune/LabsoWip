@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               StaffHomePageExtensionPoint.class.php
+ *                               OptionsConfig.class.php
  *                            -------------------
  *   begin                : June 29, 2017
  *   copyright            : (C) 2017 Sebastien LARTIGUE
@@ -29,16 +29,40 @@
  * @author Seabstien LARTIGUE <babsolune@phpboost.com>
  */
 
-class StaffHomePageExtensionPoint implements HomePageExtensionPoint
+class OptionsConfig
 {
-	public function get_home_page()
+	private $roles;
+
+	public function add_role($role)
 	{
-		return new DefaultHomePage($this->get_title(), StaffDisplayHomeController::get_view());
+		$this->roles[] = $role;
 	}
 
-	private function get_title()
+	public function set_roles($roles)
 	{
-		return LangLoader::get_message('staff.module.title', 'common', 'staff');
+		$this->roles = $roles;
+	}
+
+	public function get_roles()
+	{
+		return $this->roles;
+	}
+
+	public function get_properties()
+	{
+		return array(
+			'roles' => TextHelper::serialize($this->get_roles()),
+		);
+	}
+
+	public function set_properties(array $properties)
+	{
+		$this->set_roles(!empty($properties['roles']) ? TextHelper::unserialize($properties['roles']) : array());
+	}
+
+	public function init_default_properties()
+	{
+		$this->roles = array();
 	}
 }
 ?>

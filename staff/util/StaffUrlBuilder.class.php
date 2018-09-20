@@ -77,21 +77,27 @@ class StaffUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_category($id, $rewrited_name, $page = 1, $subcategories_page = 1)
+	public static function display_category($id, $rewrited_name)
 	{
 		$category = $id > 0 ? $id . '-' . $rewrited_name . '/' : '';
-		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/' : '';
-		$subcategories_page = $subcategories_page !== 1 ? $subcategories_page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $page . $subcategories_page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $category);
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function display_pending($page = 1)
+	public static function reorder_items($id_category, $rewrited_name)
 	{
-		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
+		$category = $id_category > 0 ? $id_category . '-' . $rewrited_name . '/' : '';
+		return DispatchManager::get_url(self::$dispatcher, '/reorder/' . $category);
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function display_pending()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/pending/');
 	}
 
 	/**

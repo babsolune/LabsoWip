@@ -30,8 +30,8 @@
  #						English						#
  ####################################################
 
-$lang['staff.module.title'] = 'Staff Links';
-$lang['module_config_title'] = 'Staff configuration';
+$lang['staff.module.title'] = 'organizational chart';
+$lang['module_config_title'] = 'organizational chart configuration';
 
 $lang['staff.actions.add'] = 'Add member';
 $lang['staff.add'] = 'New member';
@@ -41,12 +41,15 @@ $lang['staff.manage'] = 'Manage members';
 $lang['staff.management'] = 'Members management';
 
 $lang['group_leader'] = 'Committee leader';
-$lang['member_infos'] = 'Informations of the member';
-$lang['member'] = 'Member';
-$lang['members'] = 'Members';
-$lang['expand.all'] = 'Expand all staff';
-$lang['close.all'] = 'Unexamp all staff';
-$lang['reveal.member.phone'] = 'Show the phone number';
+$lang['adherent_infos'] = 'Informations of the member';
+$lang['adherent'] = 'Member';
+$lang['adherents'] = 'Members';
+$lang['expand.all'] = 'Expand all staffs';
+$lang['close.all'] = 'Fold up all staffs';
+$lang['reveal.adherent.phone'] = 'Show the phone number';
+$lang['adherent.since'] = 'Member since';
+
+$lang['staff.reorder'] = 'Reorder list of members';
 
 //config
 $lang['config.role.add'] = 'Add roles';
@@ -66,13 +69,15 @@ $lang['staff.form.firstname'] = 'Firstname';
 $lang['staff.form.role'] = 'Role';
 $lang['staff.form.avatar'] = 'Avatar';
 $lang['staff.form.description'] = 'Description';
-$lang['staff.form.member.phone'] = 'Phone number';
-$lang['staff.form.member.email'] = 'Email';
+$lang['staff.form.adherent.phone'] = 'Phone number';
+$lang['staff.form.adherent.email'] = 'Email';
 $lang['staff.form.group.leader'] = 'Is leader';
+$lang['form.publication'] = 'Publication';
+$lang['form.is.published'] = 'Publish';
 
 // email
 $lang['email.contact'] = 'Contact by email';
-$lang['email.member.contact'] = 'Contact this member';
+$lang['email.adherent.contact'] = 'Contact this member';
 $lang['email.subject'] = 'Subject of the message';
 $lang['email.sender.name'] = 'Your name';
 $lang['email.sender.email'] = 'Your email address';

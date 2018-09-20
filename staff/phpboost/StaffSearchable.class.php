@@ -42,12 +42,12 @@ class StaffSearchable extends AbstractSearchableExtensionPoint
 			w.name AS title,
 			( 2 * FT_SEARCH_RELEVANCE(w.name, '" . $args['search'] . "') + (FT_SEARCH_RELEVANCE(w.contents, '" . $args['search'] . "') +
 			FT_SEARCH_RELEVANCE(w.short_contents, '" . $args['search'] . "')) / 2 ) / 3 * " . $weight . " AS relevance,
-			CONCAT('" . PATH_TO_ROOT . "/staff/" . (!ServerEnvironmentConfig::load()->is_url_rewriting_enabled() ? "index.php?url=/" : "") . "', id_category, '-', IF(id_category != 0, cat.rewrited_name, 'root'), '/', w.id, '-', w.rewrited_name) AS member
+			CONCAT('" . PATH_TO_ROOT . "/staff/" . (!ServerEnvironmentConfig::load()->is_url_rewriting_enabled() ? "index.php?url=/" : "") . "', id_category, '-', IF(id_category != 0, cat.rewrited_name, 'root'), '/', w.id, '-', w.rewrited_name) AS adherent
 			FROM " . StaffSetup::$staff_table . " w
 			LEFT JOIN ". StaffSetup::$staff_cats_table ." cat ON w.id_category = cat.id
 			WHERE ( FT_SEARCH(w.name, '" . $args['search'] . "') OR FT_SEARCH(w.contents, '" . $args['search'] . "') OR FT_SEARCH_RELEVANCE(w.short_contents, '" . $args['search'] . "') )
 			AND id_category IN(" . implode(", ", $authorized_categories) . ")
-			AND approbation_type = 1
+			AND publication = 1
 			ORDER BY relevance DESC
 			LIMIT 100 OFFSET 0";
 	}

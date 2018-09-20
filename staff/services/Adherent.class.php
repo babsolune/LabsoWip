@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               Member.class.php
+ *                               Adherent.class.php
  *                            -------------------
  *   begin                : June 29, 2017
  *   copyright            : (C) 2017 Sebastien LARTIGUE
@@ -29,30 +29,30 @@
  * @author Seabstien LARTIGUE <babsolune@phpboost.com>
  */
 
-class Member
+class Adherent
 {
 	private $id;
 	private $id_category;
+	private $order_id;
 	private $lastname;
 	private $firstname;
 	private $rewrited_name;
 	private $contents;
-	private $picture_url;
+	private $thumbnail_url;
 	private $role;
-	private $member_phone;
-	private $member_email;
-
-	private $approbation_type;
+	private $item_phone;
+	private $item_email;
+	private $group_leader;
 
 	private $creation_date;
 	private $author_user;
 
-	private $group_leader;
+	private $is_published;
 
-	const NOT_APPROVAL = 0;
-	const APPROVAL_NOW = 1;
+    const NOT_PUBLISHED = 0;
+    const PUBLISHED = 1;
 
-	const DEFAULT_PICTURE = '/staff/templates/images/no_avatar.png';
+	const DEFAULT_THUMBNAIL = '/staff/templates/images/no_avatar.png';
 
 	public function get_id()
 	{
@@ -77,6 +77,16 @@ class Member
 	public function get_category()
 	{
 		return StaffService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+	}
+
+	public function get_order_id()
+	{
+		return $this->order_id;
+	}
+
+	public function set_order_id($order_id)
+	{
+		$this->order_id = $order_id;
 	}
 
 	public function get_lastname()
@@ -129,49 +139,54 @@ class Member
 		$this->role = $role;
 	}
 
-	public function get_member_phone()
+	public function get_item_phone()
 	{
-		return $this->member_phone;
+		return $this->item_phone;
 	}
 
-	public function set_member_phone($member_phone)
+	public function set_item_phone($item_phone)
 	{
-		$this->member_phone = $member_phone;
+		$this->item_phone = $item_phone;
 	}
 
-	public function get_member_email()
+	public function get_item_email()
 	{
-		return $this->member_email;
+		return $this->item_email;
 	}
 
-	public function set_member_email($member_email)
+	public function set_item_email($item_email)
 	{
-		$this->member_email = $member_email;
+		$this->item_email = $item_email;
 	}
 
-	public function get_approbation_type()
+	public function published()
 	{
-		return $this->approbation_type;
+		$this->publication = true;
 	}
 
-	public function set_approbation_type($approbation_type)
+	public function not_published()
 	{
-		$this->approbation_type = $approbation_type;
+		$this->publication = false;
+	}
+
+	public function is_published()
+	{
+		return $this->publication;
 	}
 
 	public function is_visible()
 	{
 		$now = new Date();
-		return StaffAuthorizationsService::check_authorizations($this->id_category)->read() && $this->get_approbation_type() == self::APPROVAL_NOW;
+		return StaffAuthorizationsService::check_authorizations($this->id_category)->read() && $this->is_published() == self::PUBLISHED;
 	}
 
 	public function get_status()
 	{
-		switch ($this->approbation_type) {
-			case self::APPROVAL_NOW:
+		switch ($this->is_published) {
+			case self::PUBLISHED:
 				return LangLoader::get_message('status.approved.now', 'common');
 			break;
-			case self::NOT_APPROVAL:
+			case self::NOT_PUBLISHED:
 				return LangLoader::get_message('status.approved.not', 'common');
 			break;
 		}
@@ -197,20 +212,20 @@ class Member
 		$this->author_user = $user;
 	}
 
-	public function get_picture()
+	public function get_thumbnail()
 	{
-		return $this->picture_url;
+		return $this->thumbnail_url;
 	}
 
-	public function set_picture(Url $picture)
+	public function set_thumbnail(Url $thumbnail)
 	{
-		$this->picture_url = $picture;
+		$this->thumbnail_url = $thumbnail;
 	}
 
-	public function has_picture()
+	public function has_thumbnail()
 	{
-		$picture = $this->picture_url->rel();
-		return !empty($picture);
+		$thumbnail = $this->thumbnail_url->rel();
+		return !empty($thumbnail);
 	}
 
 	public function is_group_leader()
@@ -243,17 +258,18 @@ class Member
 		return array(
 			'id' => $this->get_id(),
 			'id_category' => $this->get_id_category(),
+			'order_id'              => $this->get_order_id(),
 			'lastname' => $this->get_lastname(),
 			'firstname' => $this->get_firstname(),
 			'rewrited_name' => $this->get_rewrited_name(),
 			'contents' => $this->get_contents(),
 			'role' => $this->get_role(),
-			'member_phone' => $this->get_member_phone(),
-			'member_email' => $this->get_member_email(),
-			'approbation_type' => $this->get_approbation_type(),
+			'item_phone' => $this->get_item_phone(),
+			'item_email' => $this->get_item_email(),
+			'publication'       => (int)$this->is_published(),
 			'creation_date' => $this->get_creation_date()->get_timestamp(),
 			'author_user_id' => $this->get_author_user()->get_id(),
-			'picture_url' => $this->get_picture()->relative(),
+			'thumbnail_url' => $this->get_thumbnail()->relative(),
 			'group_leader' => (int)$this->is_group_leader()
 		);
 	}
@@ -262,16 +278,16 @@ class Member
 	{
 		$this->id = $properties['id'];
 		$this->id_category = $properties['id_category'];
+		$this->order_id = $properties['order_id'];
 		$this->lastname = $properties['lastname'];
 		$this->firstname = $properties['firstname'];
 		$this->rewrited_name = $properties['rewrited_name'];
 		$this->contents = $properties['contents'];
 		$this->role = $properties['role'];
-		$this->member_phone = $properties['member_phone'];
-		$this->member_email = $properties['member_email'];
-		$this->approbation_type = $properties['approbation_type'];
+		$this->item_phone = $properties['item_phone'];
+		$this->item_email = $properties['item_email'];
 		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
-		$this->picture_url = new Url($properties['picture_url']);
+		$this->thumbnail_url = new Url($properties['thumbnail_url']);
 		$this->group_leader = (bool)$properties['group_leader'];
 
 		$user = new User();
@@ -281,15 +297,24 @@ class Member
 			$user->init_visitor_user();
 
 		$this->set_author_user($user);
+
+		if ($properties['publication'])
+			$this->published();
+		else
+			$this->not_published();
 	}
 
 	public function init_default_properties($id_category = Category::ROOT_CATEGORY)
 	{
 		$this->id_category = $id_category;
-		$this->approbation_type = self::APPROVAL_NOW;
 		$this->author_user = AppContext::get_current_user();
 		$this->creation_date = new Date();
-		$this->picture_url = new Url(self::DEFAULT_PICTURE);
+		$this->thumbnail_url = new Url(self::DEFAULT_THUMBNAIL);
+
+		if (StaffAuthorizationsService::check_authorizations()->write())
+			$this->published();
+		else
+			$this->not_published();
 	}
 
 	public function get_array_tpl_vars()
@@ -298,7 +323,6 @@ class Member
 		$contents = FormatingHelper::second_parse($this->contents);
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
-		$new_content= new StaffNewContent();
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
@@ -307,19 +331,19 @@ class Member
 			'C_EDIT' => $this->is_authorized_to_edit(),
 			'C_DELETE' => $this->is_authorized_to_delete(),
 			'C_USER_GROUP_COLOR' => !empty($user_group_color),
-			'C_PICTURE' => $this->has_picture(),
+			'C_HAS_THUMBNAIL' => $this->has_thumbnail(),
 			'C_IS_GROUP_LEADER' => $this->is_group_leader(),
-			'C_NEW_CONTENT' => $new_content->check_if_is_new_content($this->get_creation_date()->get_timestamp()) && $this->is_visible(),
-            'C_ROLE' => !empty($this->role),
-            'C_MEMBER_PHONE' => !empty($this->member_phone),
-            'C_MEMBER_EMAIL' => !empty($this->member_email),
-			//Member
+			'C_ROLE' => !empty($this->role),
+			'C_NEW_CONTENT' => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('staff', $this->get_creation_date()->get_timestamp()) && $this->is_visible(),
+            'C_ITEM_PHONE' => !empty($this->item_phone),
+            'C_ITEM_EMAIL' => !empty($this->item_email),
+			//Adherent
 			'ID' => $this->id,
 			'LASTNAME' => $this->lastname,
 			'FIRSTNAME' => $this->firstname,
-			'ROLE' => str_replace('-',' ', $this->role),
-			'MEMBER_PHONE' => $this->member_phone,
-			'MEMBER_EMAIL' => $this->member_email,
+			'ROLE' => $this->role,
+			'ITEM_PHONE' => $this->item_phone,
+			'ITEM_EMAIL' => $this->item_email,
 			'CONTENTS' => $contents,
 			'STATUS' => $this->get_status(),
 			'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
@@ -337,11 +361,11 @@ class Member
 
 			'U_SYNDICATION' => SyndicationUrlBuilder::rss('staff', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_MEMBER' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
+			'U_ITEM' => StaffUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_name)->rel(),
 			'U_CATEGORY' => StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_EDIT' => StaffUrlBuilder::edit($this->id)->rel(),
 			'U_DELETE' => StaffUrlBuilder::delete($this->id)->rel(),
-			'U_PICTURE' => $this->get_picture()->rel()
+			'U_THUMBNAIL' => $this->get_thumbnail()->rel()
 			)
 		);
 	}

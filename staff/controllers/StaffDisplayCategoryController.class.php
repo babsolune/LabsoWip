@@ -32,8 +32,6 @@ class StaffDisplayCategoryController extends ModuleController
 {
 	private $lang;
 	private $config;
-	private $comments_config;
-	private $notation_config;
 	private $category;
 
 	public function execute(HTTPRequestCustom $request)
@@ -59,80 +57,69 @@ class StaffDisplayCategoryController extends ModuleController
 	{
 		$now = new Date();
 		$request = AppContext::get_request();
-		$page = AppContext::get_request()->get_getint('page', 1);
-		$subcategories_page = AppContext::get_request()->get_getint('subcategories_page', 1);
 
-		$this->build_categories_listing_view($now, $page, $subcategories_page);
-		$this->build_members_listing_view($now, $page, $subcategories_page);
+		$this->build_categories_listing_view($now);
+		$this->build_adherents_listing_view($now);
 	}
 
-	private function build_members_listing_view(Date $now, $page, $subcategories_page)
+	private function build_adherents_listing_view(Date $now)
 	{
 		$condition = 'WHERE id_category = :id_category
-		AND approbation_type = 1';
+		AND publication = 1';
 		$parameters = array(
 			'id_category' => $this->get_category()->get_id(),
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$pagination = $this->get_pagination($condition, $parameters, $page, $subcategories_page);
-
 		$result = PersistenceContext::get_querier()->select('SELECT staff.*, member.*
 		FROM ' . StaffSetup::$staff_table . ' staff
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = staff.author_user_id
 		' . $condition . '
-		ORDER BY creation_date
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
-			'user_id' => AppContext::get_current_user()->get_id(),
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
+		ORDER BY order_id ASC', array_merge($parameters, array(
+			'user_id' => AppContext::get_current_user()->get_id()
 		)));
 
 		$this->view->put_all(array(
-			'C_PAGINATION' => $pagination->has_several_pages(),
-			'C_MEMBERS' => $result->get_rows_count() != 0,
-			'C_ONE_MEMBER_AVAILABLE' => $result->get_rows_count() == 1,
-			'C_TWO_MEMBERS_AVAILABLE' => $result->get_rows_count() == 2,
+			'C_ADHERENTS' => $result->get_rows_count() != 0,
+			'C_ONE_ADHERENT_AVAILABLE' => $result->get_rows_count() == 1,
+			'C_TWO_ADHERENTS_AVAILABLE' => $result->get_rows_count() == 2,
 			'C_AVATARS_ALLOWED' => $this->config->are_avatars_shown(),
-			'PAGINATION' => $pagination->display(),
+			'C_DISPLAY_REORDER_LINK' => $result->get_rows_count() > 1 && StaffAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'ID_CAT' => $this->get_category()->get_id(),
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? StaffUrlBuilder::configuration()->rel() : StaffUrlBuilder::edit_category($this->get_category()->get_id())->rel()
+			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? StaffUrlBuilder::configuration()->rel() : StaffUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
+			'U_REORDER_ITEMS' => StaffUrlBuilder::reorder_items($this->get_category()->get_id(), $this->get_category()->get_rewrited_name())->rel(),
 		));
 
 		while($row = $result->fetch())
 		{
-			$member = new Member();
-			$member->set_properties($row);
+			$adherent = new Adherent();
+			$adherent->set_properties($row);
 
-			$this->view->assign_block_vars('members', $member->get_array_tpl_vars());
+			$this->view->assign_block_vars('items', $adherent->get_array_tpl_vars());
 		}
 		$result->dispose();
 	}
 
-	private function build_categories_listing_view(Date $now, $page, $subcategories_page)
+	private function build_categories_listing_view(Date $now)
 	{
 		$subcategories = StaffService::get_categories_manager()->get_categories_cache()->get_children($this->get_category()->get_id(), StaffService::get_authorized_categories($this->get_category()->get_id()));
-		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_number_per_page(), $page, $subcategories_page);
 
 		$nbr_cat_displayed = 0;
 		foreach ($subcategories as $id => $category)
 		{
 			$nbr_cat_displayed++;
 
-			if ($nbr_cat_displayed > $subcategories_pagination->get_display_from() && $nbr_cat_displayed <= ($subcategories_pagination->get_display_from() + $subcategories_pagination->get_number_items_per_page()))
-			{
-				$category_image = $category->get_image()->rel();
+			$category_image = $category->get_image()->rel();
 
-				$this->view->assign_block_vars('sub_categories_list', array(
-					'C_CATEGORY_IMAGE' => !empty($category_image),
-					'C_MORE_THAN_ONE_MEMBER' => $category->get_elements_number() > 1,
-					'CATEGORY_ID' => $category->get_id(),
-					'CATEGORY_NAME' => $category->get_name(),
-					'CATEGORY_IMAGE' => $category_image,
-					'MEMBERS_NUMBER' => $category->get_elements_number(),
-					'U_CATEGORY' => StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
-				));
-			}
+			$this->view->assign_block_vars('sub_categories_list', array(
+				'C_CATEGORY_IMAGE' => !empty($category_image),
+				'C_MORE_THAN_ONE_ADHERENT' => $category->get_elements_number() > 1,
+				'CATEGORY_ID' => $category->get_id(),
+				'CATEGORY_NAME' => $category->get_name(),
+				'CATEGORY_IMAGE' => $category_image,
+				'ADHERENTS_NUMBER' => $category->get_elements_number(),
+				'U_CATEGORY' => StaffUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
+			));
 		}
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
@@ -143,14 +130,12 @@ class StaffDisplayCategoryController extends ModuleController
 			'C_HIDE_NO_ITEM_MESSAGE' => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($nbr_cat_displayed != 0 || !empty($category_description)),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
 			'C_SUB_CATEGORIES' => $nbr_cat_displayed > 0,
-			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
 			'CATEGORY_IMAGE' => $this->get_category()->get_image()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
 			'C_SEVERAL_CATS_COLUMNS' => $this->config->get_sub_categories_nb() > 1,
 			'NUMBER_CATS_COLUMNS' => $this->config->get_sub_categories_nb(),
-			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
-			'C_MODERATE' => AppContext::get_current_user()->check_level(User::ADMIN_LEVEL)
+			'C_MODERATE' => AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)
 		));
 	}
 
@@ -174,36 +159,6 @@ class StaffDisplayCategoryController extends ModuleController
 			}
 		}
 		return $this->category;
-	}
-
-	private function get_pagination($condition, $parameters, $page, $subcategories_page)
-	{
-		$number_members = PersistenceContext::get_querier()->count(StaffSetup::$staff_table, $condition, $parameters);
-
-		$pagination = new ModulePagination($page, $number_members, (int)StaffConfig::load()->get_items_number_per_page());
-		$pagination->set_url(StaffUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), '%d', $subcategories_page));
-
-		if ($pagination->current_page_is_empty() && $page > 1)
-		{
-			$error_controller = PHPBoostErrors::unexisting_page();
-			DispatchManager::redirect($error_controller);
-		}
-
-		return $pagination;
-	}
-
-	private function get_subcategories_pagination($subcategories_number, $number_categories_per_page, $page, $subcategories_page)
-	{
-		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$number_categories_per_page);
-		$pagination->set_url(StaffUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), $page, '%d'));
-
-		if ($pagination->current_page_is_empty() && $subcategories_page > 1)
-		{
-			$error_controller = PHPBoostErrors::unexisting_page();
-			DispatchManager::redirect($error_controller);
-		}
-
-		return $pagination;
 	}
 
 	private function check_authorizations()

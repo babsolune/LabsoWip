@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               StaffDisplayPendingMembersController.class.php
+ *                               StaffDisplayPendingItemsController.class.php
  *                            -------------------
  *   begin                : June 29, 2017
  *   copyright            : (C) 2017 Sebastien LARTIGUE
@@ -29,7 +29,7 @@
  * @author Seabstien LARTIGUE <babsolune@phpboost.com>
  */
 
-class StaffDisplayPendingMembersController extends ModuleController
+class StaffDisplayPendingItemsController extends ModuleController
 {
 	private $tpl;
 	private $lang;
@@ -60,60 +60,38 @@ class StaffDisplayPendingMembersController extends ModuleController
 
 		$condition = 'WHERE id_category IN :authorized_categories
 		' . (!StaffAuthorizationsService::check_authorizations()->moderation() ? ' AND author_user_id = :user_id' : '') . '
-		AND approbation_type = 0';
+		AND publication = 0';
 		$parameters = array(
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorized_categories' => $authorized_categories,
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$page = AppContext::get_request()->get_getint('page', 1);
-		$pagination = $this->get_pagination($condition, $parameters, $page);
-
 		$result = PersistenceContext::get_querier()->select('SELECT staff.*, member.*
-		FROM '. StaffSetup::$staff_table .' staff
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = staff.author_user_id
-		' . $condition . '
-		ORDER BY staff.group_leader DESC, staff.lastname ASC, staff.firstname ASC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
+			FROM '. StaffSetup::$staff_table .' staff
+			LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = staff.author_user_id
+			' . $condition . '
+			ORDER BY staff.group_leader DESC, staff.lastname ASC, staff.firstname ASC', array_merge($parameters, array(
+				'user_id' => AppContext::get_current_user()->get_id()
 		)));
 
 		$this->tpl->put_all(array(
-			'C_MEMBERS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_MEMBER' => $result->get_rows_count() > 1,
+			'C_ADHERENTS' => $result->get_rows_count() > 0,
+			'C_MORE_THAN_ONE_ADHERENT' => $result->get_rows_count() > 1,
 			'C_PENDING' => true,
 			'C_AVATARS_ALLOWED' => $config->are_avatars_shown(),
-			'PAGINATION' => $pagination->display(),
 			'TABLE_COLSPAN' => 3,
-			'C_MODERATE' => AppContext::get_current_user()->check_level(User::ADMIN_LEVEL)
+			'C_MODERATE' => AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)
 		));
 
 		while ($row = $result->fetch())
 		{
-			$member = new Member();
-			$member->set_properties($row);
+			$adherent = new Adherent();
+			$adherent->set_properties($row);
 
-			$this->tpl->assign_block_vars('members', array_merge($member->get_array_tpl_vars()));
+			$this->tpl->assign_block_vars('items', array_merge($adherent->get_array_tpl_vars()));
 		}
 		$result->dispose();
-	}
-
-	private function get_pagination($condition, $parameters, $page)
-	{
-		$members_number = StaffService::count($condition, $parameters);
-
-		$pagination = new ModulePagination($page, $members_number, (int)StaffConfig::load()->get_items_number_per_page());
-		$pagination->set_url(StaffUrlBuilder::display_pending('%d'));
-
-		if ($pagination->current_page_is_empty() && $page > 1)
-		{
-			$error_controller = PHPBoostErrors::unexisting_page();
-			DispatchManager::redirect($error_controller);
-		}
-
-		return $pagination;
 	}
 
 	private function check_authorizations()
@@ -132,7 +110,7 @@ class StaffDisplayPendingMembersController extends ModuleController
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['staff.pending'], $this->lang['staff.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description($this->lang['staff.seo.description.pending']);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(StaffUrlBuilder::display_pending(AppContext::get_request()->get_getint('page', 1)));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(StaffUrlBuilder::display_pending());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['staff.module.title'], StaffUrlBuilder::home());

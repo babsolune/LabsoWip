@@ -34,7 +34,6 @@ class StaffDisplayHomeController extends ModuleController
 	private $lang;
 	private $tpl;
 	private $config;
-
 	private $category;
 
 	public function execute(HTTPRequestCustom $request)
@@ -74,11 +73,16 @@ class StaffDisplayHomeController extends ModuleController
 			'authorized_categories' => $authorized_categories
 		));
 
-		$this->tpl->put('C_AVATARS_ALLOWED', $this->config->are_avatars_shown());
+		$this->tpl->put_all(array(
+			'C_AVATARS_ALLOWED' => $this->config->are_avatars_shown(),
+			'C_ROOT_DESCRIPTION' => !empty($this->config->get_root_category_description()),
+			'ROOT_DESCRIPTION' => $this->config->get_root_category_description(),
+			'C_MODERATE' => AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)
+		));
 
 		while ($row_cat = $result_cat->fetch())
 		{
-			$this->tpl->assign_block_vars('staffcats', array(
+			$this->tpl->assign_block_vars('staff', array(
 				'ID' => $row_cat['id'],
 				'SUB_ORDER' => $row_cat['c_order'],
 				'ID_PARENT' => $row_cat['id_parent'],
@@ -88,15 +92,12 @@ class StaffDisplayHomeController extends ModuleController
 
 			$id_cat = $row_cat['id'];
 
-			$result = PersistenceContext::get_querier()->select('SELECT staff.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
+			$result = PersistenceContext::get_querier()->select('SELECT staff.*, member.*
 			FROM '. StaffSetup::$staff_table .' staff
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = staff.author_user_id
-			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = staff.id AND com.module_id = \'staff\'
-			LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = staff.id AND notes.module_name = \'staff\'
-			LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = staff.id AND note.module_name = \'staff\' AND note.user_id = :user_id
 			WHERE staff.id_category = :id_cat
-			AND staff.approbation_type = 1
-			ORDER BY staff.group_leader DESC, staff.role ASC, staff.lastname ASC, staff.firstname ASC', array(
+			AND staff.publication = 1
+			ORDER BY staff.group_leader DESC, staff.order_id', array(
 				'user_id' => AppContext::get_current_user()->get_id(),
 				'id_cat' => $id_cat,
 				'timestamp_now' => $now->get_timestamp()
@@ -104,10 +105,10 @@ class StaffDisplayHomeController extends ModuleController
 
 			while ($row = $result->fetch())
 			{
-				$member = new Member();
-				$member->set_properties($row);
+				$adherent = new Adherent();
+				$adherent->set_properties($row);
 
-				$this->tpl->assign_block_vars('staffcats.members', $member->get_array_tpl_vars());
+				$this->tpl->assign_block_vars('staff.items', $adherent->get_array_tpl_vars());
 			}
 			$result->dispose();
 		}

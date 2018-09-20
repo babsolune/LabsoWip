@@ -5,6 +5,11 @@
 /* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
 */
 
+
+0.0.3 30/05/2018
+-------------------------------------------------------------------------------
+Page pour réordonner les membres dans une catégorie
+
 0.0.2 28/04/2018
 -------------------------------------------------------------------------------
 Contrôle des rôles dans la configuration
@@ -12,13 +17,13 @@ Suppression du choix d'affichage => table only
 Amélioration du js pour l'ordre de tri des catégories qui prend en compte l'ordre du manager de catégories
 Jquery sur le n° de téléphone caché/montré
 Config ajout de l'options montrer/cacher l'avatar des membres
-Email gérer par formulaire
+Email géré par formulaire
 
-0.0.1 - release 26/04/2018
+0.0.1 - release 29/06/2017
 -------------------------------------------------------------------------------
 Staff est un organigramme qui permet de gérer une liste de membre.
 
-    Home = toutes les catégories + tous les membres avec un Jquery pour révéler/cacher (par défaut caché)
+    Home = toutes les catégories + tous les membres avec un Jquery pour révéler/cacher (par défaut caché) + js pour récupérer l'ordre de la liste des catégories
     Catégories
 
     Fiche membre :
