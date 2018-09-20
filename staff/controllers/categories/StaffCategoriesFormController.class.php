@@ -33,7 +33,7 @@ class StaffCategoriesFormController extends AbstractRichCategoriesFormController
 {
 	protected function get_id_category()
 	{
-		return AppContext::get_request()->get_getint('id', 1);
+		return AppContext::get_request()->get_getint('id', 0);
 	}
 
 	protected function get_categories_manager()
