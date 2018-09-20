@@ -525,7 +525,9 @@ class WikiFormController extends ModuleController
 	{
 		$document = $this->get_document();
 
-		$response = new SiteDisplayResponse($tpl);
+		$location_id = $document->get_id() ? 'documents-edit-'. $document->get_id() : '';
+
+		$response = new SiteDisplayResponse($tpl, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
@@ -549,6 +551,9 @@ class WikiFormController extends ModuleController
 			$breadcrumb->add($document->get_title(), WikiUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $document->get_id(), $document->get_rewrited_title()));
 
 			$breadcrumb->add($this->lang['wiki.edit'], WikiUrlBuilder::edit_item($document->get_id()));
+			if (!AppContext::get_session()->location_id_already_exists($location_id))
+				$graphical_environment->set_location_id($location_id);
+
 			$graphical_environment->set_page_title($this->lang['wiki.edit'], $this->lang['module.title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['wiki.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(WikiUrlBuilder::edit_item($document->get_id()));
