@@ -145,6 +145,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'CATEGORY_DESCRIPTION'   => $category_description,
 			'CATEGORY_IMAGE'         => $category_image,
 
+			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 			'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,
 			'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,

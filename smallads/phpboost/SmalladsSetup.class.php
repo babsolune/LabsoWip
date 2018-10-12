@@ -184,7 +184,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'publication_end_date' => 0,
 			'creation_date' => time(),
 			'updated_date' => 0,
-			'smallad_type' => $this->messages['default.smallad.type'],
+			'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
 			'sources' => TextHelper::serialize(array()),
 			'carousel' => TextHelper::serialize(array())
 		));
@@ -200,7 +200,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		if ($menu_id)
  		{
 			$menu = MenuService::load($menu_id);
-			MenuService::disable($menu);
+			MenuService::delete($menu);
 			MenuService::generate_cache();
 		}
 	}

@@ -20,96 +20,98 @@
 	# ENDIF #
 	<div class="spacer"></div>
 
-	# IF C_TYPES_FILTERS #
-		<div class="jplist-panel">
+	# IF C_ENABLED_FILTERS #
+		# IF C_TYPES_FILTERS #
+			<div class="jplist-panel">
 
-			<div class="elements-container columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
-				<!-- Categories -->
-				# IF C_CATEGORY #
-					<div class="category-select block">
-						<h6><p>{@smallads.category.select} :</p></h6>
-						<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down"></i></div>
-						<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
-							<ul>
-								<li cat_id="0" parent_id="0" c_order="0">
-									<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
-								</li>
-								# START categories #
-									<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
-										<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
+				<div class="elements-container columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
+					<!-- Categories -->
+					# IF C_CATEGORY #
+						<div class="category-select block">
+							<h6><p>{@smallads.category.select} :</p></h6>
+							<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down"></i></div>
+							<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
+								<ul>
+									<li cat_id="0" parent_id="0" c_order="0">
+										<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
 									</li>
-								# END categories #
-							</ul>
-						</nav>
-						<script>jQuery("#category-nav").menumaker({ title: "{@smallads.category.list}", format: "multitoggle", breakpoint: 768 }); </script>
-					</div>
-				# ENDIF #
-
-				<!-- Types filter -->
-				<div class="jplist-type-filter block">
-					<h6><p>{@smallads.form.smallads.types} :</p></h6>
-					<div class="type-filter-radio">
-						<div class="selected-label">
-							<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
+									# START categories #
+										<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
+											<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
+										</li>
+									# END categories #
+								</ul>
+							</nav>
+							<script>jQuery("#category-nav").menumaker({ title: "{@smallads.category.list}", format: "multitoggle", breakpoint: 768 }); </script>
 						</div>
-						<div class="label-list bg-container">
-							<label class="jplist-label" for="default-radio">
-								<input
-								   data-control-type="radio-buttons-filters"
-								   data-control-action="filter"
-								   data-control-name="default"
-								   data-path="default"
-								   id="default-radio"
-								   type="radio"
-								   name="jplist"
-								   checked="checked"
-								/>	{@smallads.all.types.filters}
-							</label>
-							# START types #
-								<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
+					# ENDIF #
+
+					<!-- Types filter -->
+					<div class="jplist-type-filter block">
+						<h6><p>{@smallads.form.smallads.types} :</p></h6>
+						<div class="type-filter-radio">
+							<div class="selected-label">
+								<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
+							</div>
+							<div class="label-list bg-container">
+								<label class="jplist-label" for="default-radio">
 									<input
-										data-control-type="radio-buttons-filters"
-										data-control-action="filter"
-										data-control-name="{types.TYPE_NAME_FILTER}"
-										data-path=".{types.TYPE_NAME_FILTER}"
-										id="{types.TYPE_NAME_FILTER}"
-										type="radio"
-										name="jplist"
-									/>	{types.TYPE_NAME}
+									   data-control-type="radio-buttons-filters"
+									   data-control-action="filter"
+									   data-control-name="default"
+									   data-path="default"
+									   id="default-radio"
+									   type="radio"
+									   name="jplist"
+									   checked="checked"
+									/>	{@smallads.all.types.filters}
 								</label>
-							# END types #
+								# START types #
+									<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
+										<input
+											data-control-type="radio-buttons-filters"
+											data-control-action="filter"
+											data-control-name="{types.TYPE_NAME_FILTER}"
+											data-path=".{types.TYPE_NAME_FILTER}"
+											id="{types.TYPE_NAME_FILTER}"
+											type="radio"
+											name="jplist"
+										/>	{types.TYPE_NAME}
+									</label>
+								# END types #
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- sort dropdown -->
-				<div class="sort-list block">
-					<h6><p>{@smallads.sort.by} :</p></h6>
-					<div
-						class="jplist-drop-down"
-						data-control-type="sort-drop-down"
-						data-control-name="sort"
-						data-control-action="sort">
-						<ul class="bg-container">
-							<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">&#8595;</em></span></li>
-							<li><span data-path=".jp-title" data-order="asc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
-							<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
-		   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@location} <em class="sort-type">&#8593;</em></span></li>
-				   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@location} <em class="sort-type">&#8595;</em></span></li># ENDIF #
-		# IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
-		# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
-							<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
-							<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li># ENDIF #
-						</ul>
+					<!-- sort dropdown -->
+					<div class="sort-list block">
+						<h6><p>{@smallads.sort.by} :</p></h6>
+						<div
+							class="jplist-drop-down"
+							data-control-type="sort-drop-down"
+							data-control-name="sort"
+							data-control-action="sort">
+							<ul class="bg-container">
+								<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">&#8595;</em></span></li>
+								<li><span data-path=".jp-title" data-order="asc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
+								<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
+			   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@location} <em class="sort-type">&#8593;</em></span></li>
+					   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@location} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+			# IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+			# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
+								<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
+								<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		# ENDIF #
 	# ENDIF #
 
 	# IF C_NO_ITEM_AVAILABLE #

@@ -228,6 +228,8 @@
 					<div class="spacer"></div>
 				</div>
 			# ENDIF #
+			<div class="spacer"></div>
+			${ContentSharingActionsMenuService::display()}
 
 			# IF C_COMMENTS_ENABLED #
 				<hr />
