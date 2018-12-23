@@ -33,6 +33,7 @@ class WikiSetup extends DefaultModuleSetup
 {
 	public static $wiki_table;
 	public static $wiki_cats_table;
+	public static $wiki_favorites_table;
 
 	/**
 	 * @var string[string] localized messages
@@ -43,6 +44,7 @@ class WikiSetup extends DefaultModuleSetup
 	{
 		self::$wiki_table = PREFIX . 'wiki';
 		self::$wiki_cats_table = PREFIX . 'wiki_cats';
+		self::$wiki_favorites_table = PREFIX . 'wiki_favorites';
 	}
 
 	public function install()
@@ -61,13 +63,14 @@ class WikiSetup extends DefaultModuleSetup
 
 	private function drop_tables()
 	{
-		PersistenceContext::get_dbms_utils()->drop(array(self::$wiki_table, self::$wiki_cats_table));
+		PersistenceContext::get_dbms_utils()->drop(array(self::$wiki_table, self::$wiki_cats_table, self::$wiki_favorites_table));
 	}
 
 	private function create_tables()
 	{
 		$this->create_wiki_table();
 		$this->create_wiki_cats_table();
+		$this->create_wiki_favorites_table();
 	}
 
 	private function create_wiki_table()
@@ -128,6 +131,19 @@ class WikiSetup extends DefaultModuleSetup
 			'description' => $this->messages['default.category.description'],
 			'image' => '/wiki/wiki.png'
 		));
+	}
+
+	private function create_wiki_favorites_table()
+	{
+		$fields = array(
+			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
+			'user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'document_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0)
+		);
+		$options = array(
+			'primary' => array('id')
+		);
+		PersistenceContext::get_dbms_utils()->create_table(self::$wiki_favorites_table, $fields, $options);
 	}
 
 	private function insert_wiki_data()

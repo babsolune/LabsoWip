@@ -53,6 +53,7 @@ class WikiTreeLinks implements ModuleTreeLinksExtensionPoint
 			$tree->add_link(new ModuleLink($lang['wiki.add'], WikiUrlBuilder::add_item(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), WikiAuthorizationsService::check_authorizations()->write() || WikiAuthorizationsService::check_authorizations()->contribution()));
 		}
 
+		$tree->add_link(new ModuleLink($lang['wiki.favorites.items'], WikiUrlBuilder::display_favorites(), WikiAuthorizationsService::check_authorizations()->read() || WikiAuthorizationsService::check_authorizations()->contribution() || WikiAuthorizationsService::check_authorizations()->moderation()));
 		$tree->add_link(new ModuleLink($lang['wiki.pending_documents'], WikiUrlBuilder::display_pending_items(), WikiAuthorizationsService::check_authorizations()->write() || WikiAuthorizationsService::check_authorizations()->contribution() || WikiAuthorizationsService::check_authorizations()->moderation()));
 
 		$tree->add_link(new ModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('wiki')->get_configuration()->get_documentation(), WikiAuthorizationsService::check_authorizations()->write() || WikiAuthorizationsService::check_authorizations()->contribution() || WikiAuthorizationsService::check_authorizations()->moderation()));

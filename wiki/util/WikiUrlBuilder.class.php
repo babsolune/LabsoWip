@@ -134,6 +134,22 @@ class WikiUrlBuilder
 		return DispatchManager::get_url(self::$dispatcher, '/tag/'. $rewrited_name . '/' . $page);
 	}
 
+	/**
+	 * @return Url
+	 */
+	public static function display_favorites()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/favorites/');
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function display_member_items()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/member/');
+	}
+
 	public static function home()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');

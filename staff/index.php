@@ -48,7 +48,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('StaffManageController', '`^/manage/?$`'),
 	new UrlControllerMapper('StaffItemFormController', '`^/add/?([0-9]+)?/?$`', array('id_category')),
 	new UrlControllerMapper('StaffItemFormController', '`^/([0-9]+)/edit/?$`', array('id')),
-	new UrlControllerMapper('StaffDeleteController', '`^/([0-9]+)/delete/?$`', array('id')),
+	new UrlControllerMapper('StaffDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 	new UrlControllerMapper('StaffDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_name')),
 	new UrlControllerMapper('StaffReorderCategoryItemsController', '`^/reorder/([0-9]+)-?([a-z0-9-_]+)?/?$`', array('id_category', 'rewrited_name')),
 

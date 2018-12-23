@@ -119,7 +119,7 @@ class WikiService
 	{
 		if (self::$keywords_manager === null)
 		{
-			self::$keywords_manager = new KeywordsManager('wiki');
+			self::$keywords_manager = new KeywordsManager(WikiKeywordsCache::load());
 		}
 		return self::$keywords_manager;
 	}

@@ -84,6 +84,13 @@ $lang['wiki.form.member.edition.explain'] = 'Vous êtes sur le point de modifier
 $lang['wiki.form.member.edition.description'] = 'Complément de modification';
 $lang['wiki.form.member.edition.description.desc'] = 'Expliquez ce que vous avez modifié pour un meilleur traitement d\'approbation.';
 
+// Favorites
+$lang['wiki.favorites.items'] = 'Mes favoris';
+$lang['wiki.no.favorite'] = 'Vous n\'avez déclaré aucun article en favori';
+$lang['wiki.untrack.title'] = 'Ne plus suivre';
+$lang['wiki.untrack.document'] = 'Ne plus suivre cet article';
+$lang['wiki.document.title'] = 'Titre de l\'article';
+
 //SEO
 $lang['wiki.seo.description.root'] = 'Tous les articles du site :site.';
 $lang['wiki.seo.description.tag'] = 'Tous les articles sur le sujet :subject.';

@@ -122,11 +122,16 @@ class WikiDisplayItemController extends ModuleController
 		if ($nbr_pages > 1)
 			$this->build_pages_menu($array_page, $current_page);
 
+		$keywords = $this->document->get_keywords();
+		$has_keywords = count($keywords) > 0;
+
+		if ($has_keywords)
 		$this->build_keywords_view();
 
 		$page_name = (isset($array_page[1][$current_page-1]) && $array_page[1][$current_page-1] != '&nbsp;') ? $array_page[1][($current_page-1)] : '';
 
 		$this->tpl->put_all(array_merge($this->document->get_array_tpl_vars(), array(
+			'C_KEYWORDS' => $has_keywords,
 			'CONTENTS'           => isset($document_contents_clean[$current_page-1]) ? FormatingHelper::second_parse($document_contents_clean[$current_page-1]) : '',
 			'PAGE_NAME'          => $page_name,
 			'U_EDIT_DOCUMENT'     => $page_name !== '' ? WikiUrlBuilder::edit_item($this->document->get_id(), $current_page)->rel() : WikiUrlBuilder::edit_item($this->document->get_id())->rel()
@@ -206,9 +211,7 @@ class WikiDisplayItemController extends ModuleController
 
 	private function build_keywords_view()
 	{
-		$keywords = $this->document->get_keywords();
 		$nbr_keywords = count($keywords);
-		$this->tpl->put('C_KEYWORDS', $nbr_keywords > 0);
 
 		$i = 1;
 		foreach ($keywords as $keyword)

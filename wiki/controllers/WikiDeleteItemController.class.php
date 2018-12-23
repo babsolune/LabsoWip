@@ -56,6 +56,7 @@ class WikiDeleteItemController extends ModuleController
 
 		Feed::clear_cache('wiki');
 		WikiCategoriesCache::invalidate();
+		WikiKeywordsCache::invalidate();
 
 		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), WikiUrlBuilder::display_item($document->get_category()->get_id(), $document->get_category()->get_rewrited_name(), $document->get_id(), $document->get_rewrited_title())->rel()) ? $request->get_url_referrer() : WikiUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('wiki.message.success.delete', 'common', 'wiki'), array('title' => $document->get_title())));
 	}

@@ -18,7 +18,7 @@
 	<nav id="category-list">
 		<ul class="ul-table">
 			# START staff #
-				<li cat_id="{staff.ID}" parent_id="{staff.ID_PARENT}" c_order="{staff.SUB_ORDER}">
+				<li staff_cat_id="{staff.ID}" staff_parent_id="{staff.ID_PARENT}" staff_c_order="{staff.SUB_ORDER}">
 					<span class="toggle-menu-button-{staff.ID} expander "></span>
 					<h2><a href="{staff.U_CATEGORY}">{staff.CATEGORY_NAME}</a></h2>
 					<ul class="adherent-table-{staff.ID}">
@@ -69,49 +69,49 @@
 	<footer></footer>
 </section>
 
-	<script>
-		jQuery(document).ready(function () {
+<script>
+	jQuery(document).ready(function () {
 
-			// expand all categories
-			jQuery('.expand-all').click('slow', function(){
-				jQuery('.expand-all').toggleClass('expand');
-				jQuery('[class*="toggle-menu-button"]').toggleClass('is-opened-list');
-				jQuery('[class*="adherent-table"]').toggleClass('show-table');
-			});
-
-			// Sort order categories
-			jQuery('#category-list').append(CreatChild(0)).find('ul:first').remove();
-			function CreatChild(id){
-			    var $li = jQuery('li[parent_id=' + id + ']').sort(function(a, b){
-					return jQuery(a).attr('c_order') - jQuery(b).attr('c_order');
-				});
-			    if($li.length > 0){
-			        for(var i = 0; i < $li.length; i++){
-			            var $this = $li.eq(i);
-						// $this[0].remove();
-			            $this.append(CreatChild($this.attr('cat_id')));
-			        }
-			        return jQuery('<ul class="ul-table">').append($li);
-			    }
-			}
-
-			// create indent
-			jQuery('li').has('ul.ul-table').addClass('has-sub-cat');
-
-			// add expander
-			jQuery('li:has("[class*=adherent-table]")').find('.expander').each(
-				function(){
-					jQuery(this).addClass('has-adherent');
-				}
-			);
-
-			//reveal phone nb
-			jQuery('.show-phone').hide();
-			jQuery('.hide-phone').show();
-			jQuery('.li-phone').click(function(){
-				jQuery(this).toggleClass('is-revealed');
-				jQuery('.show-phone').toggle();
-				jQuery('.hide-phone').toggle();
-			});
+		// expand all categories
+		jQuery('.expand-all').click('slow', function(){
+			jQuery('.expand-all').toggleClass('expand');
+			jQuery('[class*="toggle-menu-button"]').toggleClass('is-opened-list');
+			jQuery('[class*="adherent-table"]').toggleClass('show-table');
 		});
+
+		// Sort order categories
+		jQuery('#category-list').append(CreatChild(0)).find('ul:first').remove();
+		function CreatChild(id){
+		    var $li = jQuery('li[staff_parent_id=' + id + ']').sort(function(a, b){
+				return jQuery(a).attr('staff_c_order') - jQuery(b).attr('staff_c_order');
+			});
+		    if($li.length > 0){
+		        for(var i = 0; i < $li.length; i++){
+		            var $this = $li.eq(i);
+					// $this[0].remove();
+		            $this.append(CreatChild($this.attr('staff_cat_id')));
+		        }
+		        return jQuery('<ul class="ul-table">').append($li);
+		    }
+		}
+
+		// create indent
+		jQuery('li').has('ul.ul-table').addClass('has-sub-cat');
+
+		// add expander
+		jQuery('li:has("[class*=adherent-table]")').find('.expander').each(
+			function(){
+				jQuery(this).addClass('has-adherent');
+			}
+		);
+
+		//reveal phone nb
+		jQuery('.show-phone').hide();
+		jQuery('.hide-phone').show();
+		jQuery('.li-phone').click(function(){
+			jQuery(this).toggleClass('is-revealed');
+			jQuery('.show-phone').toggle();
+			jQuery('.hide-phone').toggle();
+		});
+	});
 </script>

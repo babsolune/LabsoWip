@@ -456,6 +456,7 @@ class WikiFormController extends ModuleController
 
 		Feed::clear_cache('wiki');
 		WikiCategoriesCache::invalidate();
+		WikiKeywordsCache::invalidate();
 	}
 
 	private function contribution_actions(Document $document, $id_document)

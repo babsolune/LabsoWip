@@ -110,9 +110,15 @@ class WikiDisplayCategoryController extends ModuleController
 			$document = new Document();
 			$document->set_properties($row);
 
-			$this->build_keywords_view($document);
+			$keywords = $document->get_keywords();
+			$has_keywords = count($keywords) > 0;
 
-			$this->view->assign_block_vars('items', $document->get_array_tpl_vars());
+			if ($has_keywords)
+				$this->build_keywords_view($keywords);
+
+			$this->view->assign_block_vars('items', $document->get_array_tpl_vars(), array(
+				'C_KEYWORDS' => $has_keywords
+			));
 		}
 		$result->dispose();
 	}
@@ -183,11 +189,9 @@ class WikiDisplayCategoryController extends ModuleController
 		return $this->category;
 	}
 
-	private function build_keywords_view(Document $document)
+	private function build_keywords_view($keywords)
 	{
-		$keywords = $document->get_keywords();
 		$nbr_keywords = count($keywords);
-		$this->view->put('C_KEYWORDS', $nbr_keywords > 0);
 
 		$i = 1;
 		foreach ($keywords as $keyword)

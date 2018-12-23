@@ -53,6 +53,14 @@
 				# ENDIF #
 					<div itemprop="text">{CONTENTS}</div>
 
+				# IF C_KEYWORDS #
+					<span class="infos-options">
+						<span class="text-strong">${LangLoader::get_message('form.keywords', 'common')} : </span>
+						# START keywords #
+							<a itemprop="keywords" class="small" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
+						# END keywords #
+					</span>
+				# ENDIF #
 				<hr />
 
 				# IF C_PAGINATION #

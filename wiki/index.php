@@ -52,6 +52,7 @@ $url_controller_mappers = array(
 
 	//Display wiki
 	new UrlControllerMapper('WikiDisplayItemsTagController', '`^/tag(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('tag', 'page')),
+	new UrlControllerMapper('WikiDisplayFavoritesController', '`^/favorites(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('favorites', 'page')),
 	new UrlControllerMapper('WikiDisplayItemHistoryController', '`^(?:/([0-9]+))/history/?([0-9]+)?/?$`', array('history', 'page')),
 	new UrlControllerMapper('WikiDisplayPendingItemsController', '`^/pending(?:/([a-z]+))?/?([a-z]+)?/?([0-9]+)?/?$`', array('page')),
 	new UrlControllerMapper('WikiDisplayItemController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?([0-9]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title', 'page')),

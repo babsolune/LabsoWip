@@ -1,0 +1,18 @@
+
+// 30.05.17 version 0.0.1
+// ----------------------------------------------------------------------------
+
+    Création du MiniModule
+
+    Configuration => Contenu
+        Checkbox lien dans une nouvelle fenetre
+        Ajout de menu par FormField     // pas de sous-menu, pas de reclassement
+            Titre du lien
+            Adresse du lien             // ne fonctionne avec les liens internes au site que si on renseigne l'adresse complète : http://....
+            Icone FA                    // nom de l'icone eg: edit, delete, ...
+            Adresse du logo             // systeme d'upload
+
+            Validation si Adresse du lien ET (titre OU iconeFA OU logo)
+
+    Icones Facebook Google+ Twitter Youtube png 48px 32px 24px 16px => templates/images
+    Style cssmenu

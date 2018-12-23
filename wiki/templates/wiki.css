@@ -213,13 +213,12 @@ table .subcat-title + em {
 }
 
 .pages-menu li {
-	background-color: #bff;
-	border: 1px solid #555;
+	border: 1px solid #366493;
 	margin-right: 0.228em;
 }
 
 .pages-menu .current-link {
-	background-color: #366493;
+	background-color: #bff;
 }
 
 .pages-menu li a {

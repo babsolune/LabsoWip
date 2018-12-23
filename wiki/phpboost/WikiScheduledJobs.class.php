@@ -54,6 +54,7 @@ class WikiScheduledJobs extends AbstractScheduledJobExtensionPoint
 			{
 				Feed::clear_cache('wiki');
 				WikiCategoriesCache::invalidate();
+				WikiKeywordsCache::invalidate();
 
 				$config->set_deferred_operations($deferred_operations);
 				WikiConfig::save();
