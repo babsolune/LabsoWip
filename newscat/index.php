@@ -1,14 +1,11 @@
 <?php
-
 /**
- * @package 	Newscat
- * @category 	Modules
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2019 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 01
- * @since   	PHPBoost 5.2 - 2018 11 27
- */
+ * @version     PHPBoost 5.2 - last update: 2018 11 27
+ * @since       PHPBoost 5.1 - 2018 11 27
+*/
 
 define('PATH_TO_ROOT', '..');
 
