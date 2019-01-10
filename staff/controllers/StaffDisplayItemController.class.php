@@ -1,28 +1,10 @@
 <?php
 /**
- *				StaffDisplayItemController.class.php
- *				------------------
- * @since 		PHPBoost 5.2 - 2017-06-29
- * @author 		Sebastien LARTIGUE - <babsolune@phpboost.com>
- *
- * 				This file is part of
- * @copyright 	2005-2019 PHPBoost
- * 				PHPBoost is free software: you can redistribute it and/or modify it
- * 				under the terms of the GNU General Public License as published by
- * 				the Free Software Foundation, either version 3 of the License, or
- * 				(at your option) any later version.
- * 				PHPBoost is distributed in the hope that it will be useful,
- * 				but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 				MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 				GNU General Public License for more details.
- * 				You should have received a copy of the GNU General Public License
- * 				along with PHPBoost.  If not, see
- * @license 	https://opensource.org/licenses/GPL-3.0
- *
- * @category 	module
- * @package 	staff
- * @subpackage	controllers
- * @desc 		Display item
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2017 11 05
+ * @since   	PHPBoost 5.1 - 2017 06 29
 */
 
 class StaffDisplayItemController extends ModuleController

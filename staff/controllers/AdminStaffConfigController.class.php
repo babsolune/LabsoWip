@@ -1,17 +1,10 @@
 <?php
 /**
- *				AdminStaffConfigController.class.php
- *				------------------
- * @copyright 	2005-2019 PHPBoost
- * @license 	https://opensource.org/licenses/GPL-3.0
- *
- * @since 		PHPBoost 5.2 - 2017-06-29
- * @author 		Sebastien LARTIGUE - <babsolune@phpboost.com>
- *
- * @category 	module
- * @package 	staff
- * @subpackage	controllers
- * @desc 		Configuration of the module
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2017 11 05
+ * @since   	PHPBoost 5.1 - 2017 06 29
 */
 
 class AdminStaffConfigController extends AdminModuleController
