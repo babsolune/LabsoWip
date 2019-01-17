@@ -7,7 +7,9 @@
  * @since   	PHPBoost 5.1 - 2018 05 25
 */
 
-class Document
+namespace Wiki\Service;
+
+class ItemClass
 {
 	private $id;
 	private $id_category;
