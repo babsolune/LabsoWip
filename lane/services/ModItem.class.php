@@ -1,18 +1,22 @@
 <?php
 /**
- * @copyright 	&copy; 2005-2019 PHPBoost
+ * @copyright 	&copy; 2005-2019 PHPBoost https://www.phpboost.com
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @author      Sebastien LARTIGUE [babsolune@phpboost.com]
  * @version   	PHPBoost 5.2 - last update: 2018 05 25
  * @since   	PHPBoost 5.1 - 2018 05 25
 */
 
-namespace Wiki\Service;
+namespace Wiki\services;
+use \Wiki\phpboost\ModConfig;
+use \Wiki\services\ModAuthorizations;
+use \Wiki\services\ModServices;
+use \Wiki\util\ModUrlBuilder;
 
-class ItemClass
+class ModItem
 {
 	private $id;
-	private $id_category;
+	private $category_id;
 	private $title;
 	private $rewrited_title;
 	private $order_id;
@@ -55,19 +59,19 @@ class ItemClass
 		return $this->id;
 	}
 
-	public function set_id_category($id_category)
+	public function set_category_id($category_id)
 	{
-		$this->id_category = $id_category;
+		$this->category_id = $category_id;
 	}
 
-	public function get_id_category()
+	public function get_category_id()
 	{
-		return $this->id_category;
+		return $this->category_id;
 	}
 
 	public function get_category()
 	{
-		return WikiService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return ModServices::get_categories_manager()->get_categories_cache()->get_category($this->category_id);
 	}
 
 	public function get_order_id()
@@ -129,7 +133,7 @@ class ItemClass
 		else
 		{
 			$clean_contents = preg_split('`\[page\].+\[/page\](.*)`usU', FormatingHelper::second_parse($this->contents), -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-			return TextHelper::cut_string(@strip_tags($clean_contents[0], '<br><br/>'), (int)WikiConfig::load()->get_number_character_to_cut());
+			return TextHelper::cut_string(@strip_tags($clean_contents[0], '<br><br/>'), (int)ModConfig::load()->get_number_character_to_cut());
 		}
 	}
 
@@ -227,7 +231,7 @@ class ItemClass
 	public function is_published()
 	{
 		$now = new Date();
-		return WikiAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publishing_state() == self::PUBLISHED_NOW || ($this->get_publishing_state() == self::PUBLISHED_DATE && $this->get_publishing_start_date()->is_anterior_to($now) && ($this->end_date_enabled ? $this->get_publishing_end_date()->is_posterior_to($now) : true)));
+		return ModAuthorizations::check_authorizations($this->category_id)->read() && ($this->get_publishing_state() == self::PUBLISHED_NOW || ($this->get_publishing_state() == self::PUBLISHED_DATE && $this->get_publishing_start_date()->is_anterior_to($now) && ($this->end_date_enabled ? $this->get_publishing_end_date()->is_posterior_to($now) : true)));
 	}
 
 	public function get_status()
@@ -310,7 +314,7 @@ class ItemClass
 	{
 		if ($this->keywords === null)
 		{
-			$this->keywords = WikiService::get_keywords_manager()->get_keywords($this->id);
+			$this->keywords = ModServices::get_keywords_manager()->get_keywords($this->id);
 		}
 		return $this->keywords;
 	}
@@ -322,24 +326,24 @@ class ItemClass
 
 	public function is_authorized_to_add()
 	{
-		return WikiAuthorizationsService::check_authorizations($this->id_category)->write() || WikiAuthorizationsService::check_authorizations($this->id_category)->contribution();
+		return ModAuthorizations::check_authorizations($this->category_id)->write() || ModAuthorizations::check_authorizations($this->category_id)->contribution();
 	}
 
 	public function is_authorized_to_edit()
 	{
-		return WikiAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((WikiAuthorizationsService::check_authorizations($this->get_id_category())->write() || (WikiAuthorizationsService::check_authorizations($this->get_id_category())->contribution())));
+		return ModAuthorizations::check_authorizations($this->category_id)->moderation() || ((ModAuthorizations::check_authorizations($this->get_category_id())->write() || (ModAuthorizations::check_authorizations($this->get_category_id())->contribution())));
 	}
 
 	public function is_authorized_to_delete()
 	{
-		return WikiAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((WikiAuthorizationsService::check_authorizations($this->get_id_category())->write() || (WikiAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && !$this->is_published())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return ModAuthorizations::check_authorizations($this->category_id)->moderation() || ((ModAuthorizations::check_authorizations($this->get_category_id())->write() || (ModAuthorizations::check_authorizations($this->get_category_id())->contribution() && !$this->is_published())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function get_properties()
 	{
 		return array(
 			'id'                    => $this->get_id(),
-			'id_category'           => $this->get_id_category(),
+			'category_id'           => $this->get_category_id(),
 			'order_id'              => $this->get_order_id(),
 			'title'                 => $this->get_title(),
 			'rewrited_title'        => $this->get_rewrited_title(),
@@ -362,7 +366,7 @@ class ItemClass
 	public function set_properties(array $properties)
 	{
 		$this->set_id($properties['id']);
-		$this->set_id_category($properties['id_category']);
+		$this->set_category_id($properties['category_id']);
 		$this->set_order_id($properties['order_id']);
 		$this->set_title($properties['title']);
 		$this->set_rewrited_title($properties['rewrited_title']);
@@ -391,9 +395,9 @@ class ItemClass
 		$this->author_custom_name_enabled = !empty($properties['author_custom_name']);
 	}
 
-	public function init_default_properties($id_category = Category::ROOT_CATEGORY)
+	public function init_default_properties($category_id = Category::ROOT_CATEGORY)
 	{
-		$this->id_category = $id_category;
+		$this->category_id = $category_id;
 		$this->author_name_displayed = self::AUTHOR_NAME_DISPLAYED;
 		$this->author_user = AppContext::get_current_user();
 		$this->published = self::PUBLISHED_NOW;
@@ -448,12 +452,13 @@ class ItemClass
 			'C_DATE_UPDATED'                  => $this->date_updated != null,
 			'C_AUTHOR_DISPLAYED'              => $this->get_author_name_displayed(),
 			'C_AUTHOR_CUSTOM_NAME' 			  => $this->is_author_custom_name_enabled(),
-			'C_READ_MORE'                     => !$this->get_description_enabled() && TextHelper::strlen($contents) > WikiConfig::load()->get_number_character_to_cut() && $description != @strip_tags($contents, '<br><br/>'),
+			'C_READ_MORE'                     => !$this->get_description_enabled() && TextHelper::strlen($contents) > ModConfig::load()->get_number_character_to_cut() && $description != @strip_tags($contents, '<br><br/>'),
 			'C_SOURCES'                       => $nbr_sources > 0,
 			'C_DIFFERED'                      => $this->published == self::PUBLISHED_DATE,
 			'C_NEW_CONTENT'                   => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('wiki', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_date_created()->get_timestamp()) && $this->is_published(),
+			'C_AUTHOR_EXIST'     			  => $user->get_id() !== User::VISITOR_LEVEL,
 
-			//Wiki
+			// Item data
 			'ID'                 => $this->get_id(),
 			'TITLE'              => $this->get_title(),
 			'REWRITED_TITLE'     => $this->get_rewrited_title(),
@@ -462,7 +467,6 @@ class ItemClass
 			'NUMBER_COMMENTS'    => CommentsService::get_number_comments('wiki', $this->get_id()),
 			'NUMBER_VIEW'        => $this->get_number_view(),
 			'AUTHOR_CUSTOM_NAME' => $this->author_custom_name,
-			'C_AUTHOR_EXIST'     => $user->get_id() !== User::VISITOR_LEVEL,
 			'PSEUDO'             => $user->get_display_name(),
 			'DESCRIPTION'        => $description,
 			'THUMBNAIL'          => $this->get_thumbnail()->rel(),
@@ -476,17 +480,17 @@ class ItemClass
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'CATEGORY_COLOR'	   => $category->get_color(),
 			'CATEGORY_IMAGE'       => $category->get_image()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? WikiUrlBuilder::configuration()->rel() : WikiUrlBuilder::edit_category($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? ModUrlBuilder::configuration()->rel() : ModUrlBuilder::edit_category($category->get_id())->rel(),
 
 			//Links
-			'U_AUTHOR'          => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_CATEGORY'        => WikiUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_DOCUMENT'        => WikiUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_HISTORY'         => WikiUrlBuilder::change_history($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title() . '/history')->rel(),
-			'U_EDIT_DOCUMENT'   => WikiUrlBuilder::edit_item($this->id, AppContext::get_request()->get_getint('page', 1))->rel(),
-			'U_DELETE_DOCUMENT' => WikiUrlBuilder::delete_item($this->id)->rel(),
-			'U_SYNDICATION'     => WikiUrlBuilder::category_syndication($category->get_id())->rel(),
-			'U_PRINT_DOCUMENT'  => WikiUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel()
+			'U_AUTHOR'      => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+			'U_CATEGORY'    => ModUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+			'U_ITEM'        => ModUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_HISTORY'     => ModUrlBuilder::display_item_history($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title() . '/history')->rel(),
+			'U_EDIT_ITEM'   => ModUrlBuilder::edit_item($this->id, AppContext::get_request()->get_getint('page', 1))->rel(),
+			'U_DELETE_ITEM' => ModUrlBuilder::delete_item($this->id)->rel(),
+			'U_SYNDICATION' => ModUrlBuilder::category_syndication($category->get_id())->rel(),
+			'U_PRINT_ITEM'  => ModUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel()
 			)
 		);
 	}
