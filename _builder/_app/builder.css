@@ -3,25 +3,4 @@
 @import url("../../templates/base/theme/cssmenu.css");
 @import url("../../templates/base/theme/content.css");
 @import url("../../templates/base/theme/global.css");
-
-/* ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
-
-li a {
-    padding: 20px;
-    display: block;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 0;
-    transition: 0.3s;
-}
-
-li a:hover {
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    transition: 0.5s;
-} */
+@import url("../../templates/base/theme/colors.css");

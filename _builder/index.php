@@ -10,18 +10,24 @@
     <title>BuilderPage</title>
 </head>
 <body>
-    <main>
-        <header>
-            <h1>_builderPage</h1>
-        </header>
+    <header id="header">
+    	<div id="top-header">
+    		<div id="site-infos" role="banner">
+    			<div id="site-name-container">
+    				<a id="site-name" href="{PATH_TO_ROOT}/">_builderPage</a>
+    			</div>
+    		</div>
+		</div>
+    </header>
+    <main id="global">
         <article class="">
             <?php showContentFolder('./') ?>
         </article>
         <article class="">
             <img src="_app/about.jpg" alt="">
         </article>
-        <footer></footer>
     </main>
+    <footer id="footer"></footer>
 
 </body>
 </html>
