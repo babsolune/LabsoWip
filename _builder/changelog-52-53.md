@@ -152,7 +152,7 @@ table.bt.bt--no-header tbody td::before {
   display: none;
 }
 ```
-- Des classes ont été rajoutées pour être utilisées dans le BBCode  
+- Des classes ont été rajoutées pour être utilisées dans le BBCode  [FEATURE]
 
 quand la table comporte trop de colonnes   
 `[container class="responsive-table"][table]....[/table][/container]`
@@ -211,8 +211,8 @@ jQuery('.table-no-header').basictable({
     - `<script src="{PATH_TO_ROOT}/templates/default/plugins/menumaker.js"></script>`
     - `<script src="{PATH_TO_ROOT}/templates/default/plugins/tooltip.js"></script>`
 
-# Tooltip
-Afin de supprimer les title="" qui limitent les performences en mobile, un système de tooltip est mis en place sur les aria-label, ce qui permet l'affichage des textes cachés, au survol de la souris en profitant des attributs d'accessibilité  
+# Tooltip [FEATURE]
+Afin de supprimer les title="" qui limitent les performances en mobile, un plugin `tooltip.js` est mis en place sur les aria-label, ce qui permet l'affichage au survol de la souris, des textes cachés, en profitant des attributs d'accessibilité  
 - ajouter les classes du tooltip
 colors.css:  
 ```
@@ -244,5 +244,109 @@ content.css:
 #tooltip.position-bl{ margin-left: -7px; margin-top:  7px; }
 #tooltip.position-tl{ margin-left: -7px; margin-top: -7px; }
 ```
-- déclarez un aria-label ou vous voulez voir apparaitre un tooltip  
+- déclarez un aria-label où vous voulez voir apparaitre un tooltip  
 `<button aria-label="Fermer">X</button>`
+
+# Tabs menu [FEATURE]
+Ce plugin `easytabs.js` permet d'afficher un menu tabs: chaque lien du menu fait apparaitre une partie du contenu et cache le reste  
+
+content.css
+```
+.tab-container > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.tab-container > ul > li {
+    display: inline-block;
+}
+
+.tab-container > ul > li a {
+    display: block;
+    padding: 0.618em;
+    outline: none;
+    text-decoration: none;
+}
+
+.tab-container > ul > li a.shown {
+    position: relative;
+}
+
+.tab-container .panel-container {
+    padding: 0.618em;
+}
+```
+
+colors.css
+```
+.tab-container > ul > li a.shown {
+	background-color: rgba(54, 100, 147, 0.2);
+}
+```
+
+js_bottom.tpl
+```
+$('.tab-container').easytabs();
+```
+howTo
+On peut en mettre plusieurs sur une même page
+```
+<div id="first-tab-container" class="tab-container">
+    <ul>
+        <li><a href="#tab-01">HTML</a></li>
+        <li><a href="#tab-02">JS</a></li>
+        <li><a href="#tab-03">CSS</a></li>
+    </ul>
+    <div class="panel-container">
+        <div id="tab-01"> plop of the 01 </div>
+        <div id="tab-02"> plop of the 02 </div>
+        <div id="tab-03"> plop of the 03 </div>
+    </div>
+</div>
+<div id="second-tab-container" class="tab-container">
+    <ul>
+        <li><a href="#tab-04">page 01</a></li>
+        <li><a href="#tab-05">page 02</a></li>
+        <li><a href="#tab-06">page 03</a></li>
+    </ul>
+    <div class="panel-container">
+        <div id="tab-04"> plop of the 04 </div>
+        <div id="tab-05"> plop of the 05 </div>
+        <div id="tab-06"> plop of the 06 </div>
+    </div>
+</div>
+```
+
+on peut les imbriquer les uns dans les autres
+```
+<div id="third-tab-container" class="tab-container">
+    <ul>
+        <li><a href="#tab-07">page 01</a></li>
+        <li><a href="#tab-08">page 02</a></li>
+        <li><a href="#tab-09">nested</a></li>
+    </ul>
+    <div class="panel-container">
+        <div id="tab-07"> plop of the 01 </div>
+        <div id="tab-08"> plop of the 02 </div>
+        <div id="tab-09">
+            <div id="forth-tab-container" class="tab-container">
+                <ul>
+                    <li><a href="#tab-10">HTML</a></li>
+                    <li><a href="#tab-11">JS</a></li>
+                    <li><a href="#tab-12">CSS</a></li>
+                </ul>
+                <div class="panel-container">
+                    <div id="tab-10"> plop of the 04 </div>
+                    <div id="tab-11"> plop of the 05 </div>
+                    <div id="tab-12"> plop of the 06 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+# Templates
+- Supprimer tous les title="" ou les remplacer par aria-label="" selon les cas
+## config.ini (modules + templates)
+Remplacer `date="DD/MM/YYYY"`  
+par `creation_date="YYYY/MM/DD"` et `last_update="YYYY/MM/DD"`
