@@ -345,7 +345,7 @@ on peut les imbriquer les uns dans les autres
     </div>
 </div>
 ```
-# Wizard
+# Wizard [FEATURE]
 Ce plugin `wizard.js` permet d'afficher un menu "step by step": les différentes parties de la page se succèdent en cliquant sur un bouton "suivant" ou "précédent"  
 content.css
 ```
@@ -434,4 +434,39 @@ html
 - Supprimer tous les title="" ou les remplacer par aria-label="" selon les cas
 ## config.ini (modules + templates)
 Remplacer `date="DD/MM/YYYY"`  
-par `creation_date="YYYY/MM/DD"` et `last_update="YYYY/MM/DD"`
+par  
+`creation_date="YYYY/MM/DD"`  
+`last_update="YYYY/MM/DD"`
+
+# IDCard
+Nouvelle option de module: remplace le nom de l'auteur d'un item par un combo {nom + avatar + biographie} (la bio est à remplir dans le profil)  
+L'autorisation d'affichage dans chaque module est dans l'admin \Contenu\Contenu\#Gestion des informations sur l'auteur: l'option est autorisée par défaut.  
+Priorité d'affichage:  
+1. Nom de l'auteur modifié
+2. IDCard (sous l'article)
+3. nom de l'auteur
+
+Modifications à apporter à un module:
+- config.ini: ajouter idcard dans les enabled_features
+- tpl de l'item  
+```
+# IF C_AUTHOR_DISPLAYED #
+    # IF C_AUTHOR_CUSTOM_NAME #
+        <i class="fa fa-user-o" aria-hidden="true"></i> {AUTHOR_CUSTOM_NAME}
+    # ELSE #
+        # IF NOT C_ID_CARD #
+            <i class="fa fa-user-o" aria-hidden="true"></i> # IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>&nbsp;{PSEUDO}&nbsp;</a># ELSE #{PSEUDO}# ENDIF # |&nbsp;
+        # ENDIF #
+    # ENDIF #
+# ENDIF #
+
+...
+
+# IF C_AUTHOR_DISPLAYED #
+    # IF NOT C_AUTHOR_CUSTOM_NAME #
+        # IF C_ID_CARD #
+            {ID_CARD}
+        # ENDIF #
+    # ENDIF #
+# ENDIF #
+```

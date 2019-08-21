@@ -4,3 +4,7 @@
 @import url("../../templates/base/theme/content.css");
 @import url("../../templates/base/theme/global.css");
 @import url("../../templates/base/theme/colors.css");
+
+pre, code {
+    background-color: #EEEEEE;
+}

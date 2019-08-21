@@ -36,6 +36,7 @@
 			Item content/article
 		</div>
 		<aside>
+		IdCard
 		Socials
 		Sources
 		Suggested
