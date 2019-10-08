@@ -1,70 +1,32 @@
-# Writing conventions of files headers
-Kernel/framework file only
-```
- * @package     Folder of the file
- * @subpackage  Path/to/subfolder
- * @category    Type of file : kernel - module - ...
-```
+# Writing conventions in PHPBoost CMS
+## File header doc block
 All files
 ```
 /**
  * @copyright   &copy; 2005-2019 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Firstname LASTNAME [nickname@email.com]
- * @version     Last PHPBoost version - last update: date of last modification
- * @since       PHPBoost version when the file was created - date
- * @contributor Firstname LASTNAME [nickname@email.com]
+ * @version     Last PHPBoost version - last update: YYYY MM DD (date of last modifications)
+ * @since       PHPBoost version -  YYYY MM DD (when the file was created)
+ * @contributor Firstname LASTNAME [nickname@email.com] (if someone other than the autor has modified the file)
 */
 ```
-Non PHPBoost team member plugin/file
+Kernel/framework files only
 ```
-/**
+ * @package     Folder of the file
+ * @subpackage  Path/to/subfolder
+ * @category    Type of file : kernel - module - ...
+```
+External plugins
+```
+ * Description of the plugin -  version number
+ * @copyright   &copy; 2005-2019 PHPBoost - plugin creation date - author name
  * @link        Link to the Github page of the plugin
  * @doc         Link to the website of the plugin
  *
  * @patch       What have been change for the original file to adapt to PHPBoost
-*/
 ```
 
-## Contributors list
-### Authors
-```
- * @author      Firstname LASTNAME <nickname@email.com>
- *
- * @author      Regis VIARRE <crowkait@phpboost.com>
- * @author      Loic ROUCHON <horn@phpboost.com>
- * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @author      Nicolas Duhamel <akhenathon2@gmail.com>
- * @author      Kevin MASSY <reidlos@phpboost.com>
- * @author      Bruno MERCIER <aiglobulles@gmail.com>
- * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @author      Arnaud GENET <elenwii@phpboost.com>
- * @author      Patrick DUBEAU <daaxwizeman@gmail.com>
- * @author      Alain091 <alain091@gmail.com>
- * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @author      Nicolas MAUREL <crunchfamily@free.fr>
- * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @author      xela <xela@phpboost.com>
-```
-### Contributors
-```
- * @contributor Firstname LASTNAME <nickname@email.com>
- *
- * @contributor Regis VIARRE <crowkait@phpboost.com>
- * @contributor Loic ROUCHON <horn@phpboost.com>
- * @contributor Benoit SAUTEL <ben.popeye@phpboost.com>
- * @contributor Nicolas Duhamel <akhenathon2@gmail.com>
- * @contributor Kevin MASSY <reidlos@phpboost.com>
- * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
- * @contributor Arnaud GENET <elenwii@phpboost.com>
- * @contributor mipel <mipel@phpboost.com>
- * @contributor janus57 <janus57@janus57.fr>
- * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
- * @contributor xela <xela@phpboost.com>
- * @contributor ph-7 <me@ph7.me>
- * @contributor Pierre Pelisset <ppelisset@hotmail.fr>
-```
 ## All PHPBoost versions
 ```
 2005 Novembre   PHPBoost 1.3.1  
@@ -88,7 +50,8 @@ config.ini
 author                 = "Nickname"
 author_mail            = "nickname@email.com"
 author_website         = "https://www.phpboost.com"
-date                   = "YYYY/MM/DD"
+creation_date          = "YYYY/MM/DD"
+last_update            = "YYYY/MM/DD"
 version                = "5.3.0" // version of the module
 compatibility          = "5.2" // compatible version of PHPBoost
 admin_menu             = "modules" // modules - tools - content
@@ -112,7 +75,8 @@ documentation = "https://www.link/to/page/documentation.ext"
 author            = "Nickname"
 author_mail       = "nickname@email.com"
 author_link       = "https://www.phpboost.com"
-date              = "YYYY/MM/DD"
+creation_date     = "YYYY/MM/DD"
+last_update       = "YYYY/MM/DD"
 version           = "5.2.0" // version of the template
 compatibility     = "5.2" // compatible version of PHPBoost
 html_version      = "5.0 Strict"
