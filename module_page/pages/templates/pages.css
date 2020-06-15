@@ -1,0 +1,21 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+ol {
+	margin-left: 1.482em;
+}
+
+.futur-cat-pages {
+	padding-left: 1em;
+}
+
+.article-pages .options {
+	float: left;
+	width: auto;
+}
+
+.page-count-hit {
+	padding-top: 85px;
+}
