@@ -1,2 +1,2 @@
 # pbt-builder
-Repository for phpboost's 5.Dev modules before they are official
+Repository for phpboost's 6.Dev modules before they are official
