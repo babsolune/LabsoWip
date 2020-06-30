@@ -38,9 +38,9 @@ $lang['pages.edit'] = 'Modification de la page: ';
 $lang['author.display.explain'] = 'cache/affiche le nom de l\'auteur sur la page';
 
 // SEO
-$lang['pages.seo.description.root'] = 'Tous les pages en téléchargement du site :site.';
-$lang['pages.seo.description.tag'] = 'Tous les pages sur le sujet :subject.';
-$lang['pages.seo.description.pending'] = 'Tous les pages en attente.';
+$lang['pages.seo.description.root'] = 'Toutes les pages du site :site.';
+$lang['pages.seo.description.tag'] = 'Toutes les pages sur le sujet :subject.';
+$lang['pages.seo.description.pending'] = 'Toutes les pages en attente.';
 
 // Messages
 $lang['pages.message.success.add'] = 'La page <b>:title</b> a été ajoutée';
