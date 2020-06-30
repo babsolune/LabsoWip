@@ -117,7 +117,7 @@ class PagesModuleUpdateVersion extends ModuleUpdateVersion
 			)
 		);
 
-		// $this->execute_module_specific_changes();
+		$this->execute_module_specific_changes();
 
 		$this->database_columns_to_delete = array(
 			array(
