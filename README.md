@@ -1,4 +1,4 @@
-# <img src="https://resources.phpboost.com/documentation/logos/logo.png" alt="PHPBoost logo" style="max-height: 30px" /> PHPBoost CMS
+# ![PHPBoost logo](https://resources.phpboost.com/documentation/logos/logo.png) PHPBoost CMS
 
 [![PHPBoost](https://img.shields.io/badge/PHPBoost-official_website-366493)](https://www.phpboost.com "link to PHPBoost CMS official Website") [![Demo](https://img.shields.io/badge/Demo-website-3BAFDA)](https://demo.phpboost.com "link to PHPBoost CMS demo website") [![Support](https://img.shields.io/badge/Support-forum-EE8027)](https://www.phpboost.com/forum "link to PHPBoost CMS Support") [![Documentation](https://img.shields.io/badge/Documentation-wiki-2ABA66)](https://www.phpboost.com/wiki "link to PHPBoost CMS User Documentation")  [![Api](https://img.shields.io/badge/Development-API-2ABA66)](https://www.phpboost.com/api/framework/ "link to PHPBoost CMS API Documentation")
 
@@ -8,7 +8,7 @@ It is a free and open-source software released under the terms of the GPL (GNU G
 
 # How to download PHPBoost CMS ?
 To download PHPBoost CMS, please follow the link below where you can find the latest official package, and several modules and templates, to customize your website.  
-  
+
 [![Download](https://img.shields.io/badge/Download-Stable-3BAFDA)](https://www.phpboost.com/download "link to PHPBoost CMS Download")  
 
 # Github branches
