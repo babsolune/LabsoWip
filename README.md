@@ -1,4 +1,4 @@
-# <img src="https://resources.phpboost.com/documentation/logos/logo.png" alt="PHPBoost logo" style="max-height: 30px" /> PHPBoost CMS
+# <div style="max-height: 30px"><img src="https://resources.phpboost.com/documentation/logos/logo.png" alt="PHPBoost logo" /></div> PHPBoost CMS
 
 [![PHPBoost](https://img.shields.io/badge/PHPBoost-official_website-366493)](https://www.phpboost.com "link to PHPBoost CMS official Website") [![Demo](https://img.shields.io/badge/Demo-website-3BAFDA)](https://demo.phpboost.com "link to PHPBoost CMS demo website") [![Support](https://img.shields.io/badge/Support-forum-EE8027)](https://www.phpboost.com/forum "link to PHPBoost CMS Support") [![Documentation](https://img.shields.io/badge/Documentation-wiki-2ABA66)](https://www.phpboost.com/wiki "link to PHPBoost CMS User Documentation")  [![Api](https://img.shields.io/badge/Development-API-2ABA66)](https://www.phpboost.com/api/framework/ "link to PHPBoost CMS API Documentation")
 
